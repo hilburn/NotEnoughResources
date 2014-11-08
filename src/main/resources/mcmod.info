@@ -1,0 +1,16 @@
+[
+{
+  "modid": "neiresources",
+  "name": "NEIResources",
+  "description": "Adds Resources and Mob Drops to NEI",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["hilburn", "way2muchnoise"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["NotEnoughItems"]
+}
+]
