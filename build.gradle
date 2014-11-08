@@ -1,0 +1,123 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            // Add maven repo for SpecialSource
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+	classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'scala'
+apply plugin: 'forge'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+ext.buildProps = file "build.properties"
+ 
+buildProps.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
+
+repositories {
+    maven {
+	name = "forge"
+	url = "http://files.minecraftforge.net/maven"
+    }
+    maven { // the repo from which to get NEI and stuff
+	name 'CB Repo'
+	url "http://chickenbones.net/maven"
+    }
+    ivy {
+	name 'FMP'
+	artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+    }
+}
+
+dependencies {    
+    compile group: 'codechicken', name: 'NotEnoughItems', version: "${config.version.minecraft}-${config.version.nei}", ext: 'jar', classifier: "dev"
+    compile group: 'codechicken', name: 'CodeChickenCore', version: "${config.version.minecraft}-${config.version.cccore}", ext: 'jar', classifier: "dev"
+    compile group: 'codechicken', name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.version.cclib}", ext: 'jar', classifier: "dev"
+	compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+group = "NEIResources"
+archivesBaseName = "NEIResources"
+
+minecraft {
+    version = "${config.version.minecraft}-${config.version.forge}"
+	
+    replaceIn "reference/Reference.java"
+    replace "@MAJOR@", config.version.mod.major
+    replace "@MINOR@", config.version.mod.minor
+    replace "@REVIS@", config.version.mod.revis
+	
+    if (System.getenv("BUILD_NUMBER") != null) {
+        replace "@BUILD@", System.getenv("BUILD_NUMBER")
+    }
+    else
+    {
+        replace "@BUILD@", "ManuallyBuilt"
+    }
+}
+
+processResources {
+    from 'build.properties'
+}
+
+allprojects {
+    version = "${config.version.minecraft}-${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}"
+    
+    if (System.getenv("BUILD_NUMBER") != null) {
+        version += ".${System.getenv("BUILD_NUMBER")}"
+    } else {
+        version += "-ManuallyBuilt"
+    }
+    
+    jar {
+        dependsOn ":copyBuildXml"
+        destinationDir = file (rootProject.getRootDir().getPath() + '/output')
+    }
+	
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifact jar
+            }
+        }
+        repositories {
+            maven {
+                url "file://var/www/maven"
+            }
+        }
+    }
+}
+ 
+task copyBuildXml(type: Copy) {
+    from 'build.properties'
+    into 'output'
+}
+ 
+task apiZip(type: Zip) {
+    classifier = 'api'
+    from sourceSets*.allSource
+    include 'neiresources/api/**'
+    destinationDir = file 'output'
+}
+	
+artifacts {
+    archives apiZip
+}
+
+build.dependsOn "apiZip", "copyBuildXml"
