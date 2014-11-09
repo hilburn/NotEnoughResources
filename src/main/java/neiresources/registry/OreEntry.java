@@ -3,9 +3,10 @@ package neiresources.registry;
 public class OreEntry
 {
 
-    public OreEntry()
+    private String modName;
+    public OreEntry(String modName)
     {
-
+        this.modName = modName;
     }
 
     public double getChance(int y)
@@ -13,4 +14,8 @@ public class OreEntry
         return 0;
     }
 
+    public String getModName()
+    {
+        return modName;
+    }
 }
