@@ -1,6 +1,7 @@
 package neiresources.registry;
 
-public class OreEntry {
+public class OreEntry
+{
 
     public OreEntry()
     {

@@ -12,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-	classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
@@ -23,7 +23,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 ext.buildProps = file "build.properties"
- 
+
 buildProps.withReader {
     def prop = new Properties()
     prop.load(it)
@@ -32,24 +32,34 @@ buildProps.withReader {
 
 repositories {
     maven {
-	name = "forge"
-	url = "http://files.minecraftforge.net/maven"
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven"
     }
     maven { // the repo from which to get NEI and stuff
-	name 'CB Repo'
-	url "http://chickenbones.net/maven"
+        name 'CB Repo'
+        url "http://chickenbones.net/maven"
     }
     ivy {
-	name 'FMP'
-	artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+        name 'FMP'
+        artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+    }
+    ivy {
+        name "CoFHLib"
+        artifactPattern "http://addons.cursecdn.com/files/2212/893/[module]-[revision].[ext]"
+    }
+    ivy {
+        name "CoFHCore"
+        artifactPattern "http://addons.cursecdn.com/files/2212/895/[module]-[revision].[ext]"
     }
 }
 
-dependencies {    
+dependencies {
     compile group: 'codechicken', name: 'NotEnoughItems', version: "${config.version.minecraft}-${config.version.nei}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenCore', version: "${config.version.minecraft}-${config.version.cccore}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.version.cclib}", ext: 'jar', classifier: "dev"
-	compile fileTree(dir: 'lib', include: '*.jar')
+    compile name: 'CoFHLib', version: "[${config.version.minecraft}]${config.version.CoFHLib}-dev-${config.build.CoFHLib}", ext: 'jar'
+    compile name: 'CoFHCore', version: "[${config.version.minecraft}]${config.version.CoFHCore}-dev-${config.build.CoFHCore}", ext: 'jar'
+    compile fileTree(dir: 'lib', include: '*.jar')
 }
 
 group = "NEIResources"
@@ -57,17 +67,15 @@ archivesBaseName = "NEIResources"
 
 minecraft {
     version = "${config.version.minecraft}-${config.version.forge}"
-	
+
     replaceIn "reference/Reference.java"
     replace "@MAJOR@", config.version.mod.major
     replace "@MINOR@", config.version.mod.minor
     replace "@REVIS@", config.version.mod.revis
-	
+
     if (System.getenv("BUILD_NUMBER") != null) {
         replace "@BUILD@", System.getenv("BUILD_NUMBER")
-    }
-    else
-    {
+    } else {
         replace "@BUILD@", "ManuallyBuilt"
     }
 }
@@ -78,18 +86,18 @@ processResources {
 
 allprojects {
     version = "${config.version.minecraft}-${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}"
-    
+
     if (System.getenv("BUILD_NUMBER") != null) {
         version += ".${System.getenv("BUILD_NUMBER")}"
     } else {
         version += "-ManuallyBuilt"
     }
-    
+
     jar {
         dependsOn ":copyBuildXml"
-        destinationDir = file (rootProject.getRootDir().getPath() + '/output')
+        destinationDir = file(rootProject.getRootDir().getPath() + '/output')
     }
-	
+
     publishing {
         publications {
             mavenJava(MavenPublication) {
@@ -103,19 +111,19 @@ allprojects {
         }
     }
 }
- 
+
 task copyBuildXml(type: Copy) {
     from 'build.properties'
     into 'output'
 }
- 
+
 task apiZip(type: Zip) {
     classifier = 'api'
     from sourceSets*.allSource
     include 'neiresources/api/**'
     destinationDir = file 'output'
 }
-	
+
 artifacts {
     archives apiZip
 }

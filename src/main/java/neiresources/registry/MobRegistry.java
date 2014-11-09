@@ -1,4 +1,5 @@
 package neiresources.registry;
 
-public class MobRegistry {
+public class MobRegistry
+{
 }

@@ -2,7 +2,8 @@ package neiresources.compatibility;
 
 import cpw.mods.fml.common.Loader;
 
-public class CompatBase {
+public class CompatBase
+{
 
     public CompatBase(String name)
     {
@@ -11,5 +12,6 @@ public class CompatBase {
     }
 
     public void init()
-    {}
+    {
+    }
 }

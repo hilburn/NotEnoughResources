@@ -1,4 +1,5 @@
 package neiresources.api;
 
-public class NEIResourcesAPI {
+public class NEIResourcesAPI
+{
 }
