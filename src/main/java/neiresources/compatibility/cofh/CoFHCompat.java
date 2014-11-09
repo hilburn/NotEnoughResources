@@ -1,6 +1,9 @@
 package main.java.neiresources.compatibility.cofh;
 
 import cofh.api.world.IFeatureGenerator;
+import cofh.lib.world.feature.FeatureGenNormal;
+import cofh.lib.world.feature.FeatureGenSurface;
+import cofh.lib.world.feature.FeatureGenUniform;
 import main.java.neiresources.compatibility.CompatBase;
 import main.java.neiresources.utils.ModList;
 import cofh.core.world.WorldHandler;
@@ -35,5 +38,34 @@ public class CoFHCompat extends CompatBase {
             e.printStackTrace();
         }
 
+        registerOres();
+    }
+
+    private void registerOres()
+    {
+        for (IFeatureGenerator feature:features)
+        {
+            if (feature instanceof FeatureGenUniform)
+            {
+                FeatureGenUniform val = (FeatureGenUniform) feature;
+                Class clazz=FeatureGenUniform.class;
+                try {
+                    Field maxY=clazz.getDeclaredField("maxY");
+                    System.out.println(maxY.get(val));
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (feature instanceof FeatureGenNormal)
+            {
+
+            }
+            else if (feature instanceof FeatureGenSurface)
+            {
+
+            }
+        }
     }
 }
