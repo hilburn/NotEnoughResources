@@ -39,26 +39,13 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven"
     }
-    ivy {
-        name 'FMP'
-        artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
-    }
-    ivy {
-        name "CoFHLib"
-        artifactPattern "http://addons.cursecdn.com/files/2212/893/[module]-[revision].[ext]"
-    }
-    ivy {
-        name "CoFHCore"
-        artifactPattern "http://addons.cursecdn.com/files/2212/895/[module]-[revision].[ext]"
-    }
+
 }
 
 dependencies {
     compile group: 'codechicken', name: 'NotEnoughItems', version: "${config.version.minecraft}-${config.version.nei}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenCore', version: "${config.version.minecraft}-${config.version.cccore}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.version.cclib}", ext: 'jar', classifier: "dev"
-    compile name: 'CoFHLib', version: "[${config.version.minecraft}]${config.version.CoFHLib}-dev-${config.build.CoFHLib}", ext: 'jar'
-    compile name: 'CoFHCore', version: "[${config.version.minecraft}]${config.version.CoFHCore}-dev-${config.build.CoFHCore}", ext: 'jar'
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 
