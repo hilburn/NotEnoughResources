@@ -5,7 +5,6 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neiresources.mob.Mob;
 import neiresources.reference.Resources;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
@@ -18,7 +17,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return Resources.Gui.NEI_DECOMPOSER.toString();
+        return Resources.Gui.MOB_NEI.toString();
     }
 
     @Override

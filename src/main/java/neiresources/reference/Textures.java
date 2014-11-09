@@ -6,6 +6,7 @@ public final class Textures
     {
         private static final String GUI_DIR = "textures/gui/";
 
-        public static final String Mob_NEI = GUI_DIR + "NEIMobGui.png";
+        public static final String MOB_NEI = GUI_DIR + "NEIMobGui.png";
+        public static final String ORE_NEI = GUI_DIR + "NEIOreGui.png";
     }
 }

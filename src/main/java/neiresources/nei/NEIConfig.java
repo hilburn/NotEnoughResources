@@ -10,6 +10,9 @@ public class NEIConfig implements IConfigureNEI
     {
         NEIMobHandler neiMobHandler = new NEIMobHandler();
         API.registerRecipeHandler(neiMobHandler);
+
+        NEIOreHandler neiOreHandler = new NEIOreHandler();
+        API.registerRecipeHandler(neiOreHandler);
     }
 
     @Override
