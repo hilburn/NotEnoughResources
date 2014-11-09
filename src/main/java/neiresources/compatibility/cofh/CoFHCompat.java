@@ -2,11 +2,18 @@ package neiresources.compatibility.cofh;
 
 import cofh.api.world.IFeatureGenerator;
 import cofh.core.world.WorldHandler;
+import cofh.lib.util.WeightedRandomBlock;
+import cofh.lib.world.WorldGenMinableCluster;
 import cofh.lib.world.feature.FeatureGenNormal;
 import cofh.lib.world.feature.FeatureGenSurface;
 import cofh.lib.world.feature.FeatureGenUniform;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import neiresources.compatibility.CompatBase;
 import neiresources.utils.ModList;
+import neiresources.utils.ReflectionHelper;
+import net.minecraft.block.Block;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -15,9 +22,17 @@ import java.util.List;
 public class CoFHCompat extends CompatBase
 {
 
-    private static List<IFeatureGenerator> features = new ArrayList();
+    private static List<IFeatureGenerator> features;
 
-    public static CoFHCompat instance = new CoFHCompat();
+    public static CoFHCompat instance = null;
+
+    public static CoFHCompat newInstance()
+    {
+        if (instance!=null)
+            return instance;
+        else
+            return instance = new CoFHCompat();
+    }
 
     public CoFHCompat()
     {
@@ -27,22 +42,8 @@ public class CoFHCompat extends CompatBase
     @Override
     public void init()
     {
-        try
-        {
-            Class<?> clazz = WorldHandler.class;
-            Field cofhFeatures = clazz.getDeclaredField("features");
-            cofhFeatures.setAccessible(true);
-            Object result = cofhFeatures.get(null);
-            features = (ArrayList) result;
-        } catch (NoSuchFieldException e)
-        {
-            e.printStackTrace();
-        } catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-        }
-
-        registerOres();
+        features = (ArrayList <IFeatureGenerator>) ReflectionHelper.getObject(WorldHandler.class,"features",null);
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) registerOres();
     }
 
     private void registerOres()
@@ -52,18 +53,23 @@ public class CoFHCompat extends CompatBase
             if (feature instanceof FeatureGenUniform)
             {
                 FeatureGenUniform val = (FeatureGenUniform) feature;
-                Class clazz = FeatureGenUniform.class;
-                try
+                int maxY = ReflectionHelper.getInt(FeatureGenUniform.class,"maxY",val);
+                int minY = ReflectionHelper.getInt(FeatureGenUniform.class,"minY",val);
+                int count = ReflectionHelper.getInt(FeatureGenUniform.class,"count",val);
+                int veinSize = 0;
+                ArrayList<WeightedRandomBlock> ores = null;
+                WeightedRandomBlock[] genBlock = null;
+                Block ore;
+                int metadata = 0;
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(),"worldGen",val);
+                if (worldGen instanceof WorldGenMinableCluster)
                 {
-                    Field maxY = clazz.getDeclaredField("maxY");
-                    System.out.println(maxY.get(val));
-                } catch (NoSuchFieldException e)
-                {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e)
-                {
-                    e.printStackTrace();
+                    WorldGenMinableCluster cluster = ((WorldGenMinableCluster) worldGen);
+                    ores = (ArrayList<WeightedRandomBlock>) ReflectionHelper.getObject(WorldGenMinableCluster.class,"cluster",cluster);
+                    veinSize = ReflectionHelper.getInt(WorldGenMinableCluster.class,"genClusterSize",cluster);
+                    genBlock = (WeightedRandomBlock[]) ReflectionHelper.getObject(WorldGenMinableCluster.class,"genBlock",cluster);
                 }
+                System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + minY + " to " + maxY + ": Veins = " + count + ", Vein Size = " + veinSize);
             } else if (feature instanceof FeatureGenNormal)
             {
 

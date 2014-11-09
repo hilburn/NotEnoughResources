@@ -3,19 +3,31 @@ package neiresources;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import neiresources.compatibility.cofh.CoFHCompat;
+import neiresources.proxy.CommonProxy;
+import neiresources.reference.Reference;
 
-@Mod(modid = "neiresources", name = "NEI Resources", version = "NEIRESOURCES_VER", dependencies = "after:NotEnoughItems")
+@Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, dependencies = "after:NotEnoughItems;after:CoFHCore")
 public class NEIResources
 {
 
-    @Instance(value = "neiresource")
+    @Instance(value = Reference.ID)
     public static NEIResources INSTANCE;
+
+    @SidedProxy(clientSide = "neiresources.proxy.ClientProxy", serverSide = "neiresources.proxy.CommonProxy")
+    public static CommonProxy PROXY;
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent e)
     {
-        new CoFHCompat();
+
+    }
+
+    @EventHandler
+    public void loadComplete(FMLLoadCompleteEvent event)
+    {
+        PROXY.initCompatibility();
     }
 }
