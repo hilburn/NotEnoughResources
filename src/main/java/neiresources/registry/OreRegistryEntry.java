@@ -26,7 +26,7 @@ public class OreRegistryEntry
         calcChances();
     }
 
-    public void remove(String entryName)
+    public void remove(String modName)
     {
 
     }
