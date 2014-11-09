@@ -1,9 +1,9 @@
-package main.java.neiresources;
+package neiresources;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.*;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import main.java.neiresources.compatibility.cofh.CoFHCompat;
+import neiresources.compatibility.cofh.CoFHCompat;
 
 @Mod(modid = "neiresources", name = "NEI Resources", version = "NEIRESOURCES_VER", dependencies = "after:NotEnoughItems")
 public class NEIResources

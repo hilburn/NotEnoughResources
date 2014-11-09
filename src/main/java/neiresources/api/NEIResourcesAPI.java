@@ -1,4 +1,4 @@
-package main.java.neiresources.api;
+package neiresources.api;
 
 public class NEIResourcesAPI {
 }

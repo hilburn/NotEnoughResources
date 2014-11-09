@@ -1,7 +1,7 @@
-package main.java.neiresources.utils;
+package neiresources.utils;
 
-import main.java.neiresources.compatibility.CompatBase;
-import main.java.neiresources.compatibility.cofh.CoFHCompat;
+import neiresources.compatibility.CompatBase;
+import neiresources.compatibility.cofh.CoFHCompat;
 
 public enum ModList {
     cofhcore("CoFHCore");

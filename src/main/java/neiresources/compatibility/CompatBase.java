@@ -1,4 +1,4 @@
-package main.java.neiresources.compatibility;
+package neiresources.compatibility;
 
 import cpw.mods.fml.common.Loader;
 

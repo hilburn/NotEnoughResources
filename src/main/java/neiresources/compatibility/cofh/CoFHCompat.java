@@ -1,11 +1,11 @@
-package main.java.neiresources.compatibility.cofh;
+package neiresources.compatibility.cofh;
 
 import cofh.api.world.IFeatureGenerator;
 import cofh.lib.world.feature.FeatureGenNormal;
 import cofh.lib.world.feature.FeatureGenSurface;
 import cofh.lib.world.feature.FeatureGenUniform;
-import main.java.neiresources.compatibility.CompatBase;
-import main.java.neiresources.utils.ModList;
+import neiresources.compatibility.CompatBase;
+import neiresources.utils.ModList;
 import cofh.core.world.WorldHandler;
 
 import java.lang.reflect.Field;

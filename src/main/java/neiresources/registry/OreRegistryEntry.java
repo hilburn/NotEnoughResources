@@ -1,4 +1,4 @@
-package main.java.neiresources.registry;
+package neiresources.registry;
 
 import java.util.ArrayList;
 import java.util.List;
