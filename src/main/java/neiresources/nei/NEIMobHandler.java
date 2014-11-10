@@ -3,7 +3,9 @@ package neiresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neiresources.drop.DropItem;
 import neiresources.reference.Resources;
+import neiresources.registry.MobRegistry;
 import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
@@ -38,7 +40,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        arecipes.add(new CachedMob(null));
+        for (MobRegistryEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result.getItem()))
+            arecipes.add(new CachedMob(entry));
     }
 
     @Override
@@ -50,42 +53,33 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
         EntityLivingBase entityLivingBase = ((CachedMob)arecipes.get(recipe)).getMob();
         float scale = 1;
-        if (entityLivingBase.width < entityLivingBase.height) scale = 80/entityLivingBase.height;
+        if (entityLivingBase.width < entityLivingBase.height) scale = 70/entityLivingBase.height;
         else scale = 25/entityLivingBase.width;
-        RenderHelper.renderEntity(30, 85 + (int)(entityLivingBase.height*scale/2), scale , 20, -20, entityLivingBase);
+        RenderHelper.renderEntity(30, 90 + (int)(entityLivingBase.height*scale/2), scale , 20, -20, entityLivingBase);
     }
 
     @Override
     public void drawExtras(int recipe)
     {
-        CachedMob cachedMob = (CachedMob) arecipes.get(recipe);
-
-        RenderHelper.drawPoint(30, 85);
+        CachedMob cachedMob = (CachedMob)arecipes.get(recipe);
 
         Font font = new Font(false);
-        font.print("Name of the mob", 2, 2);
-        font.print("Spawn Biome: List or All", 2, 12);
-        font.print("Spawn light level: some level", 2, 22);
+        font.print(cachedMob.mob.getName(), 2, 2);
+        font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
+        font.print("Spawn light level: " + cachedMob.mob.getLightLevel(), 2, 22);
         font.print("more Info", 2, 32);
 
-        font.print("0-6 (20%)", 110, 46);
-        font.print("0-6 (20%)", 110, 64);
-        font.print("0-6 (20%)", 110, 82);
-        font.print("0-6 (20%)", 110, 100);
-        font.print("0-6 (20%)", 110, 118);
-
-
-    }
-
-    @Override
-    public void onUpdate()
-    {
-
+        int y = 46;
+        for (DropItem dropItem : cachedMob.mob.getDrops())
+        {
+            font.print(dropItem.minDrop + "-" + dropItem.maxDrop + " (" + String.valueOf((int)(dropItem.chance*100)) + "%)", 110, y);
+            y += 18;
+        }
     }
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
-        MobRegistryEntry mob;
+        public MobRegistryEntry mob;
 
         public CachedMob(MobRegistryEntry mob)
         {
@@ -100,17 +94,20 @@ public class NEIMobHandler extends TemplateRecipeHandler
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(new ItemStack(Items.blaze_powder), 90, 40);
+            return new PositionedStack(new ItemStack(mob.getDrops().get(0).item), 90, 40);
         }
 
         @Override
         public List<PositionedStack> getOtherStacks()
         {
             List<PositionedStack> list = new ArrayList<PositionedStack>();
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 58));
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 76));
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 94));
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 112));
+            int y = 40;
+            for (DropItem dropItem : mob.getDrops())
+            {
+                list.add(new PositionedStack(new ItemStack(dropItem.item), 90, y));
+                y += 20;
+            }
+            list.remove(0);
             return list;
         }
     }
