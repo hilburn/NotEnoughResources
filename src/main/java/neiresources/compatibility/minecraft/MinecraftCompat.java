@@ -34,12 +34,12 @@ public class MinecraftCompat extends CompatBase
         DropItem ironIngot = new DropItem(Items.iron_ingot,1,1,0.025F);
         DropItem potato = new DropItem(Items.potato,1,1,0.025F);
         DropItem carrot = new DropItem(Items.carrot,1,1,0.025F);
-        registerMob(new MobRegistryEntry(new EntityZombie(null),8,new DropItem[]{rottenFlesh,ironIngot,potato,carrot}));
+        registerMob(new MobRegistryEntry(new EntityZombie(null),8, rottenFlesh,ironIngot,potato,carrot));
 
         //Blaze
         DropItem blazeRod = new DropItem(Items.blaze_rod,0,1);
         DropItem glowstone = new DropItem(Items.glowstone_dust,0,2);
-        registerMob(new MobRegistryEntry(new EntityBlaze(null),8,new DropItem[]{blazeRod,glowstone}));
+        registerMob(new MobRegistryEntry(new EntityBlaze(null),8,blazeRod,glowstone));
 
         //Snow golem
         DropItem snowball = new DropItem(Items.snowball,0,15);
