@@ -49,18 +49,19 @@ public class NEIOreHandler extends TemplateRecipeHandler
     public void drawExtras(int recipe)
     {
         CachedOre cachedOre = (CachedOre)arecipes.get(recipe);
-        double[] array = new double[]{10, 12, 18, 20, 12, 0};
+        double[] array = new double[]{10, 20, 10, 20, 10, 20, 10, 20, 10, 10, 20, 10, 20, 10, 20, 10};
         double max = 0;
         for (double d : array)
             if (d > max) max = d;
         int xPrev = X_OFFSPRING;
-        int yPrev = Y_OFFSPRING - (int)array[0];
+        int yPrev = Y_OFFSPRING - (int)((array[0]/max)*Y_AXIS_SIZE);
         int space = X_AXIS_SIZE / array.length;
+        int precision = array.length/2 < 1 ? 1 : array.length/2;
         for(int i = 1; i < array.length; i++)
         {
             int x = xPrev + space;
             int y = Y_OFFSPRING - (int)((array[i]/max)*Y_AXIS_SIZE);
-            RenderHelper.drawLine(xPrev, yPrev, x, y, 4);
+            RenderHelper.drawLine(xPrev, yPrev, x, y, precision);
             xPrev = x;
             yPrev = y;
         }
