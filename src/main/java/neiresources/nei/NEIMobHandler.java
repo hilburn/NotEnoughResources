@@ -3,20 +3,13 @@ package neiresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neiresources.mob.Mob;
+import neiresources.drop.DropItem;
 import neiresources.reference.Resources;
+import neiresources.registry.MobRegistry;
+import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
@@ -46,7 +39,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        arecipes.add(new CachedMob(null));
+        for (MobRegistryEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result.getItem()))
+            arecipes.add(new CachedMob(entry));
     }
 
     @Override
@@ -55,63 +49,75 @@ public class NEIMobHandler extends TemplateRecipeHandler
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GuiDraw.changeTexture(this.getGuiTexture());
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
-        EntityLivingBase entityLivingBase = new EntityEnderman(Minecraft.getMinecraft().theWorld);
-        float scale;
-        if (entityLivingBase.width < entityLivingBase.height) scale = 80/entityLivingBase.height;
+
+        EntityLivingBase entityLivingBase = ((CachedMob)arecipes.get(recipe)).getMob();
+        float scale = 1;
+        if (entityLivingBase.width < entityLivingBase.height) scale = 70/entityLivingBase.height;
         else scale = 25/entityLivingBase.width;
-        RenderHelper.renderEntity(30, 85 + (int)(entityLivingBase.height*scale/2), scale , 20, -20, entityLivingBase);
+        RenderHelper.renderEntity(30, 90 + (int)(entityLivingBase.height*scale/2), scale , 20, -20, entityLivingBase);
     }
 
     @Override
     public void drawExtras(int recipe)
     {
-        CachedMob cachedMob = (CachedMob) arecipes.get(recipe);
-
-        RenderHelper.drawPoint(30, 85);
+        CachedMob cachedMob = (CachedMob)arecipes.get(recipe);
 
         Font font = new Font(false);
-        font.print("Name of the mob", 2, 2);
-        font.print("Spawn Biome: List or All", 2, 12);
-        font.print("Spawn light level: some level", 2, 22);
+        font.print(cachedMob.mob.getName(), 2, 2);
+        font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
+        font.print("Spawn light level: " + cachedMob.getLightLevel(), 2, 22);
         font.print("more Info", 2, 32);
 
-        font.print("0-6 (20%)", 110, 46);
-        font.print("0-6 (20%)", 110, 64);
-        font.print("0-6 (20%)", 110, 82);
-        font.print("0-6 (20%)", 110, 100);
-        font.print("0-6 (20%)", 110, 118);
-
-
+        int y = 46;
+        for (DropItem dropItem : cachedMob.mob.getDrops())
+        {
+            font.print(dropItem.minDrop + "-" + dropItem.maxDrop + getDropChance(dropItem), 110, y);
+            y += 18;
+        }
     }
 
-    @Override
-    public void onUpdate()
+    private String getDropChance(DropItem dropItem)
     {
-
+        return dropItem.chance == 1F ? "" : " (" + String.valueOf((int)(dropItem.chance * 100)) + "%)";
     }
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
-        public CachedMob(Mob mob)
-        {
+        public MobRegistryEntry mob;
 
+        public CachedMob(MobRegistryEntry mob)
+        {
+            this.mob = mob;
+        }
+
+        public EntityLivingBase getMob()
+        {
+            return this.mob.getEntity();
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(new ItemStack(Items.blaze_powder), 90, 40);
+            return new PositionedStack(new ItemStack(mob.getDrops().get(0).item), 90, 40);
         }
 
         @Override
         public List<PositionedStack> getOtherStacks()
         {
             List<PositionedStack> list = new ArrayList<PositionedStack>();
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 58));
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 76));
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 94));
-            list.add(new PositionedStack(new ItemStack(Items.blaze_powder), 90, 112));
+            int y = 40;
+            for (DropItem dropItem : mob.getDrops())
+            {
+                list.add(new PositionedStack(new ItemStack(dropItem.item), 90, y));
+                y += 20;
+            }
+            list.remove(0);
             return list;
+        }
+
+        public String getLightLevel()
+        {
+            return mob.getLightLevel() == -1 ? "Any" : String.valueOf(mob.getLightLevel());
         }
     }
 }

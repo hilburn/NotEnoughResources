@@ -1,6 +1,10 @@
 package neiresources.registry;
 
+import net.minecraft.item.Item;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MobRegistry
@@ -33,5 +37,13 @@ public class MobRegistry
     public MobRegistryEntry getMobEntry(String key)
     {
         return registry.get(key);
+    }
+
+    public List<MobRegistryEntry> getMobsThatDropItem(Item item)
+    {
+        List<MobRegistryEntry> list = new ArrayList<MobRegistryEntry>();
+        for (MobRegistryEntry entry : registry.values())
+            if (entry.dropsItem(item)) list.add(entry);
+        return list;
     }
 }

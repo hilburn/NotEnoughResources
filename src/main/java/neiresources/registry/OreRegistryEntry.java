@@ -1,7 +1,5 @@
 package neiresources.registry;
 
-import scala.Array;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

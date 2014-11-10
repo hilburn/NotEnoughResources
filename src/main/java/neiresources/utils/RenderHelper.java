@@ -46,6 +46,7 @@ public class RenderHelper
 
     public static void renderEntity(int x, int y, float scale, float yaw, float pitch, EntityLivingBase entityLivingBase)
     {
+        if (entityLivingBase.worldObj == null) entityLivingBase.worldObj = Minecraft.getMinecraft().theWorld;
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x, (float)y, 50.0F);

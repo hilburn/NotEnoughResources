@@ -5,6 +5,7 @@ import neiresources.utils.LightLevel;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,5 +66,12 @@ public class MobRegistryEntry
         if (entity instanceof EntityLiving)
             return EntityHelper.getExperience((EntityLiving) entity);
         return 0;
+    }
+
+    public boolean dropsItem(Item item)
+    {
+        for(DropItem dropItem : drops)
+            if (dropItem.item == item) return true;
+        return false;
     }
 }

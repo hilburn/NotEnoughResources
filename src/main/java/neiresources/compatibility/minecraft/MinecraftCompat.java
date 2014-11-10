@@ -2,7 +2,6 @@ package neiresources.compatibility.minecraft;
 
 import neiresources.compatibility.CompatBase;
 import neiresources.drop.DropItem;
-import neiresources.registry.MobRegistry;
 import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.LightLevel;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -36,12 +35,13 @@ public class MinecraftCompat extends CompatBase
         DropItem ironIngot = new DropItem(Items.iron_ingot,1,1,0.025F);
         DropItem potato = new DropItem(Items.potato,1,1,0.025F);
         DropItem carrot = new DropItem(Items.carrot,1,1,0.025F);
-        registerMob(new MobRegistryEntry(new EntityZombie(null), LightLevel.hostile,new DropItem[]{rottenFlesh,ironIngot,potato,carrot}));
+        registerMob(new MobRegistryEntry(new EntityZombie(null), LightLevel.hostile,rottenFlesh,ironIngot,potato,carrot));
 
         //Blaze
         DropItem blazeRod = new DropItem(Items.blaze_rod,0,1);
         DropItem glowstone = new DropItem(Items.glowstone_dust,0,2);
-        registerMob(new MobRegistryEntry(new EntityBlaze(null),LightLevel.blaze,new DropItem[]{blazeRod,glowstone}));
+        registerMob(new MobRegistryEntry(new EntityBlaze(null),LightLevel.blaze,blazeRod,glowstone));
+
 
         //Snow golem
         DropItem snowball = new DropItem(Items.snowball,0,15);
