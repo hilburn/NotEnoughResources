@@ -65,7 +65,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         Font font = new Font(false);
         font.print(cachedMob.mob.getName(), 2, 2);
         font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
-        font.print("Spawn light level: " + cachedMob.getLightLevel(), 2, 22);
+        font.print(cachedMob.getLightLevel(), 2, 22);
         font.print("more Info", 2, 32);
 
         int y = 46;
@@ -117,7 +117,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
         public String getLightLevel()
         {
-            return mob.getLightLevel() == -1 ? "Any" : String.valueOf(mob.getLightLevel());
+            return mob.getLightLevel();
         }
     }
 }

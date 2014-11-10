@@ -17,7 +17,7 @@ public class MobRegistryEntry
     private LightLevel lightLevel;
     private List<String> biomes = new ArrayList<String>();
 
-    public MobRegistryEntry(EntityLivingBase entity, LightLevel level, String[] biomes, DropItem... drops)
+    public MobRegistryEntry(EntityLivingBase entity, LightLevel lightLevel, String[] biomes, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
@@ -27,7 +27,7 @@ public class MobRegistryEntry
             this.drops.add(drop);
     }
 
-    public MobRegistryEntry(EntityLivingBase entity, LightLevel level, DropItem... drops)
+    public MobRegistryEntry(EntityLivingBase entity, LightLevel lightLevel, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
