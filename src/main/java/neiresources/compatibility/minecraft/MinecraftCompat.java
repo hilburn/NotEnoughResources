@@ -2,7 +2,6 @@ package neiresources.compatibility.minecraft;
 
 import neiresources.compatibility.CompatBase;
 import neiresources.drop.DropItem;
-import neiresources.registry.MobRegistry;
 import neiresources.registry.MobRegistryEntry;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntitySnowman;

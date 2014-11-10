@@ -3,19 +3,11 @@ package neiresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neiresources.mob.Mob;
 import neiresources.reference.Resources;
+import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
@@ -55,8 +47,9 @@ public class NEIMobHandler extends TemplateRecipeHandler
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GuiDraw.changeTexture(this.getGuiTexture());
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
-        EntityLivingBase entityLivingBase = new EntityEnderman(Minecraft.getMinecraft().theWorld);
-        float scale;
+
+        EntityLivingBase entityLivingBase = ((CachedMob)arecipes.get(recipe)).getMob();
+        float scale = 1;
         if (entityLivingBase.width < entityLivingBase.height) scale = 80/entityLivingBase.height;
         else scale = 25/entityLivingBase.width;
         RenderHelper.renderEntity(30, 85 + (int)(entityLivingBase.height*scale/2), scale , 20, -20, entityLivingBase);
@@ -92,9 +85,16 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
-        public CachedMob(Mob mob)
-        {
+        MobRegistryEntry mob;
 
+        public CachedMob(MobRegistryEntry mob)
+        {
+            this.mob = mob;
+        }
+
+        public EntityLivingBase getMob()
+        {
+            return this.mob.getEntity();
         }
 
         @Override

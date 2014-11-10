@@ -3,7 +3,6 @@ package neiresources.registry;
 import neiresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -15,7 +15,6 @@ import neiresources.utils.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
