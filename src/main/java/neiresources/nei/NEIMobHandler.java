@@ -10,7 +10,6 @@ import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
@@ -66,15 +65,20 @@ public class NEIMobHandler extends TemplateRecipeHandler
         Font font = new Font(false);
         font.print(cachedMob.mob.getName(), 2, 2);
         font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
-        font.print("Spawn light level: " + cachedMob.mob.getLightLevel(), 2, 22);
+        font.print("Spawn light level: " + cachedMob.getLightLevel(), 2, 22);
         font.print("more Info", 2, 32);
 
         int y = 46;
         for (DropItem dropItem : cachedMob.mob.getDrops())
         {
-            font.print(dropItem.minDrop + "-" + dropItem.maxDrop + " (" + String.valueOf((int)(dropItem.chance*100)) + "%)", 110, y);
+            font.print(dropItem.minDrop + "-" + dropItem.maxDrop + getDropChance(dropItem), 110, y);
             y += 18;
         }
+    }
+
+    private String getDropChance(DropItem dropItem)
+    {
+        return dropItem.chance == 1F ? "" : " (" + String.valueOf((int)(dropItem.chance * 100)) + "%)";
     }
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
@@ -109,6 +113,11 @@ public class NEIMobHandler extends TemplateRecipeHandler
             }
             list.remove(0);
             return list;
+        }
+
+        public String getLightLevel()
+        {
+            return mob.getLightLevel() == -1 ? "Any" : String.valueOf(mob.getLightLevel());
         }
     }
 }
