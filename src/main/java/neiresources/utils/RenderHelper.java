@@ -2,7 +2,11 @@ package neiresources.utils;
 
 import net.minecraft.client.Minecraft;;
 import net.minecraft.client.gui.ScaledResolution;;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLivingBase;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class RenderHelper
 {
@@ -38,5 +42,42 @@ public class RenderHelper
         GL11.glBegin(GL11.GL_POINTS);
         GL11.glVertex2d(x, y);
         GL11.glEnd();
+    }
+
+    public static void renderEntity(int x, int y, float scale, float yaw, float pitch, EntityLivingBase entityLivingBase)
+    {
+        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+        GL11.glPushMatrix();
+        GL11.glTranslatef((float)x, (float)y, 50.0F);
+        GL11.glScalef(-scale, scale, scale);
+        GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+        float renderYawOffset = entityLivingBase.renderYawOffset;
+        float rotationYaw = entityLivingBase.rotationYaw;
+        float rotationPitch = entityLivingBase.rotationPitch;
+        float prevRotationYawHead = entityLivingBase.prevRotationYawHead;
+        float rotationYawHead = entityLivingBase.rotationYawHead;
+        GL11.glRotatef(135.0F, 0.0F, 1.0F, 0.0F);
+        net.minecraft.client.renderer.RenderHelper.enableStandardItemLighting();
+        GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(-((float)Math.atan((double)(pitch / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+        entityLivingBase.renderYawOffset = (float)Math.atan((double)(yaw / 40.0F)) * 20.0F;
+        entityLivingBase.rotationYaw = (float)Math.atan((double)(yaw / 40.0F)) * 40.0F;
+        entityLivingBase.rotationPitch = -((float)Math.atan((double)(pitch / 40.0F))) * 20.0F;
+        entityLivingBase.rotationYawHead = entityLivingBase.rotationYaw;
+        entityLivingBase.prevRotationYawHead = entityLivingBase.rotationYaw;
+        GL11.glTranslatef(0.0F, entityLivingBase.yOffset, 0.0F);
+        RenderManager.instance.playerViewY = 180.0F;
+        RenderManager.instance.renderEntityWithPosYaw(entityLivingBase, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        entityLivingBase.renderYawOffset = renderYawOffset;
+        entityLivingBase.rotationYaw = rotationYaw;
+        entityLivingBase.rotationPitch = rotationPitch;
+        entityLivingBase.prevRotationYawHead = prevRotationYawHead;
+        entityLivingBase.rotationYawHead = rotationYawHead;
+        GL11.glPopMatrix();
+        net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 }
