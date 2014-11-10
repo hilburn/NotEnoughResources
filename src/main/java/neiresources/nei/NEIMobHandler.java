@@ -5,6 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neiresources.mob.Mob;
 import neiresources.reference.Resources;
+import neiresources.utils.Font;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
@@ -50,16 +51,17 @@ public class NEIMobHandler extends TemplateRecipeHandler
     public void drawExtras(int recipe)
     {
         CachedMob cachedMob = (CachedMob) arecipes.get(recipe);
-        GuiDraw.drawString("Name of the mob", 2, 2, 8, false);
-        GuiDraw.drawString("Spawn Biome: List or All", 2, 12, 8, false);
-        GuiDraw.drawString("Spawn light level: some level", 2, 22, 8, false);
-        GuiDraw.drawString("more Info", 2, 32, 8, false);
+        Font font = new Font(false);
+        font.print("Name of the mob", 2, 2);
+        font.print("Spawn Biome: List or All", 2, 12);
+        font.print("Spawn light level: some level", 2, 22);
+        font.print("more Info", 2, 32);
 
-        GuiDraw.drawString("0-6 (20%)", 90, 46, 8, false);
-        GuiDraw.drawString("0-6 (20%)", 90, 64, 8, false);
-        GuiDraw.drawString("0-6 (20%)", 90, 82, 8, false);
-        GuiDraw.drawString("0-6 (20%)", 90, 100, 8, false);
-        GuiDraw.drawString("0-6 (20%)", 90, 118, 8, false);
+        font.print("0-6 (20%)", 90, 46);
+        font.print("0-6 (20%)", 90, 64);
+        font.print("0-6 (20%)", 90, 82);
+        font.print("0-6 (20%)", 90, 100);
+        font.print("0-6 (20%)", 90, 118);
     }
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
