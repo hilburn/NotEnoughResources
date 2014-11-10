@@ -1,6 +1,7 @@
 package neiresources.registry;
 
 import neiresources.drop.DropItem;
+import neiresources.utils.LightLevel;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,10 +13,10 @@ public class MobRegistryEntry
 {
     private EntityLivingBase entity;
     private List<DropItem> drops = new ArrayList<DropItem>();
-    private int lightLevel;
+    private LightLevel lightLevel;
     private List<String> biomes = new ArrayList<String>();
 
-    public MobRegistryEntry(EntityLivingBase entity, int lightLevel, String[] biomes, DropItem... drops)
+    public MobRegistryEntry(EntityLivingBase entity, LightLevel level, String[] biomes, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
@@ -25,7 +26,7 @@ public class MobRegistryEntry
             this.drops.add(drop);
     }
 
-    public MobRegistryEntry(EntityLivingBase entity, int lightLevel, DropItem... drops)
+    public MobRegistryEntry(EntityLivingBase entity, LightLevel level, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
@@ -54,9 +55,9 @@ public class MobRegistryEntry
         return biomes;
     }
 
-    public int getLightLevel()
+    public String getLightLevel()
     {
-        return lightLevel;
+        return lightLevel.getString();
     }
 
     public int getExperience()
