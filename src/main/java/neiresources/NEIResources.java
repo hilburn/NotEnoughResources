@@ -8,6 +8,8 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import neiresources.proxy.CommonProxy;
 import neiresources.reference.Reference;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.DungeonHooks;
 
 @Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, dependencies = "after:NotEnoughItems;after:CoFHCore")
 public class NEIResources

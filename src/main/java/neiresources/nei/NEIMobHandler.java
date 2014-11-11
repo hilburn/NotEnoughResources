@@ -39,7 +39,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (MobRegistryEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result.getItem()))
+        for (MobRegistryEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
     }
 

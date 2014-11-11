@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +74,10 @@ public class MobRegistryEntry
         return 0;
     }
 
-    public boolean dropsItem(Item item)
+    public boolean dropsItem(ItemStack item)
     {
         for(DropItem dropItem : drops)
-            if (dropItem.item == item) return true;
+            if (dropItem.item.isItemEqual(item)) return true;
         return false;
     }
 }
