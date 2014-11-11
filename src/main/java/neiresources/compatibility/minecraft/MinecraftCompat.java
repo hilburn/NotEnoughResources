@@ -63,6 +63,10 @@ public class MinecraftCompat extends CompatBase
         DropItem pork =new DropItem(Items.porkchop,1,3);
         registerMob(new MobRegistryEntry(new EntityPig(null),LightLevel.any,pork));
 
+        //Sheep
+        DropItem wool = new DropItem(Items.apple,1,1);
+        registerMob(new MobRegistryEntry(new EntitySheep(null),LightLevel.any,wool));
+
         //Wither
         DropItem star = new DropItem(Items.nether_star,1,1);
         registerMob(new MobRegistryEntry(new EntityWither(null),LightLevel.any,star));
