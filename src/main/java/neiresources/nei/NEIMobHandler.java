@@ -95,7 +95,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(new ItemStack(mob.getDrops().get(0).item), 90, 40);
+            return new PositionedStack(mob.getDrops().get(0).item, 90, 40);
         }
 
         @Override
@@ -105,7 +105,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
             int y = 40;
             for (DropItem dropItem : mob.getDrops())
             {
-                list.add(new PositionedStack(new ItemStack(dropItem.item), 90, y));
+                list.add(new PositionedStack(dropItem.item, 90, y));
                 y += 20;
             }
             list.remove(0);

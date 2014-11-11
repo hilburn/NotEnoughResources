@@ -1,25 +1,35 @@
 package neiresources.drop;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class DropItem
 {
     public int minDrop, maxDrop;
-    public Item item;
+    public ItemStack item;
     public float chance;
 
-    public DropItem(Item item, int minDrop, int maxDrop)
+    public DropItem (ItemStack item, int minDrop, int maxDrop)
+    {
+        this(item, minDrop, maxDrop, 1F);
+    }
+
+    public DropItem (ItemStack item, int minDrop, int maxDrop, float chance)
     {
         this.item = item;
         this.minDrop = minDrop;
         this.maxDrop = maxDrop;
-        this.chance = 1F;
+        this.chance = chance;
+    }
+
+    public DropItem(Item item, int minDrop, int maxDrop)
+    {
+        this(new ItemStack(item),minDrop,maxDrop,1F);
     }
 
     public DropItem(Item item, int minDrop, int maxDrop, float chance)
     {
-        this(item, minDrop, maxDrop);
-        this.chance = chance;
+        this(new ItemStack(item), minDrop, maxDrop, chance);
     }
 
     public String toString()
