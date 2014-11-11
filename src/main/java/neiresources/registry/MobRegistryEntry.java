@@ -43,7 +43,7 @@ public class MobRegistryEntry
 
     public String getName()
     {
-        return EntityHelper.getEntityName(this.entity);
+        return entity.getCommandSenderName();
     }
 
     public List<DropItem> getDrops()
