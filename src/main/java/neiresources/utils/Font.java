@@ -12,22 +12,22 @@ public class Font
     public Font(boolean small)
     {
         Minecraft mc = Minecraft.getMinecraft();
-        fontRenderer = new FontRenderer(mc.gameSettings, Resources.Font.MC, mc.getTextureManager(), small);
+        fontRenderer = new FontRenderer(mc.gameSettings, Resources.Vanilla.FONT, mc.getTextureManager(), small);
         ((IReloadableResourceManager)mc.getResourceManager()).registerReloadListener(fontRenderer);
     }
 
-    public void print(String string, int x, int y)
+    public void print(Object o, int x, int y)
     {
-        fontRenderer.drawString(string, x, y, 8, false);
+        fontRenderer.drawString(String.valueOf(o), x, y, 8, false);
     }
 
-    public void print(String string, int x, int y, int color)
+    public void print(Object o, int x, int y, int color)
     {
-        fontRenderer.drawString(string, x, y, color, false);
+        fontRenderer.drawString(String.valueOf(o), x, y, color, false);
     }
 
-    public void print(String string, int x, int y, int color, boolean shadow)
+    public void print(Object o, int x, int y, int color, boolean shadow)
     {
-        fontRenderer.drawString(string, x, y, color, shadow);
+        fontRenderer.drawString(String.valueOf(o), x, y, color, shadow);
     }
 }

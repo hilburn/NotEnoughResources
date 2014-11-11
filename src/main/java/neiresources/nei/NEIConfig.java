@@ -13,6 +13,9 @@ public class NEIConfig implements IConfigureNEI
 
         NEIOreHandler neiOreHandler = new NEIOreHandler();
         API.registerRecipeHandler(neiOreHandler);
+
+        NEIDungeonHandler neiDungeonHandler = new NEIDungeonHandler();
+        API.registerRecipeHandler(neiDungeonHandler);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package neiresources.registry;
 
+import neiresources.utils.WeightedRandomChestContentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class DungeonRegistryEntry
@@ -32,6 +35,11 @@ public class DungeonRegistryEntry
         this.name=name;
     }
 
+    public String getName()
+    {
+        return this.name;
+    }
+
     public int getAverageStacks()
     {
         return (this.chestGenHooks.getMax()+this.chestGenHooks.getMin())/2;
@@ -39,7 +47,7 @@ public class DungeonRegistryEntry
 
     public WeightedRandomChestContent[] getContents()
     {
-        return chestGenHooks.getItems(rand);
+        return WeightedRandomChestContentHelper.sort(chestGenHooks.getItems(rand), this);
     }
 
     public int getTotalWeight()

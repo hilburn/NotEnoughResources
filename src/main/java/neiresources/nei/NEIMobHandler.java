@@ -71,11 +71,11 @@ public class NEIMobHandler extends TemplateRecipeHandler
         font.print(cachedMob.getLightLevel(), 2, 22);
         font.print("Experience Dropped: "+cachedMob.mob.getExperience(), 2, 32);
 
-        int y = 46;
+        int y = 45;
         for (DropItem dropItem : cachedMob.mob.getDrops())
         {
             font.print(dropItem.toString(), 110, y);
-            y += 18;
+            y += 20;
         }
     }
 

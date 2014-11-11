@@ -1,10 +1,14 @@
 package neiresources.utils;
 
+import neiresources.reference.Resources;
 import net.minecraft.client.Minecraft;;
 import net.minecraft.client.gui.ScaledResolution;;
+import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntityChest;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -80,5 +84,29 @@ public class RenderHelper
         OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+    }
+
+    public static void renderChest(int x, int y, float scale, float rotation, float lidAngle)
+    {
+        ModelChest modelchest = new ModelChest();
+        Minecraft.getMinecraft().getTextureManager().bindTexture(Resources.Vanilla.CHEST);
+
+        GL11.glPushMatrix();
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glTranslatef(x, y + 1.0F, 50F);
+        GL11.glScalef(scale, -scale, -scale);
+        GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+
+        GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+        GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+
+        lidAngle = 1.0F - lidAngle;
+        lidAngle = 1.0F - lidAngle * lidAngle * lidAngle;
+        modelchest.chestLid.rotateAngleX = -(lidAngle * (float)Math.PI / 2.0F);;
+        modelchest.renderAll();
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glPopMatrix();
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }
