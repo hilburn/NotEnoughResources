@@ -2,14 +2,19 @@ package neiresources.compatibility.minecraft;
 
 import neiresources.compatibility.CompatBase;
 import neiresources.drop.DropItem;
+import neiresources.registry.DungeonRegistry;
 import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.LightLevel;
+import neiresources.utils.ReflectionHelper;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Items;
+import net.minecraftforge.common.ChestGenHooks;
+
+import java.util.HashMap;
 
 public class MinecraftCompat extends CompatBase
 {
@@ -33,6 +38,7 @@ public class MinecraftCompat extends CompatBase
     public void init()
     {
         registerVanillaMobs();
+        registerDungeonLoot();
     }
 
     private void registerVanillaMobs()
@@ -151,5 +157,16 @@ public class MinecraftCompat extends CompatBase
         //Squid
         DropItem ink = new DropItem(Items.apple,1,3);
         registerMob(new MobRegistryEntry(new EntitySquid(null),LightLevel.any,new String[]{"In water"},ink));
+    }
+
+    private void registerDungeonLoot()
+    {
+        HashMap<String, ChestGenHooks> dungeons = (HashMap<String, ChestGenHooks>) ReflectionHelper.getObject(ChestGenHooks.class,"chestInfo",null);
+        ChestGenHooks bonusChest = ChestGenHooks.getInfo(ChestGenHooks.BONUS_CHEST);
+        for (ChestGenHooks chestGenHook:dungeons.values())
+        {
+            if (chestGenHook!=bonusChest)
+                DungeonRegistry.getInstance().registerChestHook(chestGenHook);
+        }
     }
 }

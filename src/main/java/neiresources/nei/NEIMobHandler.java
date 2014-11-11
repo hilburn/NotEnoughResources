@@ -11,6 +11,7 @@ import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
+        for (int oreDict: OreDictionary.getOreIDs(result))
+            System.out.println(OreDictionary.getOreName(oreDict));
         for (MobRegistryEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
     }

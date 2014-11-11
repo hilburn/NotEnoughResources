@@ -1,6 +1,5 @@
 package neiresources.registry;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
