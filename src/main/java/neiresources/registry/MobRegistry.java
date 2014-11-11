@@ -22,7 +22,7 @@ public class MobRegistry
 
     public boolean registerMob(MobRegistryEntry entry)
     {
-        return registerMob(entry.getName(),entry);
+        return registerMob(entry.getMobName(),entry);
     }
 
     public boolean registerMob(String key, MobRegistryEntry entry)
