@@ -21,4 +21,15 @@ public class DropItem
         this(item, minDrop, maxDrop);
         this.chance = chance;
     }
+
+    public String toString()
+    {
+        if (minDrop==maxDrop) return minDrop + getDropChance();
+        return minDrop + "-" + maxDrop + getDropChance();
+    }
+
+    private String getDropChance()
+    {
+        return chance == 1F ? "" : " (" + String.valueOf((int)(chance * 100)) + "%)";
+    }
 }

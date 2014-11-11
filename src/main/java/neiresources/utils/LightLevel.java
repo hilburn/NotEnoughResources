@@ -18,8 +18,8 @@ public enum LightLevel
 
     public String getString()
     {
-        if (this==any) return "Spawns regardless of Light Level";
-        return "Spawns "+relative.toString()+ " Light Level "+ lightLevel;
+        if (this==any) return "Light level: any";
+        return "Light Level: "+relative.toString()+" "+ lightLevel;
     }
 
     private enum Relative

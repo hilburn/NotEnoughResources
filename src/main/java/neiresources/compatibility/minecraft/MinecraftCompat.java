@@ -71,12 +71,21 @@ public class MinecraftCompat extends CompatBase
         //DropItem egg = new Dropitem(Items.)
         registerMob(new MobRegistryEntry(new EntityDragon(null),LightLevel.any,new DropItem[]{}));
 
+        //Enderman
+        DropItem pearl = new DropItem(Items.ender_pearl,0,1);
+        registerMob(new MobRegistryEntry(new EntityEnderman(null),LightLevel.hostile,pearl));
+
         //Zombie
         DropItem rottenFlesh = new DropItem(Items.rotten_flesh,0,2);
         ironIngot = new DropItem(Items.iron_ingot,1,1,0.025F);
         DropItem potato = new DropItem(Items.potato,1,1,0.025F);
         DropItem carrot = new DropItem(Items.carrot,1,1,0.025F);
         registerMob(new MobRegistryEntry(new EntityZombie(null), LightLevel.hostile,rottenFlesh,ironIngot,potato,carrot));
+
+        //Zombie Pigman
+        DropItem goldNugget = new DropItem(Items.gold_nugget,0,1);
+        DropItem goldIngot = new DropItem(Items.gold_nugget,0,1,0.025F);
+        registerMob(new MobRegistryEntry(new EntityPigZombie(null), LightLevel.any,new String[]{"Nether"},rottenFlesh,goldIngot,goldNugget));
 
         //Skeleton
         DropItem bone = new DropItem(Items.bone,0,2);
@@ -96,7 +105,7 @@ public class MinecraftCompat extends CompatBase
 
         //Ghast
         DropItem tear = new DropItem(Items.ghast_tear,0,1);
-        registerMob(new MobRegistryEntry(new EntityCreeper(null),LightLevel.hostile,gunpowder,tear));
+        registerMob(new MobRegistryEntry(new EntityGhast(null),LightLevel.hostile,new String[]{"Nether"},gunpowder,tear));
 
         //Witches
         DropItem bottle = new DropItem(Items.glass_bottle,0,6);
@@ -114,7 +123,7 @@ public class MinecraftCompat extends CompatBase
 
         //Magma Cube
         DropItem magma = new DropItem(Items.magma_cream,0,1);
-        registerMob(new MobRegistryEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null),1), LightLevel.hostile, magma));
+        registerMob(new MobRegistryEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null),1), LightLevel.hostile,new String[]{"Nether"}, magma));
 
         //Silverfish
         registerMob(new MobRegistryEntry(new EntitySilverfish(null),LightLevel.hostile,new DropItem[]{}));
@@ -134,5 +143,9 @@ public class MinecraftCompat extends CompatBase
         DropItem blazeRod = new DropItem(Items.blaze_rod,0,1);
         glowstone = new DropItem(Items.glowstone_dust,0,2);
         registerMob(new MobRegistryEntry(new EntityBlaze(null),LightLevel.blaze,new String[]{"Nether Fortress"},blazeRod,glowstone));
+
+        //Squid
+        DropItem ink = new DropItem(Items.apple,1,3);
+        registerMob(new MobRegistryEntry(new EntitySquid(null),LightLevel.any,new String[]{"In water"},ink));
     }
 }

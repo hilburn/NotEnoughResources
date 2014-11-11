@@ -66,20 +66,17 @@ public class NEIMobHandler extends TemplateRecipeHandler
         font.print(cachedMob.mob.getName(), 2, 2);
         font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
         font.print(cachedMob.getLightLevel(), 2, 22);
-        font.print("more Info", 2, 32);
+        font.print("Experience Dropped: "+cachedMob.mob.getExperience(), 2, 32);
 
         int y = 46;
         for (DropItem dropItem : cachedMob.mob.getDrops())
         {
-            font.print(dropItem.minDrop + "-" + dropItem.maxDrop + getDropChance(dropItem), 110, y);
+            font.print(dropItem.toString(), 110, y);
             y += 18;
         }
     }
 
-    private String getDropChance(DropItem dropItem)
-    {
-        return dropItem.chance == 1F ? "" : " (" + String.valueOf((int)(dropItem.chance * 100)) + "%)";
-    }
+
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
