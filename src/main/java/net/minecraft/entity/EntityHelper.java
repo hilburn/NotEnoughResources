@@ -1,5 +1,7 @@
 package net.minecraft.entity;
 
+import net.minecraft.entity.monster.EntitySlime;
+
 public class EntityHelper
 {
     public static String getEntityName(EntityLivingBase entity)
@@ -11,4 +13,5 @@ public class EntityHelper
     {
         return entity.experienceValue;
     }
+
 }

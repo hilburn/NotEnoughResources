@@ -4,13 +4,11 @@ import neiresources.compatibility.CompatBase;
 import neiresources.drop.DropItem;
 import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.LightLevel;
+import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.*;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.*;
 import net.minecraft.init.Items;
 
 public class MinecraftCompat extends CompatBase
@@ -33,6 +31,11 @@ public class MinecraftCompat extends CompatBase
 
     @Override
     public void init()
+    {
+        registerVanillaMobs();
+    }
+
+    private void registerVanillaMobs()
     {
         //Iron Golem
         DropItem ironIngot = new DropItem(Items.iron_ingot,3,5,0.025F);
@@ -81,27 +84,55 @@ public class MinecraftCompat extends CompatBase
         registerMob(new MobRegistryEntry(new EntitySkeleton(null),LightLevel.hostile,bone,arrow));
 
         //Wither Skeleton
-        DropItem coal = new DropItem(Items.coal,0,1);
+        DropItem coal = new DropItem(Items.coal,0,1,0.33F);
         DropItem skull = new DropItem(Items.skull,1,1,0.025F);
         EntitySkeleton witherSkeleton = new EntitySkeleton(null);
         witherSkeleton.setSkeletonType(1);
-        registerMob(new MobRegistryEntry(witherSkeleton, LightLevel.hostile, bone, coal, skull));
+        registerMob(new MobRegistryEntry(witherSkeleton, LightLevel.hostile,new String[]{"Nether Fortress"}, bone, coal, skull));
 
         //Creeper
+        DropItem gunpowder = new DropItem(Items.gunpowder,0,2);
+        registerMob(new MobRegistryEntry(new EntityCreeper(null),LightLevel.hostile,gunpowder));
+
+        //Ghast
+        DropItem tear = new DropItem(Items.ghast_tear,0,1);
+        registerMob(new MobRegistryEntry(new EntityCreeper(null),LightLevel.hostile,gunpowder,tear));
 
         //Witches
+        DropItem bottle = new DropItem(Items.glass_bottle,0,6);
+        DropItem glowstone = new DropItem(Items.glowstone_dust,0,6);
+        gunpowder = new DropItem(Items.gunpowder,0,6);
+        DropItem redstone = new DropItem(Items.redstone,0,6);
+        DropItem spider = new DropItem(Items.spider_eye,0,6);
+        DropItem stick = new DropItem(Items.stick,0,6);
+        DropItem sugar = new DropItem(Items.sugar,0,6);
+        registerMob(new MobRegistryEntry(new EntityWitch(null),LightLevel.hostile,bottle,glowstone,gunpowder,redstone,spider,stick,sugar));
 
         //Slimes
+        DropItem slimeball = new DropItem(Items.slime_ball,0,2);
+        registerMob(new MobRegistryEntry(MonsterHelper.setSlimeSize(new EntitySlime(null),1), LightLevel.hostile, slimeball));
 
-        //Magma Creams
+        //Magma Cube
+        DropItem magma = new DropItem(Items.magma_cream,0,1);
+        registerMob(new MobRegistryEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null),1), LightLevel.hostile, magma));
 
-        //SIlverfish
+        //Silverfish
+        registerMob(new MobRegistryEntry(new EntitySilverfish(null),LightLevel.hostile,new DropItem[]{}));
 
         //Bats
+        registerMob(new MobRegistryEntry(new EntityBat(null),LightLevel.hostile,new DropItem[]{}));
+
+        //Spider
+        DropItem string = new DropItem(Items.string,0,2);
+        spider = new DropItem(Items.spider_eye,1,1,0.33F);
+        registerMob(new MobRegistryEntry(new EntitySpider(null),LightLevel.hostile,string,spider));
+
+        //Cave Spider
+        registerMob(new MobRegistryEntry(new EntityCaveSpider(null),LightLevel.hostile,string,spider));
 
         //Blaze
         DropItem blazeRod = new DropItem(Items.blaze_rod,0,1);
-        DropItem glowstone = new DropItem(Items.glowstone_dust,0,2);
+        glowstone = new DropItem(Items.glowstone_dust,0,2);
         registerMob(new MobRegistryEntry(new EntityBlaze(null),LightLevel.blaze,new String[]{"Nether Fortress"},blazeRod,glowstone));
     }
 }
