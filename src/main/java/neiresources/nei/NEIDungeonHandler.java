@@ -100,7 +100,8 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             if (i >= cachedChest.chest.getContents().length) break;
             double chance = cachedChest.chest.getChance(cachedChest.chest.getContents()[i]) * 100;
             String format = chance < 100 ? "%2.1f" : "%2.0f";
-            font.print(String.format(format, chance) + "%", x, y);
+            String toPrint = String.format(format, chance).replace(',', '.') + "%";
+            font.print(toPrint, x, y);
             y += SPACING_Y;
             if (y >= Y_FIRST_ITEM + SPACING_Y * ITEMS_PER_COLUMN)
             {
