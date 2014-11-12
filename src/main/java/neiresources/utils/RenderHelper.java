@@ -103,8 +103,9 @@ public class RenderHelper
         lidAngleF = 1.0F - lidAngleF;
         lidAngleF = 1.0F - lidAngleF * lidAngleF * lidAngleF;
         modelchest.chestLid.rotateAngleX = -(lidAngleF * (float)Math.PI / 2.0F);
+        modelchest.chestKnob.offsetX += 0.1F;
         modelchest.chestKnob.offsetZ += 0.12F;
-        modelchest.chestBelow.offsetX -= 0.76F;
+        modelchest.chestBelow.offsetX -= 0.755F;
         modelchest.chestBelow.offsetY -= 0.4F;
         modelchest.chestBelow.offsetZ -= 0.9F;
         modelchest.renderAll();

@@ -19,6 +19,12 @@ import java.util.List;
 
 public class NEIMobHandler extends TemplateRecipeHandler
 {
+    private static final int X_FIRST_ITEM = 90;
+    private static final int Y_FIRST_ITEM = 42;
+    private static final int ITEMS_PER_COLUMN = 5;
+    private static final int SPACING_Y = 90 / ITEMS_PER_COLUMN;
+    private static final int CYCLE_TIME = 30;
+
     @Override
     public String getGuiTexture()
     {
@@ -54,10 +60,29 @@ public class NEIMobHandler extends TemplateRecipeHandler
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
 
         EntityLivingBase entityLivingBase = ((CachedMob)arecipes.get(recipe)).getMob();
-        float scale = 1;
-        if (entityLivingBase.width < entityLivingBase.height) scale = 70/entityLivingBase.height;
-        else scale = 25/entityLivingBase.width;
-        RenderHelper.renderEntity(30, 90 + (int)(entityLivingBase.height*scale/2), scale , 20, -20, entityLivingBase);
+        float scale = getScale(entityLivingBase);
+        int offsetX = entityLivingBase.width < entityLivingBase.height ?(int)(72-scale) : 72;
+        RenderHelper.renderEntity(30, 165 - offsetX, scale , 20, -20, entityLivingBase);
+    }
+
+    private float getScale(EntityLivingBase entityLivingBase)
+    {
+        float width = entityLivingBase.width;
+        float height = entityLivingBase.height;
+        if (width < height)
+        {
+            if (height < 1) return 70.0F;
+            else if (height < 2) return 32.0F;
+            else if (height < 3) return 26.0F;
+            else return 20.0F;
+        }
+        else
+        {
+            if (width < 1) return 38.0F;
+            else if (width < 2) return 27.0F;
+            else if (width < 3) return 13.0F;
+            else return 9.0F;
+        }
     }
 
     @Override
@@ -68,15 +93,18 @@ public class NEIMobHandler extends TemplateRecipeHandler
         Font font = new Font(false);
         font.print(cachedMob.mob.getName(), 2, 2);
         font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
-        font.print(cachedMob.getLightLevel(), 2, 22);
-        font.print("Experience Dropped: "+cachedMob.mob.getExperience(), 2, 32);
+        font.print(cachedMob.mob.getLightLevel(), 2, 22);
+        font.print("Experience Dropped: "+ cachedMob.mob.getExperience(), 2, 32);
 
-        int y = 45;
-        for (DropItem dropItem : cachedMob.mob.getDrops())
+        int y = Y_FIRST_ITEM +4;
+        for (int i = cachedMob.set * ITEMS_PER_COLUMN; i < cachedMob.set * ITEMS_PER_COLUMN + ITEMS_PER_COLUMN; i++)
         {
-            font.print(dropItem.toString(), 110, y);
-            y += 20;
+            if (i >= cachedMob.mob.getDrops().size()) break;
+            font.print(cachedMob.mob.getDrops().get(i).toString(), X_FIRST_ITEM +18, y);
+            y += SPACING_Y;
         }
+
+        cachedMob.cycleOutputs(cycleticks);
     }
 
 
@@ -84,10 +112,17 @@ public class NEIMobHandler extends TemplateRecipeHandler
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
         public MobRegistryEntry mob;
+        public int set;
+        private int sets;
+        private long cycleAt;
 
         public CachedMob(MobRegistryEntry mob)
         {
             this.mob = mob;
+            this.set = 0;
+            this.sets = (mob.getDrops().size() / ITEMS_PER_COLUMN) +1;
+            cycleAt = -1;
+
         }
 
         public EntityLivingBase getMob()
@@ -98,26 +133,38 @@ public class NEIMobHandler extends TemplateRecipeHandler
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(mob.getDrops().get(0).item, 90, 40);
+            return new PositionedStack(mob.getDrops().get(set*ITEMS_PER_COLUMN).item, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
         @Override
         public List<PositionedStack> getOtherStacks()
         {
             List<PositionedStack> list = new ArrayList<PositionedStack>();
-            int y = 40;
-            for (DropItem dropItem : mob.getDrops())
+            int y = Y_FIRST_ITEM;
+            for (int i = set * ITEMS_PER_COLUMN; i < set * ITEMS_PER_COLUMN + ITEMS_PER_COLUMN; i++)
             {
-                list.add(new PositionedStack(dropItem.item, 90, y));
-                y += 20;
+                if (i >= mob.getDrops().size()) break;
+                list.add(new PositionedStack(mob.getDrops().get(i).item, X_FIRST_ITEM, y));
+                y += SPACING_Y;
             }
             list.remove(0);
             return list;
         }
 
-        public String getLightLevel()
+        public void cycleOutputs(long tick)
         {
-            return mob.getLightLevel();
+            if (cycleAt == -1)
+            {
+                cycleAt = tick + CYCLE_TIME;
+                return;
+            }
+
+            if (tick >= cycleAt)
+            {
+                if (++set >= sets) set = 0;
+                cycleAt += CYCLE_TIME;
+            }
         }
+
     }
 }
