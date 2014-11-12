@@ -10,7 +10,9 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
 
 import java.util.HashMap;
@@ -44,8 +46,8 @@ public class MinecraftCompat extends CompatBase
     {
         //Iron Golem
         DropItem ironIngot = new DropItem(Items.iron_ingot,3,5,0.025F);
-        //DropItem poppy = new DropItem() should probably make it itemStacks becuse roses are blocks...
-        registerMob(new MobRegistryEntry(new EntityIronGolem(null),LightLevel.any,ironIngot));
+        DropItem poppy = new DropItem(new ItemStack(Blocks.red_flower),0,2);
+        registerMob(new MobRegistryEntry(new EntityIronGolem(null),LightLevel.any,ironIngot,poppy));
 
         //Snow golem
         DropItem snowball = new DropItem(Items.snowball,0,15);
@@ -77,8 +79,8 @@ public class MinecraftCompat extends CompatBase
         registerMob(new MobRegistryEntry(new EntityWither(null),LightLevel.any,star));
 
         //End Dragon
-        //DropItem egg = new Dropitem(Items.)
-        registerMob(new MobRegistryEntry(new EntityDragon(null),LightLevel.any,new DropItem[]{}));
+        DropItem egg = new DropItem(new ItemStack(Blocks.dragon_egg),1,1);
+        registerMob(new MobRegistryEntry(new EntityDragon(null),LightLevel.any,egg));
 
         //Enderman
         DropItem pearl = new DropItem(Items.ender_pearl,0,1);
@@ -154,7 +156,7 @@ public class MinecraftCompat extends CompatBase
         registerMob(new MobRegistryEntry(new EntityBlaze(null),LightLevel.blaze,new String[]{"Nether Fortress"},blazeRod,glowstone));
 
         //Squid
-        DropItem ink = new DropItem(Items.apple,1,3);
+        DropItem ink = new DropItem(new ItemStack(Items.dye,1,0),1,3);
         registerMob(new MobRegistryEntry(new EntitySquid(null),LightLevel.any,new String[]{"In water"},ink));
     }
 
