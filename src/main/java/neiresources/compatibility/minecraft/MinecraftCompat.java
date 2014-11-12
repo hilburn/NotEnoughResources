@@ -6,7 +6,6 @@ import neiresources.registry.DungeonRegistry;
 import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.LightLevel;
 import neiresources.utils.ReflectionHelper;
-import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.*;

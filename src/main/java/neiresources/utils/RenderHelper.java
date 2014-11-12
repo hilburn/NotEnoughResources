@@ -1,17 +1,12 @@
 package neiresources.utils;
 
 import neiresources.reference.Resources;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
-import net.minecraft.client.Minecraft;;
-import net.minecraft.client.gui.ScaledResolution;;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.tileentity.TileEntityChest;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
