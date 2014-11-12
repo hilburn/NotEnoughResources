@@ -1,11 +1,14 @@
 package neiresources.utils;
 
 import neiresources.reference.Resources;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.client.Minecraft;;
 import net.minecraft.client.gui.ScaledResolution;;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntityChest;
@@ -86,24 +89,26 @@ public class RenderHelper
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 
-    public static void renderChest(int x, int y, float scale, float rotation, float lidAngle)
+    public static void renderChest(float x, float y, float rotate, float scale, float lidAnle)
     {
-        ModelChest modelchest = new ModelChest();
         Minecraft.getMinecraft().getTextureManager().bindTexture(Resources.Vanilla.CHEST);
+        ModelChest modelchest = new ModelChest();
 
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glTranslatef(x, y + 1.0F, 50F);
+        GL11.glTranslatef(x, y, 50.0F);
+        GL11.glRotatef(-160.0F, 1.0F, 0.0F, 0.0F);
         GL11.glScalef(scale, -scale, -scale);
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-
-        GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(rotate, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+        float lidAngleF = lidAnle / 180;
 
-        lidAngle = 1.0F - lidAngle;
-        lidAngle = 1.0F - lidAngle * lidAngle * lidAngle;
-        modelchest.chestLid.rotateAngleX = -(lidAngle * (float)Math.PI / 2.0F);;
+        lidAngleF = 1.0F - lidAngleF;
+        lidAngleF = 1.0F - lidAngleF * lidAngleF * lidAngleF;
+        modelchest.chestLid.rotateAngleX = -(lidAngleF * (float)Math.PI / 2.0F);
+        modelchest.chestKnob.offsetZ += 0.12F;
         modelchest.renderAll();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();

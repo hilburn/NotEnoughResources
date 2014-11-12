@@ -54,7 +54,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         GuiDraw.changeTexture(this.getGuiTexture());
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
 
-        //RenderHelper.renderChest(10, 40, 60, -60, 0);
+        RenderHelper.renderChest(15, 20, -40, 20, 40);
     }
 
     @Override
