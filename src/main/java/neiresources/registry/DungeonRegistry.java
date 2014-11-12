@@ -38,8 +38,8 @@ public class DungeonRegistry
 
     public static boolean addCategoryMapping(String category, String name)
     {
-        if (!categoryToNameMap.containsKey(name)) {
-            categoryToNameMap.put(name, category);
+        if (!categoryToNameMap.containsKey(category)) {
+            categoryToNameMap.put(category,name);
             return true;
         }
         return false;

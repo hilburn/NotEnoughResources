@@ -23,6 +23,6 @@ public class MapKeys
 
     private static String getKey(ItemStack itemStack)
     {
-        return GameRegistry.findUniqueIdentifierFor(itemStack.getItem())+"@"+itemStack.getItemDamage();
+        return GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).toString()+"@"+itemStack.getItemDamage();
     }
 }

@@ -1,5 +1,7 @@
 package neiresources.registry;
 
+import net.minecraft.item.ItemStack;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,12 +10,14 @@ public class OreRegistryEntry
 {
     public static int EXTRA_RANGE = 3;
     private List<OreEntry> oreEntryList = new ArrayList<OreEntry>();
+    private ItemStack ore;
     private double[] chances;
     private int minY;
     private int maxY;
 
     OreRegistryEntry(OreEntry oreEntry)
     {
+        ore = oreEntry.getOre();
         oreEntryList.add(oreEntry);
         calcChances();
     }
