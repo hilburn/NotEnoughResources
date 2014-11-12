@@ -46,4 +46,9 @@ public class MobRegistry
             if (entry.dropsItem(item)) list.add(entry);
         return list;
     }
+
+    public List<MobRegistryEntry> getMobs()
+    {
+        return new ArrayList<MobRegistryEntry>(registry.values());
+    }
 }

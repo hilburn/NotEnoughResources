@@ -7,6 +7,9 @@ import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntitySquid;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -59,9 +62,17 @@ public class RenderHelper
         float rotationPitch = entityLivingBase.rotationPitch;
         float prevRotationYawHead = entityLivingBase.prevRotationYawHead;
         float rotationYawHead = entityLivingBase.rotationYawHead;
-        GL11.glRotatef(135.0F, 0.0F, 1.0F, 0.0F);
         net.minecraft.client.renderer.RenderHelper.enableStandardItemLighting();
-        GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
+        if(entityLivingBase instanceof EntityDragon || entityLivingBase instanceof EntityBat)
+        {
+            GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+        }
+        if(entityLivingBase instanceof EntitySquid)
+        {
+            GL11.glRotatef(50.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
+        }
         GL11.glRotatef(-((float)Math.atan((double)(pitch / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
         entityLivingBase.renderYawOffset = (float)Math.atan((double)(yaw / 40.0F)) * 20.0F;
         entityLivingBase.rotationYaw = (float)Math.atan((double)(yaw / 40.0F)) * 40.0F;

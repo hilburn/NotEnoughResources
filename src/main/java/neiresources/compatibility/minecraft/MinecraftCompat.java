@@ -156,7 +156,7 @@ public class MinecraftCompat extends CompatBase
         registerMob(new MobRegistryEntry(new EntityBlaze(null),LightLevel.blaze,new String[]{"Nether Fortress"},blazeRod,glowstone));
 
         //Squid
-        DropItem ink = new DropItem(new ItemStack(Items.dye,1,0),1,3);
+        DropItem ink = new DropItem(Items.dye,0,1,3);
         registerMob(new MobRegistryEntry(new EntitySquid(null),LightLevel.any,new String[]{"In water"},ink));
     }
 

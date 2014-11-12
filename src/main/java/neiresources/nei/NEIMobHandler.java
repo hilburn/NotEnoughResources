@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     private static final int ITEMS_PER_COLUMN = 5;
     private static final int SPACING_Y = 90 / ITEMS_PER_COLUMN;
     private static final int CYCLE_TIME = 30;
+    private static final String MOB_ID = "neiResources.mob";
 
     @Override
     public String getGuiTexture()
@@ -41,6 +43,23 @@ public class NEIMobHandler extends TemplateRecipeHandler
     public int recipiesPerPage()
     {
        return 1;
+    }
+
+    @Override
+    public void loadTransferRects()
+    {
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(62, 72, 28, 18), MOB_ID, null));
+    }
+
+    @Override
+    public void loadCraftingRecipes(String outputId, Object... results)
+    {
+        if (outputId.equals(MOB_ID))
+        {
+            for (MobRegistryEntry entry : MobRegistry.getInstance().getMobs())
+                arecipes.add(new CachedMob(entry));
+        }
+        else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
@@ -62,6 +81,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         EntityLivingBase entityLivingBase = ((CachedMob)arecipes.get(recipe)).getMob();
         float scale = getScale(entityLivingBase);
         int offsetX = entityLivingBase.width < entityLivingBase.height ?(int)(72-scale) : 72;
+        if (scale == 70.0F) offsetX = (int)(72-scale/2);
         RenderHelper.renderEntity(30, 165 - offsetX, scale , 20, -20, entityLivingBase);
     }
 
@@ -133,6 +153,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         @Override
         public PositionedStack getResult()
         {
+            if (mob.getDrops().isEmpty()) return null;
             return new PositionedStack(mob.getDrops().get(set*ITEMS_PER_COLUMN).item, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
@@ -147,7 +168,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
                 list.add(new PositionedStack(mob.getDrops().get(i).item, X_FIRST_ITEM, y));
                 y += SPACING_Y;
             }
-            list.remove(0);
+            if (list.size() > 0) list.remove(0);
             return list;
         }
 

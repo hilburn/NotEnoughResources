@@ -27,9 +27,19 @@ public class DropItem
         this(new ItemStack(item),minDrop,maxDrop,1F);
     }
 
+    public DropItem(Item item, int itemDamage, int minDrop, int maxDrop)
+    {
+        this(new ItemStack(item, 1, itemDamage),minDrop,maxDrop,1F);
+    }
+
     public DropItem(Item item, int minDrop, int maxDrop, float chance)
     {
         this(new ItemStack(item), minDrop, maxDrop, chance);
+    }
+
+    public DropItem(Item item, int itemDamage, int minDrop, int maxDrop, float chance)
+    {
+        this(new ItemStack(item, 1, itemDamage), minDrop, maxDrop, chance);
     }
 
     public String toString()

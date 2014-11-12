@@ -24,16 +24,16 @@ public class DungeonRegistry
 
     public DungeonRegistry()
     {
-        addCategoryMapping("mineshaftCorridor","Mineshaft Chest");
-        addCategoryMapping("pyramidDesertyChest","Desert Temple Chest");
-        addCategoryMapping("pyramidJungleChest","Jungle Temple Chest");
-        addCategoryMapping("pyramidJungleDispenser","Jungle Temple Dispenser");
-        addCategoryMapping("strongholdCorridor","Stronghold Corridor Chest");
-        addCategoryMapping("strongholdLibrary","Stronghold Library Chest");
-        addCategoryMapping("strongholdCrossing","Stronghold Crossing Chest");
-        addCategoryMapping("villageBlacksmith", "Blacksmith Chest");
-        addCategoryMapping("bonusChest","Bonus Chest");
-        addCategoryMapping("dungeonChest", "Dungeon Chest");
+        addCategoryMapping("mineshaftCorridor","Mineshaft");
+        addCategoryMapping("pyramidDesertyChest","Desert Temple");
+        addCategoryMapping("pyramidJungleChest","Jungle Temple");
+        addCategoryMapping("pyramidJungleDispenser","Jungle Temple");
+        addCategoryMapping("strongholdCorridor","Stronghold Corridor");
+        addCategoryMapping("strongholdLibrary","Stronghold Library");
+        addCategoryMapping("strongholdCrossing","Stronghold Crossing");
+        addCategoryMapping("villageBlacksmith", "Blacksmith");
+        addCategoryMapping("bonusChest","Bonus");
+        addCategoryMapping("dungeonChest", "Dungeon");
     }
 
     public static boolean addCategoryMapping(String category, String name)
@@ -66,6 +66,10 @@ public class DungeonRegistry
         for (DungeonRegistryEntry entry : registry.values())
             if (entry.hasItem(item)) list.add(entry);
         return list;
+    }
+
+    public List<DungeonRegistryEntry> getDungeons() {
+        return new ArrayList<DungeonRegistryEntry>(registry.values());
     }
 
 }

@@ -11,6 +11,7 @@ import neiresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     private static final int SPACING_X = 176 / ITEMS_PER_ROW;
     private static final int SPACING_Y = 80 / ITEMS_PER_COLUMN;
     private static final int CYCLE_TIME = 30;
+    private static final String DUNGEON_ID = "neiResources.dungeon";
     private static int lidStart = -1;
     private static int lastRecipe = -1;
     private static boolean done;
@@ -44,6 +46,23 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     public int recipiesPerPage()
     {
         return 1;
+    }
+
+    @Override
+    public void loadTransferRects()
+    {
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(5, 5, 40, 40), DUNGEON_ID, null));
+    }
+
+    @Override
+    public void loadCraftingRecipes(String outputId, Object... results)
+    {
+        if (outputId.equals(DUNGEON_ID))
+        {
+            for (DungeonRegistryEntry entry : DungeonRegistry.getInstance().getDungeons())
+                arecipes.add(new CachedDungeonChest(entry));
+        }
+        else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
@@ -151,7 +170,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
                     x += SPACING_X;
                 }
             }
-            list.remove(0);
+            if (list.size() > 0) list.remove(0);
             return list;
         }
 
