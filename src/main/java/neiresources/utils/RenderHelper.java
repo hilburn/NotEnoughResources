@@ -84,7 +84,7 @@ public class RenderHelper
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 
-    public static void renderChest(float x, float y, float rotate, float scale, float lidAnle)
+    public static void renderChest(float x, float y, float rotate, float scale, float lidAngle)
     {
         Minecraft.getMinecraft().getTextureManager().bindTexture(Resources.Vanilla.CHEST);
         ModelChest modelchest = new ModelChest();
@@ -98,12 +98,15 @@ public class RenderHelper
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
         GL11.glRotatef(rotate, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        float lidAngleF = lidAnle / 180;
+        float lidAngleF = lidAngle / 180;
 
         lidAngleF = 1.0F - lidAngleF;
         lidAngleF = 1.0F - lidAngleF * lidAngleF * lidAngleF;
         modelchest.chestLid.rotateAngleX = -(lidAngleF * (float)Math.PI / 2.0F);
         modelchest.chestKnob.offsetZ += 0.12F;
+        modelchest.chestBelow.offsetX -= 0.76F;
+        modelchest.chestBelow.offsetY -= 0.4F;
+        modelchest.chestBelow.offsetZ -= 0.9F;
         modelchest.renderAll();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();

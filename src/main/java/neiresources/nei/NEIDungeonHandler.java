@@ -9,7 +9,6 @@ import neiresources.registry.DungeonRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -19,8 +18,15 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 {
     private static final int X_FIRST_ITEM = -2;
     private static final int Y_FIRST_ITEM = 48;
-    private static final int ITEMS_PER_COLUMN = 5;
-    private static final int SPACING_Y = 16;
+    private static final int ITEMS_PER_COLUMN = 4;
+    private static final int ITEMS_PER_ROW = 3;
+    private static final int ITEMS_PER_PAGE = ITEMS_PER_COLUMN * ITEMS_PER_ROW;
+    private static final int SPACING_X = 176 / ITEMS_PER_ROW;
+    private static final int SPACING_Y = 80 / ITEMS_PER_COLUMN;
+    private static final int CYCLE_TIME = 30;
+    private static int lidStart = -1;
+    private static int lastRecipe = -1;
+    private static boolean done;
 
     @Override
     public String getGuiTexture()
@@ -54,7 +60,28 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         GuiDraw.changeTexture(this.getGuiTexture());
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
 
-        RenderHelper.renderChest(15, 20, -40, 20, 40);
+        RenderHelper.renderChest(15, 20, -40, 20, getLidAngle(recipe));
+    }
+
+    private float getLidAngle(int recipe)
+    {
+        if (recipe != lastRecipe)
+        {
+            done = false;
+            lastRecipe = -1;
+            lidStart = -1;
+        }
+
+        if (lidStart == -1) lidStart = cycleticks;
+
+        float angle = (cycleticks - lidStart) % 80;
+        if (angle > 50 || done)
+        {
+            done = true;
+            angle = 50;
+        }
+
+        return angle;
     }
 
     @Override
@@ -66,36 +93,44 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         font.print(cachedChest.chest.getName(), 60, 10);
         font.print(cachedChest.chest.getNumStacks(), 60, 25);
 
-        int x = X_FIRST_ITEM +18;
-        int y = Y_FIRST_ITEM +5;
-        for (WeightedRandomChestContent chestContent : cachedChest.chest.getContents())
+        int x = X_FIRST_ITEM + 18;
+        int y = Y_FIRST_ITEM + (10-ITEMS_PER_COLUMN);
+        for (int i = ITEMS_PER_PAGE * cachedChest.set; i < ITEMS_PER_PAGE * cachedChest.set + ITEMS_PER_PAGE; i++)
         {
-            double chance = cachedChest.chest.getChance(chestContent)*100;
+            if (i >= cachedChest.chest.getContents().length) break;
+            double chance = cachedChest.chest.getChance(cachedChest.chest.getContents()[i]) * 100;
             String format = chance < 100 ? "%2.1f" : "%2.0f";
             font.print(String.format(format, chance) + "%", x, y);
             y += SPACING_Y;
-            if (y >= Y_FIRST_ITEM + SPACING_Y *ITEMS_PER_COLUMN)
+            if (y >= Y_FIRST_ITEM + SPACING_Y * ITEMS_PER_COLUMN)
             {
-                y = Y_FIRST_ITEM +5;
-                x += 44;
+                y = Y_FIRST_ITEM + (10-ITEMS_PER_COLUMN);
+                x += SPACING_X;
             }
         }
+
+        cachedChest.cycleOutputs(cycleticks, recipe);
     }
 
     public class CachedDungeonChest extends TemplateRecipeHandler.CachedRecipe
     {
 
         public DungeonRegistryEntry chest;
+        public int set, sets;
+        private long cycleAt;
 
         public CachedDungeonChest(DungeonRegistryEntry chest)
         {
             this.chest = chest;
+            set = 0;
+            cycleAt = -1;
+            sets = (chest.getContents().length / ITEMS_PER_PAGE) +1;
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(this.chest.getContents()[0].theItemId, X_FIRST_ITEM, Y_FIRST_ITEM);
+            return new PositionedStack(this.chest.getContents()[set*ITEMS_PER_PAGE].theItemId, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
         @Override
@@ -104,18 +139,35 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             List<PositionedStack> list = new ArrayList<PositionedStack>();
             int x = X_FIRST_ITEM;
             int y = Y_FIRST_ITEM;
-            for (WeightedRandomChestContent chestContent : this.chest.getContents())
+            for (int i = ITEMS_PER_PAGE * set; i < ITEMS_PER_PAGE * set + ITEMS_PER_PAGE; i++)
             {
-                list.add(new PositionedStack(chestContent.theItemId, x, y));
+                if (i >= this.chest.getContents().length) break;
+                list.add(new PositionedStack(this.chest.getContents()[i].theItemId, x, y));
                 y += SPACING_Y;
-                if (y >= Y_FIRST_ITEM + SPACING_Y *ITEMS_PER_COLUMN)
+                if (y >= Y_FIRST_ITEM + SPACING_Y * ITEMS_PER_COLUMN)
                 {
                     y = Y_FIRST_ITEM;
-                    x += 44;
+                    x += SPACING_X;
                 }
             }
             list.remove(0);
             return list;
+        }
+
+        public void cycleOutputs(long tick, int recipe)
+        {
+            if (cycleAt == -1 || recipe != lastRecipe)
+            {
+                lastRecipe = recipe;
+                cycleAt = tick + CYCLE_TIME;
+                return;
+            }
+
+            if (tick >= cycleAt)
+            {
+                if (++set >= sets) set = 0;
+                cycleAt += CYCLE_TIME;
+            }
         }
     }
 }
