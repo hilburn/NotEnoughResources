@@ -1,4 +1,4 @@
-package neiresources.api.helpers;
+package neiresources.api.distributions;
 
 public class DistributionHelpers
 {

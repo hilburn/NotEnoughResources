@@ -14,7 +14,7 @@ public class OreRegistryEntry
     private double[] chances;
     private int minY;
     private int maxY;
-    private int maxOre;
+    private int bestY;
 
     OreRegistryEntry(OreEntry oreEntry)
     {
@@ -38,6 +38,7 @@ public class OreRegistryEntry
                 remove = entry;
         }
         if (remove!=null) oreEntryList.remove(remove);
+        calcChances();
     }
 
     private void calcChances()
@@ -45,7 +46,7 @@ public class OreRegistryEntry
         chances = new double[256];
         minY=300;
         maxY=0;
-        maxOre=0;
+        bestY = 0;
         for (int i = 0; i < 256; i++)
         {
             double chance = 0;
@@ -56,10 +57,11 @@ public class OreRegistryEntry
                 if (minY==300)
                     minY=i;
                 maxY=i;
-                if (chance>chances[maxOre]) maxOre = i;
+                if (chance>chances[bestY]) bestY = i;
             }
             chances[i] = chance;
         }
+        if (oreEntryList.size()==1 && !(oreEntryList.get(0).getBestY()<0)) bestY = oreEntryList.get(0).getBestY();
     }
 
     public double[] getChances()
@@ -70,5 +72,10 @@ public class OreRegistryEntry
     public double[] getChances(int extraRange)
     {
         return Arrays.copyOfRange(chances,Math.max(minY-extraRange,0),Math.min(maxY+extraRange,255));
+    }
+
+    public int getBestY()
+    {
+        return bestY;
     }
 }

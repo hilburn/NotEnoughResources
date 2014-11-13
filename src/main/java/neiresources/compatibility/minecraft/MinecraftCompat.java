@@ -1,6 +1,7 @@
 package neiresources.compatibility.minecraft;
 
-import neiresources.api.helpers.DistributionHelpers;
+import neiresources.api.distributions.DistributionHelpers;
+import neiresources.api.distributions.DistributionTriangular;
 import neiresources.compatibility.CompatBase;
 import neiresources.drop.DropItem;
 import neiresources.registry.DungeonRegistry;
@@ -176,6 +177,6 @@ public class MinecraftCompat extends CompatBase
 
     private void registerOres()
     {
-        registerOre(new OreEntry(new ItemStack(Blocks.lapis_ore), DistributionHelpers.getTriangularDistribution(15,15,0.1D)));
+        registerOre(new OreEntry(new ItemStack(Blocks.lapis_ore), new DistributionTriangular(15,15,0.001D)));
     }
 }

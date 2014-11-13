@@ -18,7 +18,7 @@ public class MapKeys
                 oreDictNames = new String[]{getKey(itemStack)};
             return oreDictNames;
         }
-        return null;
+        return new String[0];
     }
 
     private static String getKey(ItemStack itemStack)
