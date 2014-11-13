@@ -1,4 +1,4 @@
-package neresources.drop;
+package neresources.api.drop;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

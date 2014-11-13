@@ -3,7 +3,7 @@ package neresources.compatibility.minecraft;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.compatibility.CompatBase;
-import neresources.drop.DropItem;
+import neresources.api.drop.DropItem;
 import neresources.registry.DungeonRegistry;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;

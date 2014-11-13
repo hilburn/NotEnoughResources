@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.drop.DropItem;
+import neresources.api.drop.DropItem;
 import neresources.utils.LightLevel;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;
