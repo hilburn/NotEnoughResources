@@ -3,6 +3,7 @@ package neiresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neiresources.config.Settings;
 import neiresources.reference.Resources;
 import neiresources.registry.MobEntry;
 import neiresources.registry.MobRegistry;
@@ -19,12 +20,20 @@ import java.util.List;
 
 public class NEIMobHandler extends TemplateRecipeHandler
 {
+    private static final String MOB_ID = "neiResources.mob";
     private static final int X_FIRST_ITEM = 90;
     private static final int Y_FIRST_ITEM = 42;
-    private static final int ITEMS_PER_COLUMN = 5;
-    private static final int SPACING_Y = 90 / ITEMS_PER_COLUMN;
-    private static final int CYCLE_TIME = 30;
-    private static final String MOB_ID = "neiResources.mob";
+
+    private static int SPACING_Y = 90 / Settings.ITEMS_PER_COLUMN;
+    private static int CYCLE_TIME = (int)(20 * Settings.CYCLE_TIME);
+
+    public static void loadSettings()
+    {
+        SPACING_Y = 80 / Settings.ITEMS_PER_COLUMN;
+        CYCLE_TIME = (int)(20 * Settings.CYCLE_TIME);
+    }
+
+    private static int lastRecipe = -1;
 
     @Override
     public String getGuiTexture()
@@ -116,14 +125,14 @@ public class NEIMobHandler extends TemplateRecipeHandler
         font.print("Experience Dropped: "+ cachedMob.mob.getExperience(), 2, 32);
 
         int y = Y_FIRST_ITEM +4;
-        for (int i = cachedMob.set * ITEMS_PER_COLUMN; i < cachedMob.set * ITEMS_PER_COLUMN + ITEMS_PER_COLUMN; i++)
+        for (int i = cachedMob.set * Settings.ITEMS_PER_COLUMN; i < cachedMob.set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)
         {
             if (i >= cachedMob.mob.getDrops().size()) break;
             font.print(cachedMob.mob.getDrops().get(i).toString(), X_FIRST_ITEM +18, y);
             y += SPACING_Y;
         }
 
-        cachedMob.cycleOutputs(cycleticks);
+        cachedMob.cycleOutputs(cycleticks, recipe);
     }
 
 
@@ -132,16 +141,15 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         public MobEntry mob;
         public int set;
-        private int sets;
+        private int lastSet;
         private long cycleAt;
 
         public CachedMob(MobEntry mob)
         {
             this.mob = mob;
             this.set = 0;
-            this.sets = (mob.getDrops().size() / ITEMS_PER_COLUMN) +1;
+            this.lastSet = (mob.getDrops().size() / (Settings.ITEMS_PER_COLUMN+1));
             cycleAt = -1;
-
         }
 
         public EntityLivingBase getMob()
@@ -153,7 +161,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         public PositionedStack getResult()
         {
             if (mob.getDrops().isEmpty()) return null;
-            return new PositionedStack(mob.getDrops().get(set*ITEMS_PER_COLUMN).item, X_FIRST_ITEM, Y_FIRST_ITEM);
+            return new PositionedStack(mob.getDrops().get(set*Settings.ITEMS_PER_COLUMN).item, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
         @Override
@@ -161,7 +169,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         {
             List<PositionedStack> list = new ArrayList<PositionedStack>();
             int y = Y_FIRST_ITEM;
-            for (int i = set * ITEMS_PER_COLUMN; i < set * ITEMS_PER_COLUMN + ITEMS_PER_COLUMN; i++)
+            for (int i = set * Settings.ITEMS_PER_COLUMN; i < set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)
             {
                 if (i >= mob.getDrops().size()) break;
                 list.add(new PositionedStack(mob.getDrops().get(i).item, X_FIRST_ITEM, y));
@@ -171,17 +179,18 @@ public class NEIMobHandler extends TemplateRecipeHandler
             return list;
         }
 
-        public void cycleOutputs(long tick)
+        public void cycleOutputs(long tick, int recipe)
         {
-            if (cycleAt == -1)
+            if (cycleAt == -1 || recipe != lastRecipe)
             {
+                lastRecipe = recipe;
                 cycleAt = tick + CYCLE_TIME;
                 return;
             }
 
             if (tick >= cycleAt)
             {
-                if (++set >= sets) set = 0;
+                if (++set > lastSet) set = 0;
                 cycleAt += CYCLE_TIME;
             }
         }

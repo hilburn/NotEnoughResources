@@ -3,6 +3,7 @@ package neiresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neiresources.config.Settings;
 import neiresources.reference.Resources;
 import neiresources.registry.DungeonEntry;
 import neiresources.registry.DungeonRegistry;
@@ -17,15 +18,23 @@ import java.util.List;
 
 public class NEIDungeonHandler extends TemplateRecipeHandler
 {
+    private static final String DUNGEON_ID = "neiResources.dungeon";
     private static final int X_FIRST_ITEM = -2;
     private static final int Y_FIRST_ITEM = 48;
-    private static final int ITEMS_PER_COLUMN = 4;
-    private static final int ITEMS_PER_ROW = 3;
-    private static final int ITEMS_PER_PAGE = ITEMS_PER_COLUMN * ITEMS_PER_ROW;
-    private static final int SPACING_X = 176 / ITEMS_PER_ROW;
-    private static final int SPACING_Y = 80 / ITEMS_PER_COLUMN;
-    private static final int CYCLE_TIME = 30;
-    private static final String DUNGEON_ID = "neiResources.dungeon";
+
+    private static int ITEMS_PER_PAGE;
+    private static int SPACING_X;
+    private static int SPACING_Y;
+    private static int CYCLE_TIME;
+
+    public static void loadSettings()
+    {
+        ITEMS_PER_PAGE = Settings.ITEMS_PER_COLUMN * Settings.ITEMS_PER_ROW;
+        SPACING_X = 176 / Settings.ITEMS_PER_ROW;
+        SPACING_Y = 80 / Settings.ITEMS_PER_COLUMN;
+        CYCLE_TIME = (int)(20 * Settings.CYCLE_TIME);
+    }
+
     private static int lidStart = -1;
     private static int lastRecipe = -1;
     private static boolean done;
@@ -113,7 +122,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         font.print(cachedChest.chest.getNumStacks(), 60, 25);
 
         int x = X_FIRST_ITEM + 18;
-        int y = Y_FIRST_ITEM + (10-ITEMS_PER_COLUMN);
+        int y = Y_FIRST_ITEM + (10-Settings.ITEMS_PER_COLUMN);
         for (int i = ITEMS_PER_PAGE * cachedChest.set; i < ITEMS_PER_PAGE * cachedChest.set + ITEMS_PER_PAGE; i++)
         {
             if (i >= cachedChest.chest.getContents().length) break;
@@ -122,9 +131,9 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             String toPrint = String.format(format, chance).replace(',', '.') + "%";
             font.print(toPrint, x, y);
             y += SPACING_Y;
-            if (y >= Y_FIRST_ITEM + SPACING_Y * ITEMS_PER_COLUMN)
+            if (y >= Y_FIRST_ITEM + SPACING_Y * Settings.ITEMS_PER_COLUMN)
             {
-                y = Y_FIRST_ITEM + (10-ITEMS_PER_COLUMN);
+                y = Y_FIRST_ITEM + (10-Settings.ITEMS_PER_COLUMN);
                 x += SPACING_X;
             }
         }
@@ -134,9 +143,8 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
     public class CachedDungeonChest extends TemplateRecipeHandler.CachedRecipe
     {
-
         public DungeonEntry chest;
-        public int set, sets;
+        public int set, lastSet;
         private long cycleAt;
 
         public CachedDungeonChest(DungeonEntry chest)
@@ -144,7 +152,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             this.chest = chest;
             set = 0;
             cycleAt = -1;
-            sets = (chest.getContents().length / ITEMS_PER_PAGE) +1;
+            lastSet = (chest.getContents().length / (ITEMS_PER_PAGE+1));
         }
 
         @Override
@@ -164,7 +172,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
                 if (i >= this.chest.getContents().length) break;
                 list.add(new PositionedStack(this.chest.getContents()[i].theItemId, x, y));
                 y += SPACING_Y;
-                if (y >= Y_FIRST_ITEM + SPACING_Y * ITEMS_PER_COLUMN)
+                if (y >= Y_FIRST_ITEM + SPACING_Y * Settings.ITEMS_PER_COLUMN)
                 {
                     y = Y_FIRST_ITEM;
                     x += SPACING_X;
@@ -185,7 +193,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
             if (tick >= cycleAt)
             {
-                if (++set >= sets) set = 0;
+                if (++set > lastSet) set = 0;
                 cycleAt += CYCLE_TIME;
             }
         }
