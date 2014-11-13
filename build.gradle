@@ -107,7 +107,7 @@ task copyBuildXml(type: Copy) {
 task apiZip(type: Zip) {
     classifier = 'api'
     from sourceSets*.allSource
-    include 'neiresources/api/**'
+    include 'neresources/api/**'
     destinationDir = file 'output'
 }
 

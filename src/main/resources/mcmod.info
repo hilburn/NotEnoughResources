@@ -1,7 +1,7 @@
 [
 {
-  "modid": "neiresources",
-  "name": "NEIResources",
+  "modid": "neresources",
+  "name": "Not Enough Resources",
   "description": "Adds Resources and Mob Drops to NEI",
   "version": "",
   "mcversion": "",
