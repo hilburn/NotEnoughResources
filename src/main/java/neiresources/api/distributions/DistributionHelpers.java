@@ -38,7 +38,7 @@ public class DistributionHelpers
         double[] result = new double[256];
         addDistribution(result,getRampDistribution(min0,minY,chance), min0);
         addDistribution(result,getSquareDistribution(minY,maxY,chance));
-        addDistribution(result,getRampDistribution(max0,maxY,chance),maxY+1);
+        addDistribution(result,getRampDistribution(max0,maxY,chance),maxY);
         return result;
     }
 
@@ -49,7 +49,7 @@ public class DistributionHelpers
 
         int range = maxY-minY;
         double[] result = new double[range+1];
-        for (int i = 0; i <= range; i++)
+        for (int i = 0; i < range; i++)
         {
             result[i]=(maxChance*(double)i)/range;
         }
