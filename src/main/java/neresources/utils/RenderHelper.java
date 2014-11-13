@@ -7,6 +7,7 @@ import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntitySquid;
@@ -81,7 +82,9 @@ public class RenderHelper
         entityLivingBase.prevRotationYawHead = entityLivingBase.rotationYaw;
         GL11.glTranslatef(0.0F, entityLivingBase.yOffset, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
+        String temp = BossStatus.bossName;
         RenderManager.instance.renderEntityWithPosYaw(entityLivingBase, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        BossStatus.bossName = temp;
         entityLivingBase.renderYawOffset = renderYawOffset;
         entityLivingBase.rotationYaw = rotationYaw;
         entityLivingBase.rotationPitch = rotationPitch;
