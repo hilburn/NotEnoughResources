@@ -23,7 +23,7 @@ public class RenderHelper
         double add = y1 > y2 ? -1 : +1;
 
         double error = 0;
-        double dError = (Math.abs((dy *1D) / (dx *1D)) / precision);
+        double dError = (Math.abs((dy * 1D) / (dx * 1D)) / precision);
 
         double y = y1;
         for (double x = x1; x <= x2; x += (1D / precision))
@@ -43,7 +43,7 @@ public class RenderHelper
         Minecraft mc = Minecraft.getMinecraft();
         int scale = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight).getScaleFactor();
         GL11.glColor3f(0.0F, 0.0F, 0.0F);
-        GL11.glPointSize(scale*1.3F);
+        GL11.glPointSize(scale * 1.3F);
         GL11.glBegin(GL11.GL_POINTS);
         GL11.glVertex2d(x, y);
         GL11.glEnd();
@@ -54,7 +54,7 @@ public class RenderHelper
         if (entityLivingBase.worldObj == null) entityLivingBase.worldObj = Minecraft.getMinecraft().theWorld;
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)x, (float)y, 50.0F);
+        GL11.glTranslatef((float) x, (float) y, 50.0F);
         GL11.glScalef(-scale, scale, scale);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
         float renderYawOffset = entityLivingBase.renderYawOffset;
@@ -63,20 +63,20 @@ public class RenderHelper
         float prevRotationYawHead = entityLivingBase.prevRotationYawHead;
         float rotationYawHead = entityLivingBase.rotationYawHead;
         net.minecraft.client.renderer.RenderHelper.enableStandardItemLighting();
-        if(entityLivingBase instanceof EntityDragon || entityLivingBase instanceof EntityBat)
+        if (entityLivingBase instanceof EntityDragon || entityLivingBase instanceof EntityBat)
         {
             GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
         }
-        if(entityLivingBase instanceof EntitySquid)
+        if (entityLivingBase instanceof EntitySquid)
         {
             GL11.glRotatef(50.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
         }
-        GL11.glRotatef(-((float)Math.atan((double)(pitch / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
-        entityLivingBase.renderYawOffset = (float)Math.atan((double)(yaw / 40.0F)) * 20.0F;
-        entityLivingBase.rotationYaw = (float)Math.atan((double)(yaw / 40.0F)) * 40.0F;
-        entityLivingBase.rotationPitch = -((float)Math.atan((double)(pitch / 40.0F))) * 20.0F;
+        GL11.glRotatef(-((float) Math.atan((double) (pitch / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+        entityLivingBase.renderYawOffset = (float) Math.atan((double) (yaw / 40.0F)) * 20.0F;
+        entityLivingBase.rotationYaw = (float) Math.atan((double) (yaw / 40.0F)) * 40.0F;
+        entityLivingBase.rotationPitch = -((float) Math.atan((double) (pitch / 40.0F))) * 20.0F;
         entityLivingBase.rotationYawHead = entityLivingBase.rotationYaw;
         entityLivingBase.prevRotationYawHead = entityLivingBase.rotationYaw;
         GL11.glTranslatef(0.0F, entityLivingBase.yOffset, 0.0F);
@@ -113,7 +113,7 @@ public class RenderHelper
 
         lidAngleF = 1.0F - lidAngleF;
         lidAngleF = 1.0F - lidAngleF * lidAngleF * lidAngleF;
-        modelchest.chestLid.rotateAngleX = -(lidAngleF * (float)Math.PI / 2.0F);
+        modelchest.chestLid.rotateAngleX = -(lidAngleF * (float) Math.PI / 2.0F);
         modelchest.chestKnob.offsetX += 0.1F;
         modelchest.chestKnob.offsetZ += 0.12F;
         modelchest.chestBelow.offsetX -= 0.755F;

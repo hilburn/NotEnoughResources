@@ -7,7 +7,7 @@ import neresources.compatibility.minecraft.MinecraftCompat;
 public enum ModList
 {
     minecraft("neresources", MinecraftCompat.class),
-    cofhcore("CoFHCore",CoFHCompat.class);
+    cofhcore("CoFHCore", CoFHCompat.class);
 
     private String name;
     private Class compat;
@@ -27,11 +27,14 @@ public enum ModList
 
     public CompatBase initialise()
     {
-        try {
+        try
+        {
             return (CompatBase) compat.newInstance();
-        } catch (InstantiationException e) {
+        } catch (InstantiationException e)
+        {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e)
+        {
             e.printStackTrace();
         }
         return null;

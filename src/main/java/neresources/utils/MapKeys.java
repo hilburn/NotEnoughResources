@@ -9,7 +9,8 @@ public class MapKeys
 
     public static String[] getKeys(ItemStack itemStack)
     {
-        if (itemStack!=null && itemStack.getItem()!=null) {
+        if (itemStack != null && itemStack.getItem() != null)
+        {
             int[] oreDictIds = OreDictionary.getOreIDs(itemStack);
             String[] oreDictNames = new String[oreDictIds.length];
             for (int i = 0; i < oreDictIds.length; i++)
@@ -23,6 +24,6 @@ public class MapKeys
 
     private static String getKey(ItemStack itemStack)
     {
-        return GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).toString()+"@"+itemStack.getItemDamage();
+        return GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).toString() + "@" + itemStack.getItemDamage();
     }
 }

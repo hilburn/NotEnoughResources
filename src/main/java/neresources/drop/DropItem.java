@@ -9,12 +9,12 @@ public class DropItem
     public ItemStack item;
     public float chance;
 
-    public DropItem (ItemStack item, int minDrop, int maxDrop)
+    public DropItem(ItemStack item, int minDrop, int maxDrop)
     {
         this(item, minDrop, maxDrop, 1F);
     }
 
-    public DropItem (ItemStack item, int minDrop, int maxDrop, float chance)
+    public DropItem(ItemStack item, int minDrop, int maxDrop, float chance)
     {
         this.item = item;
         this.minDrop = minDrop;
@@ -24,12 +24,12 @@ public class DropItem
 
     public DropItem(Item item, int minDrop, int maxDrop)
     {
-        this(new ItemStack(item),minDrop,maxDrop,1F);
+        this(new ItemStack(item), minDrop, maxDrop, 1F);
     }
 
     public DropItem(Item item, int itemDamage, int minDrop, int maxDrop)
     {
-        this(new ItemStack(item, 1, itemDamage),minDrop,maxDrop,1F);
+        this(new ItemStack(item, 1, itemDamage), minDrop, maxDrop, 1F);
     }
 
     public DropItem(Item item, int minDrop, int maxDrop, float chance)
@@ -44,12 +44,12 @@ public class DropItem
 
     public String toString()
     {
-        if (minDrop==maxDrop) return minDrop + getDropChance();
+        if (minDrop == maxDrop) return minDrop + getDropChance();
         return minDrop + "-" + maxDrop + getDropChance();
     }
 
     private String getDropChance()
     {
-        return chance == 1F ? "" : " (" + String.valueOf((int)(chance * 100)) + "%)";
+        return chance == 1F ? "" : " (" + String.valueOf((int) (chance * 100)) + "%)";
     }
 }

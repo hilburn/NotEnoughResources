@@ -13,7 +13,7 @@ public class Font
     {
         Minecraft mc = Minecraft.getMinecraft();
         fontRenderer = new FontRenderer(mc.gameSettings, Resources.Vanilla.FONT, mc.getTextureManager(), small);
-        ((IReloadableResourceManager)mc.getResourceManager()).registerReloadListener(fontRenderer);
+        ((IReloadableResourceManager) mc.getResourceManager()).registerReloadListener(fontRenderer);
     }
 
     public void print(Object o, int x, int y)

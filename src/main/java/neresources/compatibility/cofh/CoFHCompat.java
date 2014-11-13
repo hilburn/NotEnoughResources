@@ -27,7 +27,7 @@ public class CoFHCompat extends CompatBase
 
     public static CoFHCompat newInstance()
     {
-        if (instance!=null)
+        if (instance != null)
             return instance;
         else
             return instance = new CoFHCompat();
@@ -41,7 +41,7 @@ public class CoFHCompat extends CompatBase
     @Override
     public void init()
     {
-        features = (ArrayList <IFeatureGenerator>) ReflectionHelper.getObject(WorldHandler.class,"features",null);
+        features = (ArrayList<IFeatureGenerator>) ReflectionHelper.getObject(WorldHandler.class, "features", null);
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) registerOres();
     }
 
@@ -52,21 +52,21 @@ public class CoFHCompat extends CompatBase
             if (feature instanceof FeatureGenUniform)
             {
                 FeatureGenUniform val = (FeatureGenUniform) feature;
-                int maxY = ReflectionHelper.getInt(FeatureGenUniform.class,"maxY",val);
-                int minY = ReflectionHelper.getInt(FeatureGenUniform.class,"minY",val);
-                int count = ReflectionHelper.getInt(FeatureGenUniform.class,"count",val);
+                int maxY = ReflectionHelper.getInt(FeatureGenUniform.class, "maxY", val);
+                int minY = ReflectionHelper.getInt(FeatureGenUniform.class, "minY", val);
+                int count = ReflectionHelper.getInt(FeatureGenUniform.class, "count", val);
                 int veinSize = 0;
                 ArrayList<WeightedRandomBlock> ores = null;
                 WeightedRandomBlock[] genBlock = null;
                 Block ore;
                 int metadata = 0;
-                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(),"worldGen",val);
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
                 if (worldGen instanceof WorldGenMinableCluster)
                 {
                     WorldGenMinableCluster cluster = ((WorldGenMinableCluster) worldGen);
-                    ores = (ArrayList<WeightedRandomBlock>) ReflectionHelper.getObject(WorldGenMinableCluster.class,"cluster",cluster);
-                    veinSize = ReflectionHelper.getInt(WorldGenMinableCluster.class,"genClusterSize",cluster);
-                    genBlock = (WeightedRandomBlock[]) ReflectionHelper.getObject(WorldGenMinableCluster.class,"genBlock",cluster);
+                    ores = (ArrayList<WeightedRandomBlock>) ReflectionHelper.getObject(WorldGenMinableCluster.class, "cluster", cluster);
+                    veinSize = ReflectionHelper.getInt(WorldGenMinableCluster.class, "genClusterSize", cluster);
+                    genBlock = (WeightedRandomBlock[]) ReflectionHelper.getObject(WorldGenMinableCluster.class, "genBlock", cluster);
                 }
                 System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + minY + " to " + maxY + ": Veins = " + count + ", Vein Size = " + veinSize);
             } else if (feature instanceof FeatureGenNormal)

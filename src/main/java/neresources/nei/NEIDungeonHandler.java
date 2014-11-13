@@ -32,7 +32,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         ITEMS_PER_PAGE = Settings.ITEMS_PER_COLUMN * Settings.ITEMS_PER_ROW;
         SPACING_X = 176 / Settings.ITEMS_PER_ROW;
         SPACING_Y = 80 / Settings.ITEMS_PER_COLUMN;
-        CYCLE_TIME = (int)(20 * Settings.CYCLE_TIME);
+        CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
     }
 
     private static int lidStart = -1;
@@ -70,8 +70,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         {
             for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons())
                 arecipes.add(new CachedDungeonChest(entry));
-        }
-        else super.loadCraftingRecipes(outputId, results);
+        } else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
@@ -115,14 +114,14 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public void drawExtras(int recipe)
     {
-        CachedDungeonChest cachedChest = (CachedDungeonChest)arecipes.get(recipe);
+        CachedDungeonChest cachedChest = (CachedDungeonChest) arecipes.get(recipe);
 
         Font font = new Font(false);
         font.print(cachedChest.chest.getName(), 60, 10);
         font.print(cachedChest.chest.getNumStacks(), 60, 25);
 
         int x = X_FIRST_ITEM + 18;
-        int y = Y_FIRST_ITEM + (10-Settings.ITEMS_PER_COLUMN);
+        int y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);
         for (int i = ITEMS_PER_PAGE * cachedChest.set; i < ITEMS_PER_PAGE * cachedChest.set + ITEMS_PER_PAGE; i++)
         {
             if (i >= cachedChest.chest.getContents().length) break;
@@ -133,7 +132,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             y += SPACING_Y;
             if (y >= Y_FIRST_ITEM + SPACING_Y * Settings.ITEMS_PER_COLUMN)
             {
-                y = Y_FIRST_ITEM + (10-Settings.ITEMS_PER_COLUMN);
+                y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);
                 x += SPACING_X;
             }
         }
@@ -152,13 +151,13 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             this.chest = chest;
             set = 0;
             cycleAt = -1;
-            lastSet = (chest.getContents().length / (ITEMS_PER_PAGE+1));
+            lastSet = (chest.getContents().length / (ITEMS_PER_PAGE + 1));
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(this.chest.getContents()[set*ITEMS_PER_PAGE].theItemId, X_FIRST_ITEM, Y_FIRST_ITEM);
+            return new PositionedStack(this.chest.getContents()[set * ITEMS_PER_PAGE].theItemId, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
         @Override

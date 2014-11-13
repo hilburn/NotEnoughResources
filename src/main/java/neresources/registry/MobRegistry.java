@@ -15,19 +15,20 @@ public class MobRegistry
 
     public static MobRegistry getInstance()
     {
-        if (instance==null)
-            return instance=new MobRegistry();
+        if (instance == null)
+            return instance = new MobRegistry();
         return instance;
     }
 
     public boolean registerMob(MobEntry entry)
     {
-        return registerMob(entry.getMobName(),entry);
+        return registerMob(entry.getMobName(), entry);
     }
 
     public boolean registerMob(String key, MobEntry entry)
     {
-        if (!registry.containsKey(key)) {
+        if (!registry.containsKey(key))
+        {
             registry.put(key, entry);
             return true;
         }

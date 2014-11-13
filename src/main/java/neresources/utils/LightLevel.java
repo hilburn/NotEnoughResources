@@ -2,10 +2,10 @@ package neresources.utils;
 
 public enum LightLevel
 {
-    any(0,Relative.above),
-    bat(4,Relative.below),
-    hostile(8,Relative.below),
-    blaze(12,Relative.below);
+    any(0, Relative.above),
+    bat(4, Relative.below),
+    hostile(8, Relative.below),
+    blaze(12, Relative.below);
 
     int lightLevel;
     Relative relative;
@@ -18,8 +18,8 @@ public enum LightLevel
 
     public String getString()
     {
-        if (this==any) return "Light level: any";
-        return "Light Level: "+relative.toString()+" "+ lightLevel;
+        if (this == any) return "Light level: any";
+        return "Light Level: " + relative.toString() + " " + lightLevel;
     }
 
     private enum Relative
@@ -27,9 +27,10 @@ public enum LightLevel
         above("Above"),
         below("Below");
         String text;
+
         Relative(String string)
         {
-            this.text=string;
+            this.text = string;
         }
 
         @Override

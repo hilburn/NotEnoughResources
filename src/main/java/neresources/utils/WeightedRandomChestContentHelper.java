@@ -10,6 +10,7 @@ public class WeightedRandomChestContentHelper
     /**
      * Sorts WeightedRandomChestContents based on dropChance
      * Uses merge sorting algorithm
+     *
      * @param contents
      * @return
      */
@@ -17,7 +18,7 @@ public class WeightedRandomChestContentHelper
     {
         if (contents.length <= 1) return contents;
 
-        int split = contents.length/2;
+        int split = contents.length / 2;
         WeightedRandomChestContent[] left = subArray(contents, 0, split);
         WeightedRandomChestContent[] right = subArray(contents, split, contents.length);
 
@@ -50,8 +51,7 @@ public class WeightedRandomChestContentHelper
                     i++;
                     ri++;
                 }
-            }
-            else
+            } else
             {
                 if (li >= left.length)
                 {

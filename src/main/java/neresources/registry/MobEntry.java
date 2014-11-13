@@ -75,7 +75,7 @@ public class MobEntry
 
     public boolean dropsItem(ItemStack item)
     {
-        for(DropItem dropItem : drops)
+        for (DropItem dropItem : drops)
             if (dropItem.item.isItemEqual(item)) return true;
         return false;
     }

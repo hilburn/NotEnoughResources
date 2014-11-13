@@ -17,8 +17,8 @@ public class OreRegistry
 
     public static OreRegistry getInstance()
     {
-        if (instance==null)
-            return instance=new OreRegistry();
+        if (instance == null)
+            return instance = new OreRegistry();
         return instance;
     }
 
@@ -34,11 +34,11 @@ public class OreRegistry
     public boolean registerOre(ItemStack stack, OreEntry entry)
     {
         String[] keys = MapKeys.getKeys(stack);
-        if (keys!=null)
+        if (keys != null)
         {
-            for (String key:keys)
+            for (String key : keys)
             {
-                registerOre(key,entry);
+                registerOre(key, entry);
             }
             return true;
         }
@@ -47,7 +47,7 @@ public class OreRegistry
 
     public boolean registerOre(OreEntry entry)
     {
-        return registerOre(entry.getOre(),entry);
+        return registerOre(entry.getOre(), entry);
     }
 
     public double[] getChances(String oreName)
@@ -58,7 +58,7 @@ public class OreRegistry
     public double[] getChances(String oreName, int extraRange)
     {
         OreRegistryEntry entry = registry.get(oreName);
-        if (entry!=null)
+        if (entry != null)
             return entry.getChances(extraRange);
         return null;
     }
@@ -66,7 +66,7 @@ public class OreRegistry
     public double[] getChances(ItemStack stack)
     {
         String[] keys = MapKeys.getKeys(stack);
-        if (keys!=null && keys.length>0)
+        if (keys != null && keys.length > 0)
             return getChances(keys[0]);
         return null;
     }
@@ -74,8 +74,8 @@ public class OreRegistry
     public double[] getChances(ItemStack stack, int extraRange)
     {
         String[] keys = MapKeys.getKeys(stack);
-        if (keys.length>0)
-            return getChances(keys[0],extraRange);
+        if (keys.length > 0)
+            return getChances(keys[0], extraRange);
         return null;
     }
 
@@ -88,9 +88,10 @@ public class OreRegistry
     {
         List<OreRegistryEntry> result = new ArrayList<OreRegistryEntry>();
         String[] keys = MapKeys.getKeys(stack);
-        for (String key:keys) {
+        for (String key : keys)
+        {
             OreRegistryEntry entry = getEntry(key);
-            if (entry!=null)
+            if (entry != null)
                 result.add(entry);
         }
         return result;
@@ -103,7 +104,7 @@ public class OreRegistry
 
     public void removeMod(String modName)
     {
-        for (OreRegistryEntry entry:registry.values())
+        for (OreRegistryEntry entry : registry.values())
         {
             entry.remove(modName);
         }
