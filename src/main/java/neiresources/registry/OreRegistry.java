@@ -1,5 +1,6 @@
 package neiresources.registry;
 
+import neiresources.config.Settings;
 import neiresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -51,7 +52,7 @@ public class OreRegistry
 
     public double[] getChances(String oreName)
     {
-        return getChances(oreName,OreRegistryEntry.EXTRA_RANGE);
+        return getChances(oreName, Settings.EXTRA_RANGE);
     }
 
     public double[] getChances(String oreName, int extraRange)
@@ -93,6 +94,11 @@ public class OreRegistry
                 result.add(entry);
         }
         return result;
+    }
+
+    public List<OreRegistryEntry> getOres()
+    {
+        return new ArrayList<OreRegistryEntry>(registry.values());
     }
 
     public void removeMod(String modName)

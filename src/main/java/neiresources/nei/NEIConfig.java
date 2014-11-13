@@ -2,9 +2,14 @@ package neiresources.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
+import neiresources.reference.Reference;
 
 public class NEIConfig implements IConfigureNEI
 {
+    public static final String MOB = Reference.ID + ".mob";
+    public static final String DUNGEON = Reference.ID + ".dungeon";
+    public static final String ORE = Reference.ID + ".ore";
+
     @Override
     public void loadConfig()
     {

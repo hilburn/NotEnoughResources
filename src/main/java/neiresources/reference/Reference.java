@@ -3,10 +3,10 @@ package neiresources.reference;
 public class Reference
 {
     // User friendly version of our mods name.
-    public static final String NAME = "NEI Resources";
+    public static final String NAME = "Not Enough Resources";
 
     // Internal mod name used for reference purposes and resource gathering.
-    public static final String ID = "neiresources";
+    public static final String ID = "neresources";
 
     // Main version information that will be displayed in mod listing and for other purposes.
     public static final String V_MAJOR = "@MAJOR@";

@@ -11,7 +11,6 @@ import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -20,7 +19,6 @@ import java.util.List;
 
 public class NEIMobHandler extends TemplateRecipeHandler
 {
-    private static final String MOB_ID = "neiResources.mob";
     private static final int X_FIRST_ITEM = 90;
     private static final int Y_FIRST_ITEM = 42;
 
@@ -56,13 +54,13 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadTransferRects()
     {
-        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(62, 72, 28, 18), MOB_ID, null));
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(62, 72, 28, 18), NEIConfig.MOB, null));
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results)
     {
-        if (outputId.equals(MOB_ID))
+        if (outputId.equals(NEIConfig.MOB))
         {
             for (MobEntry entry : MobRegistry.getInstance().getMobs())
                 arecipes.add(new CachedMob(entry));
@@ -73,8 +71,6 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (int oreDict: OreDictionary.getOreIDs(result))
-            System.out.println(OreDictionary.getOreName(oreDict));
         for (MobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
     }

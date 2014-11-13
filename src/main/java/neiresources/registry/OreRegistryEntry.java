@@ -1,5 +1,6 @@
 package neiresources.registry;
 
+import neiresources.config.Settings;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -8,7 +9,6 @@ import java.util.List;
 
 public class OreRegistryEntry
 {
-    public static int EXTRA_RANGE = 3;
     private List<OreEntry> oreEntryList = new ArrayList<OreEntry>();
     private ItemStack ore;
     private double[] chances;
@@ -66,7 +66,7 @@ public class OreRegistryEntry
 
     public double[] getChances()
     {
-        return getChances(EXTRA_RANGE);
+        return getChances(Settings.EXTRA_RANGE);
     }
 
     public double[] getChances(int extraRange)
@@ -77,5 +77,20 @@ public class OreRegistryEntry
     public int getBestY()
     {
         return bestY;
+    }
+
+    public int getMinY()
+    {
+        return minY;
+    }
+
+    public int getMaxY()
+    {
+        return maxY;
+    }
+
+    public ItemStack getOre()
+    {
+        return ore;
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class NEIDungeonHandler extends TemplateRecipeHandler
 {
-    private static final String DUNGEON_ID = "neiResources.dungeon";
+
     private static final int X_FIRST_ITEM = -2;
     private static final int Y_FIRST_ITEM = 48;
 
@@ -60,13 +60,13 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public void loadTransferRects()
     {
-        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(5, 5, 40, 40), DUNGEON_ID, null));
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(5, 5, 40, 40), NEIConfig.DUNGEON, null));
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results)
     {
-        if (outputId.equals(DUNGEON_ID))
+        if (outputId.equals(NEIConfig.DUNGEON))
         {
             for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons())
                 arecipes.add(new CachedDungeonChest(entry));

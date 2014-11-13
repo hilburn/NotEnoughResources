@@ -15,10 +15,10 @@ import org.lwjgl.opengl.GL12;
 
 public class RenderHelper
 {
-    public static void drawLine(int x1, int y1, int x2, int y2, int precision)
+    public static void drawLine(double x1, double y1, double x2, double y2, int precision)
     {
-        int dx = x2 - x1;
-        int dy = y2 - y1;
+        double dx = x2 - x1;
+        double dy = y2 - y1;
 
         double add = y1 > y2 ? -1 : +1;
 
@@ -42,7 +42,7 @@ public class RenderHelper
     {
         Minecraft mc = Minecraft.getMinecraft();
         int scale = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight).getScaleFactor();
-        GL11.glColor3f(120 / 255F, 120 / 255F, 120 / 255F);
+        GL11.glColor3f(0.0F, 0.0F, 0.0F);
         GL11.glPointSize(scale*1.3F);
         GL11.glBegin(GL11.GL_POINTS);
         GL11.glVertex2d(x, y);

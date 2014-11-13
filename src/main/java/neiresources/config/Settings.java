@@ -10,6 +10,8 @@ public final class Settings
     public static boolean DO_CYLCE;
     public static float CYCLE_TIME;
 
+    public static int EXTRA_RANGE;
+
     public static void loadSettings()
     {
         NEIDungeonHandler.loadSettings();
