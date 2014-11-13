@@ -5,11 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
-public class DungeonRegistryEntry
+public class DungeonEntry
 {
     private String name;
     private ChestGenHooks chestGenHooks;
@@ -17,7 +15,7 @@ public class DungeonRegistryEntry
 
     private Random rand = new Random();
 
-    public DungeonRegistryEntry(String name, ChestGenHooks chestGenHooks)
+    public DungeonEntry(String name, ChestGenHooks chestGenHooks)
     {
         setName(name);
         setContents(chestGenHooks);

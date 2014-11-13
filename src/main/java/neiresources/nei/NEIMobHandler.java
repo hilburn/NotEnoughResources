@@ -3,10 +3,9 @@ package neiresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neiresources.drop.DropItem;
 import neiresources.reference.Resources;
+import neiresources.registry.MobEntry;
 import neiresources.registry.MobRegistry;
-import neiresources.registry.MobRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -56,7 +55,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(MOB_ID))
         {
-            for (MobRegistryEntry entry : MobRegistry.getInstance().getMobs())
+            for (MobEntry entry : MobRegistry.getInstance().getMobs())
                 arecipes.add(new CachedMob(entry));
         }
         else super.loadCraftingRecipes(outputId, results);
@@ -67,7 +66,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         for (int oreDict: OreDictionary.getOreIDs(result))
             System.out.println(OreDictionary.getOreName(oreDict));
-        for (MobRegistryEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
+        for (MobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
     }
 
@@ -131,12 +130,12 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
-        public MobRegistryEntry mob;
+        public MobEntry mob;
         public int set;
         private int sets;
         private long cycleAt;
 
-        public CachedMob(MobRegistryEntry mob)
+        public CachedMob(MobEntry mob)
         {
             this.mob = mob;
             this.set = 0;

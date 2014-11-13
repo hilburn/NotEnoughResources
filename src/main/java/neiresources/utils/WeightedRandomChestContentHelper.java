@@ -1,6 +1,6 @@
 package neiresources.utils;
 
-import neiresources.registry.DungeonRegistryEntry;
+import neiresources.registry.DungeonEntry;
 import net.minecraft.util.WeightedRandomChestContent;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class WeightedRandomChestContentHelper
      * @param contents
      * @return
      */
-    public static WeightedRandomChestContent[] sort(WeightedRandomChestContent[] contents, DungeonRegistryEntry entry)
+    public static WeightedRandomChestContent[] sort(WeightedRandomChestContent[] contents, DungeonEntry entry)
     {
         if (contents.length <= 1) return contents;
 
@@ -27,7 +27,7 @@ public class WeightedRandomChestContentHelper
         return merge(left, right, entry);
     }
 
-    private static WeightedRandomChestContent[] merge(WeightedRandomChestContent[] left, WeightedRandomChestContent[] right, DungeonRegistryEntry entry)
+    private static WeightedRandomChestContent[] merge(WeightedRandomChestContent[] left, WeightedRandomChestContent[] right, DungeonEntry entry)
     {
         int length = left.length + right.length;
         WeightedRandomChestContent[] merged = new WeightedRandomChestContent[length];

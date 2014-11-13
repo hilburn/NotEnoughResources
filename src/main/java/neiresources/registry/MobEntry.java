@@ -10,14 +10,14 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobRegistryEntry
+public class MobEntry
 {
     private EntityLivingBase entity;
     private List<DropItem> drops = new ArrayList<DropItem>();
     private LightLevel lightLevel;
     private List<String> biomes = new ArrayList<String>();
 
-    public MobRegistryEntry(EntityLivingBase entity, LightLevel lightLevel, String[] biomes, DropItem... drops)
+    public MobEntry(EntityLivingBase entity, LightLevel lightLevel, String[] biomes, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
@@ -27,7 +27,7 @@ public class MobRegistryEntry
             this.drops.add(drop);
     }
 
-    public MobRegistryEntry(EntityLivingBase entity, LightLevel lightLevel, DropItem... drops)
+    public MobEntry(EntityLivingBase entity, LightLevel lightLevel, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;

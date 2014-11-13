@@ -1,7 +1,10 @@
 package neiresources.compatibility;
 
 import cpw.mods.fml.common.Loader;
-import neiresources.registry.*;
+import neiresources.registry.MobEntry;
+import neiresources.registry.MobRegistry;
+import neiresources.registry.OreEntry;
+import neiresources.registry.OreRegistry;
 
 public class CompatBase
 {
@@ -16,7 +19,7 @@ public class CompatBase
     {
     }
 
-    public void registerMob(MobRegistryEntry entry)
+    public void registerMob(MobEntry entry)
     {
         MobRegistry.getInstance().registerMob(entry);
     }
@@ -24,5 +27,10 @@ public class CompatBase
     public void registerOre(String string, OreEntry entry)
     {
         OreRegistry.getInstance().registerOre(string,entry);
+    }
+
+    public void registerOre(OreEntry entry)
+    {
+        OreRegistry.getInstance().registerOre(entry);
     }
 }

@@ -2,7 +2,6 @@ package neiresources.registry;
 
 import neiresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class OreRegistry
         return true;
     }
 
-    public boolean registerItem(ItemStack stack, OreEntry entry)
+    public boolean registerOre(ItemStack stack, OreEntry entry)
     {
         String[] keys = MapKeys.getKeys(stack);
         if (keys!=null)
@@ -41,6 +40,11 @@ public class OreRegistry
             return true;
         }
         return false;
+    }
+
+    public boolean registerOre(OreEntry entry)
+    {
+        return registerOre(entry.getOre(),entry);
     }
 
     public double[] getChances(String oreName)

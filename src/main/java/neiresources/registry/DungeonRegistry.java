@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class DungeonRegistry
 {
-    private Map<String, DungeonRegistryEntry> registry = new LinkedHashMap<String, DungeonRegistryEntry>();
+    private Map<String, DungeonEntry> registry = new LinkedHashMap<String, DungeonEntry>();
     public static Map<String,String> categoryToNameMap = new LinkedHashMap<String, String>();
     private static DungeonRegistry instance = null;
 
@@ -48,7 +48,7 @@ public class DungeonRegistry
     public boolean registerChestHook(String name, ChestGenHooks chestGenHooks)
     {
         if (!registry.containsKey(name)) {
-            registry.put(name, new DungeonRegistryEntry(name,chestGenHooks));
+            registry.put(name, new DungeonEntry(name,chestGenHooks));
             return true;
         }
         return false;
@@ -61,15 +61,15 @@ public class DungeonRegistry
         return registerChestHook(name,chestGenHooks);
     }
 
-    public List<DungeonRegistryEntry> getDungeons(ItemStack item) {
-        List<DungeonRegistryEntry> list = new ArrayList<DungeonRegistryEntry>();
-        for (DungeonRegistryEntry entry : registry.values())
+    public List<DungeonEntry> getDungeons(ItemStack item) {
+        List<DungeonEntry> list = new ArrayList<DungeonEntry>();
+        for (DungeonEntry entry : registry.values())
             if (entry.hasItem(item)) list.add(entry);
         return list;
     }
 
-    public List<DungeonRegistryEntry> getDungeons() {
-        return new ArrayList<DungeonRegistryEntry>(registry.values());
+    public List<DungeonEntry> getDungeons() {
+        return new ArrayList<DungeonEntry>(registry.values());
     }
 
 }

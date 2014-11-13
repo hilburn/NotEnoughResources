@@ -14,6 +14,7 @@ public class OreRegistryEntry
     private double[] chances;
     private int minY;
     private int maxY;
+    private int maxOre;
 
     OreRegistryEntry(OreEntry oreEntry)
     {
@@ -44,6 +45,7 @@ public class OreRegistryEntry
         chances = new double[256];
         minY=300;
         maxY=0;
+        maxOre=0;
         for (int i = 0; i < 256; i++)
         {
             double chance = 0;
@@ -54,6 +56,7 @@ public class OreRegistryEntry
                 if (minY==300)
                     minY=i;
                 maxY=i;
+                if (chance>chances[maxOre]) maxOre = i;
             }
             chances[i] = chance;
         }

@@ -4,8 +4,8 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neiresources.reference.Resources;
+import neiresources.registry.DungeonEntry;
 import neiresources.registry.DungeonRegistry;
-import neiresources.registry.DungeonRegistryEntry;
 import neiresources.utils.Font;
 import neiresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
@@ -59,7 +59,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(DUNGEON_ID))
         {
-            for (DungeonRegistryEntry entry : DungeonRegistry.getInstance().getDungeons())
+            for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons())
                 arecipes.add(new CachedDungeonChest(entry));
         }
         else super.loadCraftingRecipes(outputId, results);
@@ -68,7 +68,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (DungeonRegistryEntry entry : DungeonRegistry.getInstance().getDungeons(result))
+        for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons(result))
             arecipes.add(new CachedDungeonChest(entry));
     }
 
@@ -135,11 +135,11 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     public class CachedDungeonChest extends TemplateRecipeHandler.CachedRecipe
     {
 
-        public DungeonRegistryEntry chest;
+        public DungeonEntry chest;
         public int set, sets;
         private long cycleAt;
 
-        public CachedDungeonChest(DungeonRegistryEntry chest)
+        public CachedDungeonChest(DungeonEntry chest)
         {
             this.chest = chest;
             set = 0;

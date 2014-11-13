@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MobRegistry
 {
-    private Map<String, MobRegistryEntry> registry = new LinkedHashMap<String, MobRegistryEntry>();
+    private Map<String, MobEntry> registry = new LinkedHashMap<String, MobEntry>();
 
     private static MobRegistry instance = null;
 
@@ -20,12 +20,12 @@ public class MobRegistry
         return instance;
     }
 
-    public boolean registerMob(MobRegistryEntry entry)
+    public boolean registerMob(MobEntry entry)
     {
         return registerMob(entry.getMobName(),entry);
     }
 
-    public boolean registerMob(String key, MobRegistryEntry entry)
+    public boolean registerMob(String key, MobEntry entry)
     {
         if (!registry.containsKey(key)) {
             registry.put(key, entry);
@@ -34,21 +34,21 @@ public class MobRegistry
         return false;
     }
 
-    public MobRegistryEntry getMobEntry(String key)
+    public MobEntry getMobEntry(String key)
     {
         return registry.get(key);
     }
 
-    public List<MobRegistryEntry> getMobsThatDropItem(ItemStack item)
+    public List<MobEntry> getMobsThatDropItem(ItemStack item)
     {
-        List<MobRegistryEntry> list = new ArrayList<MobRegistryEntry>();
-        for (MobRegistryEntry entry : registry.values())
+        List<MobEntry> list = new ArrayList<MobEntry>();
+        for (MobEntry entry : registry.values())
             if (entry.dropsItem(item)) list.add(entry);
         return list;
     }
 
-    public List<MobRegistryEntry> getMobs()
+    public List<MobEntry> getMobs()
     {
-        return new ArrayList<MobRegistryEntry>(registry.values());
+        return new ArrayList<MobEntry>(registry.values());
     }
 }
