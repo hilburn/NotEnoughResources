@@ -25,4 +25,58 @@ public class DistributionHelpers
         return result;
     }
 
+    public static double[] getSquareDistribution(int minY, int maxY, double chance)
+    {
+        double[] result = new double[256];
+        for (int i = minY; i <= maxY; i++)
+            result[i] = chance;
+        return result;
+    }
+
+    public static double[] getRoundedSquareDistribution(int min0, int minY, int maxY, int max0, double chance)
+    {
+        double[] result = new double[256];
+        addDistribution(result,getRampDistribution(min0,minY,chance), min0);
+        addDistribution(result,getSquareDistribution(minY,maxY,chance));
+        addDistribution(result,getRampDistribution(max0,maxY,chance),maxY+1);
+        return result;
+    }
+
+    public static double[] getRampDistribution(int minY, int maxY, double maxChance)
+    {
+        if (minY==maxY) return new double[0];
+        if (minY>maxY) return reverse(getRampDistribution(maxY,minY,maxChance));
+
+        int range = maxY-minY;
+        double[] result = new double[range+1];
+        for (int i = 0; i <= range; i++)
+        {
+            result[i]=(maxChance*(double)i)/range;
+        }
+        return result;
+    }
+
+    public static double[] addDistribution(double[] base, double[] add)
+    {
+        return addDistribution(base, add, 0);
+    }
+
+    public static double[] addDistribution(double[] base, double[] add, int offset)
+    {
+        int addCount=0;
+        for (int i = offset; i < Math.min(base.length,add.length+offset); i++)
+            base[i]+=add[addCount++];
+        return base;
+    }
+
+    public static double[] reverse(double[] array)
+    {
+        double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++)
+        {
+            result[array.length-1-i] = array[i];
+        }
+        return result;
+    }
+
 }
