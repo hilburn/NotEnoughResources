@@ -79,7 +79,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
         {
             double x = xPrev + space;
             int y = Y_OFFSPRING - (int) ((array[i] / max) * Y_AXIS_SIZE);
-            RenderHelper.drawLine(xPrev, yPrev, x, y, precision);
+            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor(), precision);
             xPrev = x;
             yPrev = y;
         }
@@ -114,5 +114,9 @@ public class NEIOreHandler extends TemplateRecipeHandler
             return new PositionedStack(oreEntry.getOre(), X_ITEM, Y_ITEM);
         }
 
+        public int getLineColor()
+        {
+            return this.oreEntry.getIOre().getColour();
+        }
     }
 }

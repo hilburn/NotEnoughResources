@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.IMobEntry;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public class MobRegistry
 {
-    private Map<String, MobEntry> registry = new LinkedHashMap<String, MobEntry>();
+    private Map<String, IMobEntry> registry = new LinkedHashMap<String, IMobEntry>();
 
     private static MobRegistry instance = null;
 
@@ -20,12 +21,12 @@ public class MobRegistry
         return instance;
     }
 
-    public boolean registerMob(MobEntry entry)
+    public boolean registerMob(IMobEntry entry)
     {
         return registerMob(entry.getMobName(), entry);
     }
 
-    public boolean registerMob(String key, MobEntry entry)
+    public boolean registerMob(String key, IMobEntry entry)
     {
         if (!registry.containsKey(key))
         {
@@ -35,21 +36,21 @@ public class MobRegistry
         return false;
     }
 
-    public MobEntry getMobEntry(String key)
+    public IMobEntry getMobEntry(String key)
     {
         return registry.get(key);
     }
 
-    public List<MobEntry> getMobsThatDropItem(ItemStack item)
+    public List<IMobEntry> getMobsThatDropItem(ItemStack item)
     {
-        List<MobEntry> list = new ArrayList<MobEntry>();
-        for (MobEntry entry : registry.values())
+        List<IMobEntry> list = new ArrayList<IMobEntry>();
+        for (IMobEntry entry : registry.values())
             if (entry.dropsItem(item)) list.add(entry);
         return list;
     }
 
-    public List<MobEntry> getMobs()
+    public List<IMobEntry> getMobs()
     {
-        return new ArrayList<MobEntry>(registry.values());
+        return new ArrayList<IMobEntry>(registry.values());
     }
 }

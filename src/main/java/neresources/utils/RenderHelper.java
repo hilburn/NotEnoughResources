@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL12;
 
 public class RenderHelper
 {
-    public static void drawLine(double x1, double y1, double x2, double y2, int precision)
+    public static void drawLine(double x1, double y1, double x2, double y2, int color, int precision)
     {
         double dx = x2 - x1;
         double dy = y2 - y1;
@@ -29,7 +29,7 @@ public class RenderHelper
         double y = y1;
         for (double x = x1; x <= x2; x += (1D / precision))
         {
-            drawPoint(x, y);
+            drawPoint(x, y, color);
             error += dError;
             while (error >= (0.5D / precision))
             {
@@ -39,11 +39,11 @@ public class RenderHelper
         }
     }
 
-    public static void drawPoint(double x, double y)
+    public static void drawPoint(double x, double y, int color)
     {
         Minecraft mc = Minecraft.getMinecraft();
         int scale = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight).getScaleFactor();
-        GL11.glColor3f(0.0F, 0.0F, 0.0F);
+        GL11.glColor3f(ColorHelper.getRed(color), ColorHelper.getGreen(color), ColorHelper.getBlue(color));
         GL11.glPointSize(scale * 1.3F);
         GL11.glBegin(GL11.GL_POINTS);
         GL11.glVertex2d(x, y);

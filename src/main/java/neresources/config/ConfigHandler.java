@@ -37,10 +37,9 @@ public class ConfigHandler
 
     private static void loadConfig()
     {
-        Settings.ITEMS_PER_COLUMN = config.getInt("Items Per Column", Configuration.CATEGORY_GENERAL, 4, 1, 5, "Changes the amount of items per column in the NEI dungeon and mob views");
+        Settings.ITEMS_PER_COLUMN = config.getInt("Items Per Column", Configuration.CATEGORY_GENERAL, 4, 1, 4, "Changes the amount of items per column in the NEI dungeon and mob views");
         Settings.ITEMS_PER_ROW = config.getInt("Items Per Row", Configuration.CATEGORY_GENERAL, 4, 1, 4, "Changes the amount of items per row in the NEI dungeon view");
 
-        Settings.DO_CYLCE = config.getBoolean("Do Timed Cycle", Configuration.CATEGORY_GENERAL, true, "If true NEI will cycle outputs time based, if false it will show buttons");
         Settings.CYCLE_TIME = config.getFloat("Cycle Time", Configuration.CATEGORY_GENERAL, 1.5F, 0.5F, 3.0F, "Show duration before cycle in NEI views");
 
         Settings.EXTRA_RANGE = config.getInt("Extra range", Configuration.CATEGORY_GENERAL, 3, 0, 25, "Changes the extra yLevels displayed on the graph in the NEI ore View");

@@ -3,11 +3,13 @@ package neresources.registry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import neresources.api.IOreEntry;
 import neresources.api.distributions.DistributionBase;
+import neresources.utils.ColorHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class OreEntry implements IOreEntry
 {
+
     private ItemStack[] matchStacks;
     private DistributionBase distribution;
     private int colour;
@@ -67,4 +69,5 @@ public class OreEntry implements IOreEntry
     public String getKey() {
         return GameRegistry.findUniqueIdentifierFor(matchStacks[0].getItem()).toString();
     }
+
 }

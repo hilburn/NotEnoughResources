@@ -1,11 +1,11 @@
-package neresources.utils;
+package neresources.api.utils;
 
-public enum LightLevel
+public class LightLevel
 {
-    any(0, Relative.above),
-    bat(4, Relative.below),
-    hostile(8, Relative.below),
-    blaze(12, Relative.below);
+    public static LightLevel any = new LightLevel(-1, Relative.above);
+    public static LightLevel bat = new LightLevel(4, Relative.below);
+    public static LightLevel hostile = new LightLevel(8, Relative.below);
+    public static LightLevel blaze = new LightLevel(12, Relative.below);
 
     int lightLevel;
     Relative relative;
@@ -18,11 +18,16 @@ public enum LightLevel
 
     public String getString()
     {
-        if (this == any) return "Light level: any";
+        if (lightLevel < 0) return "Light level: any";
         return "Light Level: " + relative.toString() + " " + lightLevel;
     }
 
-    private enum Relative
+    public int getLightLevel()
+    {
+        return this.lightLevel;
+    }
+
+    public enum Relative
     {
         above("Above"),
         below("Below");

@@ -32,4 +32,5 @@ public interface IOreEntry extends IBaseEntry{
      * @return true for if the ore needs to be silk touched.
      */
     public boolean silkTouch(ItemStack itemStack);
+
 }

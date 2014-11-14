@@ -3,6 +3,7 @@ package neresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neresources.api.IMobEntry;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.MobEntry;
@@ -62,7 +63,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(NEIConfig.MOB))
         {
-            for (MobEntry entry : MobRegistry.getInstance().getMobs())
+            for (IMobEntry entry : MobRegistry.getInstance().getMobs())
                 arecipes.add(new CachedMob(entry));
         } else super.loadCraftingRecipes(outputId, results);
     }
@@ -70,7 +71,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (MobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
+        for (IMobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
     }
 
@@ -113,18 +114,20 @@ public class NEIMobHandler extends TemplateRecipeHandler
         CachedMob cachedMob = (CachedMob) arecipes.get(recipe);
 
         Font font = new Font(false);
-        font.print(cachedMob.mob.getName(), 2, 2);
-        font.print("Spawn Biome: " + cachedMob.mob.getBiomes().get(0), 2, 12);
+        font.print(cachedMob.mob.getMobName(), 2, 2);
+        font.print("Spawn Biome: " + cachedMob.mob.getBiomes()[0], 2, 12);
         font.print(cachedMob.mob.getLightLevel(), 2, 22);
         font.print("Experience Dropped: " + cachedMob.mob.getExperience(), 2, 32);
 
         int y = Y_FIRST_ITEM + 4;
         for (int i = cachedMob.set * Settings.ITEMS_PER_COLUMN; i < cachedMob.set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)
         {
-            if (i >= cachedMob.mob.getDrops().size()) break;
-            font.print(cachedMob.mob.getDrops().get(i).toString(), X_FIRST_ITEM + 18, y);
+            if (i >= cachedMob.mob.getDrops().length) break;
+            font.print(cachedMob.mob.getDrops()[i].toString(), X_FIRST_ITEM + 18, y);
             y += SPACING_Y;
         }
+
+        if(cachedMob.lastSet > 0)font.print("Page " + (cachedMob.set+1) + " of " + (cachedMob.lastSet+1), X_FIRST_ITEM, 120);
 
         cachedMob.cycleOutputs(cycleticks, recipe);
     }
@@ -132,16 +135,16 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
-        public MobEntry mob;
+        public IMobEntry mob;
         public int set;
         private int lastSet;
         private long cycleAt;
 
-        public CachedMob(MobEntry mob)
+        public CachedMob(IMobEntry mob)
         {
             this.mob = mob;
             this.set = 0;
-            this.lastSet = (mob.getDrops().size() / (Settings.ITEMS_PER_COLUMN + 1));
+            this.lastSet = (mob.getDrops().length / (Settings.ITEMS_PER_COLUMN + 1));
             cycleAt = -1;
         }
 
@@ -153,8 +156,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
         @Override
         public PositionedStack getResult()
         {
-            if (mob.getDrops().isEmpty()) return null;
-            return new PositionedStack(mob.getDrops().get(set * Settings.ITEMS_PER_COLUMN).item, X_FIRST_ITEM, Y_FIRST_ITEM);
+            if (mob.getDrops().length == 0) return null;
+            return new PositionedStack(mob.getDrops()[set * Settings.ITEMS_PER_COLUMN].item, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
         @Override
@@ -164,8 +167,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
             int y = Y_FIRST_ITEM;
             for (int i = set * Settings.ITEMS_PER_COLUMN; i < set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)
             {
-                if (i >= mob.getDrops().size()) break;
-                list.add(new PositionedStack(mob.getDrops().get(i).item, X_FIRST_ITEM, y));
+                if (i >= mob.getDrops().length) break;
+                list.add(new PositionedStack(mob.getDrops()[i].item, X_FIRST_ITEM, y));
                 y += SPACING_Y;
             }
             if (list.size() > 0) list.remove(0);

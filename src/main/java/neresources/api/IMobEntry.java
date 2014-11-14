@@ -1,7 +1,9 @@
 package neresources.api;
 
-import neresources.api.drop.DropItem;
+import neresources.api.utils.DropItem;
+import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -12,18 +14,16 @@ public interface IMobEntry extends IBaseEntry{
      */
     public EntityLiving getEntity();
 
-    /**
-     * @return the maximum light level the entity will spawn in
-     */
-    public int getLightLevel();
+    public LightLevel getLightLevel();
 
-    /**
-     * @return any limitations the entity has for spawning
-     */
-    public List<String> getBiomeLimits();
+    public String[] getBiomes();
 
-    /**
-     * @return drops
-     */
-    public List<DropItem> getDrops();
+    public DropItem[] getDrops();
+
+    public boolean dropsItem(ItemStack itemStack);
+
+    public String getMobName();
+
+    public int getExperience();
+
 }
