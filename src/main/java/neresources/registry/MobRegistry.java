@@ -1,6 +1,7 @@
 package neresources.registry;
 
 import neresources.api.entry.IMobEntry;
+import neresources.utils.APIScraper;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -51,6 +52,8 @@ public class MobRegistry
 
     public List<IMobEntry> getMobs()
     {
-        return new ArrayList<IMobEntry>(registry.values());
+        List<IMobEntry> list = new ArrayList<IMobEntry>(registry.values());
+        list.addAll(APIScraper.getCollection(IMobEntry.class));
+        return list;
     }
 }

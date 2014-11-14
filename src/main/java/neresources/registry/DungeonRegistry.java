@@ -1,6 +1,7 @@
 package neresources.registry;
 
 import neresources.api.entry.IDungeonEntry;
+import neresources.utils.APIScraper;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.WeightedRandomChestContentHelper;
 import net.minecraft.item.ItemStack;
@@ -75,7 +76,9 @@ public class DungeonRegistry
 
     public List<IDungeonEntry> getDungeons()
     {
-        return new ArrayList<IDungeonEntry>(registry.values());
+        List<IDungeonEntry> list = new ArrayList<IDungeonEntry>(registry.values());
+        list.addAll(APIScraper.getCollection(IDungeonEntry.class));
+        return list;
     }
 
     public WeightedRandomChestContent[] getContents(IDungeonEntry entry)

@@ -39,7 +39,7 @@ public class OreMatchEntry
             {
                 if (++i == chances.length) break;
                 chances[i] += chance;
-                if (chances[i]>0)
+                if (chances[i] > 0)
                 {
                     if (minY>i)
                         minY = i;
@@ -49,6 +49,8 @@ public class OreMatchEntry
             }
             bestY = entry.getValue().getDistribution(entry.getKey()).getBestHeight();
         }
+        if (minY == 256) minY = 0;
+        if (maxY == 0) maxY = 255;
         if (oreEntryMap.size()>1) bestY = DistributionHelpers.calculateMeanLevel(chances,40,0,1000);
     }
 

@@ -5,7 +5,9 @@ import neresources.api.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OreRegistry
@@ -55,8 +57,8 @@ public class OreRegistry
         return null;
     }
 
-    public OreMatchEntry[] getOres()
+    public List<OreMatchEntry> getOres()
     {
-        return matchEntryMap.values().toArray(new OreMatchEntry[matchEntryMap.size()]);
+        return new ArrayList<OreMatchEntry>(matchEntryMap.values());
     }
 }

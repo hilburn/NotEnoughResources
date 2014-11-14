@@ -75,32 +75,32 @@ public class CoFHCompat extends CompatBase
                 }
                 if (ores!=null)
                     registerOreEntries(ores,getChancesForUniform(minY,maxY,veinSize,count));
-            } else if (feature instanceof FeatureGenNormal)
+            } /*else if (feature instanceof FeatureGenNormal)
             {
                 FeatureGenNormal val = (FeatureGenNormal) feature;
-                int maxVar = ReflectionHelper.getInt(FeatureGenUniform.class, "maxVar", val);
-                int meanY = ReflectionHelper.getInt(FeatureGenUniform.class, "meanY", val);
-                int count = ReflectionHelper.getInt(FeatureGenUniform.class, "count", val);
+                int maxVar = ReflectionHelper.getInt(FeatureGenNormal.class, "maxVar", val);
+                int meanY = ReflectionHelper.getInt(FeatureGenNormal.class, "meanY", val);
+                int count = ReflectionHelper.getInt(FeatureGenNormal.class, "count", val);
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
                 //System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + minY + " to " + maxY + ": Veins = " + count + ", Vein Size = " + veinSize);
             } else if (feature instanceof FeatureGenSurface)
             {
 
-            }
+            }*/
         }
     }
 
     private double[] getChancesForUniform(int minY, int maxY, int veinSize, int numVeins)
     {
-        int safeMinY = Math.max(minY,0);
-        int safeMaxY = Math.max(maxY,256);
-        return DistributionHelpers.getRoundedSquareDistribution(Math.max(0,minY-veinSize/2),safeMinY,safeMaxY,Math.min(maxY+veinSize/2,256),
-                numVeins/(safeMaxY-safeMinY)*veinSize/256);
+        int safeMinY = Math.min(minY, 0);
+        int safeMaxY = Math.max(maxY,255);
+        double chance = (double)numVeins/(safeMaxY-safeMinY)*veinSize/256D;
+        return DistributionHelpers.getRoundedSquareDistribution(Math.max(0,minY-veinSize/2),safeMinY,safeMaxY,Math.min(maxY+veinSize/2,255), chance);
     }
 
     private void registerOreEntries(List<WeightedRandomBlock> ores, double[] baseChance)
     {
-        int totalWeight = 0;
+        double totalWeight = 0;
         for (WeightedRandomBlock ore:ores)
             totalWeight+=ore.itemWeight;
         for (WeightedRandomBlock ore:ores)
