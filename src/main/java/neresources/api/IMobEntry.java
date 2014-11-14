@@ -1,15 +1,29 @@
 package neresources.api;
 
 import neresources.api.drop.DropItem;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLiving;
 
-public interface IMobEntry {
+import java.util.List;
 
-    public EntityLivingBase getEntity();
+public interface IMobEntry extends IBaseEntry{
 
+    /**
+     * @return an instance of the entity with World = null
+     */
+    public EntityLiving getEntity();
+
+    /**
+     * @return the maximum light level the entity will spawn in
+     */
     public int getLightLevel();
 
-    public String[] getBiomeLimits();
+    /**
+     * @return any limitations the entity has for spawning
+     */
+    public List<String> getBiomeLimits();
 
-    public DropItem[] getDrops();
+    /**
+     * @return drops
+     */
+    public List<DropItem> getDrops();
 }

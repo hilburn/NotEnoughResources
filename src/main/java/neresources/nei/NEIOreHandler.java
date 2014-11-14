@@ -5,7 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.OreRegistry;
-import neresources.registry.OreRegistryEntry;
+import neresources.registry.OreMatchEntry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
@@ -51,7 +51,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(NEIConfig.ORE))
         {
-            for (OreRegistryEntry entry : OreRegistry.getInstance().getOres())
+            for (OreMatchEntry entry : OreRegistry.getInstance().getOres())
                 arecipes.add(new CachedOre(entry));
         } else super.loadCraftingRecipes(outputId, results);
     }
@@ -59,7 +59,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (OreRegistryEntry entry : OreRegistry.getInstance().getEntries(result))
+        for (OreMatchEntry entry : OreRegistry.getInstance().getEntries(result))
             arecipes.add(new CachedOre(entry));
     }
 
@@ -96,9 +96,9 @@ public class NEIOreHandler extends TemplateRecipeHandler
 
     public class CachedOre extends TemplateRecipeHandler.CachedRecipe
     {
-        private OreRegistryEntry oreEntry;
+        private OreMatchEntry oreEntry;
 
-        public CachedOre(OreRegistryEntry oreEntry)
+        public CachedOre(OreMatchEntry oreEntry)
         {
             this.oreEntry = oreEntry;
         }

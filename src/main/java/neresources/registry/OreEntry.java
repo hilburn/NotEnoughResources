@@ -1,68 +1,70 @@
 package neresources.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import neresources.api.IOreEntry;
 import neresources.api.distributions.DistributionBase;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class OreEntry
+public class OreEntry implements IOreEntry
 {
-    private double[] spawnChances;
-    private String modName;
-    private ItemStack ore;
-    private int bestY = -1;
-    private ItemStack[] drops = null;
-
-    public OreEntry(ItemStack ore, double[] spawnChances)
-    {
-        this.ore = ore;
-        this.modName = GameRegistry.findUniqueIdentifierFor(ore.getItem()).modId;
-        this.spawnChances = spawnChances;
-    }
+    private ItemStack[] matchStacks;
+    private DistributionBase distribution;
+    private int colour;
 
     public OreEntry(ItemStack ore, DistributionBase distribution)
     {
-        this.ore = ore;
-        this.modName = GameRegistry.findUniqueIdentifierFor(ore.getItem()).modId;
-        this.spawnChances = distribution.getDistribution();
-        this.bestY = distribution.getBestHeight();
+        this(ore, distribution, 0, new ItemStack[0]);
     }
 
-    public OreEntry(ItemStack ore, double[] spawnChances, ItemStack... drops)
+    public OreEntry(ItemStack ore, DistributionBase distribution, int colour)
     {
-        this(ore, spawnChances);
-        this.drops = drops;
+        this(ore, distribution, colour, new ItemStack[0]);
     }
 
     public OreEntry(ItemStack ore, DistributionBase distribution, ItemStack... drops)
     {
-        this(ore,distribution);
-        this.drops = drops;
+        this(ore, distribution, 0, drops);
     }
 
-    public double getChance(int y)
+    public OreEntry(ItemStack ore, DistributionBase distribution, int colour, ItemStack... drops)
     {
-        if (y < 0 || y >= spawnChances.length)
-            return 0;
-        return spawnChances[y];
+        matchStacks = new ItemStack[1+drops.length];
+        matchStacks[0] = ore;
+        int i=1;
+        for (ItemStack drop:drops)
+            if (drop != null) matchStacks[i++] = drop;
+        this.distribution = distribution;
+        this.colour = colour;
     }
 
-    public String getModName()
-    {
-        return modName;
+    @Override
+    public ItemStack[] getOreMatches() {
+        return matchStacks;
     }
 
-    public ItemStack getOre()
-    {
-        return ore;
+    @Override
+    public DistributionBase getDistribution(ItemStack itemStack) {
+        return distribution;
     }
 
-    public int getBestY()
-    {
-        return bestY;
+    @Override
+    public ItemStack getOre(ItemStack itemStack) {
+        return matchStacks[0];
     }
 
-    public ItemStack[] getDrops()
-    {
-        return drops;
+    @Override
+    public int getColour(ItemStack itemStack) {
+        return colour;
+    }
+
+    @Override
+    public boolean silkTouch(ItemStack itemStack) {
+        return matchStacks.length>1;
+    }
+
+    @Override
+    public String getKey() {
+        return GameRegistry.findUniqueIdentifierFor(matchStacks[0].getItem()).toString();
     }
 }

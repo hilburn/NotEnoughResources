@@ -1,43 +1,23 @@
 package neresources.api;
 
-
-import neresources.api.utils.MapKeys;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class NEResourcesAPI
 {
-    public static Map<String,Object> registryAPI = new LinkedHashMap<String, Object>();
+    private static Map<String,IBaseEntry> registryAPI = new LinkedHashMap<String, IBaseEntry>();
 
-    public static boolean registerDungeonEntry(IDungeonEntry entry)
+    public static boolean registerEntry(IBaseEntry entry)
     {
-        if (entry.getChestGenHooks()==null) return false;
-        if (entry.getName() == null) return false;
-        if (registryAPI.containsKey(entry.getName())) return false;
-
-        registryAPI.put(entry.getName(), entry);
-        return true;
-
-    }
-
-    public static boolean registerMobEntry(IMobEntry entry)
-    {
-        if (entry.getEntity()==null) return false;
-        if (registryAPI.containsKey(entry.getEntity().getCommandSenderName())) return false;
-
-        registryAPI.put(entry.getEntity().getCommandSenderName(),entry);
+        String key = entry.getKey();
+        if (key == null || key == "") return false;
+        if (registryAPI.containsKey(key)) return false;
+        registryAPI.put(key,entry);
         return true;
     }
 
-    public static boolean registerOreEntry(IOreEntry entry)
+    public static Map<String,IBaseEntry> getRegistryAPI()
     {
-        if (entry.getOre()==null) return false;
-        if (entry.getDistribution() == null || entry.getDistribution().getDistribution().length != 256) return false;
-        if (registryAPI.containsKey(MapKeys.getKey(entry.getOre()))) return false;
-
-        registryAPI.put(MapKeys.getKey(entry.getOre()),entry);
-        return true;
+        return registryAPI;
     }
-
 }
