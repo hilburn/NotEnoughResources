@@ -79,4 +79,22 @@ public class DistributionHelpers
         return result;
     }
 
+    public static int calculateMeanLevel(double[] distribution, int mid, int oldMid, double difference)
+    {
+        double totalUp = 0;
+        double totalDown = 0;
+        for (int i = 0; i < distribution.length; i++){
+            if (i<mid) totalDown+=distribution[i];
+            else totalUp+=distribution[i];
+        }
+        double newDifference = totalUp-totalDown;
+        if (Math.abs(difference+newDifference)<=Math.abs(newDifference)) {
+            if (Math.abs(newDifference) < Math.abs(difference))
+                return mid;
+            return oldMid;
+        }
+        if (newDifference>0) return calculateMeanLevel(distribution, mid+1,mid, newDifference);
+        return calculateMeanLevel(distribution,mid-1,mid,newDifference);
+    }
+
 }

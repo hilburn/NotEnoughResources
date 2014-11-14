@@ -11,6 +11,6 @@ public class DistributionSquare extends DistributionBase
     public DistributionSquare(int min0, int minY, int maxY, int max0, double chance)
     {
         super(DistributionHelpers.getRoundedSquareDistribution(min0, minY, maxY, max0, chance));
-        this.bestHeight = (minY + maxY) / 2;
+        this.bestHeight = DistributionHelpers.calculateMeanLevel(this.getDistribution(),(minY+maxY)/2,0,100D);
     }
 }
