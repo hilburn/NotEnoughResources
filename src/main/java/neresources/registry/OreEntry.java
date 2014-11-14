@@ -16,7 +16,7 @@ public class OreEntry implements IOreEntry
 
     public OreEntry(ItemStack ore, DistributionBase distribution)
     {
-        this(ore, distribution, 0, new ItemStack[0]);
+        this(ore, distribution, ColorHelper.BLACK, new ItemStack[0]);
     }
 
     public OreEntry(ItemStack ore, DistributionBase distribution, int colour)
@@ -26,7 +26,7 @@ public class OreEntry implements IOreEntry
 
     public OreEntry(ItemStack ore, DistributionBase distribution, ItemStack... drops)
     {
-        this(ore, distribution, 0, drops);
+        this(ore, distribution, ColorHelper.BLACK, drops);
     }
 
     public OreEntry(ItemStack ore, DistributionBase distribution, int colour, ItemStack... drops)
