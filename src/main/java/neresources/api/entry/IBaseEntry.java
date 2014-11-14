@@ -1,4 +1,4 @@
-package neresources.api;
+package neresources.api.entry;
 
 public interface IBaseEntry {
 

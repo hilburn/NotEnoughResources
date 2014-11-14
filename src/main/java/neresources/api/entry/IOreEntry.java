@@ -1,4 +1,4 @@
-package neresources.api;
+package neresources.api.entry;
 
 import neresources.api.distributions.DistributionBase;
 import net.minecraft.item.ItemStack;

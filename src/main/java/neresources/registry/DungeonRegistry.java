@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.api.IDungeonEntry;
+import neresources.api.entry.IDungeonEntry;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.WeightedRandomChestContentHelper;
 import net.minecraft.item.ItemStack;

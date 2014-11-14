@@ -1,12 +1,9 @@
-package neresources.api;
+package neresources.api.entry;
 
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 public interface IMobEntry extends IBaseEntry{
 

@@ -3,7 +3,7 @@ package neresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neresources.api.IMobEntry;
+import neresources.api.entry.IMobEntry;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.MobRegistry;

@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.api.IOreEntry;
+import neresources.api.entry.IOreEntry;
 import neresources.api.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

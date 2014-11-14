@@ -1,12 +1,9 @@
 package neresources.registry;
 
-import neresources.api.IDungeonEntry;
-import neresources.utils.WeightedRandomChestContentHelper;
+import neresources.api.entry.IDungeonEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
-
-import java.util.Random;
 
 public class DungeonEntry implements IDungeonEntry
 {

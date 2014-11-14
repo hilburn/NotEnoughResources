@@ -1,5 +1,7 @@
 package neresources.api;
 
+import neresources.api.entry.IBaseEntry;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 

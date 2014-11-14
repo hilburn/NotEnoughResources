@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.api.IMobEntry;
+import neresources.api.entry.IMobEntry;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;

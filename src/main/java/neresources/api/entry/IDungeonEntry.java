@@ -1,4 +1,4 @@
-package neresources.api;
+package neresources.api.entry;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;

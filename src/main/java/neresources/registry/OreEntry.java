@@ -1,11 +1,10 @@
 package neresources.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import neresources.api.IOreEntry;
+import neresources.api.entry.IOreEntry;
 import neresources.api.distributions.DistributionBase;
 import neresources.utils.ColorHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class OreEntry implements IOreEntry
 {
