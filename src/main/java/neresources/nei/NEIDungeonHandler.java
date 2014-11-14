@@ -23,9 +23,6 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
     private static final int X_FIRST_ITEM = -2;
     private static final int Y_FIRST_ITEM = 48;
-    private static final int X_BUTTON_LEFT = 60;
-    private static final int X_BUTTON_RIGHT = 145;
-    private static final int Y_BUTTON = 34;
 
     private static int ITEMS_PER_PAGE;
     private static int SPACING_X;
@@ -43,26 +40,6 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     private static int lidStart = -1;
     private static int lastRecipe = -1;
     private static boolean done;
-
-    private Button buttonLeft = new ButtonSettable(X_BUTTON_LEFT, Y_BUTTON, "<")
-    {
-        @Override
-        public boolean onButtonPress(boolean rightclick)
-        {
-            if(!rightclick)((CachedDungeonChest)arecipes.get(lastRecipe)).cycleBack();
-            return true;
-        }
-    };
-
-    private Button buttonRight = new ButtonSettable(X_BUTTON_RIGHT, Y_BUTTON, ">")
-    {
-        @Override
-        public boolean onButtonPress(boolean rightclick)
-        {
-            if(!rightclick)((CachedDungeonChest)arecipes.get(lastRecipe)).cycle();
-            return true;
-        }
-    };
 
     @Override
     public String getGuiTexture()
@@ -106,17 +83,6 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     }
 
     @Override
-    public boolean mouseClicked(GuiRecipe gui, int button, int recipe)
-    {
-        if (!Settings.DO_CYLCE && ((CachedDungeonChest)arecipes.get(recipe)).lastSet > 0)
-        {
-            buttonLeft.handleClick(GuiDraw.getMousePosition().x, GuiDraw.getMousePosition().y, button);
-            buttonRight.handleClick(GuiDraw.getMousePosition().x, GuiDraw.getMousePosition().y, button);
-        }
-        return super.mouseClicked(gui, button, recipe);
-    }
-
-    @Override
     public void drawBackground(int recipe)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -124,12 +90,6 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
 
         RenderHelper.renderChest(15, 20, -40, 20, getLidAngle(recipe));
-
-        if (!Settings.DO_CYLCE && ((CachedDungeonChest)arecipes.get(recipe)).lastSet > 0)
-        {
-            buttonLeft.draw(GuiDraw.getMousePosition().x, GuiDraw.getMousePosition().y);
-            buttonRight.draw(GuiDraw.getMousePosition().x, GuiDraw.getMousePosition().y);
-        }
     }
 
     private float getLidAngle(int recipe)
@@ -161,7 +121,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         Font font = new Font(false);
         font.print(cachedChest.chest.getName(), 60, 7);
         font.print(cachedChest.chest.getNumStacks(), 60, 22);
-        if(cachedChest.lastSet > 0)font.print("Page " + (cachedChest.set+1) + " of " + (cachedChest.lastSet+1), X_BUTTON_LEFT + 20, Y_BUTTON + 2);
+        if(cachedChest.lastSet > 0)font.print("Page " + (cachedChest.set+1) + " of " + (cachedChest.lastSet+1), 80, 36);
 
         int x = X_FIRST_ITEM + 18;
         int y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);
