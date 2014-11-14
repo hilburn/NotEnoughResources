@@ -49,8 +49,8 @@ dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 
-group = "NEIResources"
-archivesBaseName = "NEIResources"
+group = "neresources"
+archivesBaseName = "NotEnoughResources"
 
 minecraft {
     version = "${config.version.minecraft}-${config.version.forge}"
