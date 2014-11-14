@@ -6,8 +6,8 @@ import neresources.compatibility.minecraft.MinecraftCompat;
 
 public enum ModList
 {
-    minecraft("neresources", MinecraftCompat.class),
-    cofhcore("CoFHCore", CoFHCompat.class);
+    cofhcore("CoFHCore", CoFHCompat.class),
+    minecraft("neresources", MinecraftCompat.class);
 
     private String name;
     private Class compat;

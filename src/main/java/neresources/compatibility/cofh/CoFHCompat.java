@@ -22,6 +22,7 @@ public class CoFHCompat extends CompatBase
 {
 
     private static List<IFeatureGenerator> features;
+    public static boolean cofhReplace = false;
 
     public static CoFHCompat instance = null;
 
@@ -41,6 +42,7 @@ public class CoFHCompat extends CompatBase
     @Override
     public void init()
     {
+        cofhReplace = WorldHandler.genReplaceVanilla;
         features = (ArrayList<IFeatureGenerator>) ReflectionHelper.getObject(WorldHandler.class, "features", null);
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) registerOres();
     }

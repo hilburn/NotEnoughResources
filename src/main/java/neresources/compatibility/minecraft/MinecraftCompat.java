@@ -4,6 +4,7 @@ import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.compatibility.CompatBase;
 import neresources.api.utils.DropItem;
+import neresources.compatibility.cofh.CoFHCompat;
 import neresources.registry.DungeonRegistry;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
@@ -43,7 +44,7 @@ public class MinecraftCompat extends CompatBase
     {
         registerVanillaMobs();
         registerDungeonLoot();
-        registerOres();
+        if (!CoFHCompat.cofhReplace)registerOres();
     }
 
     private void registerVanillaMobs()
