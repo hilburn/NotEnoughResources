@@ -9,10 +9,15 @@ import cofh.lib.world.feature.FeatureGenSurface;
 import cofh.lib.world.feature.FeatureGenUniform;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import neresources.api.distributions.DistributionCustom;
+import neresources.api.entry.IOreEntry;
+import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
+import neresources.registry.OreEntry;
 import neresources.utils.ModList;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.ArrayList;
@@ -60,8 +65,6 @@ public class CoFHCompat extends CompatBase
                 int veinSize = 0;
                 ArrayList<WeightedRandomBlock> ores = null;
                 WeightedRandomBlock[] genBlock = null;
-                Block ore;
-                int metadata = 0;
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
                 if (worldGen instanceof WorldGenMinableCluster)
                 {
@@ -70,14 +73,39 @@ public class CoFHCompat extends CompatBase
                     veinSize = ReflectionHelper.getInt(WorldGenMinableCluster.class, "genClusterSize", cluster);
                     genBlock = (WeightedRandomBlock[]) ReflectionHelper.getObject(WorldGenMinableCluster.class, "genBlock", cluster);
                 }
-                System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + minY + " to " + maxY + ": Veins = " + count + ", Vein Size = " + veinSize);
+                if (ores!=null)
+                    registerOreEntries(ores,getChancesForUniform(minY,maxY,veinSize,count));
             } else if (feature instanceof FeatureGenNormal)
             {
-
+                FeatureGenNormal val = (FeatureGenNormal) feature;
+                int maxVar = ReflectionHelper.getInt(FeatureGenUniform.class, "maxVar", val);
+                int meanY = ReflectionHelper.getInt(FeatureGenUniform.class, "meanY", val);
+                int count = ReflectionHelper.getInt(FeatureGenUniform.class, "count", val);
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
+                //System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + minY + " to " + maxY + ": Veins = " + count + ", Vein Size = " + veinSize);
             } else if (feature instanceof FeatureGenSurface)
             {
 
             }
+        }
+    }
+
+    private double[] getChancesForUniform(int minY, int maxY, int veinSize, int numVeins)
+    {
+        int safeMinY = Math.max(minY,0);
+        int safeMaxY = Math.max(maxY,256);
+        return DistributionHelpers.getRoundedSquareDistribution(Math.max(0,minY-veinSize/2),safeMinY,safeMaxY,Math.min(maxY+veinSize/2,256),
+                numVeins/(safeMaxY-safeMinY)*veinSize/256);
+    }
+
+    private void registerOreEntries(List<WeightedRandomBlock> ores, double[] baseChance)
+    {
+        int totalWeight = 0;
+        for (WeightedRandomBlock ore:ores)
+            totalWeight+=ore.itemWeight;
+        for (WeightedRandomBlock ore:ores)
+        {
+            registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.divideArray(baseChance,ore.itemWeight/totalWeight))));
         }
     }
 }

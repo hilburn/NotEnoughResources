@@ -92,4 +92,12 @@ public class DistributionHelpers
         return calculateMeanLevel(distribution,mid-1,mid,newDifference);
     }
 
+    public static double[] divideArray(double[] array, double num)
+    {
+        double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++)
+            result[i]=array[i]/num;
+        return result;
+    }
+
 }
