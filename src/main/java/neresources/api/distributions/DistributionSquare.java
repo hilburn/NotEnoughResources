@@ -1,5 +1,7 @@
 package neresources.api.distributions;
 
+import neresources.api.utils.DistributionHelpers;
+
 public class DistributionSquare extends DistributionBase
 {
     public DistributionSquare(int minY, int maxY, double chance)

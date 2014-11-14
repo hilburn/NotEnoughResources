@@ -1,4 +1,4 @@
-package neresources.utils;
+package neresources.api.utils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
@@ -22,8 +22,11 @@ public class MapKeys
         return new String[0];
     }
 
-    private static String getKey(ItemStack itemStack)
+    public static String getKey(ItemStack itemStack)
     {
-        return GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).toString() + "@" + itemStack.getItemDamage();
+        GameRegistry.UniqueIdentifier UUID = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
+        if (UUID != null)
+            return UUID.toString() + "@" + itemStack.getItemDamage();
+        return itemStack.toString();
     }
 }

@@ -10,6 +10,7 @@ public class OreEntry
     private String modName;
     private ItemStack ore;
     private int bestY = -1;
+    private ItemStack[] drops = null;
 
     public OreEntry(ItemStack ore, double[] spawnChances)
     {
@@ -24,6 +25,18 @@ public class OreEntry
         this.modName = GameRegistry.findUniqueIdentifierFor(ore.getItem()).modId;
         this.spawnChances = distribution.getDistribution();
         this.bestY = distribution.getBestHeight();
+    }
+
+    public OreEntry(ItemStack ore, double[] spawnChances, ItemStack... drops)
+    {
+        this(ore, spawnChances);
+        this.drops = drops;
+    }
+
+    public OreEntry(ItemStack ore, DistributionBase distribution, ItemStack... drops)
+    {
+        this(ore,distribution);
+        this.drops = drops;
     }
 
     public double getChance(int y)
@@ -46,5 +59,10 @@ public class OreEntry
     public int getBestY()
     {
         return bestY;
+    }
+
+    public ItemStack[] getDrops()
+    {
+        return drops;
     }
 }

@@ -1,12 +1,7 @@
-package neresources.api.distributions;
+package neresources.api.utils;
 
 public class DistributionHelpers
 {
-    public static double[] getNormalDistribution(int midY, int range)
-    {
-        return null;
-    }
-
     public static double[] getTriangularDistribution(int midY, int range, double maxChance)
     {
         double[] triangle = new double[range * 2 + 1];

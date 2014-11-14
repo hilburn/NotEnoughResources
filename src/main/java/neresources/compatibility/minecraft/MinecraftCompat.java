@@ -177,10 +177,11 @@ public class MinecraftCompat extends CompatBase
 
     private void registerOres()
     {
-        registerOre(new OreEntry(new ItemStack(Blocks.lapis_ore), new DistributionTriangular(15, 15, 0.001D)));
+        registerOre(new OreEntry(new ItemStack(Blocks.lapis_ore), new DistributionTriangular(15, 15, 0.001D), new ItemStack(Items.dye,1,4)));
         registerOre(new OreEntry(new ItemStack(Blocks.iron_ore), new DistributionSquare(0, 5, 54, 65, 0.006D)));
-        registerOre(new OreEntry(new ItemStack(Blocks.redstone_ore), new DistributionSquare(0, 5, 12, 17, 0.0083D)));
-        registerOre(new OreEntry(new ItemStack(Blocks.diamond_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D)));
+        registerOre(new OreEntry(new ItemStack(Blocks.redstone_ore), new DistributionSquare(0, 5, 12, 17, 0.0083D), new ItemStack(Items.redstone)));
+        registerOre(new OreEntry(new ItemStack(Blocks.diamond_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D), new ItemStack(Items.diamond)));
+        registerOre(new OreEntry(new ItemStack(Blocks.emerald_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D), new ItemStack(Items.emerald)));
         registerOre(new OreEntry(new ItemStack(Blocks.gold_ore), new DistributionSquare(0, 5, 29, 35, 0.0012D)));
         registerOre(new OreEntry(new ItemStack(Blocks.coal_ore), new DistributionSquare(0, 5, 54, 76, 0.01D)));
     }

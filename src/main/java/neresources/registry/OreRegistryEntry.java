@@ -10,7 +10,7 @@ import java.util.List;
 public class OreRegistryEntry
 {
     private List<OreEntry> oreEntryList = new ArrayList<OreEntry>();
-    private ItemStack ore;
+    private ItemStack[] ore;
     private double[] chances;
     private int minY;
     private int maxY;
@@ -18,7 +18,12 @@ public class OreRegistryEntry
 
     OreRegistryEntry(OreEntry oreEntry)
     {
-        ore = oreEntry.getOre();
+        ItemStack[] drops = oreEntry.getDrops();
+        ore = new ItemStack[drops==null?1:1+drops.length];
+        ore[0] = oreEntry.getOre();
+        if (drops!=null)
+            for (int i = 0; i < drops.length; i++)
+                ore[i+1] = drops[i];
         oreEntryList.add(oreEntry);
         calcChances();
     }
@@ -90,6 +95,11 @@ public class OreRegistryEntry
     }
 
     public ItemStack getOre()
+    {
+        return ore[0];
+    }
+
+    public ItemStack[] getDrops()
     {
         return ore;
     }

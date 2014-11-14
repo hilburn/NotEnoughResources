@@ -1,8 +1,9 @@
 package neresources.registry;
 
 import neresources.config.Settings;
-import neresources.utils.MapKeys;
+import neresources.api.utils.MapKeys;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -87,12 +88,16 @@ public class OreRegistry
     public List<OreRegistryEntry> getEntries(ItemStack stack)
     {
         List<OreRegistryEntry> result = new ArrayList<OreRegistryEntry>();
-        String[] keys = MapKeys.getKeys(stack);
-        for (String key : keys)
+        for (OreRegistryEntry entry: registry.values())
         {
-            OreRegistryEntry entry = getEntry(key);
-            if (entry != null)
-                result.add(entry);
+            for (ItemStack drop:entry.getDrops())
+            {
+                if (OreDictionary.itemMatches(drop,stack,true))
+                {
+                    result.add(entry);
+                    break;
+                }
+            }
         }
         return result;
     }
