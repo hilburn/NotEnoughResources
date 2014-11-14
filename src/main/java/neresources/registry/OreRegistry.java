@@ -39,7 +39,7 @@ public class OreRegistry
             ItemStack match = oreMatch(entry,itemStack);
             if (match != null) matches.put(match,entry);
         }
-        OreMatchEntry matchEntry = matches.size()==0?null:new OreMatchEntry(matches);
+        OreMatchEntry matchEntry = matches.size() == 0 ? null : new OreMatchEntry(matches);
         matchEntryMap.put(key,matchEntry);
         return matchEntry;
     }
@@ -53,5 +53,10 @@ public class OreRegistry
             if (match != null && OreDictionary.itemMatches(match, itemStack, false)) return match;
         }
         return null;
+    }
+
+    public OreMatchEntry[] getOres()
+    {
+        return matchEntryMap.values().toArray(new OreMatchEntry[matchEntryMap.size()]);
     }
 }

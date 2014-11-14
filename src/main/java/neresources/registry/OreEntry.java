@@ -61,6 +61,12 @@ public class OreEntry implements IOreEntry
     }
 
     @Override
+    public String getModName()
+    {
+        return null;
+    }
+
+    @Override
     public boolean silkTouch(ItemStack itemStack) {
         return matchStacks.length>1;
     }

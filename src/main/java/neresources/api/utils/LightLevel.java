@@ -16,7 +16,8 @@ public class LightLevel
         this.relative = relative;
     }
 
-    public String getString()
+    @Override
+    public String toString()
     {
         if (lightLevel < 0) return "Light level: any";
         return "Light Level: " + relative.toString() + " " + lightLevel;

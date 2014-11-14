@@ -18,9 +18,17 @@ public class NEIOreHandler extends TemplateRecipeHandler
     private static final int Y_OFFSPRING = 52;
     private static final int X_AXIS_SIZE = 90;
     private static final int Y_AXIS_SIZE = 40;
-
     private static final int X_ITEM = 8;
     private static final int Y_ITEM = 6;
+
+    private static int CYCLE_TIME =(int) (10 * Settings.CYCLE_TIME);
+
+    public static void loadSettings()
+    {
+        CYCLE_TIME = (int) (10 * Settings.CYCLE_TIME);
+    }
+
+    private static long cycleAt = -1;
 
     @Override
     public String getGuiTexture()
@@ -53,21 +61,23 @@ public class NEIOreHandler extends TemplateRecipeHandler
         {
             for (OreMatchEntry entry : OreRegistry.getInstance().getOres())
                 arecipes.add(new CachedOre(entry));
+            cycleAt = -1;
         } else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (OreMatchEntry entry : OreRegistry.getInstance().getEntries(result))
-            arecipes.add(new CachedOre(entry));
+        OreMatchEntry entry = OreRegistry.getInstance().getRegistryMatches(result);
+        if (entry != null) arecipes.add(new CachedOre(entry));
+        cycleAt = -1;
     }
 
     @Override
     public void drawExtras(int recipe)
     {
         CachedOre cachedOre = (CachedOre) arecipes.get(recipe);
-        double[] array = cachedOre.getChances();
+        double[] array = cachedOre.oreMatchEntry.getChances();
         double max = 0;
         for (double d : array)
             if (d > max) max = d;
@@ -87,36 +97,46 @@ public class NEIOreHandler extends TemplateRecipeHandler
         Font font = new Font(true);
         font.print("0%", X_OFFSPRING - 10, Y_OFFSPRING - 7);
         font.print(String.format("%.2f", max * 100) + "%", X_OFFSPRING - 20, Y_OFFSPRING - Y_AXIS_SIZE);
-        int minY = cachedOre.oreEntry.getMinY() - Settings.EXTRA_RANGE;
+        int minY = cachedOre.oreMatchEntry.getMinY() - Settings.EXTRA_RANGE;
         font.print(minY < 0 ? 0 : minY, X_OFFSPRING - 3, Y_OFFSPRING + 2);
-        int maxY = cachedOre.oreEntry.getMaxY() + Settings.EXTRA_RANGE;
+        int maxY = cachedOre.oreMatchEntry.getMaxY() + Settings.EXTRA_RANGE;
         font.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
-        font.print("bestY: " + cachedOre.oreEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
+        font.print("bestY: " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
+
+        cachedOre.cycleItemStack(cycleticks);
     }
 
     public class CachedOre extends TemplateRecipeHandler.CachedRecipe
     {
-        private OreMatchEntry oreEntry;
+        private OreMatchEntry oreMatchEntry;
+        private int i;
 
-        public CachedOre(OreMatchEntry oreEntry)
+        public CachedOre(OreMatchEntry oreMatchEntry)
         {
-            this.oreEntry = oreEntry;
-        }
-
-        public double[] getChances()
-        {
-            return oreEntry.getChances();
+            this.oreMatchEntry = oreMatchEntry;
+            i = 0;
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(oreEntry.getOre(), X_ITEM, Y_ITEM);
+            return new PositionedStack(oreMatchEntry.getOres()[i], X_ITEM, Y_ITEM);
         }
 
         public int getLineColor()
         {
-            return this.oreEntry.getIOre().getColour();
+            return this.oreMatchEntry.getColour();
+        }
+
+        public void cycleItemStack(long tick)
+        {
+            if (cycleAt == -1) cycleAt = tick + CYCLE_TIME;
+
+            if (tick >= cycleAt)
+            {
+                if (++i >= oreMatchEntry.getOres().length) i = 0;
+                cycleAt += CYCLE_TIME;
+            }
         }
     }
 }

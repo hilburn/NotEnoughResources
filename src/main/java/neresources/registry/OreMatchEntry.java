@@ -37,8 +37,8 @@ public class OreMatchEntry
             int i = 0;
             for (double chance : entry.getValue().getDistribution(entry.getKey()).getDistribution())
             {
-                if (i==chances.length) break;
-                chances[i++] += chance;
+                if (++i == chances.length) break;
+                chances[i] += chance;
                 if (chances[i]>0)
                 {
                     if (minY>i)

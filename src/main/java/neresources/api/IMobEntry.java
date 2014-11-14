@@ -3,6 +3,7 @@ package neresources.api;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface IMobEntry extends IBaseEntry{
     /**
      * @return an instance of the entity with World = null
      */
-    public EntityLiving getEntity();
+    public EntityLivingBase getEntity();
 
     public LightLevel getLightLevel();
 

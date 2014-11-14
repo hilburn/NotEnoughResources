@@ -82,4 +82,10 @@ public class MobEntry implements IMobEntry
             if (dropItem.item.isItemEqual(item)) return true;
         return false;
     }
+
+    @Override
+    public String getKey()
+    {
+        return String.valueOf(entity.getEntityId());
+    }
 }

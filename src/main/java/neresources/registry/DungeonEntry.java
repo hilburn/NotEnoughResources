@@ -66,4 +66,9 @@ public class DungeonEntry implements IDungeonEntry
         return false;
     }
 
+    @Override
+    public String getKey()
+    {
+        return getName();
+    }
 }

@@ -6,7 +6,6 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.api.IMobEntry;
 import neresources.config.Settings;
 import neresources.reference.Resources;
-import neresources.registry.MobEntry;
 import neresources.registry.MobRegistry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
@@ -65,6 +64,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         {
             for (IMobEntry entry : MobRegistry.getInstance().getMobs())
                 arecipes.add(new CachedMob(entry));
+            lastRecipe = -1;
         } else super.loadCraftingRecipes(outputId, results);
     }
 
@@ -73,6 +73,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         for (IMobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
+        lastRecipe = -1;
     }
 
     @Override

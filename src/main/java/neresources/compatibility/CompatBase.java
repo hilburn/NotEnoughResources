@@ -1,6 +1,7 @@
 package neresources.compatibility;
 
 import cpw.mods.fml.common.Loader;
+import neresources.api.IOreEntry;
 import neresources.registry.MobEntry;
 import neresources.registry.MobRegistry;
 import neresources.registry.OreEntry;
@@ -22,11 +23,6 @@ public class CompatBase
     public void registerMob(MobEntry entry)
     {
         MobRegistry.getInstance().registerMob(entry);
-    }
-
-    public void registerOre(String string, OreEntry entry)
-    {
-        OreRegistry.getInstance().registerOre(string, entry);
     }
 
     public void registerOre(OreEntry entry)

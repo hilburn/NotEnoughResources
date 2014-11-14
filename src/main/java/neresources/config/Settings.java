@@ -2,6 +2,7 @@ package neresources.config;
 
 import neresources.nei.NEIDungeonHandler;
 import neresources.nei.NEIMobHandler;
+import neresources.nei.NEIOreHandler;
 
 public final class Settings
 {
@@ -15,5 +16,6 @@ public final class Settings
     {
         NEIDungeonHandler.loadSettings();
         NEIMobHandler.loadSettings();
+        NEIOreHandler.loadSettings();
     }
 }

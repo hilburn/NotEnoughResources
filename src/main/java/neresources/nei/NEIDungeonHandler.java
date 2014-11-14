@@ -81,6 +81,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     {
         for (IDungeonEntry entry : DungeonRegistry.getInstance().getDungeons(result))
             arecipes.add(new CachedDungeonChest(entry));
+        lastRecipe = -1;
     }
 
     @Override
