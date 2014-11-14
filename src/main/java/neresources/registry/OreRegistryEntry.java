@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.IOreEntry;
 import neresources.config.Settings;
 import net.minecraft.item.ItemStack;
 
@@ -9,14 +10,14 @@ import java.util.List;
 
 public class OreRegistryEntry
 {
-    private List<OreEntry> oreEntryList = new ArrayList<OreEntry>();
+    private List<IOreEntry> oreEntryList = new ArrayList<IOreEntry>();
     private ItemStack[] ore;
     private double[] chances;
     private int minY;
     private int maxY;
     private int bestY;
 
-    OreRegistryEntry(OreEntry oreEntry)
+    OreRegistryEntry(IOreEntry oreEntry)
     {
         ItemStack[] drops = oreEntry.getDrops();
         ore = new ItemStack[drops==null?1:1+drops.length];
@@ -28,7 +29,7 @@ public class OreRegistryEntry
         calcChances();
     }
 
-    public void add(OreEntry oreEntry)
+    public void add(IOreEntry oreEntry)
     {
         oreEntryList.add(oreEntry);
         calcChances();
@@ -36,8 +37,8 @@ public class OreRegistryEntry
 
     public void remove(String modName)
     {
-        OreEntry remove = null;
-        for (OreEntry entry : oreEntryList)
+        IOreEntry remove = null;
+        for (IOreEntry entry : oreEntryList)
         {
             if (entry.getModName().equals(modName))
                 remove = entry;
@@ -55,8 +56,8 @@ public class OreRegistryEntry
         for (int i = 0; i < 256; i++)
         {
             double chance = 0;
-            for (OreEntry oreEntry : oreEntryList)
-                chance += oreEntry.getChance(i);
+            for (IOreEntry oreEntry : oreEntryList)
+                chance += oreEntry.getDistribution().getDistribution()[i];
             if (chance > 0)
             {
                 if (minY == 300)
@@ -66,7 +67,7 @@ public class OreRegistryEntry
             }
             chances[i] = chance;
         }
-        if (oreEntryList.size() == 1 && !(oreEntryList.get(0).getBestY() < 0)) bestY = oreEntryList.get(0).getBestY();
+        if (oreEntryList.size() == 1 && !(oreEntryList.get(0).getDistribution().getBestHeight() < 0)) bestY = oreEntryList.get(0).getDistribution().getBestHeight();
     }
 
     public double[] getChances()
@@ -102,5 +103,10 @@ public class OreRegistryEntry
     public ItemStack[] getDrops()
     {
         return ore;
+    }
+
+    public IOreEntry getIOre()
+    {
+        return oreEntryList.get(0);
     }
 }

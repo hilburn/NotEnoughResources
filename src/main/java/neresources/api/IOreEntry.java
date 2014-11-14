@@ -32,4 +32,6 @@ public interface IOreEntry {
      * @return true for if the ore needs to be silk touched.
      */
     public boolean silkTouch();
+
+    public String getModName();
 }

@@ -1,7 +1,8 @@
 package neresources.registry;
 
-import neresources.api.drop.DropItem;
-import neresources.utils.LightLevel;
+import neresources.api.IMobEntry;
+import neresources.api.utils.DropItem;
+import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobEntry
+public class MobEntry implements IMobEntry
 {
     private EntityLivingBase entity;
     private List<DropItem> drops = new ArrayList<DropItem>();
@@ -36,6 +37,7 @@ public class MobEntry
             this.drops.add(drop);
     }
 
+    @Override
     public EntityLivingBase getEntity()
     {
         return entity;
@@ -51,19 +53,20 @@ public class MobEntry
         return EntityHelper.getEntityName(this.entity);
     }
 
-    public List<DropItem> getDrops()
+    public DropItem[] getDrops()
     {
-        return drops;
+        return drops.toArray(new DropItem[drops.size()]);
     }
 
-    public List<String> getBiomes()
+    public String[] getBiomes()
     {
-        return biomes;
+        return biomes.toArray(new String[biomes.size()]);
     }
 
-    public String getLightLevel()
+    @Override
+    public LightLevel getLightLevel()
     {
-        return lightLevel.getString();
+        return lightLevel;
     }
 
     public int getExperience()

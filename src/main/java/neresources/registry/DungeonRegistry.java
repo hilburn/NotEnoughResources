@@ -1,19 +1,21 @@
 package neresources.registry;
 
+import neresources.api.IDungeonEntry;
 import neresources.utils.ReflectionHelper;
+import neresources.utils.WeightedRandomChestContentHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DungeonRegistry
 {
-    private Map<String, DungeonEntry> registry = new LinkedHashMap<String, DungeonEntry>();
+    private Map<String, IDungeonEntry> registry = new LinkedHashMap<String, IDungeonEntry>();
     public static Map<String, String> categoryToNameMap = new LinkedHashMap<String, String>();
     private static DungeonRegistry instance = null;
+
+    public static Random rand = new Random();
 
     public static DungeonRegistry getInstance()
     {
@@ -63,17 +65,30 @@ public class DungeonRegistry
         return registerChestHook(name, chestGenHooks);
     }
 
-    public List<DungeonEntry> getDungeons(ItemStack item)
+    public List<IDungeonEntry> getDungeons(ItemStack item)
     {
-        List<DungeonEntry> list = new ArrayList<DungeonEntry>();
-        for (DungeonEntry entry : registry.values())
+        List<IDungeonEntry> list = new ArrayList<IDungeonEntry>();
+        for (IDungeonEntry entry : registry.values())
             if (entry.hasItem(item)) list.add(entry);
         return list;
     }
 
-    public List<DungeonEntry> getDungeons()
+    public List<IDungeonEntry> getDungeons()
     {
-        return new ArrayList<DungeonEntry>(registry.values());
+        return new ArrayList<IDungeonEntry>(registry.values());
+    }
+
+    public WeightedRandomChestContent[] getContents(IDungeonEntry entry)
+    {
+        return WeightedRandomChestContentHelper.sort(entry.getChestGenHooks().getItems(rand), entry);
+    }
+
+    public String getNumStacks(IDungeonEntry entry)
+    {
+        int max = entry.getChestGenHooks().getMax();
+        int min = entry.getChestGenHooks().getMin();
+        if (min == max) return max + " Stacks";
+        return min + " - " + max + " Stacks";
     }
 
 }

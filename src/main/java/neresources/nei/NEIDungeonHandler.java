@@ -3,6 +3,7 @@ package neresources.nei;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neresources.api.IDungeonEntry;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.DungeonEntry;
@@ -10,6 +11,7 @@ import neresources.registry.DungeonRegistry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -68,7 +70,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(NEIConfig.DUNGEON))
         {
-            for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons())
+            for (IDungeonEntry entry : DungeonRegistry.getInstance().getDungeons())
                 arecipes.add(new CachedDungeonChest(entry));
             lastRecipe = -1;
         } else super.loadCraftingRecipes(outputId, results);
@@ -77,7 +79,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons(result))
+        for (IDungeonEntry entry : DungeonRegistry.getInstance().getDungeons(result))
             arecipes.add(new CachedDungeonChest(entry));
     }
 
@@ -119,15 +121,15 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
         Font font = new Font(false);
         font.print(cachedChest.chest.getName(), 60, 7);
-        font.print(cachedChest.chest.getNumStacks(), 60, 20);
+        font.print(DungeonRegistry.getInstance().getNumStacks(cachedChest.chest), 60, 20);
         if(cachedChest.lastSet > 0)font.print("Page " + (cachedChest.set+1) + " of " + (cachedChest.lastSet+1), 60, 36);
 
         int x = X_FIRST_ITEM + 18;
         int y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);
         for (int i = ITEMS_PER_PAGE * cachedChest.set; i < ITEMS_PER_PAGE * cachedChest.set + ITEMS_PER_PAGE; i++)
         {
-            if (i >= cachedChest.chest.getContents().length) break;
-            double chance = cachedChest.chest.getChance(cachedChest.chest.getContents()[i]) * 100;
+            if (i >= cachedChest.getContents().length) break;
+            double chance = cachedChest.chest.getChance(cachedChest.getContents()[i]) * 100;
             String format = chance < 100 ? "%2.1f" : "%2.0f";
             String toPrint = String.format(format, chance).replace(',', '.') + "%";
             font.print(toPrint, x, y);
@@ -144,22 +146,27 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
     public class CachedDungeonChest extends TemplateRecipeHandler.CachedRecipe
     {
-        public DungeonEntry chest;
+        public IDungeonEntry chest;
         public int set, lastSet;
         private long cycleAt;
 
-        public CachedDungeonChest(DungeonEntry chest)
+        public CachedDungeonChest(IDungeonEntry chest)
         {
             this.chest = chest;
             set = 0;
             cycleAt = -1;
-            lastSet = (chest.getContents().length / (ITEMS_PER_PAGE + 1));
+            lastSet = (this.getContents().length / (ITEMS_PER_PAGE + 1));
+        }
+
+        public WeightedRandomChestContent[] getContents()
+        {
+            return DungeonRegistry.getInstance().getContents(chest);
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(this.chest.getContents()[set * ITEMS_PER_PAGE].theItemId, X_FIRST_ITEM, Y_FIRST_ITEM);
+            return new PositionedStack(this.getContents()[set * ITEMS_PER_PAGE].theItemId, X_FIRST_ITEM, Y_FIRST_ITEM);
         }
 
         @Override
@@ -170,8 +177,8 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             int y = Y_FIRST_ITEM;
             for (int i = ITEMS_PER_PAGE * set; i < ITEMS_PER_PAGE * set + ITEMS_PER_PAGE; i++)
             {
-                if (i >= this.chest.getContents().length) break;
-                list.add(new PositionedStack(this.chest.getContents()[i].theItemId, x, y));
+                if (i >= this.getContents().length) break;
+                list.add(new PositionedStack(this.getContents()[i].theItemId, x, y));
                 y += SPACING_Y;
                 if (y >= Y_FIRST_ITEM + SPACING_Y * Settings.ITEMS_PER_COLUMN)
                 {
