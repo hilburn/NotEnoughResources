@@ -1,9 +1,7 @@
 package neresources.nei;
 
 import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.*;
-import codechicken.nei.Button;
-import codechicken.nei.recipe.GuiRecipe;
+import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
@@ -72,6 +70,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         {
             for (DungeonEntry entry : DungeonRegistry.getInstance().getDungeons())
                 arecipes.add(new CachedDungeonChest(entry));
+            lastRecipe = -1;
         } else super.loadCraftingRecipes(outputId, results);
     }
 
@@ -120,8 +119,8 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
         Font font = new Font(false);
         font.print(cachedChest.chest.getName(), 60, 7);
-        font.print(cachedChest.chest.getNumStacks(), 60, 22);
-        if(cachedChest.lastSet > 0)font.print("Page " + (cachedChest.set+1) + " of " + (cachedChest.lastSet+1), 80, 36);
+        font.print(cachedChest.chest.getNumStacks(), 60, 20);
+        if(cachedChest.lastSet > 0)font.print("Page " + (cachedChest.set+1) + " of " + (cachedChest.lastSet+1), 60, 36);
 
         int x = X_FIRST_ITEM + 18;
         int y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);
@@ -186,7 +185,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
         public void cycleOutputs(long tick, int recipe)
         {
-            if (cycleAt == -1 || recipe != lastRecipe || !Settings.DO_CYLCE)
+            if (cycleAt == -1 || recipe != lastRecipe)
             {
                 lastRecipe = recipe;
                 cycleAt = tick + CYCLE_TIME;

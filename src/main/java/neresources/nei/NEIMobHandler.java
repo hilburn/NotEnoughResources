@@ -126,6 +126,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
             y += SPACING_Y;
         }
 
+        if(cachedMob.lastSet > 0)font.print("Page " + (cachedMob.set+1) + " of " + (cachedMob.lastSet+1), X_FIRST_ITEM, 120);
+
         cachedMob.cycleOutputs(cycleticks, recipe);
     }
 
