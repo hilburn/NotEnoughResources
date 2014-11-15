@@ -76,9 +76,7 @@ public class DungeonRegistry
 
     public List<IDungeonEntry> getDungeons()
     {
-        List<IDungeonEntry> list = new ArrayList<IDungeonEntry>(registry.values());
-        list.addAll(APIScraper.getCollection(IDungeonEntry.class));
-        return list;
+        return new ArrayList<IDungeonEntry>(registry.values());
     }
 
     public WeightedRandomChestContent[] getContents(IDungeonEntry entry)

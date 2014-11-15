@@ -52,8 +52,6 @@ public class MobRegistry
 
     public List<IMobEntry> getMobs()
     {
-        List<IMobEntry> list = new ArrayList<IMobEntry>(registry.values());
-        list.addAll(APIScraper.getCollection(IMobEntry.class));
-        return list;
+        return new ArrayList<IMobEntry>(registry.values());
     }
 }

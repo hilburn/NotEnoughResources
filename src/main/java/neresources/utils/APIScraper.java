@@ -12,9 +12,13 @@ public class APIScraper
         Map<String, T> map = new LinkedHashMap<String, T>();
         for (Map.Entry<String, IBaseEntry> entry : NEResourcesAPI.getRegistryAPI().entrySet())
         {
-            if (entry.getValue().getClass() == type)
+            for (Class I : entry.getClass().getInterfaces())
             {
-                map.put(entry.getKey(), type.cast(entry.getValue()));
+                if (I == type)
+                {
+                    map.put(entry.getKey(), type.cast(entry));
+                    break;
+                }
             }
         }
         return map;
@@ -25,9 +29,13 @@ public class APIScraper
         Collection<T> collection = new ArrayList<T>();
         for (IBaseEntry entry : NEResourcesAPI.getRegistryAPI().values())
         {
-            if (entry.getClass() == type)
+            for (Class I : entry.getClass().getInterfaces())
             {
-                collection.add(type.cast(entry));
+                if (I == type)
+                {
+                    collection.add(type.cast(entry));
+                    break;
+                }
             }
         }
         return collection;
