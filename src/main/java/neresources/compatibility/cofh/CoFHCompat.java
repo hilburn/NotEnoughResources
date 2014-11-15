@@ -75,18 +75,30 @@ public class CoFHCompat extends CompatBase
                 }
                 if (ores!=null)
                     registerOreEntries(ores,getChancesForUniform(minY,maxY,veinSize,count));
-            } /*else if (feature instanceof FeatureGenNormal)
+            } else if (feature instanceof FeatureGenNormal)
             {
                 FeatureGenNormal val = (FeatureGenNormal) feature;
                 int maxVar = ReflectionHelper.getInt(FeatureGenNormal.class, "maxVar", val);
                 int meanY = ReflectionHelper.getInt(FeatureGenNormal.class, "meanY", val);
                 int count = ReflectionHelper.getInt(FeatureGenNormal.class, "count", val);
+                ArrayList<WeightedRandomBlock> ores = null;
+                int veinSize = 0;
+                WeightedRandomBlock[] genBlock = null;
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
-                //System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + minY + " to " + maxY + ": Veins = " + count + ", Vein Size = " + veinSize);
+                if (worldGen instanceof WorldGenMinableCluster)
+                {
+                    WorldGenMinableCluster cluster = ((WorldGenMinableCluster) worldGen);
+                    ores = (ArrayList<WeightedRandomBlock>) ReflectionHelper.getObject(WorldGenMinableCluster.class, "cluster", cluster);
+                    veinSize = ReflectionHelper.getInt(WorldGenMinableCluster.class, "genClusterSize", cluster);
+                    genBlock = (WeightedRandomBlock[]) ReflectionHelper.getObject(WorldGenMinableCluster.class, "genBlock", cluster);
+                }
+                if (ores != null)
+                    registerOreEntries(ores, getChancesForNormal(meanY, maxVar, veinSize, count));
+                System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + meanY + " to " + maxVar + ": Veins = " + count + ", Vein Size = " + veinSize);
             } else if (feature instanceof FeatureGenSurface)
             {
 
-            }*/
+            }
         }
     }
 
@@ -96,6 +108,11 @@ public class CoFHCompat extends CompatBase
         int safeMaxY = Math.max(maxY,255);
         double chance = (double)numVeins/(safeMaxY-safeMinY)*veinSize/256D;
         return DistributionHelpers.getRoundedSquareDistribution(Math.max(0,minY-veinSize/2),safeMinY,safeMaxY,Math.min(maxY+veinSize/2,255), chance);
+    }
+
+    private double[] getChancesForNormal(int meanY, int maxVar, int veinSize, int numVeins)
+    {
+        return getChancesForUniform(meanY-maxVar, meanY+maxVar, veinSize, numVeins);
     }
 
     private void registerOreEntries(List<WeightedRandomBlock> ores, double[] baseChance)
