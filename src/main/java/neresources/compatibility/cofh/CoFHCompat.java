@@ -46,9 +46,9 @@ public class CoFHCompat extends CompatBase
             }
             else
             {
-                featureGenUniform = FeatureOreGenUniform.class;
-                featureGenNormal = FeatureOreGenNormal.class;
-                featureGenSurface = FeatureOreGenSurface.class;
+                featureGenUniform = FeatureGenUniform.class;
+                featureGenNormal = FeatureGenNormal.class;
+                featureGenSurface = FeatureGenSurface.class;
             }
             return instance = new CoFHCompat();
         }
