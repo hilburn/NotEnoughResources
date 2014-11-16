@@ -4,19 +4,16 @@ import cofh.api.world.IFeatureGenerator;
 import cofh.core.world.WorldHandler;
 import cofh.lib.util.WeightedRandomBlock;
 import cofh.lib.world.WorldGenMinableCluster;
-import cofh.lib.world.feature.FeatureGenNormal;
-import cofh.lib.world.feature.FeatureGenSurface;
-import cofh.lib.world.feature.FeatureGenUniform;
+import cofh.lib.world.feature.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import neresources.api.distributions.DistributionCustom;
-import neresources.api.entry.IOreEntry;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
 import neresources.registry.OreEntry;
+import neresources.utils.LoaderHelper;
 import neresources.utils.ModList;
 import neresources.utils.ReflectionHelper;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -31,12 +28,30 @@ public class CoFHCompat extends CompatBase
 
     public static CoFHCompat instance = null;
 
+    private static Class featureGenUniform;
+    private static Class featureGenNormal;
+    private static Class featureGenSurface;
+
     public static CoFHCompat newInstance()
     {
         if (instance != null)
             return instance;
         else
+        {
+            if(LoaderHelper.isModVersion(ModList.cofhcore.toString(), "1.7.10R3.0.0B6"))
+            {
+                featureGenUniform = FeatureOreGenUniform.class;
+                featureGenNormal = FeatureOreGenNormal.class;
+                featureGenSurface = FeatureOreGenSurface.class;
+            }
+            else
+            {
+                featureGenUniform = FeatureOreGenUniform.class;
+                featureGenNormal = FeatureOreGenNormal.class;
+                featureGenSurface = FeatureOreGenSurface.class;
+            }
             return instance = new CoFHCompat();
+        }
     }
 
     public CoFHCompat()
@@ -56,16 +71,15 @@ public class CoFHCompat extends CompatBase
     {
         for (IFeatureGenerator feature : features)
         {
-            if (feature instanceof FeatureGenUniform)
+            if (feature.getClass() == featureGenUniform)
             {
-                FeatureGenUniform val = (FeatureGenUniform) feature;
-                int maxY = ReflectionHelper.getInt(FeatureGenUniform.class, "maxY", val);
-                int minY = ReflectionHelper.getInt(FeatureGenUniform.class, "minY", val);
-                int count = ReflectionHelper.getInt(FeatureGenUniform.class, "count", val);
+                int maxY = ReflectionHelper.getInt(featureGenUniform, "maxY", feature);
+                int minY = ReflectionHelper.getInt(featureGenUniform, "minY", feature);
+                int count = ReflectionHelper.getInt(featureGenUniform, "count", feature);
                 int veinSize = 0;
                 ArrayList<WeightedRandomBlock> ores = null;
                 WeightedRandomBlock[] genBlock = null;
-                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(feature.getClass(), "worldGen", feature);
                 if (worldGen instanceof WorldGenMinableCluster)
                 {
                     WorldGenMinableCluster cluster = ((WorldGenMinableCluster) worldGen);
@@ -75,16 +89,15 @@ public class CoFHCompat extends CompatBase
                 }
                 if (ores!=null)
                     registerOreEntries(ores,getChancesForUniform(minY,maxY,veinSize,count));
-            } else if (feature instanceof FeatureGenNormal)
+            } else if (feature.getClass() == featureGenNormal)
             {
-                FeatureGenNormal val = (FeatureGenNormal) feature;
-                int maxVar = ReflectionHelper.getInt(FeatureGenNormal.class, "maxVar", val);
-                int meanY = ReflectionHelper.getInt(FeatureGenNormal.class, "meanY", val);
-                int count = ReflectionHelper.getInt(FeatureGenNormal.class, "count", val);
+                int maxVar = ReflectionHelper.getInt(featureGenNormal, "maxVar", feature);
+                int meanY = ReflectionHelper.getInt(featureGenNormal, "meanY", feature);
+                int count = ReflectionHelper.getInt(featureGenNormal, "count", feature);
                 ArrayList<WeightedRandomBlock> ores = null;
                 int veinSize = 0;
                 WeightedRandomBlock[] genBlock = null;
-                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(val.getClass(), "worldGen", val);
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(feature.getClass(), "worldGen", feature);
                 if (worldGen instanceof WorldGenMinableCluster)
                 {
                     WorldGenMinableCluster cluster = ((WorldGenMinableCluster) worldGen);
@@ -94,8 +107,7 @@ public class CoFHCompat extends CompatBase
                 }
                 if (ores != null)
                     registerOreEntries(ores, getChancesForNormal(meanY, maxVar, veinSize, count));
-                System.out.println(ores.get(0).block.getUnlocalizedName() + ":" + ores.get(0).metadata + " - " + meanY + " to " + maxVar + ": Veins = " + count + ", Vein Size = " + veinSize);
-            } else if (feature instanceof FeatureGenSurface)
+            } else if (feature.getClass() == featureGenSurface)
             {
 
             }

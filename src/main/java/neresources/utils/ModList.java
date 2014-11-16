@@ -4,6 +4,8 @@ import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
 
+import java.lang.reflect.InvocationTargetException;
+
 public enum ModList
 {
     cofhcore("CoFHCore", CoFHCompat.class),
@@ -29,11 +31,14 @@ public enum ModList
     {
         try
         {
-            return (CompatBase) compat.newInstance();
-        } catch (InstantiationException e)
+            return (CompatBase) compat.getMethod("newInstance").invoke(null);
+        } catch (IllegalAccessException e)
         {
             e.printStackTrace();
-        } catch (IllegalAccessException e)
+        } catch (NoSuchMethodException e)
+        {
+            e.printStackTrace();
+        } catch (InvocationTargetException e)
         {
             e.printStackTrace();
         }
