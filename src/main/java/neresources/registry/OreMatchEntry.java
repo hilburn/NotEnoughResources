@@ -81,7 +81,7 @@ public class OreMatchEntry
 
     public ItemStack[] getOres()
     {
-        return oreEntryMap.keySet().toArray(new ItemStack[0]);
+        return oreEntryMap.keySet().toArray(new ItemStack[oreEntryMap.keySet().size()]);
     }
 
     public boolean isSilkTouchNeeded(ItemStack stack)
