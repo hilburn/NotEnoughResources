@@ -61,7 +61,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public void loadTransferRects()
     {
-        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(5, 5, 40, 40), NEIConfig.DUNGEON, null));
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(5, 5, 40, 40), NEIConfig.DUNGEON, new Object()));
     }
 
     @Override

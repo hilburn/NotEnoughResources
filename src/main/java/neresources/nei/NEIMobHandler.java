@@ -54,7 +54,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadTransferRects()
     {
-        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(62, 72, 28, 18), NEIConfig.MOB, null));
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(62, 72, 28, 18), NEIConfig.MOB, new Object()));
     }
 
     @Override
