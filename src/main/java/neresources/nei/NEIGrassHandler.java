@@ -66,10 +66,15 @@ public class NEIGrassHandler extends TemplateRecipeHandler
     }
 
     @Override
-    public void loadUsageRecipes(ItemStack ingredient)
+    public void loadUsageRecipes(String inputId, Object... ingredients)
     {
-        if (ingredient.isItemEqual(new ItemStack(Blocks.tallgrass, 1, 1)))
-            arecipes.add(new CachedSeedOutput(GrassSeedRegistry.getInstance().getAllDrops().keySet()));
+        if (ingredients[0] instanceof ItemStack)
+        {
+            ItemStack ingredient = (ItemStack) ingredients[0];
+            if (ingredient.isItemEqual(new ItemStack(Blocks.tallgrass, 1, 1)))
+                arecipes.add(new CachedSeedOutput(GrassSeedRegistry.getInstance().getAllDrops().keySet()));
+        }
+        else super.loadUsageRecipes(inputId, ingredients);
     }
 
     public class CachedSeedOutput extends TemplateRecipeHandler.CachedRecipe

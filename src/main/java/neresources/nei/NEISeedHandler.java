@@ -6,7 +6,6 @@ import neresources.reference.Resources;
 import neresources.registry.GrassSeedRegistry;
 import neresources.utils.Font;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import java.awt.Rectangle;
@@ -32,6 +31,21 @@ public class NEISeedHandler extends TemplateRecipeHandler
     public void loadTransferRects()
     {
         transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(60, 15, 28, 18), NEIConfig.GRASS, new Object()));
+    }
+
+    @Override
+    public void loadUsageRecipes(String inputId, Object... ingredients)
+    {
+        if (ingredients[0] instanceof ItemStack)
+        {
+            ItemStack ingredient = (ItemStack) ingredients[0];
+            if (ingredient.isItemEqual(new ItemStack(Blocks.tallgrass, 1, 1)))
+            {
+                for (Map.Entry<ItemStack, Float> entry : GrassSeedRegistry.getInstance().getAllDrops().entrySet())
+                    arecipes.add(new CachedSeed(entry.getKey(), entry.getValue()));
+            }
+        }
+        else super.loadUsageRecipes(inputId, ingredients);
     }
 
     @Override
