@@ -9,6 +9,7 @@ public class NEIConfig implements IConfigureNEI
     public static final String MOB = Reference.ID + ".mob";
     public static final String DUNGEON = Reference.ID + ".dungeon";
     public static final String ORE = Reference.ID + ".ore";
+    public static final String GRASS = Reference.ID + ".grass";
 
     @Override
     public void loadConfig()
@@ -21,6 +22,12 @@ public class NEIConfig implements IConfigureNEI
 
         NEIDungeonHandler neiDungeonHandler = new NEIDungeonHandler();
         API.registerRecipeHandler(neiDungeonHandler);
+
+        NEIGrassHandler neiGrassHandler = new NEIGrassHandler();
+        API.registerRecipeHandler(neiGrassHandler);
+
+        NEISeedHandler neiSeedHandler = new NEISeedHandler();
+        API.registerRecipeHandler(neiSeedHandler);
     }
 
     @Override
