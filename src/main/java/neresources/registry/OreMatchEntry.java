@@ -121,6 +121,11 @@ public class OreMatchEntry
         return null;
     }
 
+    public IOreEntry getIOreEntry(int id)
+    {
+        return oreEntryMap.get(getOres()[id]);
+    }
+
     public int getColour()
     {
         return colour;
