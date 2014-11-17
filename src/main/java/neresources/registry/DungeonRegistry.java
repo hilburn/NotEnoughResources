@@ -66,6 +66,10 @@ public class DungeonRegistry
         return registerChestHook(name, chestGenHooks);
     }
 
+    public void registerDungeonEntry(IDungeonEntry entry) {
+        registerChestHook(entry.getName(),entry.getChestGenHooks());
+    }
+
     public List<IDungeonEntry> getDungeons(ItemStack item)
     {
         List<IDungeonEntry> list = new ArrayList<IDungeonEntry>();
@@ -91,5 +95,4 @@ public class DungeonRegistry
         if (min == max) return max + " Stacks";
         return min + " - " + max + " Stacks";
     }
-
 }
