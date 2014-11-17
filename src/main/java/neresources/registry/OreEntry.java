@@ -5,6 +5,7 @@ import neresources.api.entry.IOreEntry;
 import neresources.api.distributions.DistributionBase;
 import neresources.api.utils.KeyGen;
 import neresources.utils.ColorHelper;
+import net.minecraft.block.BlockOre;
 import net.minecraft.item.ItemStack;
 
 public class OreEntry implements IOreEntry
@@ -61,12 +62,14 @@ public class OreEntry implements IOreEntry
     }
 
     @Override
-    public boolean silkTouch(ItemStack itemStack) {
-        return matchStacks.length>1;
+    public boolean silkTouch(ItemStack itemStack)
+    {
+        return matchStacks.length > 1 && BlockOre.getBlockFromItem(itemStack.getItem()) instanceof BlockOre;
     }
 
     @Override
-    public String getKey() {
+    public String getKey()
+    {
         return KeyGen.getKey(matchStacks[0]);
     }
 

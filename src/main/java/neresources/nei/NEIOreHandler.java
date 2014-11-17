@@ -1,6 +1,7 @@
 package neresources.nei;
 
 import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
@@ -10,7 +11,8 @@ import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.util.List;
 
 public class NEIOreHandler extends TemplateRecipeHandler
 {
@@ -104,6 +106,14 @@ public class NEIOreHandler extends TemplateRecipeHandler
         font.print("bestY: " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
 
         cachedOre.cycleItemStack(cycleticks);
+    }
+
+    @Override
+    public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int recipe)
+    {
+        if (((CachedOre)arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
+            currenttip.add("§3SilkTouch Needed");
+        return currenttip;
     }
 
     public class CachedOre extends TemplateRecipeHandler.CachedRecipe

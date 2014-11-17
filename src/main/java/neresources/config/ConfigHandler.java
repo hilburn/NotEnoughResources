@@ -42,7 +42,7 @@ public class ConfigHandler
 
         Settings.CYCLE_TIME = config.getFloat("Cycle Time", Configuration.CATEGORY_GENERAL, 1.5F, 0.5F, 3.0F, "Show duration before cycle in NEI views");
 
-        Settings.EXTRA_RANGE = config.getInt("Extra range", Configuration.CATEGORY_GENERAL, 0, 0, 25, "Changes the extra yLevels displayed on the graph in the NEI ore View");
+        Settings.EXTRA_RANGE = config.getInt("Extra range", Configuration.CATEGORY_GENERAL, 3, 0, 25, "Changes the extra yLevels displayed on the graph in the NEI ore View");
 
         if (config.hasChanged())
         {

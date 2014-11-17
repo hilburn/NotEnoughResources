@@ -76,7 +76,7 @@ public class OreMatchEntry
 
     public double[] getChances(int extraRange)
     {
-        return Arrays.copyOfRange(chances, Math.max(minY - extraRange, 0), Math.min(maxY + extraRange, 255));
+        return Arrays.copyOfRange(chances, Math.max(minY - extraRange, 0), Math.min(maxY + extraRange +2, 255));
     }
 
     public int getBestY()
@@ -101,9 +101,24 @@ public class OreMatchEntry
 
     public boolean isSilkTouchNeeded(ItemStack stack)
     {
-//        IOreEntry value = oreEntryMap.get(stack);
-//        if (value!=null) return value.silkTouch(stack);
+        IOreEntry value = getIOreEntry(stack);
+        if (value!=null)
+        {
+            return value.silkTouch(stack);
+        }
         return false;
+    }
+
+    public IOreEntry getIOreEntry(ItemStack itemStack)
+    {
+        if (itemStack != null)
+        {
+            for (ItemStack keyStack : oreEntryMap.keySet())
+            {
+                if (itemStack.isItemEqual(keyStack)) return oreEntryMap.get(keyStack);
+            }
+        }
+        return null;
     }
 
     public int getColour()
