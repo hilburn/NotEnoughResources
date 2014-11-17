@@ -14,6 +14,7 @@ public class OreRegistry
 {
     private Map<String, IOreEntry> registry = new LinkedHashMap<String, IOreEntry>();
     private Map<String, OreMatchEntry> matchEntryMap = new LinkedHashMap<String, OreMatchEntry>();
+    private List<String> ores = new ArrayList<String>();
 
     private static OreRegistry instance = null;
 
@@ -33,9 +34,11 @@ public class OreRegistry
 
     private boolean registerOreMatches(IOreEntry entry) {
         ItemStack[] drops = entry.getOreMatches();
-        for (ItemStack drop: drops) {
+        for (int i = 0;i<drops.length;i++) {
             //String[] keys = MapKeys.getKeys(drop);
+            ItemStack drop = drops[i];
             String key = MapKeys.getKey(drop);
+            if (i==0) ores.add(key);
             //for (String key:keys) {
             if (key==null) return false;
             if (matchEntryMap.containsKey(key)) {
@@ -67,6 +70,11 @@ public class OreRegistry
 
     public List<OreMatchEntry> getOres()
     {
-        return new ArrayList<OreMatchEntry>(matchEntryMap.values());
+        List<OreMatchEntry> result = new ArrayList<OreMatchEntry>();
+        for (String key:ores)
+        {
+            result.add(matchEntryMap.get(key));
+        }
+        return result;
     }
 }
