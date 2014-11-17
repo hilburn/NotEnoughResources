@@ -1,7 +1,7 @@
 package neresources.registry;
 
 import neresources.api.entry.IOreEntry;
-import neresources.api.utils.MapKeys;
+import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -28,22 +28,30 @@ public class OreRegistry
     {
         if (registry.containsKey(entry.getKey())) return false;
         registry.put(entry.getKey(),entry);
+        return registerOreMatches(entry);
+    }
+
+    private boolean registerOreMatches(IOreEntry entry) {
+        ItemStack[] drops = entry.getOreMatches();
+        for (ItemStack drop: drops) {
+            //String[] keys = MapKeys.getKeys(drop);
+            String key = MapKeys.getKey(drop);
+            //for (String key:keys) {
+            if (key==null) return false;
+            if (matchEntryMap.containsKey(key)) {
+                matchEntryMap.get(key).add(drop, entry);
+            } else {
+                matchEntryMap.put(key, new OreMatchEntry(drop, entry));
+            }
+            //}
+        }
         return true;
     }
 
+
     public OreMatchEntry getRegistryMatches(ItemStack itemStack)
     {
-        String key = MapKeys.getKey(itemStack);
-        if (matchEntryMap.containsKey(key)) return matchEntryMap.get(key);
-        Map<ItemStack,IOreEntry> matches = new LinkedHashMap<ItemStack,IOreEntry>();
-        for (IOreEntry entry:registry.values())
-        {
-            ItemStack match = oreMatch(entry,itemStack);
-            if (match != null) matches.put(match,entry);
-        }
-        OreMatchEntry matchEntry = matches.size() == 0 ? null : new OreMatchEntry(matches);
-        matchEntryMap.put(key,matchEntry);
-        return matchEntry;
+        return matchEntryMap.get(MapKeys.getKey(itemStack));
     }
 
 

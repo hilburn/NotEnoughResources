@@ -184,6 +184,6 @@ public class MinecraftCompat extends CompatBase
         registerOre(new OreEntry(new ItemStack(Blocks.diamond_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D), new ItemStack(Items.diamond)));
         registerOre(new OreEntry(new ItemStack(Blocks.emerald_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D), new ItemStack(Items.emerald)));
         registerOre(new OreEntry(new ItemStack(Blocks.gold_ore), new DistributionSquare(0, 5, 29, 35, 0.0012D)));
-        registerOre(new OreEntry(new ItemStack(Blocks.coal_ore), new DistributionSquare(0, 5, 54, 76, 0.01D)));
+        registerOre(new OreEntry(new ItemStack(Blocks.coal_ore), new DistributionSquare(0, 5, 54, 76, 0.01D), new ItemStack(Items.coal)));
     }
 }

@@ -6,11 +6,12 @@ import neresources.config.Settings;
 import net.minecraft.item.ItemStack;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class OreMatchEntry
 {
-    Map<ItemStack, IOreEntry> oreEntryMap;
+    Map<ItemStack, IOreEntry> oreEntryMap = new LinkedHashMap<ItemStack, IOreEntry>();
     private double[] chances;
     private int minY;
     private int maxY;
@@ -25,6 +26,20 @@ public class OreMatchEntry
             int entryColour = entry.getValue().getColour(entry.getKey());
             if (colour == 0 && entryColour != 0) colour = entryColour;
         }
+    }
+
+    public OreMatchEntry(ItemStack stack, IOreEntry entry)
+    {
+        oreEntryMap.put(stack,entry);
+        calcChances();
+        colour = entry.getColour(stack);
+    }
+
+    public void add(ItemStack stack, IOreEntry entry)
+    {
+        oreEntryMap.put(stack,entry);
+        calcChances();
+        if (colour==0) colour = entry.getColour(stack);
     }
 
     private void calcChances()
@@ -86,8 +101,8 @@ public class OreMatchEntry
 
     public boolean isSilkTouchNeeded(ItemStack stack)
     {
-        IOreEntry value = oreEntryMap.get(stack);
-        if (value!=null) return value.silkTouch(stack);
+//        IOreEntry value = oreEntryMap.get(stack);
+//        if (value!=null) return value.silkTouch(stack);
         return false;
     }
 

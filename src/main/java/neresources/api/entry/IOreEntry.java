@@ -5,9 +5,8 @@ import net.minecraft.item.ItemStack;
 
 public interface IOreEntry extends IBaseEntry{
 
-
     /**
-     * @return an array of all ItemStacks to match against.
+     * @return an array of all possible drops from this IOreEntry
      */
     public ItemStack[] getOreMatches();
 
@@ -17,7 +16,7 @@ public interface IOreEntry extends IBaseEntry{
     public DistributionBase getDistribution(ItemStack itemStack);
 
     /**
-     * @return the ItemStack of the ore to be rendered in NEI.
+     * @return the ItemStack of the ore to be rendered in NEI - this is to allow you to define eg (Lapis ore block displays for Lapis Lazuli).
      */
     public ItemStack getOre(ItemStack itemStack);
 
@@ -29,10 +28,8 @@ public interface IOreEntry extends IBaseEntry{
 
 
     /**
-     * @return true for if the ore need
+     * @return true for if the ore needs to be silk touched to get a certain output eg. (Diamond Ore Blocks from Diamond Ore Blocks)
      */
-    public String getModName();
-
     public boolean silkTouch(ItemStack itemStack);
 
 }

@@ -3,6 +3,7 @@ package neresources.registry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import neresources.api.entry.IOreEntry;
 import neresources.api.distributions.DistributionBase;
+import neresources.api.utils.KeyGen;
 import neresources.utils.ColorHelper;
 import net.minecraft.item.ItemStack;
 
@@ -60,19 +61,13 @@ public class OreEntry implements IOreEntry
     }
 
     @Override
-    public String getModName()
-    {
-        return null;
-    }
-
-    @Override
     public boolean silkTouch(ItemStack itemStack) {
         return matchStacks.length>1;
     }
 
     @Override
     public String getKey() {
-        return GameRegistry.findUniqueIdentifierFor(matchStacks[0].getItem()).toString();
+        return KeyGen.getKey(matchStacks[0]);
     }
 
 }

@@ -1,6 +1,6 @@
-package neresources.api.utils;
+package neresources.utils;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import neresources.api.utils.KeyGen;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -16,17 +16,15 @@ public class MapKeys
             for (int i = 0; i < oreDictIds.length; i++)
                 oreDictNames[i] = OreDictionary.getOreName(oreDictIds[i]);
             if (oreDictNames.length == 0)
-                oreDictNames = new String[]{getKey(itemStack)};
+                oreDictNames = new String[]{KeyGen.getKey(itemStack)};
             return oreDictNames;
         }
         return new String[0];
     }
 
-    public static String getKey(ItemStack itemStack)
-    {
-        GameRegistry.UniqueIdentifier UUID = GameRegistry.findUniqueIdentifierFor(itemStack.getItem());
-        if (UUID != null)
-            return UUID.toString() + "@" + itemStack.getItemDamage();
-        return itemStack.toString();
+    public static String getKey(ItemStack drop) {
+        String[] keys = getKeys(drop);
+        if (keys.length>0) return keys[0];
+        return null;
     }
 }
