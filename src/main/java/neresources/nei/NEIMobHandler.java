@@ -87,7 +87,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         float scale = getScale(entityLivingBase);
         int offsetX = entityLivingBase.width < entityLivingBase.height ? (int) (72 - scale) : 72;
         if (scale == 70.0F) offsetX = (int) (72 - scale / 2);
-        RenderHelper.renderEntity(30, 165 - offsetX, scale, 20, -20, entityLivingBase);
+        RenderHelper.renderEntity(30, 165 - offsetX, scale, 150 -GuiDraw.getMousePosition().x, 150 -GuiDraw.getMousePosition().y, entityLivingBase);
     }
 
     private float getScale(EntityLivingBase entityLivingBase)
