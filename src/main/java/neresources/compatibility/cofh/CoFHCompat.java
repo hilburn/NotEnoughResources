@@ -150,7 +150,7 @@ public class CoFHCompat extends CompatBase
             else if(ore.block == Blocks.gravel||ore.block == Blocks.dirt) return;
             else
                 extraDrops = new ItemStack[0];
-            registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.divideArray(baseChance,ore.itemWeight/totalWeight)),extraDrops));
+            registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.multiplyArray(baseChance,ore.itemWeight/totalWeight)),extraDrops));
         }
     }
 }

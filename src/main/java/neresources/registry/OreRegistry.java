@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class OreRegistry
 {
-    private Map<String, IOreEntry> registry = new LinkedHashMap<String, IOreEntry>();
     private Map<String, OreMatchEntry> matchEntryMap = new LinkedHashMap<String, OreMatchEntry>();
     private List<String> ores = new ArrayList<String>();
 
@@ -25,47 +24,25 @@ public class OreRegistry
         return instance;
     }
 
-    public boolean registerOre(IOreEntry entry)
-    {
-        if (registry.containsKey(entry.getKey())) return false;
-        registry.put(entry.getKey(),entry);
-        return registerOreMatches(entry);
-    }
-
-    private boolean registerOreMatches(IOreEntry entry) {
+    public boolean registerOre(IOreEntry entry) {
         ItemStack[] drops = entry.getOreMatches();
         for (int i = 0;i<drops.length;i++) {
-            //String[] keys = MapKeys.getKeys(drop);
             ItemStack drop = drops[i];
             String key = MapKeys.getKey(drop);
-            if (i==0) ores.add(key);
-            //for (String key:keys) {
             if (key==null) return false;
+            if (ItemStack.areItemStacksEqual(drop,entry.getOre(drop))&&!ores.contains(key)) ores.add(key);
             if (matchEntryMap.containsKey(key)) {
                 matchEntryMap.get(key).add(drop, entry);
             } else {
                 matchEntryMap.put(key, new OreMatchEntry(drop, entry));
             }
-            //}
         }
         return true;
     }
 
-
     public OreMatchEntry getRegistryMatches(ItemStack itemStack)
     {
         return matchEntryMap.get(MapKeys.getKey(itemStack));
-    }
-
-
-    public ItemStack oreMatch(IOreEntry entry, ItemStack itemStack)
-    {
-        ItemStack[] matchStacks = entry.getOreMatches();
-        if (matchStacks==null) return null;
-        for (ItemStack match : matchStacks) {
-            if (match != null && OreDictionary.itemMatches(match, itemStack, false)) return match;
-        }
-        return null;
     }
 
     public List<OreMatchEntry> getOres()

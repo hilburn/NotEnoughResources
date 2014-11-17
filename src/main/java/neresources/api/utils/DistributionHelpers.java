@@ -100,4 +100,12 @@ public class DistributionHelpers
         return result;
     }
 
+    public static double[] multiplyArray(double[] array, double num)
+    {
+        double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++)
+            result[i]=array[i]*num;
+        return result;
+    }
+
 }
