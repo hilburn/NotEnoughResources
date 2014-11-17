@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.entry.IGrassEntry;
 import neresources.api.utils.KeyGen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,6 +31,13 @@ public class GrassSeedRegistry
             seedDrops.put(KeyGen.getKey(entry.seed),entry);
         }
         totalWeight*=8;
+    }
+
+    public void add(IGrassEntry entry)
+    {
+        String key = KeyGen.getKey(entry.getDrop());
+        if (!seedDrops.containsKey(key)) return;
+        seedDrops.put(key,new MySeedEntry(entry.getDrop(),(int)(totalWeight*entry.getChance())));
     }
 
     public boolean contains(ItemStack itemStack)
