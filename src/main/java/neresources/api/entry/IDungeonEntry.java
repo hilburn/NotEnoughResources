@@ -15,8 +15,4 @@ public interface IDungeonEntry extends IBaseEntry{
      * @return chest items
      */
     public ChestGenHooks getChestGenHooks();
-
-    public boolean hasItem(ItemStack itemStack);
-
-    public double getChance(WeightedRandomChestContent content);
 }

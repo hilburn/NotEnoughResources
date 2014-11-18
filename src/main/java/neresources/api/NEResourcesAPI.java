@@ -2,8 +2,6 @@ package neresources.api;
 
 import cpw.mods.fml.common.Loader;
 import neresources.api.entry.IBaseEntry;
-import neresources.api.entry.IOreEntry;
-import neresources.api.utils.KeyGen;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
