@@ -30,6 +30,9 @@ public class NEIConfig implements IConfigureNEI
         NEISeedHandler neiSeedHandler = new NEISeedHandler();
         API.registerRecipeHandler(neiSeedHandler);
         API.registerUsageHandler(neiSeedHandler);
+
+        NEIEnchantmentHandler neiEnchantmentHandler = new NEIEnchantmentHandler();
+        API.registerUsageHandler(neiEnchantmentHandler);
     }
 
     @Override

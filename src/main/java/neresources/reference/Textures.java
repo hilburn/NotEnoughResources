@@ -11,5 +11,6 @@ public final class Textures
         public static final String DUNGEON_NEI = GUI_DIR + "NEIDungeonGUI.png";
         public static final String GRASS_NEI = GUI_DIR + "NEIGrassGui.png";
         public static final String SEED_NEI = GUI_DIR + "NEISeedGUI.png";
+        public static final String ENCHANTMENT_NEI = GUI_DIR + "NEIEnchantmentGUI.png";
     }
 }
