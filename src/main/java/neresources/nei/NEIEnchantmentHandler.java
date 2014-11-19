@@ -39,7 +39,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
         int y = 5;
         for (Enchantment enchantment : cachedEnchantment.enchantments)
         {
-            font.print(enchantment.getName(), 30, y);
+            font.print(enchantment.getTranslatedName(1), 30, y);
             y += 10;
         }
     }
