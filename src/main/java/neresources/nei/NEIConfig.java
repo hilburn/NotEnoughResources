@@ -25,9 +25,11 @@ public class NEIConfig implements IConfigureNEI
 
         NEIGrassHandler neiGrassHandler = new NEIGrassHandler();
         API.registerRecipeHandler(neiGrassHandler);
+        API.registerUsageHandler(neiGrassHandler);
 
         NEISeedHandler neiSeedHandler = new NEISeedHandler();
         API.registerRecipeHandler(neiSeedHandler);
+        API.registerUsageHandler(neiSeedHandler);
     }
 
     @Override
