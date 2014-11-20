@@ -64,10 +64,4 @@ public class MobEntry implements IMobEntry
     {
         return lightLevel;
     }
-
-    @Override
-    public String getKey()
-    {
-        return String.valueOf(entity.getEntityId());
-    }
 }

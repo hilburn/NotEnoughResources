@@ -2,7 +2,7 @@ package neresources.api.entry;
 
 import net.minecraft.item.ItemStack;
 
-public interface ISeedEntry extends IBaseEntry
+public interface ISeedEntry
 {
     /**
      * @return the drop this entry adds

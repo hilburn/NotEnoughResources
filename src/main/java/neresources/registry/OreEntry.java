@@ -65,11 +65,4 @@ public class OreEntry implements IOreEntry
     {
         return matchStacks.length > 1 && BlockOre.getBlockFromItem(itemStack.getItem()) instanceof BlockOre;
     }
-
-    @Override
-    public String getKey()
-    {
-        return KeyGen.getKey(matchStacks[0]);
-    }
-
 }

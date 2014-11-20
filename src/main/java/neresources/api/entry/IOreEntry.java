@@ -3,7 +3,7 @@ package neresources.api.entry;
 import neresources.api.distributions.DistributionBase;
 import net.minecraft.item.ItemStack;
 
-public interface IOreEntry extends IBaseEntry
+public interface IOreEntry
 {
     /**
      * @return an array of all possible drops from this IOreEntry

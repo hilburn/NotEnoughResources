@@ -1,33 +1,33 @@
 package neresources.api;
 
-import cpw.mods.fml.common.Loader;
-import neresources.api.entry.IBaseEntry;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class NEResourcesAPI
 {
-    private static Map<String,IBaseEntry> registryAPI = new LinkedHashMap<String, IBaseEntry>();
+    private static Set<Object> registryAPI = new LinkedHashSet<Object>();
 
     /**
-     * Adds {@link neresources.api.entry.IBaseEntry} to the registry
+     * Adds {@link java.lang.Object} to the registry - if it does not implement an API interface nothing will happen.
      * @param entry the to add entry
      * @return true if succeeded
      */
-    public static boolean registerEntry(IBaseEntry entry)
+    public static boolean registerEntry(Object entry)
     {
-        String key = Loader.instance().activeModContainer().getModId()+":"+ entry.getKey();
-        if (key == null || key == "") return false;
-        if (registryAPI.containsKey(key)) return false;
-        registryAPI.put(key,entry);
-        return true;
+        try {
+            registryAPI.add(entry);
+            return true;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
     }
 
     /**
      * @return get the registry
      */
-    public static Map<String,IBaseEntry> getRegistryAPI()
+    public static Set<Object> getRegistryAPI()
     {
         return registryAPI;
     }

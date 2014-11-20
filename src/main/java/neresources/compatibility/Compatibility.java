@@ -21,7 +21,7 @@ public class Compatibility
             mod.initialise();
         }
 
-        for (Object entry: NEResourcesAPI.getRegistryAPI().values())
+        for (Object entry: NEResourcesAPI.getRegistryAPI())
         {
             if (entry instanceof IMobEntry) MobRegistry.getInstance().registerMob((IMobEntry)entry);
             else if (entry instanceof IDungeonEntry) DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);

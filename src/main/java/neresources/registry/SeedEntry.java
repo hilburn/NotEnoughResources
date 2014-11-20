@@ -26,10 +26,4 @@ public class SeedEntry implements ISeedEntry
     {
         return itemWeight;
     }
-
-    @Override
-    public String getKey()
-    {
-        return KeyGen.getKey(seed);
-    }
 }

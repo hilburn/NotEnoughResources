@@ -25,10 +25,4 @@ public class DungeonEntry implements IDungeonEntry
     {
         return this.chestGenHooks;
     }
-
-    @Override
-    public String getKey()
-    {
-        return getName();
-    }
 }

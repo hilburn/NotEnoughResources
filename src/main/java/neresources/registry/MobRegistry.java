@@ -1,7 +1,6 @@
 package neresources.registry;
 
 import neresources.api.entry.IMobEntry;
-import neresources.utils.APIScraper;
 import neresources.utils.MobHelper;
 import net.minecraft.item.ItemStack;
 
