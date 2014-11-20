@@ -10,6 +10,7 @@ import neresources.registry.MobRegistry;
 import neresources.utils.Font;
 import neresources.utils.MobHelper;
 import neresources.utils.RenderHelper;
+import neresources.utils.TranslationHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -44,7 +45,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Mob drop";
+        return TranslationHelper.translateToLocal("ner.mob.title");
     }
 
     @Override
@@ -129,9 +130,9 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
         Font font = new Font(false);
         font.print(cachedMob.mob.getMobName(), 2, 2);
-        font.print("Spawn Biome: " + cachedMob.mob.getBiomes()[0], 2, 12);
+        font.print(TranslationHelper.translateToLocal("ner.mob.biome") + ": " + cachedMob.mob.getBiomes()[0], 2, 12);
         font.print(cachedMob.mob.getLightLevel(), 2, 22);
-        font.print("Experience Dropped: " + MobHelper.getExpDrop(cachedMob.mob), 2, 32);
+        font.print(TranslationHelper.translateToLocal("ner.mob.exp") + ": " + MobHelper.getExpDrop(cachedMob.mob), 2, 32);
 
         int y = Y_FIRST_ITEM + 4;
         for (int i = cachedMob.set * Settings.ITEMS_PER_COLUMN; i < cachedMob.set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)
@@ -141,7 +142,8 @@ public class NEIMobHandler extends TemplateRecipeHandler
             y += SPACING_Y;
         }
 
-        if(cachedMob.lastSet > 0)font.print("Page " + (cachedMob.set+1) + " of " + (cachedMob.lastSet+1), X_FIRST_ITEM, 120);
+        if(cachedMob.lastSet > 0)
+            font.print(TranslationHelper.getLocalPageInfo(cachedMob.set, cachedMob.lastSet), X_FIRST_ITEM, 120);
 
         cachedMob.cycleOutputs(cycleticks, recipe);
     }
@@ -150,8 +152,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
         public IMobEntry mob;
-        public int set;
-        private int lastSet;
+        public int set, lastSet;
         private long cycleAt;
 
         public CachedMob(IMobEntry mob)

@@ -9,6 +9,7 @@ import neresources.registry.OreRegistry;
 import neresources.registry.OreMatchEntry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
+import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 
 import java.awt.Rectangle;
@@ -41,7 +42,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Ore Gen";
+        return TranslationHelper.translateToLocal("ner.ore.title");
     }
 
     @Override
@@ -87,10 +88,10 @@ public class NEIOreHandler extends TemplateRecipeHandler
         double yPrev = Y_OFFSPRING;
         double space = X_AXIS_SIZE / (array.length * 1D);
         int precision = array.length / 2 < 1 ? 1 : array.length / 2;
-        for (int i = 0; i < array.length; i++)
+        for (double value : array)
         {
             double x = xPrev + space;
-            int y = Y_OFFSPRING - (int) ((array[i] / max) * Y_AXIS_SIZE);
+            int y = Y_OFFSPRING - (int) ((value / max) * Y_AXIS_SIZE);
             RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor(), precision);
             xPrev = x;
             yPrev = y;
@@ -103,7 +104,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
         font.print(minY < 0 ? 0 : minY, X_OFFSPRING - 3, Y_OFFSPRING + 2);
         int maxY = cachedOre.oreMatchEntry.getMaxY() + Settings.EXTRA_RANGE;
         font.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
-        font.print("bestY: " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
+        font.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
 
         cachedOre.cycleItemStack(cycleticks);
     }
@@ -112,7 +113,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int recipe)
     {
         if (((CachedOre)arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
-            currenttip.add("§3SilkTouch Needed");
+            currenttip.add("§3" + TranslationHelper.translateToLocal("ner.ore.silkTouch"));
         return currenttip;
     }
 

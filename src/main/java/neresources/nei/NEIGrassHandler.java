@@ -5,6 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.reference.Resources;
 import neresources.registry.GrassSeedRegistry;
+import neresources.utils.TranslationHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
@@ -33,7 +34,7 @@ public class NEIGrassHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Grass drops";
+        return TranslationHelper.translateToLocal("ner.grass.title");
     }
 
     @Override

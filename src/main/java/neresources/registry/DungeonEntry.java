@@ -10,18 +10,8 @@ public class DungeonEntry implements IDungeonEntry
 
     public DungeonEntry(String name, ChestGenHooks chestGenHooks)
     {
-        setName(name);
-        setContents(chestGenHooks);
-    }
-
-    public void setContents(ChestGenHooks chestGenHooks)
-    {
-        this.chestGenHooks = chestGenHooks;
-    }
-
-    public void setName(String name)
-    {
         this.name = name;
+        this.chestGenHooks = chestGenHooks;
     }
 
     @Override

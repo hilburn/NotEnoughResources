@@ -1,0 +1,37 @@
+#Usage: ner.page pageNumber ner.of lastPage
+ner.page=Page
+ner.of=of
+#Usage X ner.stacks
+ner.stacks=Stacks
+
+#Dungeon View
+ner.dungeon.title=Dungeon Chests
+ner.dungeon.mineshaftCorridor=Mineshaft
+ner.dungeon.pyramidDesertyChest=Desert Temple
+ner.dungeon.pyramidJungleChest=Mineshaft
+ner.dungeon.pyramidJungleDispenser=Jungle Temple
+ner.dungeon.strongholdCorridor=Stronghold Corridor
+ner.dungeon.strongholdLibrary=Stronghold Library
+ner.dungeon.strongholdCrossing=Stronghold Crossing
+ner.dungeon.villageBlacksmith=Blacksmith
+ner.dungeon.bonusChest=Bonus
+ner.dungeon.dungeonChest=Dungeon
+
+#Enchantments View
+ner.enchantments.title=Enchantments
+
+#Grass View
+ner.grass.title=Grass Drops
+
+#Ore View
+ner.ore.title=Ore Gen
+ner.ore.bestY=bestY
+ner.ore.silkTouch=SilkTouch Needed
+
+#Mob View
+ner.mob.title=Mob Drops
+ner.mob.biome=Spawn Biome
+ner.mob.exp=Experience Dropped
+
+#Seed View
+ner.seed.title=Seed Drop

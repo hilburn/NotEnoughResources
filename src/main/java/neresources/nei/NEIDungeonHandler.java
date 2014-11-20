@@ -10,6 +10,7 @@ import neresources.registry.DungeonRegistry;
 import neresources.utils.DungeonHelper;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
+import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import org.lwjgl.opengl.GL11;
@@ -50,7 +51,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Dungeon Chest";
+        return TranslationHelper.translateToLocal("ner.dungeon.title");
     }
 
     @Override
@@ -121,9 +122,10 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         CachedDungeonChest cachedChest = (CachedDungeonChest) arecipes.get(recipe);
 
         Font font = new Font(false);
-        font.print(cachedChest.chest.getName(), 60, 7);
+        font.print(TranslationHelper.translateToLocal(cachedChest.chest.getName()), 60, 7);
         font.print(DungeonRegistry.getInstance().getNumStacks(cachedChest.chest), 60, 20);
-        if(cachedChest.lastSet > 0)font.print("Page " + (cachedChest.set+1) + " of " + (cachedChest.lastSet+1), 60, 36);
+        if (cachedChest.lastSet > 0)
+            font.print(TranslationHelper.getLocalPageInfo(cachedChest.set, cachedChest.lastSet), 60, 36);
 
         int x = X_FIRST_ITEM + 18;
         int y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);

@@ -5,6 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.reference.Resources;
 import neresources.registry.GrassSeedRegistry;
 import neresources.utils.Font;
+import neresources.utils.TranslationHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -24,7 +25,7 @@ public class NEISeedHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Seed Drop";
+        return TranslationHelper.translateToLocal("ner.seed.title");
     }
 
     @Override

@@ -8,6 +8,7 @@ import neresources.reference.Resources;
 import neresources.registry.EnchantmentEntry;
 import neresources.registry.EnchantmentRegistry;
 import neresources.utils.Font;
+import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
@@ -41,7 +42,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Enchantments";
+        return TranslationHelper.translateToLocal("ner.enchantments.title");
     }
 
     @Override
@@ -70,7 +71,11 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
             font.print(enchantment.getTranslatedWithLevels(), ENCHANT_X, y);
             y += SPACING_Y;
         }
-        if(cachedEnchantment.lastSet > 0) font.print("Page " + (cachedEnchantment.set+1) + " of " + (cachedEnchantment.lastSet+1), PAGE_X , PAGE_Y);
+        if(cachedEnchantment.lastSet > 0)
+        {
+            String toPrint = TranslationHelper.translateToLocal("ner.page") + " " + (cachedEnchantment.set+1) + " " + TranslationHelper.translateToLocal("ner.of") + " " + (cachedEnchantment.lastSet+1);
+            font.print(toPrint, PAGE_X , PAGE_Y);
+        }
 
         cachedEnchantment.cycleOutput(cycleticks);
     }

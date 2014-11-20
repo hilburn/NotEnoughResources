@@ -3,6 +3,7 @@ package neresources.registry;
 import neresources.api.entry.IDungeonEntry;
 import neresources.utils.DungeonHelper;
 import neresources.utils.ReflectionHelper;
+import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
 
@@ -11,7 +12,7 @@ import java.util.*;
 public class DungeonRegistry
 {
     private Map<String, IDungeonEntry> registry = new LinkedHashMap<String, IDungeonEntry>();
-    public static Map<String, String> categoryToNameMap = new LinkedHashMap<String, String>();
+    public static Map<String, String> categoryToLocalKeyMap = new LinkedHashMap<String, String>();
     private static DungeonRegistry instance = null;
 
     public static DungeonRegistry getInstance()
@@ -23,23 +24,23 @@ public class DungeonRegistry
 
     public DungeonRegistry()
     {
-        addCategoryMapping("mineshaftCorridor", "Mineshaft");
-        addCategoryMapping("pyramidDesertyChest", "Desert Temple");
-        addCategoryMapping("pyramidJungleChest", "Jungle Temple");
-        addCategoryMapping("pyramidJungleDispenser", "Jungle Temple");
-        addCategoryMapping("strongholdCorridor", "Stronghold Corridor");
-        addCategoryMapping("strongholdLibrary", "Stronghold Library");
-        addCategoryMapping("strongholdCrossing", "Stronghold Crossing");
-        addCategoryMapping("villageBlacksmith", "Blacksmith");
-        addCategoryMapping("bonusChest", "Bonus");
-        addCategoryMapping("dungeonChest", "Dungeon");
+        addCategoryMapping("mineshaftCorridor", "ner.dungeon.mineshaftCorridor");
+        addCategoryMapping("pyramidDesertyChest", "ner.dungeon.pyramidDesertyChest");
+        addCategoryMapping("pyramidJungleChest", "ner.dungeon.pyramidJungleChest");
+        addCategoryMapping("pyramidJungleDispenser", "ner.dungeon.pyramidJungleDispenser");
+        addCategoryMapping("strongholdCorridor", "ner.dungeon.strongholdCorridor");
+        addCategoryMapping("strongholdLibrary", "ner.dungeon.strongholdLibrary");
+        addCategoryMapping("strongholdCrossing", "ner.dungeon.strongholdCrossing");
+        addCategoryMapping("villageBlacksmith", "ner.dungeon.villageBlacksmith");
+        addCategoryMapping("bonusChest", "ner.dungeon.bonusChest");
+        addCategoryMapping("dungeonChest", "ner.dungeon.dungeonChest");
     }
 
     public static boolean addCategoryMapping(String category, String name)
     {
-        if (!categoryToNameMap.containsKey(category))
+        if (!categoryToLocalKeyMap.containsKey(category))
         {
-            categoryToNameMap.put(category, name);
+            categoryToLocalKeyMap.put(category, name);
             return true;
         }
         return false;
@@ -58,7 +59,7 @@ public class DungeonRegistry
     public boolean registerChestHook(ChestGenHooks chestGenHooks)
     {
         String name = ReflectionHelper.getString(ChestGenHooks.class, "category", chestGenHooks);
-        if (categoryToNameMap.containsKey(name)) return registerChestHook(categoryToNameMap.get(name), chestGenHooks);
+        if (categoryToLocalKeyMap.containsKey(name)) return registerChestHook(categoryToLocalKeyMap.get(name), chestGenHooks);
         return registerChestHook(name, chestGenHooks);
     }
 
@@ -83,7 +84,7 @@ public class DungeonRegistry
     {
         int max = entry.getChestGenHooks().getMax();
         int min = entry.getChestGenHooks().getMin();
-        if (min == max) return max + " Stacks";
-        return min + " - " + max + " Stacks";
+        if (min == max) return max + " " + TranslationHelper.translateToLocal("ner.stacks");
+        return min + " - " + max + " " + TranslationHelper.translateToLocal("ner.stacks");
     }
 }
