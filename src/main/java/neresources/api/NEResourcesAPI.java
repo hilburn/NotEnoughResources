@@ -10,6 +10,11 @@ public class NEResourcesAPI
 {
     private static Map<String,IBaseEntry> registryAPI = new LinkedHashMap<String, IBaseEntry>();
 
+    /**
+     * Adds {@link neresources.api.entry.IBaseEntry} to the registry
+     * @param entry the to add entry
+     * @return true if succeeded
+     */
     public static boolean registerEntry(IBaseEntry entry)
     {
         String key = Loader.instance().activeModContainer().getModId()+":"+ entry.getKey();
@@ -19,6 +24,9 @@ public class NEResourcesAPI
         return true;
     }
 
+    /**
+     * @return get the registry
+     */
     public static Map<String,IBaseEntry> getRegistryAPI()
     {
         return registryAPI;

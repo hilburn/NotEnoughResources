@@ -2,6 +2,12 @@ package neresources.api.utils;
 
 public class DistributionHelpers
 {
+    /**
+     * @param midY the top, middle of the triangle
+     * @param range length of the sides
+     * @param maxChance chance at the top
+     * @return an array of 256 doubles in triangular distribution
+     */
     public static double[] getTriangularDistribution(int midY, int range, double maxChance)
     {
         double[] triangle = new double[range * 2 + 1];
@@ -20,6 +26,12 @@ public class DistributionHelpers
         return result;
     }
 
+    /**
+     * @param minY first occurrence
+     * @param maxY last occurrence
+     * @param chance the chance
+     * @return an array of 256 doubles in square distribution
+     */
     public static double[] getSquareDistribution(int minY, int maxY, double chance)
     {
         double[] result = new double[256];
@@ -28,6 +40,14 @@ public class DistributionHelpers
         return result;
     }
 
+    /**
+     * @param min0 start of the ramp
+     * @param minY end of the ramp up
+     * @param maxY start of the ramp down
+     * @param max0 end of ramp down
+     * @param chance the chance at the top
+     * @return an array of 256 doubles in square distribution
+     */
     public static double[] getRoundedSquareDistribution(int min0, int minY, int maxY, int max0, double chance)
     {
         double[] result = new double[256];
@@ -37,6 +57,12 @@ public class DistributionHelpers
         return result;
     }
 
+    /**
+     * @param minY first occurrence
+     * @param maxY last occurrence
+     * @param maxChance chance at the top of the ramp
+     * @return an array of doubles with length |maxY - minY| in ramp distribution
+     */
     public static double[] getRampDistribution(int minY, int maxY, double maxChance)
     {
         if (minY == maxY) return new double[0];
@@ -51,11 +77,22 @@ public class DistributionHelpers
         return result;
     }
 
+    /**
+     * @param base base distribution
+     * @param add the to add distribution
+     * @return the sum of both distributions
+     */
     public static double[] addDistribution(double[] base, double[] add)
     {
         return addDistribution(base, add, 0);
     }
 
+    /**
+     * @param base base distribution
+     * @param add the to add distribution
+     * @param offset the first element from the base array to start adding to
+     * @return the sum of both distributions
+     */
     public static double[] addDistribution(double[] base, double[] add, int offset)
     {
         int addCount = 0;
@@ -64,6 +101,10 @@ public class DistributionHelpers
         return base;
     }
 
+    /**
+     * @param array
+     * @return a reversed version of the given array
+     */
     public static double[] reverse(double[] array)
     {
         double[] result = new double[array.length];
@@ -74,6 +115,13 @@ public class DistributionHelpers
         return result;
     }
 
+    /**
+     * @param distribution the target array
+     * @param mid the middle of the array
+     * @param oldMid the old middle
+     * @param difference the difference
+     * @return the mean level of the distribution
+     */
     public static int calculateMeanLevel(double[] distribution, int mid, int oldMid, double difference)
     {
         double totalUp = 0;
@@ -92,6 +140,11 @@ public class DistributionHelpers
         return calculateMeanLevel(distribution,mid-1,mid,newDifference);
     }
 
+    /**
+     * @param array the to divide array
+     * @param num the denominator
+     * @return the divided array
+     */
     public static double[] divideArray(double[] array, double num)
     {
         double[] result = new double[array.length];
@@ -100,6 +153,11 @@ public class DistributionHelpers
         return result;
     }
 
+    /**
+     * @param array the to multiply array
+     * @param num the multiplier
+     * @return the divided array
+     */
     public static double[] multiplyArray(double[] array, double num)
     {
         double[] result = new double[array.length];
