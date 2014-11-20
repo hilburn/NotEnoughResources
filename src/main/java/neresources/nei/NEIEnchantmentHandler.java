@@ -1,17 +1,37 @@
 package neresources.nei;
 
+import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neresources.config.Settings;
 import neresources.reference.Resources;
+import neresources.registry.EnchantmentEntry;
 import neresources.registry.EnchantmentRegistry;
 import neresources.utils.Font;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NEIEnchantmentHandler extends TemplateRecipeHandler
 {
+    private static final int ITEM_X = 8;
+    private static final int ITEM_Y = 6;
+    private static final int ENTRYS_PER_PAGE = 11;
+    private static final int ENCHANT_X = 30;
+    private static final int FIRST_ENCHANT_Y = 5;
+    private static final int SPACING_Y = 10;
+    private static final int PAGE_X = 55;
+    private static final int PAGE_Y = 120;
+
+    private static int CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
+
+    public static void loadSettings()
+    {
+        CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
+    }
+
     @Override
     public String getGuiTexture()
     {
@@ -22,6 +42,14 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
     public String getRecipeName()
     {
         return "Enchantments";
+    }
+
+    @Override
+    public void drawBackground(int recipe)
+    {
+        GL11.glColor4f(1, 1, 1, 1);
+        GuiDraw.changeTexture(getGuiTexture());
+        GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
     }
 
     @Override
@@ -36,30 +64,57 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
     {
         CachedEnchantment cachedEnchantment = (CachedEnchantment)arecipes.get(recipe);
         Font font = new Font(false);
-        int y = 5;
-        for (Enchantment enchantment : cachedEnchantment.enchantments)
+        int y = FIRST_ENCHANT_Y;
+        for (EnchantmentEntry enchantment : cachedEnchantment.getEnchantments())
         {
-            font.print(enchantment.getTranslatedName(1), 30, y);
-            y += 10;
+            font.print(enchantment.getTranslatedWithLevels(), ENCHANT_X, y);
+            y += SPACING_Y;
         }
+        if(cachedEnchantment.lastSet > 0) font.print("Page " + (cachedEnchantment.set+1) + " of " + (cachedEnchantment.lastSet+1), PAGE_X , PAGE_Y);
+
+        cachedEnchantment.cycleOutput(cycleticks);
     }
 
     public class CachedEnchantment extends TemplateRecipeHandler.CachedRecipe
     {
 
         private ItemStack itemStack;
-        public Set<Enchantment> enchantments;
+        private List<EnchantmentEntry> enchantments;
+        public int set, lastSet;
+        private long cycleAt;
 
         public CachedEnchantment(ItemStack itemStack)
         {
             this.itemStack = itemStack;
-            this.enchantments = EnchantmentRegistry.getInstance().getEnchantments(itemStack);
+            this.enchantments = new LinkedList<EnchantmentEntry>(EnchantmentRegistry.getInstance().getEnchantments(itemStack));
+            this.set = 0;
+            this.lastSet = this.enchantments.size() / (ENTRYS_PER_PAGE + 1);
+            this.cycleAt = -1;
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(this.itemStack, 8, 6);
+            return new PositionedStack(this.itemStack, ITEM_X, ITEM_Y);
+        }
+
+        public List<EnchantmentEntry> getEnchantments()
+        {
+            int last = set * ENTRYS_PER_PAGE + ENTRYS_PER_PAGE;
+            if (last >= this.enchantments.size()) last = this.enchantments.size()-1;
+            return this.enchantments.subList(set * ENTRYS_PER_PAGE, last);
+        }
+
+        public void cycleOutput(long tick)
+        {
+            if (cycleAt == -1)
+                cycleAt = tick + CYCLE_TIME;
+
+            if (tick >= cycleAt)
+            {
+                if (++set > lastSet) set = 0;
+                cycleAt += CYCLE_TIME;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package neresources.config;
 
 import neresources.nei.NEIDungeonHandler;
+import neresources.nei.NEIEnchantmentHandler;
 import neresources.nei.NEIMobHandler;
 import neresources.nei.NEIOreHandler;
 
@@ -12,10 +13,11 @@ public final class Settings
 
     public static int EXTRA_RANGE;
 
-    public static void loadSettings()
+    public static void load()
     {
         NEIDungeonHandler.loadSettings();
         NEIMobHandler.loadSettings();
         NEIOreHandler.loadSettings();
+        NEIEnchantmentHandler.loadSettings();
     }
 }

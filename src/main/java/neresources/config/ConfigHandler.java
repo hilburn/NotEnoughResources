@@ -22,7 +22,7 @@ public class ConfigHandler
             config = new Configuration(configFile);
             loadConfig();
         }
-        Settings.loadSettings();
+        Settings.load();
     }
 
     @SubscribeEvent
@@ -31,7 +31,7 @@ public class ConfigHandler
         if (event.modID.equalsIgnoreCase(Reference.ID))
         {
             loadConfig();
-            Settings.loadSettings();
+            Settings.load();
         }
     }
 
