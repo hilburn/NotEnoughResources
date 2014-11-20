@@ -7,6 +7,7 @@ import neresources.api.entry.IDungeonEntry;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.DungeonRegistry;
+import neresources.utils.DungeonHelper;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import net.minecraft.item.ItemStack;
@@ -129,7 +130,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
         for (int i = ITEMS_PER_PAGE * cachedChest.set; i < ITEMS_PER_PAGE * cachedChest.set + ITEMS_PER_PAGE; i++)
         {
             if (i >= cachedChest.getContents().length) break;
-            double chance = cachedChest.chest.getChance(cachedChest.getContents()[i]) * 100;
+            double chance = DungeonHelper.getChance(cachedChest.chest, cachedChest.getContents()[i]) * 100;
             String format = chance < 100 ? "%2.1f" : "%2.0f";
             String toPrint = String.format(format, chance).replace(',', '.') + "%";
             font.print(toPrint, x, y);
@@ -160,7 +161,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
 
         public WeightedRandomChestContent[] getContents()
         {
-            return DungeonRegistry.getInstance().getContents(chest);
+            return DungeonHelper.getContents(chest);
         }
 
         @Override

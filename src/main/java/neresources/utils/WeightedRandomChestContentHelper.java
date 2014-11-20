@@ -40,7 +40,7 @@ public class WeightedRandomChestContentHelper
         {
             if ((li < left.length) && (ri < right.length))
             {
-                if (entry.getChance(left[li]) >= entry.getChance(right[ri]))
+                if (DungeonHelper.getChance(entry, left[li]) >= DungeonHelper.getChance(entry, right[ri]))
                 {
                     merged[i] = left[li];
                     i++;

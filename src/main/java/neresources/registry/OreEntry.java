@@ -1,6 +1,5 @@
 package neresources.registry;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import neresources.api.entry.IOreEntry;
 import neresources.api.distributions.DistributionBase;
 import neresources.api.utils.KeyGen;

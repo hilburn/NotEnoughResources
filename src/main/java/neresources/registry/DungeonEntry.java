@@ -1,15 +1,12 @@
 package neresources.registry;
 
 import neresources.api.entry.IDungeonEntry;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
 public class DungeonEntry implements IDungeonEntry
 {
     private String name;
     private ChestGenHooks chestGenHooks;
-    private int totalWeight = 0;
 
     public DungeonEntry(String name, ChestGenHooks chestGenHooks)
     {
@@ -20,8 +17,6 @@ public class DungeonEntry implements IDungeonEntry
     public void setContents(ChestGenHooks chestGenHooks)
     {
         this.chestGenHooks = chestGenHooks;
-        for (WeightedRandomChestContent chestItem : chestGenHooks.getItems(DungeonRegistry.rand))
-            totalWeight += chestItem.itemWeight;
     }
 
     public void setName(String name)
@@ -39,28 +34,6 @@ public class DungeonEntry implements IDungeonEntry
     public ChestGenHooks getChestGenHooks()
     {
         return this.chestGenHooks;
-    }
-
-    public int getAverageStacks()
-    {
-        return (this.chestGenHooks.getMax() + this.chestGenHooks.getMin()) / 2;
-    }
-
-    public int getTotalWeight()
-    {
-        return totalWeight;
-    }
-
-    public double getChance(WeightedRandomChestContent content)
-    {
-        return ((double) getAverageStacks() * content.itemWeight) / this.totalWeight;
-    }
-
-    public boolean hasItem(ItemStack item)
-    {
-        for (WeightedRandomChestContent chestContent : getChestGenHooks().getItems(DungeonRegistry.rand))
-            if (chestContent.theItemId.isItemEqual(item)) return true;
-        return false;
     }
 
     @Override
