@@ -14,8 +14,12 @@ public class NEIConfig implements IConfigureNEI
     @Override
     public void loadConfig()
     {
+        NEIEnchantmentHandler neiEnchantmentHandler = new NEIEnchantmentHandler();
+        API.registerUsageHandler(neiEnchantmentHandler);
+
         NEIMobHandler neiMobHandler = new NEIMobHandler();
         API.registerRecipeHandler(neiMobHandler);
+        API.registerUsageHandler(neiMobHandler);
 
         NEIOreHandler neiOreHandler = new NEIOreHandler();
         API.registerRecipeHandler(neiOreHandler);
@@ -30,9 +34,6 @@ public class NEIConfig implements IConfigureNEI
         NEISeedHandler neiSeedHandler = new NEISeedHandler();
         API.registerRecipeHandler(neiSeedHandler);
         API.registerUsageHandler(neiSeedHandler);
-
-        NEIEnchantmentHandler neiEnchantmentHandler = new NEIEnchantmentHandler();
-        API.registerUsageHandler(neiEnchantmentHandler);
     }
 
     @Override

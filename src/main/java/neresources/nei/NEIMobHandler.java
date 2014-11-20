@@ -11,6 +11,7 @@ import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -55,6 +56,17 @@ public class NEIMobHandler extends TemplateRecipeHandler
     public void loadTransferRects()
     {
         transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(62, 72, 28, 18), NEIConfig.MOB, new Object()));
+    }
+
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient)
+    {
+        if (ingredient.getItem() instanceof ItemSword)
+        {
+            for (IMobEntry entry : MobRegistry.getInstance().getMobs())
+                arecipes.add(new CachedMob(entry));
+            lastRecipe = -1;
+        }
     }
 
     @Override
