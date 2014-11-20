@@ -43,14 +43,10 @@ public class MobEntry implements IMobEntry
         return entity;
     }
 
-    public String getName()
-    {
-        return entity.getCommandSenderName();
-    }
-
+    @Override
     public String getMobName()
     {
-        return EntityHelper.getEntityName(this.entity);
+        return entity.getCommandSenderName();
     }
 
     public DropItem[] getDrops()
@@ -67,20 +63,6 @@ public class MobEntry implements IMobEntry
     public LightLevel getLightLevel()
     {
         return lightLevel;
-    }
-
-    public int getExperience()
-    {
-        if (entity instanceof EntityLiving)
-            return EntityHelper.getExperience((EntityLiving) entity);
-        return 0;
-    }
-
-    public boolean dropsItem(ItemStack item)
-    {
-        for (DropItem dropItem : drops)
-            if (dropItem.item.isItemEqual(item)) return true;
-        return false;
     }
 
     @Override

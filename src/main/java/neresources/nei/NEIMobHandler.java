@@ -8,6 +8,7 @@ import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.MobRegistry;
 import neresources.utils.Font;
+import neresources.utils.MobHelper;
 import neresources.utils.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -130,7 +131,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         font.print(cachedMob.mob.getMobName(), 2, 2);
         font.print("Spawn Biome: " + cachedMob.mob.getBiomes()[0], 2, 12);
         font.print(cachedMob.mob.getLightLevel(), 2, 22);
-        font.print("Experience Dropped: " + cachedMob.mob.getExperience(), 2, 32);
+        font.print("Experience Dropped: " + MobHelper.getExpDrop(cachedMob.mob), 2, 32);
 
         int y = Y_FIRST_ITEM + 4;
         for (int i = cachedMob.set * Settings.ITEMS_PER_COLUMN; i < cachedMob.set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)

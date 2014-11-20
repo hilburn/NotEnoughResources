@@ -1,7 +1,5 @@
 package neresources.api.entry;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
 public interface IDungeonEntry extends IBaseEntry
@@ -12,7 +10,7 @@ public interface IDungeonEntry extends IBaseEntry
     public String getName();
 
     /**
-     * @return chest items
+     * @return the {@Link net.minecraftforge.common.ChestGenHooks} bound to this entry
      */
     public ChestGenHooks getChestGenHooks();
 }

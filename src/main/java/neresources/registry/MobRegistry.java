@@ -2,6 +2,7 @@ package neresources.registry;
 
 import neresources.api.entry.IMobEntry;
 import neresources.utils.APIScraper;
+import neresources.utils.MobHelper;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class MobRegistry
     {
         List<IMobEntry> list = new ArrayList<IMobEntry>();
         for (IMobEntry entry : registry.values())
-            if (entry.dropsItem(item)) list.add(entry);
+            if (MobHelper.dropsItem(entry, item)) list.add(entry);
         return list;
     }
 

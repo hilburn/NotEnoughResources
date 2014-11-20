@@ -3,8 +3,8 @@ package neresources.api.entry;
 import neresources.api.distributions.DistributionBase;
 import net.minecraft.item.ItemStack;
 
-public interface IOreEntry extends IBaseEntry{
-
+public interface IOreEntry extends IBaseEntry
+{
     /**
      * @return an array of all possible drops from this IOreEntry
      */
@@ -25,7 +25,6 @@ public interface IOreEntry extends IBaseEntry{
      * @return null is fine
      */
     public int getColour(ItemStack itemStack);
-
 
     /**
      * @return true for if the ore needs to be silk touched to get a certain output eg. (Diamond Ore Blocks from Diamond Ore Blocks)
