@@ -4,7 +4,7 @@
   "name": "Not Enough Resources",
   "description": "Adds Resources and Mob Drops to NEI",
   "version": "",
-  "mcversion": "",
+  "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
   "authorList": ["hilburn", "way2muchnoise"],
