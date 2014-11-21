@@ -3,11 +3,12 @@ package neresources.registry;
 import neresources.api.utils.DistributionHelpers;
 import neresources.config.Settings;
 import neresources.utils.ColorHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockRedstoneOre;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class OreMatchEntry
@@ -84,40 +85,17 @@ public class OreMatchEntry
         return maxY;
     }
 
-    public ItemStack[] getOres()
+    public List<ItemStack> getOres()
     {
-        ItemStack[] result = new ItemStack[oreEntryList.size()];
-        for (int i = 0; i < oreEntryList.size(); i++)
-            result[i] = oreEntryList.get(i).getOre();
-        return result;
+        List<ItemStack> list = new LinkedList<ItemStack>();
+        for (OreEntry oreEntry : oreEntryList)
+            Collections.addAll(list, oreEntry.getOreMatches());
+        return list;
     }
 
-    public boolean isSilkTouchNeeded(ItemStack stack)
+    public boolean isSilkTouchNeeded(ItemStack itemStack)
     {
-        OreEntry value = getIOreEntry(stack);
-        if (value!=null)
-        {
-            return value.silkTouch(stack);
-        }
-        return false;
-    }
-
-    public OreEntry getIOreEntry(ItemStack itemStack)
-    {
-        if (itemStack != null)
-        {
-            for (OreEntry entry: oreEntryList)
-            {
-                if (itemStack.isItemEqual(entry.getOre())) return entry;
-            }
-        }
-        return null;
-    }
-
-    public OreEntry getIOreEntry(int id)
-    {
-        if (id<0 || id>=oreEntryList.size()) return null;
-        return oreEntryList.get(id);
+        return itemStack != null && drops.size() > 0 && (Block.getBlockFromItem(itemStack.getItem()) instanceof BlockOre || Block.getBlockFromItem(itemStack.getItem()) instanceof BlockRedstoneOre);
     }
 
     public int getColour()
@@ -140,5 +118,12 @@ public class OreMatchEntry
     public List<ItemStack> getDrops()
     {
         return drops;
+    }
+
+    public List<ItemStack> getOresAndDrops()
+    {
+        List<ItemStack> list = new LinkedList<ItemStack>(getOres());
+        list.addAll(drops);
+        return list;
     }
 }

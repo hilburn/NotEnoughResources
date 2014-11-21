@@ -26,7 +26,7 @@ public class OreRegistry
 
     public boolean register(OreEntry entry)
     {
-        String key = MapKeys.getKey(entry.getOre());
+        String key = MapKeys.getKey(entry.getOreMatches()[0]);
         if (key==null) return false;
         ItemStack[] drops = entry.getOreMatches();
         for (int i=1;i<drops.length;i++)
@@ -45,15 +45,19 @@ public class OreRegistry
         return true;
     }
 
-    public boolean registerOre(IOreEntry entry) {
+    public boolean registerOre(IOreEntry entry)
+    {
         ItemStack[] drops = entry.getOreMatches();
         List<ItemStack> nonOres = new ArrayList<ItemStack>();
-        for (int i = 0;i<drops.length;i++) {
+        for (int i = 0 ; i < drops.length; i++)
+        {
             ItemStack drop = drops[i];
             String key = MapKeys.getKey(drop);
             if (key == null) return false;
-            if (!ItemStack.areItemStacksEqual(drop, entry.getOre(drop))) {
-                if (!dropToOreMap.containsKey(key)) {
+            if (!ItemStack.areItemStacksEqual(drop, entry.getOre(drop)))
+            {
+                if (!dropToOreMap.containsKey(key))
+                {
                     String oreKey = MapKeys.getKey(entry.getOre(drop));
                     if (oreKey == null) continue;
                     dropToOreMap.put(key, oreKey);
@@ -71,7 +75,8 @@ public class OreRegistry
         for (ItemStack nonOre:nonOres)
         {
             String key = MapKeys.getKey(nonOre);
-            if (dropToOreMap.containsKey(key)) {
+            if (dropToOreMap.containsKey(key))
+            {
                 if (matchEntryMap.containsKey(dropToOreMap.get(key)))
                     matchEntryMap.get(dropToOreMap.get(key)).addDrop(nonOre);
             }
@@ -90,19 +95,14 @@ public class OreRegistry
 
     public List<OreMatchEntry> getOres()
     {
-        List<OreMatchEntry> result = new ArrayList<OreMatchEntry>();
-        for (OreMatchEntry match:matchEntryMap.values())
-        {
-            result.add(match);
-        }
-        return result;
+        return new ArrayList<OreMatchEntry>(matchEntryMap.values());
     }
 
     public boolean removeDrops(IModifyOre oreMod)
     {
-        if (oreMod.removeDrops()==null) return true;
+        if (oreMod.removeDrops() == null) return true;
         String oreKey = MapKeys.getKey(oreMod.ore());
-        if (oreKey==null) return false;
+        if (oreKey == null) return false;
         for (ItemStack drop: oreMod.removeDrops())
         {
             String dropKey = MapKeys.getKey(drop);
@@ -118,13 +118,13 @@ public class OreRegistry
 
     public boolean addDrops(IModifyOre oreMod)
     {
-        if (oreMod.addDrops()==null) return true;
+        if (oreMod.addDrops() == null) return true;
         String oreKey = MapKeys.getKey(oreMod.ore());
-        if (oreKey==null || !matchEntryMap.containsKey(oreKey)) return false;
+        if (oreKey == null || !matchEntryMap.containsKey(oreKey)) return false;
         for (ItemStack drop: oreMod.addDrops())
         {
             String dropKey = MapKeys.getKey(drop);
-            if (dropKey==null || dropToOreMap.containsKey(dropKey)) continue;
+            if (dropKey == null || dropToOreMap.containsKey(dropKey)) continue;
             dropToOreMap.put(dropKey,oreKey);
             matchEntryMap.get(oreKey).addDrop(drop);
         }
