@@ -3,7 +3,6 @@ package neresources.registry;
 import neresources.api.entry.IOreEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,7 +12,7 @@ import java.util.Map;
 public class OreRegistry
 {
     private Map<String, OreMatchEntry> matchEntryMap = new LinkedHashMap<String, OreMatchEntry>();
-    private List<String> ores = new ArrayList<String>();
+    private Map<String, String> dropToOreMap = new LinkedHashMap<String, String>();
 
     private static OreRegistry instance = null;
 
@@ -24,17 +23,56 @@ public class OreRegistry
         return instance;
     }
 
+    public boolean register(OreEntry entry)
+    {
+        String key = MapKeys.getKey(entry.getOre());
+        if (key==null) return false;
+        ItemStack[] drops = entry.getOreMatches();
+        for (int i=1;i<drops.length;i++)
+        {
+            String dropKey = MapKeys.getKey(drops[i]);
+            if (dropKey==null) continue;
+            if (!dropToOreMap.containsKey(dropKey)) {
+                dropToOreMap.put(dropKey, key);
+            }
+        }
+        if (matchEntryMap.containsKey(key)) {
+            matchEntryMap.get(key).add(entry);
+        } else {
+            matchEntryMap.put(key, new OreMatchEntry(entry));
+        }
+        return true;
+    }
+
     public boolean registerOre(IOreEntry entry) {
         ItemStack[] drops = entry.getOreMatches();
+        List<ItemStack> nonOres = new ArrayList<ItemStack>();
         for (int i = 0;i<drops.length;i++) {
             ItemStack drop = drops[i];
             String key = MapKeys.getKey(drop);
-            if (key==null) return false;
-            if (ItemStack.areItemStacksEqual(drop,entry.getOre(drop))&&!ores.contains(key)) ores.add(key);
-            if (matchEntryMap.containsKey(key)) {
-                matchEntryMap.get(key).add(drop, entry);
+            if (key == null) return false;
+            if (!ItemStack.areItemStacksEqual(drop, entry.getOre(drop))) {
+                if (!dropToOreMap.containsKey(key)) {
+                    String oreKey = MapKeys.getKey(entry.getOre(drop));
+                    if (oreKey == null) continue;
+                    dropToOreMap.put(key, oreKey);
+                }
+                nonOres.add(drop);
             } else {
-                matchEntryMap.put(key, new OreMatchEntry(drop, entry));
+                OreEntry oreEntry = new OreEntry(drop, entry.getDistribution(drop), entry.getColour(drop));
+                if (matchEntryMap.containsKey(key)) {
+                    matchEntryMap.get(key).add(oreEntry);
+                } else {
+                    matchEntryMap.put(key, new OreMatchEntry(oreEntry));
+                }
+            }
+        }
+        for (ItemStack nonOre:nonOres)
+        {
+            String key = MapKeys.getKey(nonOre);
+            if (dropToOreMap.containsKey(key)) {
+                if (matchEntryMap.containsKey(dropToOreMap.get(key)))
+                    matchEntryMap.get(dropToOreMap.get(key)).addDrop(nonOre);
             }
         }
         return true;
@@ -42,15 +80,19 @@ public class OreRegistry
 
     public OreMatchEntry getRegistryMatches(ItemStack itemStack)
     {
-        return matchEntryMap.get(MapKeys.getKey(itemStack));
+        String key = MapKeys.getKey(itemStack);
+        if (dropToOreMap.containsKey(key))
+            return matchEntryMap.get(dropToOreMap.get(key));
+        else
+            return matchEntryMap.get(key);
     }
 
     public List<OreMatchEntry> getOres()
     {
         List<OreMatchEntry> result = new ArrayList<OreMatchEntry>();
-        for (String key:ores)
+        for (OreMatchEntry match:matchEntryMap.values())
         {
-            result.add(matchEntryMap.get(key));
+            result.add(match);
         }
         return result;
     }

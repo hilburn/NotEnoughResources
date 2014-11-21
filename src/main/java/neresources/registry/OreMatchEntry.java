@@ -1,45 +1,34 @@
 package neresources.registry;
 
-import neresources.api.entry.IOreEntry;
 import neresources.api.utils.DistributionHelpers;
 import neresources.config.Settings;
+import neresources.utils.ColorHelper;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
+
 
 public class OreMatchEntry
 {
-    Map<ItemStack, IOreEntry> oreEntryMap = new LinkedHashMap<ItemStack, IOreEntry>();
+    List<OreEntry> oreEntryList = new ArrayList<OreEntry>();
     private double[] chances;
     private int minY;
     private int maxY;
     private int bestY;
-    private int colour = 0;
+    private int colour;
 
-    public OreMatchEntry(Map<ItemStack, IOreEntry> entries)
+    public OreMatchEntry(OreEntry entry)
     {
-        oreEntryMap = entries;
-        calcChances();
-        for (Map.Entry<ItemStack, IOreEntry> entry: entries.entrySet()) {
-            int entryColour = entry.getValue().getColour(entry.getKey());
-            if (colour == 0 && entryColour != 0) colour = entryColour;
-        }
+        this.add(entry);
     }
 
-    public OreMatchEntry(ItemStack stack, IOreEntry entry)
+    public void add(OreEntry entry)
     {
-        oreEntryMap.put(stack,entry);
+        oreEntryList.add(entry);
         calcChances();
-        colour = entry.getColour(stack);
-    }
-
-    public void add(ItemStack stack, IOreEntry entry)
-    {
-        oreEntryMap.put(stack,entry);
-        calcChances();
-        if (colour==0) colour = entry.getColour(stack);
+        if (colour== ColorHelper.BLACK)colour = entry.getColour();
     }
 
     private void calcChances()
@@ -47,10 +36,10 @@ public class OreMatchEntry
         chances = new double[256];
         minY = 256;
         maxY = 0;
-        for (Map.Entry<ItemStack, IOreEntry> entry: oreEntryMap.entrySet())
+        for (OreEntry entry: oreEntryList)
         {
             int i = 0;
-            for (double chance : entry.getValue().getDistribution(entry.getKey()).getDistribution())
+            for (double chance : entry.getDistribution().getDistribution())
             {
                 if (++i == chances.length) break;
                 chances[i] += chance;
@@ -62,11 +51,11 @@ public class OreMatchEntry
                         maxY = i;
                 }
             }
-            bestY = entry.getValue().getDistribution(entry.getKey()).getBestHeight();
+            bestY = entry.getDistribution().getBestHeight();
         }
         if (minY == 256) minY = 0;
         if (maxY == 0) maxY = 255;
-        if (oreEntryMap.size()>1) bestY = DistributionHelpers.calculateMeanLevel(chances,40,0,1000);
+        if (oreEntryList.size()>1) bestY = DistributionHelpers.calculateMeanLevel(chances,40,0,1000);
     }
 
     public double[] getChances()
@@ -76,7 +65,7 @@ public class OreMatchEntry
 
     public double[] getChances(int extraRange)
     {
-        return Arrays.copyOfRange(chances, Math.max(minY - extraRange, 0), Math.min(maxY + extraRange +2, 255));
+        return Arrays.copyOfRange(chances, Math.max(minY - extraRange, 0), Math.min(maxY + extraRange + 2, 255));
     }
 
     public int getBestY()
@@ -96,12 +85,15 @@ public class OreMatchEntry
 
     public ItemStack[] getOres()
     {
-        return oreEntryMap.keySet().toArray(new ItemStack[oreEntryMap.keySet().size()]);
+        ItemStack[] result = new ItemStack[oreEntryList.size()];
+        for (int i = 0; i < oreEntryList.size(); i++)
+            result[i] = oreEntryList.get(i).getOre();
+        return result;
     }
 
     public boolean isSilkTouchNeeded(ItemStack stack)
     {
-        IOreEntry value = getIOreEntry(stack);
+        OreEntry value = getIOreEntry(stack);
         if (value!=null)
         {
             return value.silkTouch(stack);
@@ -109,25 +101,29 @@ public class OreMatchEntry
         return false;
     }
 
-    public IOreEntry getIOreEntry(ItemStack itemStack)
+    public OreEntry getIOreEntry(ItemStack itemStack)
     {
         if (itemStack != null)
         {
-            for (ItemStack keyStack : oreEntryMap.keySet())
+            for (OreEntry entry: oreEntryList)
             {
-                if (itemStack.isItemEqual(keyStack)) return oreEntryMap.get(keyStack);
+                if (itemStack.isItemEqual(entry.getOre())) return entry;
             }
         }
         return null;
     }
 
-    public IOreEntry getIOreEntry(int id)
+    public OreEntry getIOreEntry(int id)
     {
-        return oreEntryMap.get(getOres()[id]);
+        if (id<0 || id>=oreEntryList.size()) return null;
+        return oreEntryList.get(id);
     }
 
     public int getColour()
     {
         return colour;
+    }
+
+    public void addDrop(ItemStack nonOre) {
     }
 }

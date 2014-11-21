@@ -26,6 +26,6 @@ public class CompatBase
 
     public void registerOre(OreEntry entry)
     {
-        OreRegistry.getInstance().registerOre(entry);
+        OreRegistry.getInstance().register(entry);
     }
 }

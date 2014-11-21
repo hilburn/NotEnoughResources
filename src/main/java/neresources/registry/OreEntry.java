@@ -1,16 +1,17 @@
 package neresources.registry;
 
-import neresources.api.entry.IOreEntry;
 import neresources.api.distributions.DistributionBase;
-import neresources.api.utils.KeyGen;
 import neresources.utils.ColorHelper;
 import net.minecraft.block.BlockOre;
 import net.minecraft.item.ItemStack;
 
-public class OreEntry implements IOreEntry
+import java.util.ArrayList;
+import java.util.List;
+
+public class OreEntry
 {
 
-    private ItemStack[] matchStacks;
+    private List<ItemStack> matchStacks = new ArrayList<ItemStack>();
     private DistributionBase distribution;
     private int colour;
 
@@ -31,38 +32,32 @@ public class OreEntry implements IOreEntry
 
     public OreEntry(ItemStack ore, DistributionBase distribution, int colour, ItemStack... drops)
     {
-        matchStacks = new ItemStack[1+drops.length];
-        matchStacks[0] = ore;
+        matchStacks.add(ore);
         int i=1;
         for (ItemStack drop:drops)
-            if (drop != null) matchStacks[i++] = drop;
+            if (drop != null) matchStacks.add(drop);
         this.distribution = distribution;
         this.colour = colour;
     }
 
-    @Override
     public ItemStack[] getOreMatches() {
-        return matchStacks;
+        return matchStacks.toArray(new ItemStack[matchStacks.size()]);
     }
 
-    @Override
-    public DistributionBase getDistribution(ItemStack itemStack) {
+    public DistributionBase getDistribution() {
         return distribution;
     }
 
-    @Override
-    public ItemStack getOre(ItemStack itemStack) {
-        return matchStacks[0];
+    public ItemStack getOre() {
+        return matchStacks.get(0);
     }
 
-    @Override
-    public int getColour(ItemStack itemStack) {
+    public int getColour() {
         return colour;
     }
 
-    @Override
     public boolean silkTouch(ItemStack itemStack)
     {
-        return matchStacks.length > 1 && BlockOre.getBlockFromItem(itemStack.getItem()) instanceof BlockOre;
+        return matchStacks.size() > 1 && BlockOre.getBlockFromItem(itemStack.getItem()) instanceof BlockOre;
     }
 }
