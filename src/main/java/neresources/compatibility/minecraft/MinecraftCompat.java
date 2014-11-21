@@ -1,10 +1,12 @@
 package neresources.compatibility.minecraft;
 
+import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.compatibility.CompatBase;
 import neresources.api.utils.DropItem;
 import neresources.compatibility.cofh.CoFHCompat;
+import neresources.registry.AddOreDrop;
 import neresources.registry.DungeonRegistry;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
@@ -45,6 +47,15 @@ public class MinecraftCompat extends CompatBase
         registerVanillaMobs();
         registerDungeonLoot();
         if (!CoFHCompat.cofhReplace)registerOres();
+        registerVanillaOreDrops();
+    }
+
+    private void registerVanillaOreDrops() {
+        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.coal_ore),new ItemStack(Items.coal)));
+        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.diamond_ore),new ItemStack(Items.diamond)));
+        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.lapis_ore),new ItemStack(Items.dye,4,4)));
+        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.emerald_ore),new ItemStack(Items.emerald)));
+        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.redstone_ore),new ItemStack(Items.redstone,4)));
     }
 
     private void registerVanillaMobs()
@@ -178,12 +189,12 @@ public class MinecraftCompat extends CompatBase
 
     private void registerOres()
     {
-        registerOre(new OreEntry(new ItemStack(Blocks.lapis_ore), new DistributionTriangular(15, 15, 0.001D), new ItemStack(Items.dye,1,4)));
+        registerOre(new OreEntry(new ItemStack(Blocks.lapis_ore), new DistributionTriangular(15, 15, 0.001D)));
         registerOre(new OreEntry(new ItemStack(Blocks.iron_ore), new DistributionSquare(0, 5, 54, 65, 0.006D)));
-        registerOre(new OreEntry(new ItemStack(Blocks.redstone_ore), new DistributionSquare(0, 5, 12, 17, 0.0083D), new ItemStack(Items.redstone)));
-        registerOre(new OreEntry(new ItemStack(Blocks.diamond_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D), new ItemStack(Items.diamond)));
-        registerOre(new OreEntry(new ItemStack(Blocks.emerald_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D), new ItemStack(Items.emerald)));
+        registerOre(new OreEntry(new ItemStack(Blocks.redstone_ore), new DistributionSquare(0, 5, 12, 17, 0.0083D)));
+        registerOre(new OreEntry(new ItemStack(Blocks.diamond_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D)));
+        registerOre(new OreEntry(new ItemStack(Blocks.emerald_ore), new DistributionSquare(0, 5, 12, 17, 0.0012D)));
         registerOre(new OreEntry(new ItemStack(Blocks.gold_ore), new DistributionSquare(0, 5, 29, 35, 0.0012D)));
-        registerOre(new OreEntry(new ItemStack(Blocks.coal_ore), new DistributionSquare(0, 5, 54, 76, 0.01D), new ItemStack(Items.coal)));
+        registerOre(new OreEntry(new ItemStack(Blocks.coal_ore), new DistributionSquare(0, 5, 54, 76, 0.01D)));
     }
 }

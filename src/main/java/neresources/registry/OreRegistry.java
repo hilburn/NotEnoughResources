@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.entry.IModifyOre;
 import neresources.api.entry.IOreEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
@@ -95,5 +96,38 @@ public class OreRegistry
             result.add(match);
         }
         return result;
+    }
+
+    public boolean removeDrops(IModifyOre oreMod)
+    {
+        if (oreMod.removeDrops()==null) return true;
+        String oreKey = MapKeys.getKey(oreMod.ore());
+        if (oreKey==null) return false;
+        for (ItemStack drop: oreMod.removeDrops())
+        {
+            String dropKey = MapKeys.getKey(drop);
+            if (dropKey==null || !dropToOreMap.containsKey(dropKey)) continue;
+            if (dropToOreMap.get(dropKey).equalsIgnoreCase(oreKey))
+            {
+                dropToOreMap.remove(dropKey);
+                matchEntryMap.get(oreKey).removeDrop(drop);
+            }
+        }
+        return true;
+    }
+
+    public boolean addDrops(IModifyOre oreMod)
+    {
+        if (oreMod.addDrops()==null) return true;
+        String oreKey = MapKeys.getKey(oreMod.ore());
+        if (oreKey==null || !matchEntryMap.containsKey(oreKey)) return false;
+        for (ItemStack drop: oreMod.addDrops())
+        {
+            String dropKey = MapKeys.getKey(drop);
+            if (dropKey==null || dropToOreMap.containsKey(dropKey)) continue;
+            dropToOreMap.put(dropKey,oreKey);
+            matchEntryMap.get(oreKey).addDrop(drop);
+        }
+        return true;
     }
 }

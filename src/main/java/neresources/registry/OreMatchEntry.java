@@ -18,6 +18,7 @@ public class OreMatchEntry
     private int maxY;
     private int bestY;
     private int colour;
+    List<ItemStack> drops = new ArrayList<ItemStack>();
 
     public OreMatchEntry(OreEntry entry)
     {
@@ -125,5 +126,19 @@ public class OreMatchEntry
     }
 
     public void addDrop(ItemStack nonOre) {
+        drops.add(nonOre);
+    }
+
+    public void removeDrop(ItemStack removeDrop)
+    {
+        for (ItemStack drop:drops)
+        {
+            if (drop.isItemEqual(removeDrop)) drops.remove(drop);
+        }
+    }
+
+    public List<ItemStack> getDrops()
+    {
+        return drops;
     }
 }

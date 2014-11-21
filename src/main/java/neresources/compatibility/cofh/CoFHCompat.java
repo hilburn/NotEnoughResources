@@ -136,21 +136,8 @@ public class CoFHCompat extends CompatBase
             totalWeight+=ore.itemWeight;
         for (WeightedRandomBlock ore:ores)
         {
-            ItemStack[] extraDrops = new ItemStack[1];
-            if (ore.block == Blocks.coal_ore)
-                extraDrops[0] = new ItemStack(Items.coal);
-            else if(ore.block == Blocks.diamond_ore)
-                extraDrops[0] = new ItemStack(Items.diamond);
-            else if(ore.block == Blocks.lapis_ore)
-                extraDrops[0] = new ItemStack(Items.dye,1,4);
-            else if(ore.block == Blocks.emerald_ore)
-                extraDrops[0] = new ItemStack(Items.emerald);
-            else if(ore.block == Blocks.redstone_ore)
-                extraDrops[0] = new ItemStack(Items.redstone);
-            else if(ore.block == Blocks.gravel||ore.block == Blocks.dirt) return;
-            else
-                extraDrops = new ItemStack[0];
-            registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.multiplyArray(baseChance,ore.itemWeight/totalWeight)),extraDrops));
+            if(ore.block == Blocks.gravel||ore.block == Blocks.dirt) return;
+            registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.multiplyArray(baseChance,ore.itemWeight/totalWeight))));
         }
     }
 }
