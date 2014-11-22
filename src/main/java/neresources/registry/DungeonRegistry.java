@@ -7,7 +7,10 @@ import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DungeonRegistry
 {

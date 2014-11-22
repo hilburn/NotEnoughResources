@@ -3,10 +3,7 @@ package neresources.registry;
 import neresources.api.entry.IMobEntry;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
-import net.minecraft.entity.EntityHelper;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;

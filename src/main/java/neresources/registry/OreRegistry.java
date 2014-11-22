@@ -24,34 +24,28 @@ public class OreRegistry
         return instance;
     }
 
-    public boolean register(OreEntry entry)
+    public void register(OreEntry entry)
     {
-        String key = MapKeys.getKey(entry.getOreMatches()[0]);
-        if (key==null) return false;
-        ItemStack[] drops = entry.getOreMatches();
-        for (int i=1;i<drops.length;i++)
-        {
-            String dropKey = MapKeys.getKey(drops[i]);
-            if (dropKey==null) continue;
-            if (!dropToOreMap.containsKey(dropKey)) {
-                dropToOreMap.put(dropKey, key);
-            }
-        }
-        if (matchEntryMap.containsKey(key)) {
+        String key = MapKeys.getKey(entry.getOre());
+        if (key==null) return;
+        ItemStack drop = entry.getOre();
+        String dropKey = MapKeys.getKey(drop);
+        if (dropKey != null && !dropToOreMap.containsKey(dropKey))
+            dropToOreMap.put(dropKey, key);
+
+        if (matchEntryMap.containsKey(key))
             matchEntryMap.get(key).add(entry);
-        } else {
+        else
             matchEntryMap.put(key, new OreMatchEntry(entry));
-        }
-        return true;
+
     }
 
     public boolean registerOre(IOreEntry entry)
     {
         ItemStack[] drops = entry.getOreMatches();
         List<ItemStack> nonOres = new ArrayList<ItemStack>();
-        for (int i = 0 ; i < drops.length; i++)
+        for (ItemStack drop : drops)
         {
-            ItemStack drop = drops[i];
             String key = MapKeys.getKey(drop);
             if (key == null) return false;
             if (!ItemStack.areItemStacksEqual(drop, entry.getOre(drop)))
@@ -63,11 +57,14 @@ public class OreRegistry
                     dropToOreMap.put(key, oreKey);
                 }
                 nonOres.add(drop);
-            } else {
+            } else
+            {
                 OreEntry oreEntry = new OreEntry(drop, entry.getDistribution(drop), entry.getColour(drop));
-                if (matchEntryMap.containsKey(key)) {
+                if (matchEntryMap.containsKey(key))
+                {
                     matchEntryMap.get(key).add(oreEntry);
-                } else {
+                } else
+                {
                     matchEntryMap.put(key, new OreMatchEntry(oreEntry));
                 }
             }

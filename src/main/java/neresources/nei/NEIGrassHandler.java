@@ -10,7 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
