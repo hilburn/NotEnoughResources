@@ -3,6 +3,7 @@ package neresources.compatibility.minecraft;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
+import neresources.api.distributions.DistributionUnderWater;
 import neresources.compatibility.CompatBase;
 import neresources.api.utils.DropItem;
 import neresources.compatibility.cofh.CoFHCompat;
@@ -51,6 +52,8 @@ public class MinecraftCompat extends CompatBase
     }
 
     private void registerVanillaOreDrops() {
+        registerOre(new OreEntry(new ItemStack(Blocks.clay), new DistributionUnderWater(0.0035D)));
+        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.clay),new ItemStack(Items.clay_ball,4)));
         NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.coal_ore),new ItemStack(Items.coal)));
         NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.diamond_ore),new ItemStack(Items.diamond)));
         NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.lapis_ore),new ItemStack(Items.dye,4,4)));

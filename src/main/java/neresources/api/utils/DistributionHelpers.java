@@ -2,6 +2,8 @@ package neresources.api.utils;
 
 public class DistributionHelpers
 {
+    public static final float PI = 3.14159265359F;
+
     /**
      * @param midY the top, middle of the triangle
      * @param range length of the sides
@@ -11,7 +13,7 @@ public class DistributionHelpers
     public static double[] getTriangularDistribution(int midY, int range, double maxChance)
     {
         double[] triangle = new double[range * 2 + 1];
-        double modChance = maxChance / range;
+        double modChance = maxChance / (range+1);
         for (int i = 0; i <= range; i++)
             for (int j = 0; j <= range; j++)
                 triangle[i + j] += modChance;
@@ -54,6 +56,15 @@ public class DistributionHelpers
         addDistribution(result, getRampDistribution(min0, minY, chance), min0);
         addDistribution(result, getSquareDistribution(minY, maxY, chance));
         addDistribution(result, getRampDistribution(max0, maxY, chance), maxY);
+        return result;
+    }
+
+    public static double[] getUnderwaterDistribution(double chance)
+    {
+        double[] result = getTriangularDistribution(47,8,chance/7);
+        addDistribution(result,getRampDistribution(57,62,chance),57);
+        result[62] = chance;
+        addDistribution(result,getTriangularDistribution(55,4,chance/3));
         return result;
     }
 
@@ -166,4 +177,19 @@ public class DistributionHelpers
         return result;
     }
 
+    public static double[] maxJoinArray(double[] array1, double[] array2)
+    {
+        double[] result = new double[array1.length];
+        if (array1.length != array2.length) return result;
+        for (int i = 0; i < array1.length; i++)
+            result[i]=Math.max(array1[i],array2[i]);
+        return result;
+    }
+
+    public static double sum(double[] distribution) {
+        double result = 0;
+        for (double val:distribution)
+            result+=val;
+        return result;
+    }
 }
