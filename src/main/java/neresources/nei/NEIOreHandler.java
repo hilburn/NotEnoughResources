@@ -112,8 +112,11 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int recipe)
     {
-        if (((CachedOre)arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
-            currenttip.add("§3" + TranslationHelper.translateToLocal("ner.ore.silkTouch"));
+        if (stack != null)
+        {
+            if (((CachedOre) arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
+                currenttip.add("§3" + TranslationHelper.translateToLocal("ner.ore.silkTouch"));
+        }
         return currenttip;
     }
 

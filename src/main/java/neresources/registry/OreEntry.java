@@ -1,37 +1,53 @@
 package neresources.registry;
 
+import javafx.util.Pair;
 import neresources.api.distributions.DistributionBase;
 import neresources.utils.ColorHelper;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 public class OreEntry
 {
-
-    private List<ItemStack> matchStacks = new ArrayList<ItemStack>();
+    private ItemStack ore;
+    private boolean needSilkTouch;
     private DistributionBase distribution;
     private int colour;
 
     public OreEntry(ItemStack ore, DistributionBase distribution)
     {
-        this(ore, distribution, ColorHelper.BLACK);
+        this(ore, distribution, ColorHelper.BLACK, false);
+    }
+
+    public OreEntry(ItemStack ore, DistributionBase distribution, boolean needSilkTouch)
+    {
+        this(ore, distribution, ColorHelper.BLACK, needSilkTouch);
     }
 
     public OreEntry(ItemStack ore, DistributionBase distribution, int colour)
     {
-        matchStacks.add(ore);
+        this(ore, distribution, colour, false);
+    }
+
+    public OreEntry(ItemStack ore, DistributionBase distribution, int colour, boolean needSilkTouch)
+    {
+        this.ore = ore;
+        this.needSilkTouch = needSilkTouch;
         this.distribution = distribution;
         this.colour = colour;
     }
 
-    public ItemStack[] getOreMatches() {
-        return matchStacks.toArray(new ItemStack[matchStacks.size()]);
+    public ItemStack getOre()
+    {
+        return this.ore;
     }
 
     public DistributionBase getDistribution() {
         return distribution;
+    }
+
+    public boolean needSilkTouch()
+    {
+        return this.needSilkTouch;
     }
 
     public int getColour() {

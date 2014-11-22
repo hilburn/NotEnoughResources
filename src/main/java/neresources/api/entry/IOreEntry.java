@@ -29,5 +29,5 @@ public interface IOreEntry
     /**
      * @return true for if the ore needs to be silk touched to get a certain output eg. (Diamond Ore Blocks from Diamond Ore Blocks)
      */
-    public boolean silkTouch(ItemStack itemStack);
+    public boolean needSilkTouch(ItemStack itemStack);
 }
