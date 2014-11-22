@@ -1,10 +1,8 @@
 package neresources.registry;
 
-import javafx.util.Pair;
 import neresources.api.distributions.DistributionBase;
 import neresources.utils.ColorHelper;
 import net.minecraft.item.ItemStack;
-import java.util.LinkedHashMap;
 
 public class OreEntry
 {

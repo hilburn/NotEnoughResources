@@ -9,7 +9,7 @@ import neresources.utils.TranslationHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Map;
 
 public class NEISeedHandler extends TemplateRecipeHandler

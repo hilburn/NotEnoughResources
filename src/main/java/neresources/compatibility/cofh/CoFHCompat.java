@@ -15,7 +15,6 @@ import neresources.utils.LoaderHelper;
 import neresources.utils.ModList;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.feature.WorldGenerator;
 

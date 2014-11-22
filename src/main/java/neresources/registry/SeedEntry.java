@@ -1,7 +1,6 @@
 package neresources.registry;
 
 import neresources.api.entry.ISeedEntry;
-import neresources.api.utils.KeyGen;
 import net.minecraft.item.ItemStack;
 
 public class SeedEntry implements ISeedEntry

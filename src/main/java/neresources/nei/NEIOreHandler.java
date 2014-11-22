@@ -5,14 +5,14 @@ import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
-import neresources.registry.OreRegistry;
 import neresources.registry.OreMatchEntry;
+import neresources.registry.OreRegistry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class NEIOreHandler extends TemplateRecipeHandler
