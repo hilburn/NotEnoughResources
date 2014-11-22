@@ -116,6 +116,16 @@ public class CoFHCompat extends CompatBase
 
             } else if (feature.getClass() == featureGenLargeVein)
             {
+                int count = ReflectionHelper.getInt(featureGenLargeVein, "count", feature);
+                int minY = ReflectionHelper.getInt(featureGenLargeVein, "minY", feature);
+                int veinHeight = ReflectionHelper.getInt(featureGenLargeVein, "veinHeight", feature);
+                int veinDiameter = ReflectionHelper.getInt(featureGenLargeVein, "veinDiameter", feature);
+                int verticalDensity = ReflectionHelper.getInt(featureGenLargeVein, "verticalDensity", feature);
+                int horizontalDensity = ReflectionHelper.getInt(featureGenLargeVein, "horizontalDensity", feature);
+
+                float[] verticalDistribution = DistributionHelpers.getRoundedSquareDistribution((int)(minY+0.125*veinHeight),(int)(minY+0.25*veinHeight),(int)(minY+0.75*veinHeight),(int)(minY+0.875*veinHeight),1F);
+                verticalDistribution = DistributionHelpers.divideArray(verticalDistribution,DistributionHelpers.sum(verticalDistribution));
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenLargeVein, "worldGen", feature);
 
             } else if (feature.getClass() == featureGenTopBlock)
             {
@@ -140,31 +150,31 @@ public class CoFHCompat extends CompatBase
         }
     }
 
-    private double[] getChancesForUnderwater(int veinSize, int numVeins)
+    private float[] getChancesForUnderwater(int veinSize, int numVeins)
     {
-        double chance = 0.6D*((double)veinSize*numVeins)/256;
+        float chance = 0.6F*((float)veinSize*numVeins)/256;
         return DistributionHelpers.getUnderwaterDistribution(chance);
     }
 
-    private double[] getChancesForUniform(int minY, int maxY, int veinSize, int numVeins)
+    private float[] getChancesForUniform(int minY, int maxY, int veinSize, int numVeins)
     {
         int safeMinY = Math.max(minY, 0);
         int safeMaxY = Math.min(maxY, 255);
-        double chance = (double)numVeins/(safeMaxY-safeMinY)*veinSize/256D;
+        float chance = (float)numVeins/(safeMaxY-safeMinY)*veinSize/256F;
         return DistributionHelpers.getRoundedSquareDistribution(Math.max(0,minY-veinSize/2),safeMinY,safeMaxY,Math.min(maxY+veinSize/2,255), chance);
     }
 
-    private double[] getChancesForNormal(int meanY, int maxVar, int veinSize, int numVeins)
+    private float[] getChancesForNormal(int meanY, int maxVar, int veinSize, int numVeins)
     {
-        double[] normalDistribution = DistributionHelpers.getTriangularDistribution(meanY,maxVar+veinSize/2,1F);
-        double total = DistributionHelpers.sum(normalDistribution);
-        double chance = (double)numVeins/total * veinSize/256D;
+        float[] normalDistribution = DistributionHelpers.getTriangularDistribution(meanY,maxVar+veinSize/2,1F);
+        float total = DistributionHelpers.sum(normalDistribution);
+        float chance = (float)numVeins/total * veinSize/256F;
         return DistributionHelpers.multiplyArray(normalDistribution,chance);
     }
 
-    private void registerOreEntries(List<WeightedRandomBlock> ores, double[] baseChance)
+    private void registerOreEntries(List<WeightedRandomBlock> ores, float[] baseChance)
     {
-        double totalWeight = 0;
+        float totalWeight = 0;
         for (WeightedRandomBlock ore:ores)
             totalWeight+=ore.itemWeight;
         for (WeightedRandomBlock ore:ores)

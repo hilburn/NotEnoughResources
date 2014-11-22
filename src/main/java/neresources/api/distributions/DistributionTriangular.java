@@ -9,7 +9,7 @@ public class DistributionTriangular extends DistributionBase
      * @param range length of the sides
      * @param maxChance chance at the top
      */
-    public DistributionTriangular(int midY, int range, double maxChance)
+    public DistributionTriangular(int midY, int range, float maxChance)
     {
         super(DistributionHelpers.getTriangularDistribution(midY, range, maxChance));
         this.bestHeight = midY;

@@ -80,7 +80,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     public void drawExtras(int recipe)
     {
         CachedOre cachedOre = (CachedOre) arecipes.get(recipe);
-        double[] array = cachedOre.oreMatchEntry.getChances();
+        float[] array = cachedOre.oreMatchEntry.getChances();
         double max = 0;
         for (double d : array)
             if (d > max) max = d;

@@ -2,15 +2,15 @@ package neresources.api.distributions;
 
 public abstract class DistributionBase
 {
-    private double[] distribution;
+    private float[] distribution;
     protected int bestHeight;
 
-    public DistributionBase(double[] distribution)
+    public DistributionBase(float[] distribution)
     {
         this.distribution = distribution;
     }
 
-    public double[] getDistribution()
+    public float[] getDistribution()
     {
         return distribution;
     }

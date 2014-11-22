@@ -5,13 +5,13 @@ import neresources.api.utils.DistributionHelpers;
 public class DistributionCustom extends DistributionBase
 {
 
-    public DistributionCustom(double[] distribution)
+    public DistributionCustom(float[] distribution)
     {
         super(distribution);
-        this.bestHeight = DistributionHelpers.calculateMeanLevel(this.getDistribution(), distribution.length / 2, 0, 100D);
+        this.bestHeight = DistributionHelpers.calculateMeanLevel(this.getDistribution(), distribution.length / 2, 0, 100F);
     }
 
-    public DistributionCustom(double[] distribution, int bestHeight)
+    public DistributionCustom(float[] distribution, int bestHeight)
     {
         super(distribution);
         this.bestHeight = bestHeight;

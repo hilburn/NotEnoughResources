@@ -14,7 +14,7 @@ import java.util.*;
 public class OreMatchEntry
 {
     List<OreEntry> oreEntryList = new ArrayList<OreEntry>();
-    private double[] chances;
+    private float[] chances;
     private int minY;
     private int maxY;
     private int bestY;
@@ -35,13 +35,13 @@ public class OreMatchEntry
 
     private void calcChances()
     {
-        chances = new double[256];
+        chances = new float[256];
         minY = 256;
         maxY = 0;
         for (OreEntry entry: oreEntryList)
         {
             int i = 0;
-            for (double chance : entry.getDistribution().getDistribution())
+            for (float chance : entry.getDistribution().getDistribution())
             {
                 if (++i == chances.length) break;
                 chances[i] += chance;
@@ -60,12 +60,12 @@ public class OreMatchEntry
         if (oreEntryList.size()>1) bestY = DistributionHelpers.calculateMeanLevel(chances,40,0,1000);
     }
 
-    public double[] getChances()
+    public float[] getChances()
     {
         return getChances(Settings.EXTRA_RANGE);
     }
 
-    public double[] getChances(int extraRange)
+    public float[] getChances(int extraRange)
     {
         return Arrays.copyOfRange(chances, Math.max(minY - extraRange, 0), Math.min(maxY + extraRange + 2, 255));
     }
