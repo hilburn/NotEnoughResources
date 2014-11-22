@@ -156,10 +156,10 @@ public class MinecraftCompat extends CompatBase
         registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null), 1), LightLevel.hostile, new String[]{"Nether"}, magma));
 
         //Silverfish
-        registerMob(new MobEntry(new EntitySilverfish(null), LightLevel.hostile, new DropItem[]{}));
+        registerMob(new MobEntry(new EntitySilverfish(null), LightLevel.hostile));
 
         //Bats
-        registerMob(new MobEntry(new EntityBat(null), LightLevel.hostile, new DropItem[]{}));
+        registerMob(new MobEntry(new EntityBat(null), LightLevel.hostile));
 
         //Spider
         DropItem string = new DropItem(Items.string, 0, 2);
