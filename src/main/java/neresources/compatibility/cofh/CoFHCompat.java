@@ -35,6 +35,7 @@ public class CoFHCompat extends CompatBase
     private static Class featureGenLargeVein;
     private static Class featureGenTopBlock;
     private static Class featureGenUnderFluid;
+    public static boolean isVersionB6;
 
     public static CoFHCompat newInstance()
     {
@@ -47,6 +48,10 @@ public class CoFHCompat extends CompatBase
                 featureGenUniform = FeatureOreGenUniform.class;
                 featureGenNormal = FeatureOreGenNormal.class;
                 featureGenSurface = FeatureOreGenSurface.class;
+                featureGenLargeVein = null;
+                featureGenTopBlock = null;
+                featureGenUnderFluid = null;
+                isVersionB6 = true;
             }
             else
             {
@@ -56,6 +61,7 @@ public class CoFHCompat extends CompatBase
                 featureGenLargeVein = FeatureGenLargeVein.class;
                 featureGenTopBlock = FeatureGenTopBlock.class;
                 featureGenUnderFluid = FeatureGenUnderfluid.class;
+                isVersionB6 = false;
             }
             return instance = new CoFHCompat();
         }
@@ -84,36 +90,27 @@ public class CoFHCompat extends CompatBase
                 int minY = ReflectionHelper.getInt(featureGenUniform, "minY", feature);
                 int count = ReflectionHelper.getInt(featureGenUniform, "count", feature);
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenUniform, "worldGen", feature);
-                CoFHWorldGen oreGen = new CoFHWorldGen();
-                if (worldGen instanceof WorldGenMinableCluster) oreGen = new CoFHWorldGen((WorldGenMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenSparseMinableCluster) oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenMinableLargeVein) oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
-                else if (worldGen instanceof WorldGenGeode) oreGen = new CoFHWorldGen((WorldGenGeode) worldGen);
-                else if (worldGen instanceof WorldGenDecoration) oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
-                else if (worldGen instanceof WorldGenBoulder) oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
+                CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
                 if (oreGen.ores!=null)
                     registerOreEntries(oreGen.ores,getChancesForUniform(minY,maxY,oreGen.veinSize,count));
-            } else if (feature.getClass() == featureGenNormal)
+            }
+            else if (feature.getClass() == featureGenNormal)
             {
                 int maxVar = ReflectionHelper.getInt(featureGenNormal, "maxVar", feature);
                 int meanY = ReflectionHelper.getInt(featureGenNormal, "meanY", feature);
                 int count = ReflectionHelper.getInt(featureGenNormal, "count", feature);
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenNormal, "worldGen", feature);
-                CoFHWorldGen oreGen = new CoFHWorldGen();
-                if (worldGen instanceof WorldGenMinableCluster) oreGen = new CoFHWorldGen((WorldGenMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenSparseMinableCluster) oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenMinableLargeVein) oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
-                else if (worldGen instanceof WorldGenGeode) oreGen = new CoFHWorldGen((WorldGenGeode) worldGen);
-                else if (worldGen instanceof WorldGenDecoration) oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
-                else if (worldGen instanceof WorldGenBoulder) oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
+                CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
                 if (oreGen.ores!=null)
                     registerOreEntries(oreGen.ores,getChancesForNormal(meanY, maxVar, oreGen.veinSize, count));
-            } else if (feature.getClass() == featureGenSurface)
+            }
+            else if (feature.getClass() == featureGenSurface)
             {
 
-            } else if (feature.getClass() == featureGenLargeVein)
+            }
+            else if (feature.getClass() == featureGenLargeVein)
             {
                 int count = ReflectionHelper.getInt(featureGenLargeVein, "count", feature);
                 int minY = ReflectionHelper.getInt(featureGenLargeVein, "minY", feature);
@@ -129,32 +126,22 @@ public class CoFHCompat extends CompatBase
                     DistributionHelpers.addDistribution(oreDistribution,DistributionHelpers.getTriangularDistribution(i,veinHeight/2,vert));
                 }
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenLargeVein, "worldGen", feature);
-                CoFHWorldGen oreGen = new CoFHWorldGen();
-                if (worldGen instanceof WorldGenMinableCluster) oreGen = new CoFHWorldGen((WorldGenMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenSparseMinableCluster) oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenMinableLargeVein) oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
-                else if (worldGen instanceof WorldGenGeode) oreGen = new CoFHWorldGen((WorldGenGeode) worldGen);
-                else if (worldGen instanceof WorldGenDecoration) oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
-                else if (worldGen instanceof WorldGenBoulder) oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
+                CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
                 if (oreGen.ores!=null)
                     registerOreEntries(oreGen.ores,DistributionHelpers.multiplyArray(oreDistribution,count*oreGen.veinSize));
-            } else if (feature.getClass() == featureGenTopBlock)
+            }
+            else if (feature.getClass() == featureGenTopBlock)
             {
 
-            } else if (feature.getClass() == featureGenUnderFluid)
+            }
+            else if (feature.getClass() == featureGenUnderFluid)
             {
                 boolean water = ReflectionHelper.getBoolean(featureGenUnderFluid, "water", feature);
                 if (!water) continue; //TODO: Not sure how to handle non water stuff
                 int count = ReflectionHelper.getInt(featureGenUnderFluid, "count", feature);
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenUnderFluid, "worldGen", feature);
-                CoFHWorldGen oreGen = new CoFHWorldGen();
-                if (worldGen instanceof WorldGenMinableCluster) oreGen = new CoFHWorldGen((WorldGenMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenSparseMinableCluster) oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
-                else if (worldGen instanceof WorldGenMinableLargeVein) oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
-                else if (worldGen instanceof WorldGenGeode) oreGen = new CoFHWorldGen((WorldGenGeode) worldGen);
-                else if (worldGen instanceof WorldGenDecoration) oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
-                else if (worldGen instanceof WorldGenBoulder) oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
+                CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
                 if (oreGen.ores!=null)
                     registerOreEntries(oreGen.ores,getChancesForUnderwater(oreGen.veinSize, count));
@@ -193,6 +180,18 @@ public class CoFHCompat extends CompatBase
             if(ore.block == Blocks.gravel||ore.block == Blocks.dirt) return;
             registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.multiplyArray(baseChance,ore.itemWeight/totalWeight))));
         }
+    }
+
+    public CoFHWorldGen getCoFHWorldGen(WorldGenerator worldGen)
+    {
+        CoFHWorldGen oreGen = new CoFHWorldGen();
+        if (worldGen instanceof WorldGenMinableCluster) oreGen = new CoFHWorldGen((WorldGenMinableCluster) worldGen);
+        else if (worldGen instanceof WorldGenSparseMinableCluster) oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenMinableLargeVein) oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenGeode) oreGen = new CoFHWorldGen((WorldGenGeode) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenDecoration) oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenBoulder) oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
+        return oreGen;
     }
 
 
