@@ -2,9 +2,10 @@ package neresources.registry;
 
 import neresources.api.entry.ISeedEntry;
 import neresources.api.utils.KeyGen;
+import neresources.utils.SeedHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.SeedHelper;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class GrassSeedRegistry
 
     public GrassSeedRegistry()
     {
-        List<ISeedEntry> seedEntryList = SeedHelper.getSeedList();
+        List<ISeedEntry> seedEntryList = SeedHelper.getSeeds();
         for (ISeedEntry entry : seedEntryList) {
             totalWeight += entry.getWeight();
             seedDrops.put(KeyGen.getKey(entry.getDrop()), entry);
