@@ -24,6 +24,7 @@ public class SeedHelper {
         List seedList = (List)ReflectionHelper.getObject(ForgeHooks.class,"seedList",null);
         for (Object o:seedList)
         {
+            if (o==null || o.getClass()!=seedEntry) continue;
             ItemStack seed = (ItemStack) ReflectionHelper.getObject(seedEntry,"seed", o);
             int weight = ReflectionHelper.getInt(WeightedRandom.Item.class,"itemWeight",o);
             result.add(new SeedEntry(seed, weight));
