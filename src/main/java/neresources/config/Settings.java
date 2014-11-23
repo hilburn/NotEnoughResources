@@ -1,5 +1,6 @@
 package neresources.config;
 
+import cpw.mods.fml.relauncher.Side;
 import neresources.nei.NEIDungeonHandler;
 import neresources.nei.NEIEnchantmentHandler;
 import neresources.nei.NEIMobHandler;
@@ -12,12 +13,16 @@ public final class Settings
     public static float CYCLE_TIME;
 
     public static int EXTRA_RANGE;
+    public static Side side;
 
     public static void load()
     {
-        NEIDungeonHandler.loadSettings();
-        NEIMobHandler.loadSettings();
-        NEIOreHandler.loadSettings();
-        NEIEnchantmentHandler.loadSettings();
+        if (side == Side.CLIENT)
+        {
+            NEIDungeonHandler.loadSettings();
+            NEIMobHandler.loadSettings();
+            NEIOreHandler.loadSettings();
+            NEIEnchantmentHandler.loadSettings();
+        }
     }
 }

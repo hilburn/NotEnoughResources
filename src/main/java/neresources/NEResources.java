@@ -10,6 +10,7 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import neresources.config.ConfigHandler;
+import neresources.config.Settings;
 import neresources.proxy.CommonProxy;
 import neresources.reference.MetaData;
 import neresources.reference.Reference;
@@ -32,6 +33,7 @@ public class NEResources
     public void preInit(FMLPreInitializationEvent event)
     {
         LogHelper.info("Loading configs..");
+        Settings.side = event.getSide();
         ConfigHandler.init(event.getSuggestedConfigurationFile());
         FMLCommonHandler.instance().bus().register(new ConfigHandler());
 
