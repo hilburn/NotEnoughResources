@@ -4,6 +4,7 @@ import cpw.mods.fml.client.config.IConfigElement;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import neresources.reference.Reference;
+import neresources.utils.TranslationHelper;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 
@@ -37,12 +38,12 @@ public class ConfigHandler
 
     private static void loadConfig()
     {
-        Settings.ITEMS_PER_COLUMN = config.getInt("Items Per Column", Configuration.CATEGORY_GENERAL, 4, 1, 4, "Changes the amount of items per column in the NEI dungeon and mob views");
-        Settings.ITEMS_PER_ROW = config.getInt("Items Per Row", Configuration.CATEGORY_GENERAL, 4, 1, 4, "Changes the amount of items per row in the NEI dungeon view");
+        Settings.ITEMS_PER_COLUMN = config.getInt(TranslationHelper.translateToLocal("ner.config.itemsPerColumn.title"), Configuration.CATEGORY_GENERAL, 4, 1, 4, TranslationHelper.translateToLocal("ner.config.itemsPerColumn.description"));
+        Settings.ITEMS_PER_ROW = config.getInt(TranslationHelper.translateToLocal("ner.config.itemsPerRow.title"), Configuration.CATEGORY_GENERAL, 4, 1, 4, TranslationHelper.translateToLocal("ner.config.itemsPerRow.description"));
 
-        Settings.CYCLE_TIME = config.getFloat("Cycle Time", Configuration.CATEGORY_GENERAL, 1.5F, 0.5F, 3.0F, "Show duration before cycle in NEI views");
+        Settings.CYCLE_TIME = config.getFloat(TranslationHelper.translateToLocal("ner.config.cycleTime.title"), Configuration.CATEGORY_GENERAL, 1.5F, 0.5F, 3.0F, TranslationHelper.translateToLocal("ner.config.cycleTime.description"));
 
-        Settings.EXTRA_RANGE = config.getInt("Extra range", Configuration.CATEGORY_GENERAL, 3, 0, 25, "Changes the extra yLevels displayed on the graph in the NEI ore View");
+        Settings.EXTRA_RANGE = config.getInt(TranslationHelper.translateToLocal("ner.config.extraRange.title"), Configuration.CATEGORY_GENERAL, 3, 0, 25, TranslationHelper.translateToLocal("ner.config.extraRange.description"));
 
         if (config.hasChanged())
         {

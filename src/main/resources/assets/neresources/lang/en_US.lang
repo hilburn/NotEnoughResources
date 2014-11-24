@@ -1,3 +1,12 @@
+ner.config.itemsPerColumn.title=Items Per Column
+ner.config.itemsPerColumn.description=Changes the amount of items per column in the NEI dungeon and mob views
+ner.config.itemsPerRow.title=Items Per Row
+ner.config.itemsPerRow.description=Changes the amount of items per row in the NEI dungeon view
+ner.config.cycleTime.title=Cycle Time
+ner.config.cycleTime.description=Show duration before cycle in NEI views
+ner.config.extraRange.title=Extra range
+ner.config.extraRange.description=Changes the extra yLevels displayed on the graph in the NEI ore View
+
 #Usage: ner.page pageNumber ner.of lastPage
 ner.page=Page
 ner.of=of
