@@ -5,15 +5,15 @@ public class DistributionHelpers
     public static final float PI = 3.14159265359F;
 
     /**
-     * @param midY the top, middle of the triangle
-     * @param range length of the sides
+     * @param midY      the top, middle of the triangle
+     * @param range     length of the sides
      * @param maxChance chance at the top
      * @return an array of 256 floats in triangular distribution
      */
     public static float[] getTriangularDistribution(int midY, int range, float maxChance)
     {
         float[] triangle = new float[range * 2 + 1];
-        float modChance = maxChance / (range+1);
+        float modChance = maxChance / (range + 1);
         for (int i = 0; i <= range; i++)
             for (int j = 0; j <= range; j++)
                 triangle[i + j] += modChance;
@@ -29,8 +29,8 @@ public class DistributionHelpers
     }
 
     /**
-     * @param minY first occurrence
-     * @param maxY last occurrence
+     * @param minY   first occurrence
+     * @param maxY   last occurrence
      * @param chance the chance
      * @return an array of 256 floats in square distribution
      */
@@ -43,10 +43,10 @@ public class DistributionHelpers
     }
 
     /**
-     * @param min0 start of the ramp
-     * @param minY end of the ramp up
-     * @param maxY start of the ramp down
-     * @param max0 end of ramp down
+     * @param min0   start of the ramp
+     * @param minY   end of the ramp up
+     * @param maxY   start of the ramp down
+     * @param max0   end of ramp down
      * @param chance the chance at the top
      * @return an array of 256 floats in square distribution
      */
@@ -61,16 +61,16 @@ public class DistributionHelpers
 
     public static float[] getUnderwaterDistribution(float chance)
     {
-        float[] result = getTriangularDistribution(47,8,chance/7);
-        addDistribution(result,getRampDistribution(57,62,chance),57);
+        float[] result = getTriangularDistribution(47, 8, chance / 7);
+        addDistribution(result, getRampDistribution(57, 62, chance), 57);
         result[62] = chance;
-        addDistribution(result,getTriangularDistribution(55,4,chance/3));
+        addDistribution(result, getTriangularDistribution(55, 4, chance / 3));
         return result;
     }
 
     /**
-     * @param minY first occurrence
-     * @param maxY last occurrence
+     * @param minY      first occurrence
+     * @param maxY      last occurrence
      * @param maxChance chance at the top of the ramp
      * @return an array of floats with length |maxY - minY| in ramp distribution
      */
@@ -90,7 +90,7 @@ public class DistributionHelpers
 
     /**
      * @param base base distribution
-     * @param add the to add distribution
+     * @param add  the to add distribution
      * @return the sum of both distributions
      */
     public static float[] addDistribution(float[] base, float[] add)
@@ -99,8 +99,8 @@ public class DistributionHelpers
     }
 
     /**
-     * @param base base distribution
-     * @param add the to add distribution
+     * @param base   base distribution
+     * @param add    the to add distribution
      * @param offset the first element from the base array to start adding to
      * @return the sum of both distributions
      */
@@ -128,52 +128,54 @@ public class DistributionHelpers
 
     /**
      * @param distribution the target array
-     * @param mid the middle of the array
-     * @param oldMid the old middle
-     * @param difference the difference
+     * @param mid          the middle of the array
+     * @param oldMid       the old middle
+     * @param difference   the difference
      * @return the mean level of the distribution
      */
     public static int calculateMeanLevel(float[] distribution, int mid, int oldMid, float difference)
     {
         float totalUp = 0;
         float totalDown = 0;
-        for (int i = 0; i < distribution.length; i++){
-            if (i<mid) totalDown+=distribution[i];
-            else totalUp+=distribution[i];
+        for (int i = 0; i < distribution.length; i++)
+        {
+            if (i < mid) totalDown += distribution[i];
+            else totalUp += distribution[i];
         }
-        float newDifference = totalUp-totalDown;
-        if (Math.abs(difference+newDifference)<=Math.abs(newDifference)) {
+        float newDifference = totalUp - totalDown;
+        if (Math.abs(difference + newDifference) <= Math.abs(newDifference))
+        {
             if (Math.abs(newDifference) < Math.abs(difference))
                 return mid;
             return oldMid;
         }
-        if (newDifference>0) return calculateMeanLevel(distribution, mid+1,mid, newDifference);
-        return calculateMeanLevel(distribution,mid-1,mid,newDifference);
+        if (newDifference > 0) return calculateMeanLevel(distribution, mid + 1, mid, newDifference);
+        return calculateMeanLevel(distribution, mid - 1, mid, newDifference);
     }
 
     /**
      * @param array the to divide array
-     * @param num the denominator
+     * @param num   the denominator
      * @return the divided array
      */
     public static float[] divideArray(float[] array, float num)
     {
         float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++)
-            result[i]=array[i]/num;
+            result[i] = array[i] / num;
         return result;
     }
 
     /**
      * @param array the to multiply array
-     * @param num the multiplier
+     * @param num   the multiplier
      * @return the divided array
      */
     public static float[] multiplyArray(float[] array, float num)
     {
         float[] result = new float[array.length];
         for (int i = 0; i < array.length; i++)
-            result[i]=array[i]*num;
+            result[i] = array[i] * num;
         return result;
     }
 
@@ -182,14 +184,15 @@ public class DistributionHelpers
         float[] result = new float[array1.length];
         if (array1.length != array2.length) return result;
         for (int i = 0; i < array1.length; i++)
-            result[i]=Math.max(array1[i],array2[i]);
+            result[i] = Math.max(array1[i], array2[i]);
         return result;
     }
 
-    public static float sum(float[] distribution) {
+    public static float sum(float[] distribution)
+    {
         float result = 0;
-        for (float val:distribution)
-            result+=val;
+        for (float val : distribution)
+            result += val;
         return result;
     }
 }

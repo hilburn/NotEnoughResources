@@ -1,7 +1,5 @@
 package neresources.api;
 
-import neresources.api.entry.IModifyOre;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -11,16 +9,17 @@ public class NEResourcesAPI
 
     /**
      * Adds {@link java.lang.Object} to the registry - if it does not implement an API interface nothing will happen.
+     *
      * @param entry the to add entry
      * @return true if succeeded
      */
     public static boolean registerEntry(Object entry)
     {
-        try {
+        try
+        {
             entryRegistry.add(entry);
             return true;
-        }
-        catch(Exception e)
+        } catch (Exception e)
         {
             return false;
         }

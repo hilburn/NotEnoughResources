@@ -15,14 +15,14 @@ public final class Settings
     public static int EXTRA_RANGE;
     public static Side side;
 
-    public static void load()
+    public static void reload()
     {
         if (side == Side.CLIENT)
         {
-            NEIDungeonHandler.loadSettings();
-            NEIMobHandler.loadSettings();
-            NEIOreHandler.loadSettings();
-            NEIEnchantmentHandler.loadSettings();
+            NEIDungeonHandler.reloadSettings();
+            NEIMobHandler.reloadSettings();
+            NEIOreHandler.reloadSettings();
+            NEIEnchantmentHandler.reloadSettings();
         }
     }
 }

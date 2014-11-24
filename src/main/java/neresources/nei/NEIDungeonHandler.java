@@ -30,7 +30,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     private static int SPACING_Y;
     private static int CYCLE_TIME;
 
-    public static void loadSettings()
+    public static void reloadSettings()
     {
         ITEMS_PER_PAGE = Settings.ITEMS_PER_COLUMN * Settings.ITEMS_PER_ROW;
         SPACING_X = 176 / Settings.ITEMS_PER_ROW;

@@ -21,7 +21,6 @@ public interface IOreEntry
     public ItemStack getOre(ItemStack itemStack);
 
     /**
-     * @return colour to render this ore on the graph
      * @return null is fine
      */
     public int getColour(ItemStack itemStack);

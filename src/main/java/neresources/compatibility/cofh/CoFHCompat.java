@@ -43,7 +43,7 @@ public class CoFHCompat extends CompatBase
             return instance;
         else
         {
-            if(LoaderHelper.isModVersion(ModList.cofhcore.toString(), "1.7.10R3.0.0B6"))
+            if (LoaderHelper.isModVersion(ModList.cofhcore.toString(), "1.7.10R3.0.0B6"))
             {
                 featureGenUniform = FeatureOreGenUniform.class;
                 featureGenNormal = FeatureOreGenNormal.class;
@@ -52,8 +52,7 @@ public class CoFHCompat extends CompatBase
                 featureGenTopBlock = null;
                 featureGenUnderFluid = null;
                 isVersionB6 = true;
-            }
-            else
+            } else
             {
                 featureGenUniform = FeatureGenUniform.class;
                 featureGenNormal = FeatureGenNormal.class;
@@ -92,10 +91,9 @@ public class CoFHCompat extends CompatBase
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenUniform, "worldGen", feature);
                 CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
-                if (oreGen.ores!=null)
-                    registerOreEntries(oreGen.ores,getChancesForUniform(minY,maxY,oreGen.veinSize,count));
-            }
-            else if (feature.getClass() == featureGenNormal)
+                if (oreGen.ores != null)
+                    registerOreEntries(oreGen.ores, getChancesForUniform(minY, maxY, oreGen.veinSize, count));
+            } else if (feature.getClass() == featureGenNormal)
             {
                 int maxVar = ReflectionHelper.getInt(featureGenNormal, "maxVar", feature);
                 int meanY = ReflectionHelper.getInt(featureGenNormal, "meanY", feature);
@@ -103,39 +101,35 @@ public class CoFHCompat extends CompatBase
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenNormal, "worldGen", feature);
                 CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
-                if (oreGen.ores!=null)
-                    registerOreEntries(oreGen.ores,getChancesForNormal(meanY, maxVar, oreGen.veinSize, count));
-            }
-            else if (feature.getClass() == featureGenSurface)
+                if (oreGen.ores != null)
+                    registerOreEntries(oreGen.ores, getChancesForNormal(meanY, maxVar, oreGen.veinSize, count));
+            } else if (feature.getClass() == featureGenSurface)
             {
 
-            }
-            else if (feature.getClass() == featureGenLargeVein)
+            } else if (feature.getClass() == featureGenLargeVein)
             {
                 int count = ReflectionHelper.getInt(featureGenLargeVein, "count", feature);
                 int minY = ReflectionHelper.getInt(featureGenLargeVein, "minY", feature);
                 int veinHeight = ReflectionHelper.getInt(featureGenLargeVein, "veinHeight", feature);
 
-                float[] verticalDistribution = DistributionHelpers.getRoundedSquareDistribution((int)(minY+0.125*veinHeight),(int)(minY+0.25*veinHeight),(int)(minY+0.75*veinHeight),(int)(minY+0.875*veinHeight),1F);
-                verticalDistribution = DistributionHelpers.divideArray(verticalDistribution,DistributionHelpers.sum(verticalDistribution));
+                float[] verticalDistribution = DistributionHelpers.getRoundedSquareDistribution((int) (minY + 0.125 * veinHeight), (int) (minY + 0.25 * veinHeight), (int) (minY + 0.75 * veinHeight), (int) (minY + 0.875 * veinHeight), 1F);
+                verticalDistribution = DistributionHelpers.divideArray(verticalDistribution, DistributionHelpers.sum(verticalDistribution));
                 float[] oreDistribution = new float[256];
-                for (int i = 0;i<oreDistribution.length;i++)
+                for (int i = 0; i < oreDistribution.length; i++)
                 {
-                    float midY = verticalDistribution[i]/(veinHeight/2);
-                    if (midY==0) continue;
-                    DistributionHelpers.addDistribution(oreDistribution,DistributionHelpers.getTriangularDistribution(i,veinHeight/2,midY));
+                    float midY = verticalDistribution[i] / (veinHeight / 2);
+                    if (midY == 0) continue;
+                    DistributionHelpers.addDistribution(oreDistribution, DistributionHelpers.getTriangularDistribution(i, veinHeight / 2, midY));
                 }
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenLargeVein, "worldGen", feature);
                 CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
-                if (oreGen.ores!=null)
-                    registerOreEntries(oreGen.ores,DistributionHelpers.multiplyArray(oreDistribution,(float)count*oreGen.veinSize/256F));
-            }
-            else if (feature.getClass() == featureGenTopBlock)
+                if (oreGen.ores != null)
+                    registerOreEntries(oreGen.ores, DistributionHelpers.multiplyArray(oreDistribution, (float) count * oreGen.veinSize / 256F));
+            } else if (feature.getClass() == featureGenTopBlock)
             {
 
-            }
-            else if (feature.getClass() == featureGenUnderFluid)
+            } else if (feature.getClass() == featureGenUnderFluid)
             {
                 boolean water = ReflectionHelper.getBoolean(featureGenUnderFluid, "water", feature);
                 if (!water) continue; //TODO: Not sure how to handle non water stuff
@@ -143,15 +137,15 @@ public class CoFHCompat extends CompatBase
                 WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenUnderFluid, "worldGen", feature);
                 CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
-                if (oreGen.ores!=null)
-                    registerOreEntries(oreGen.ores,getChancesForUnderwater(oreGen.veinSize, count));
+                if (oreGen.ores != null)
+                    registerOreEntries(oreGen.ores, getChancesForUnderwater(oreGen.veinSize, count));
             }
         }
     }
 
     private float[] getChancesForUnderwater(int veinSize, int numVeins)
     {
-        float chance = 0.6F*((float)veinSize*numVeins)/256;
+        float chance = 0.6F * ((float) veinSize * numVeins) / 256;
         return DistributionHelpers.getUnderwaterDistribution(chance);
     }
 
@@ -159,26 +153,27 @@ public class CoFHCompat extends CompatBase
     {
         int safeMinY = Math.max(minY, 0);
         int safeMaxY = Math.min(maxY, 255);
-        float chance = (float)numVeins/(safeMaxY - safeMinY) * veinSize / 256F;
+        float chance = (float) numVeins / (safeMaxY - safeMinY) * veinSize / 256F;
         return DistributionHelpers.getRoundedSquareDistribution(Math.max(0, minY - veinSize / 2), safeMinY, safeMaxY, Math.min(maxY + veinSize / 2, 255), chance);
     }
 
-    private float[] getChancesForNormal(int meanY, int maxVar, int veinSize, int numVeins) {
+    private float[] getChancesForNormal(int meanY, int maxVar, int veinSize, int numVeins)
+    {
         float[] normalDistribution = DistributionHelpers.getTriangularDistribution(meanY, maxVar + veinSize / 2, 1F);
         float total = DistributionHelpers.sum(normalDistribution);
-        float chance = (float) numVeins / total * veinSize/256F;
+        float chance = (float) numVeins / total * veinSize / 256F;
         return DistributionHelpers.multiplyArray(normalDistribution, chance);
     }
 
     private void registerOreEntries(List<WeightedRandomBlock> ores, float[] baseChance)
     {
         float totalWeight = 0;
-        for (WeightedRandomBlock ore:ores)
-            totalWeight+=ore.itemWeight;
-        for (WeightedRandomBlock ore:ores)
+        for (WeightedRandomBlock ore : ores)
+            totalWeight += ore.itemWeight;
+        for (WeightedRandomBlock ore : ores)
         {
-            if(ore.block == Blocks.gravel||ore.block == Blocks.dirt) return;
-            registerOre(new OreEntry(new ItemStack(ore.block,1,ore.metadata),new DistributionCustom(DistributionHelpers.multiplyArray(baseChance,ore.itemWeight/totalWeight))));
+            if (ore.block == Blocks.gravel || ore.block == Blocks.dirt) return;
+            registerOre(new OreEntry(new ItemStack(ore.block, 1, ore.metadata), new DistributionCustom(DistributionHelpers.multiplyArray(baseChance, ore.itemWeight / totalWeight))));
         }
     }
 
@@ -186,11 +181,15 @@ public class CoFHCompat extends CompatBase
     {
         CoFHWorldGen oreGen = new CoFHWorldGen();
         if (worldGen instanceof WorldGenMinableCluster) oreGen = new CoFHWorldGen((WorldGenMinableCluster) worldGen);
-        else if (worldGen instanceof WorldGenSparseMinableCluster) oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
-        else if (!isVersionB6 && worldGen instanceof WorldGenMinableLargeVein) oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
+        else if (worldGen instanceof WorldGenSparseMinableCluster)
+            oreGen = new CoFHWorldGen((WorldGenSparseMinableCluster) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenMinableLargeVein)
+            oreGen = new CoFHWorldGen((WorldGenMinableLargeVein) worldGen);
         else if (!isVersionB6 && worldGen instanceof WorldGenGeode) oreGen = new CoFHWorldGen((WorldGenGeode) worldGen);
-        else if (!isVersionB6 && worldGen instanceof WorldGenDecoration) oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
-        else if (!isVersionB6 && worldGen instanceof WorldGenBoulder) oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenDecoration)
+            oreGen = new CoFHWorldGen((WorldGenDecoration) worldGen);
+        else if (!isVersionB6 && worldGen instanceof WorldGenBoulder)
+            oreGen = new CoFHWorldGen((WorldGenBoulder) worldGen);
         return oreGen;
     }
 
@@ -201,7 +200,8 @@ public class CoFHCompat extends CompatBase
         ArrayList<WeightedRandomBlock> ores;
         WeightedRandomBlock[] genBlock;
 
-        public CoFHWorldGen() {
+        public CoFHWorldGen()
+        {
         }
 
         public CoFHWorldGen(WorldGenMinableCluster worldGen)
@@ -242,8 +242,8 @@ public class CoFHCompat extends CompatBase
             int minSize = ReflectionHelper.getInt(WorldGenBoulder.class, "size", worldGen);
             int count = worldGen.clusters;
             int var = worldGen.sizeVariance;
-            float radius = minSize + (var-1)*0.5F + 0.5F;
-            veinSize = (int) (4D/3*DistributionHelpers.PI*radius*radius*radius) * count;
+            float radius = minSize + (var - 1) * 0.5F + 0.5F;
+            veinSize = (int) (4D / 3 * DistributionHelpers.PI * radius * radius * radius) * count;
         }
     }
 }

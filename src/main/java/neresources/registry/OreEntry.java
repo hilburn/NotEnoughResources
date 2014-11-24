@@ -39,7 +39,8 @@ public class OreEntry
         return this.ore;
     }
 
-    public DistributionBase getDistribution() {
+    public DistributionBase getDistribution()
+    {
         return distribution;
     }
 
@@ -48,7 +49,8 @@ public class OreEntry
         return this.needSilkTouch;
     }
 
-    public int getColour() {
+    public int getColour()
+    {
         return colour;
     }
 }

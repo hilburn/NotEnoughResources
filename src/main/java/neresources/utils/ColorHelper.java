@@ -4,7 +4,7 @@ public class ColorHelper
 {
     public static final int BLACK = -16777216;
     public static final int BLUE = -16776961;
-    public static final int CYAN =  -16711681;
+    public static final int CYAN = -16711681;
     public static final int DRKGRAY = -12303292;
     public static final int GRAY = -7829368;
     public static final int GREEN = -16711936;

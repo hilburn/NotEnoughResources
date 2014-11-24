@@ -45,8 +45,7 @@ public class NEISeedHandler extends TemplateRecipeHandler
                 for (Map.Entry<ItemStack, Float> entry : GrassSeedRegistry.getInstance().getAllDrops().entrySet())
                     arecipes.add(new CachedSeed(entry.getKey(), entry.getValue()));
             }
-        }
-        else super.loadUsageRecipes(inputId, ingredients);
+        } else super.loadUsageRecipes(inputId, ingredients);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class NEISeedHandler extends TemplateRecipeHandler
     public void drawExtras(int recipe)
     {
         Font font = new Font(false);
-        font.print(String.format("%2.2f", ((CachedSeed)arecipes.get(recipe)).chance *100).replace(",",".") + "%", 56, Y+20);
+        font.print(String.format("%2.2f", ((CachedSeed) arecipes.get(recipe)).chance * 100).replace(",", ".") + "%", 56, Y + 20);
     }
 
     public class CachedSeed extends TemplateRecipeHandler.CachedRecipe

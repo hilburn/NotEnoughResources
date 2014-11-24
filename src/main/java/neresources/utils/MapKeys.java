@@ -22,9 +22,10 @@ public class MapKeys
         return new String[0];
     }
 
-    public static String getKey(ItemStack drop) {
+    public static String getKey(ItemStack drop)
+    {
         String[] keys = getKeys(drop);
-        if (keys.length>0) return keys[0];
+        if (keys.length > 0) return keys[0];
         return null;
     }
 }

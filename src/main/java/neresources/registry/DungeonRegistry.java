@@ -62,12 +62,14 @@ public class DungeonRegistry
     public boolean registerChestHook(ChestGenHooks chestGenHooks)
     {
         String name = ReflectionHelper.getString(ChestGenHooks.class, "category", chestGenHooks);
-        if (categoryToLocalKeyMap.containsKey(name)) return registerChestHook(categoryToLocalKeyMap.get(name), chestGenHooks);
+        if (categoryToLocalKeyMap.containsKey(name))
+            return registerChestHook(categoryToLocalKeyMap.get(name), chestGenHooks);
         return registerChestHook(name, chestGenHooks);
     }
 
-    public void registerDungeonEntry(IDungeonEntry entry) {
-        registerChestHook(entry.getName(),entry.getChestGenHooks());
+    public void registerDungeonEntry(IDungeonEntry entry)
+    {
+        registerChestHook(entry.getName(), entry.getChestGenHooks());
     }
 
     public List<IDungeonEntry> getDungeons(ItemStack item)

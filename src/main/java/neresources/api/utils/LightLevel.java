@@ -11,7 +11,7 @@ public class LightLevel
     Relative relative;
 
     /**
-     * @param level the level of light
+     * @param level    the level of light
      * @param relative an {@link neresources.api.utils.LightLevel.Relative}
      */
     LightLevel(int level, Relative relative)
@@ -21,7 +21,7 @@ public class LightLevel
     }
 
     /**
-     * @param level the level of light
+     * @param level    the level of light
      * @param relative the relative positive is above, negative is below. Zero will also be below.
      */
     LightLevel(int level, int relative)

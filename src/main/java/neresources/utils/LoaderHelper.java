@@ -7,7 +7,7 @@ public class LoaderHelper
 {
     public static boolean isModVersion(String modId, String version)
     {
-        if(Loader.isModLoaded("modId"))
+        if (Loader.isModLoaded("modId"))
         {
             for (ModContainer mod : Loader.instance().getActiveModList())
             {

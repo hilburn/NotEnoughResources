@@ -25,18 +25,19 @@ public class GrassSeedRegistry
     public GrassSeedRegistry()
     {
         List<ISeedEntry> seedEntryList = SeedHelper.getSeeds();
-        for (ISeedEntry entry : seedEntryList) {
+        for (ISeedEntry entry : seedEntryList)
+        {
             totalWeight += entry.getWeight();
             seedDrops.put(KeyGen.getKey(entry.getDrop()), entry);
         }
-        totalWeight*=8;
+        totalWeight *= 8;
     }
 
     public void add(ISeedEntry entry)
     {
         String key = KeyGen.getKey(entry.getDrop());
         if (!seedDrops.containsKey(key)) return;
-        seedDrops.put(key,new SeedEntry(entry.getDrop(),(totalWeight*entry.getWeight())));
+        seedDrops.put(key, new SeedEntry(entry.getDrop(), (totalWeight * entry.getWeight())));
     }
 
     public boolean contains(ItemStack itemStack)
@@ -53,15 +54,15 @@ public class GrassSeedRegistry
     {
         String key = KeyGen.getKey(itemStack);
         if (!contains(key)) return -1;
-        else return ((float)seedDrops.get(key).getWeight())/totalWeight;
+        else return ((float) seedDrops.get(key).getWeight()) / totalWeight;
     }
 
-    public Map<ItemStack,Float> getAllDrops()
+    public Map<ItemStack, Float> getAllDrops()
     {
-        Map<ItemStack,Float> result = new LinkedHashMap<ItemStack, Float>();
-        for (ISeedEntry entry: seedDrops.values())
+        Map<ItemStack, Float> result = new LinkedHashMap<ItemStack, Float>();
+        for (ISeedEntry entry : seedDrops.values())
         {
-            result.put(entry.getDrop(),((float)entry.getWeight())/totalWeight);
+            result.put(entry.getDrop(), ((float) entry.getWeight()) / totalWeight);
         }
         return result;
     }

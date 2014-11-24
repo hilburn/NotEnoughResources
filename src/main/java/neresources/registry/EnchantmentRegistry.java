@@ -30,7 +30,8 @@ public class EnchantmentRegistry
         Set<EnchantmentEntry> set = new HashSet<EnchantmentEntry>();
         for (EnchantmentEntry enchantment : enchantments)
         {
-            if (itemStack.getItem() == Items.book && enchantment.getEnchantment().isAllowedOnBooks()) set.add(enchantment);
+            if (itemStack.getItem() == Items.book && enchantment.getEnchantment().isAllowedOnBooks())
+                set.add(enchantment);
             else if (enchantment.getEnchantment().canApply(itemStack)) set.add(enchantment);
         }
         return set;

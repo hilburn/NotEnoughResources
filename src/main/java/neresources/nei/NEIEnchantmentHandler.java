@@ -28,7 +28,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
 
     private static int CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
 
-    public static void loadSettings()
+    public static void reloadSettings()
     {
         CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
     }
@@ -63,7 +63,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
     @Override
     public void drawExtras(int recipe)
     {
-        CachedEnchantment cachedEnchantment = (CachedEnchantment)arecipes.get(recipe);
+        CachedEnchantment cachedEnchantment = (CachedEnchantment) arecipes.get(recipe);
         Font font = new Font(false);
         int y = FIRST_ENCHANT_Y;
         for (EnchantmentEntry enchantment : cachedEnchantment.getEnchantments())
@@ -71,10 +71,10 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
             font.print(enchantment.getTranslatedWithLevels(), ENCHANT_X, y);
             y += SPACING_Y;
         }
-        if(cachedEnchantment.lastSet > 0)
+        if (cachedEnchantment.lastSet > 0)
         {
-            String toPrint = TranslationHelper.translateToLocal("ner.page") + " " + (cachedEnchantment.set+1) + " " + TranslationHelper.translateToLocal("ner.of") + " " + (cachedEnchantment.lastSet+1);
-            font.print(toPrint, PAGE_X , PAGE_Y);
+            String toPrint = TranslationHelper.translateToLocal("ner.page") + " " + (cachedEnchantment.set + 1) + " " + TranslationHelper.translateToLocal("ner.of") + " " + (cachedEnchantment.lastSet + 1);
+            font.print(toPrint, PAGE_X, PAGE_Y);
         }
 
         cachedEnchantment.cycleOutput(cycleticks);
@@ -106,7 +106,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
         public List<EnchantmentEntry> getEnchantments()
         {
             int last = set * ENTRYS_PER_PAGE + ENTRYS_PER_PAGE;
-            if (last >= this.enchantments.size()) last = this.enchantments.size()-1;
+            if (last >= this.enchantments.size()) last = this.enchantments.size() - 1;
             return this.enchantments.subList(set * ENTRYS_PER_PAGE, last);
         }
 

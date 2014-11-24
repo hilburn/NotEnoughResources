@@ -23,7 +23,6 @@ public class ConfigHandler
             config = new Configuration(configFile);
             loadConfig();
         }
-        Settings.load();
     }
 
     @SubscribeEvent
@@ -32,7 +31,6 @@ public class ConfigHandler
         if (event.modID.equalsIgnoreCase(Reference.ID))
         {
             loadConfig();
-            Settings.load();
         }
     }
 
@@ -49,6 +47,7 @@ public class ConfigHandler
         {
             config.save();
         }
+        Settings.reload();
     }
 
     @SuppressWarnings("unchecked")

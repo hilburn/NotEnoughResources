@@ -28,7 +28,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     private static int SPACING_Y = 90 / Settings.ITEMS_PER_COLUMN;
     private static int CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
 
-    public static void loadSettings()
+    public static void reloadSettings()
     {
         SPACING_Y = 80 / Settings.ITEMS_PER_COLUMN;
         CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
@@ -101,7 +101,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         float scale = getScale(entityLivingBase);
         int offsetX = entityLivingBase.width < entityLivingBase.height ? (int) (72 - scale) : 72;
         if (scale == 70.0F) offsetX = (int) (72 - scale / 2);
-        RenderHelper.renderEntity(30, 165 - offsetX, scale, 150 -GuiDraw.getMousePosition().x, 150 -GuiDraw.getMousePosition().y, entityLivingBase);
+        RenderHelper.renderEntity(30, 165 - offsetX, scale, 150 - GuiDraw.getMousePosition().x, 150 - GuiDraw.getMousePosition().y, entityLivingBase);
     }
 
     private float getScale(EntityLivingBase entityLivingBase)
@@ -142,7 +142,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
             y += SPACING_Y;
         }
 
-        if(cachedMob.lastSet > 0)
+        if (cachedMob.lastSet > 0)
             font.print(TranslationHelper.getLocalPageInfo(cachedMob.set, cachedMob.lastSet), X_FIRST_ITEM, 120);
 
         cachedMob.cycleOutputs(cycleticks, recipe);

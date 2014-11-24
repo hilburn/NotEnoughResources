@@ -4,7 +4,8 @@ import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLivingBase;
 
-public interface IMobEntry{
+public interface IMobEntry
+{
 
     /**
      * @return an instance of the entity World can be null

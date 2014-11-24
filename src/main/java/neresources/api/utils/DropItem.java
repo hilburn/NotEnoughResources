@@ -10,7 +10,7 @@ public class DropItem
     public float chance;
 
     /**
-     * @param item The dropped {@link net.minecraft.item.ItemStack} (chance for drop will be 100%)
+     * @param item    The dropped {@link net.minecraft.item.ItemStack} (chance for drop will be 100%)
      * @param minDrop the maximum amount dropped
      * @param maxDrop the minimum amount dropped
      */
@@ -20,10 +20,10 @@ public class DropItem
     }
 
     /**
-     * @param item The dropped {@link net.minecraft.item.ItemStack}
+     * @param item    The dropped {@link net.minecraft.item.ItemStack}
      * @param minDrop the maximum amount dropped
      * @param maxDrop the minimum amount dropped
-     * @param chance the chance the {@param item} gets dropped
+     * @param chance  the chance the {@param item} gets dropped
      */
     public DropItem(ItemStack item, int minDrop, int maxDrop, float chance)
     {
@@ -34,7 +34,7 @@ public class DropItem
     }
 
     /**
-     * @param item The dropped {@link net.minecraft.item.Item} (chance for drop will be 100% and the itemDamage will be default)
+     * @param item    The dropped {@link net.minecraft.item.Item} (chance for drop will be 100% and the itemDamage will be default)
      * @param minDrop the maximum amount dropped
      * @param maxDrop the minimum amount dropped
      */
@@ -44,10 +44,10 @@ public class DropItem
     }
 
     /**
-     * @param item The dropped {@link net.minecraft.item.Item} (chance for drop will be 100%)
+     * @param item       The dropped {@link net.minecraft.item.Item} (chance for drop will be 100%)
      * @param itemDamage the damage on the item
-     * @param minDrop the maximum amount dropped
-     * @param maxDrop the minimum amount dropped
+     * @param minDrop    the maximum amount dropped
+     * @param maxDrop    the minimum amount dropped
      */
     public DropItem(Item item, int itemDamage, int minDrop, int maxDrop)
     {
@@ -55,10 +55,10 @@ public class DropItem
     }
 
     /**
-     * @param item The dropped {@link net.minecraft.item.Item}
+     * @param item    The dropped {@link net.minecraft.item.Item}
      * @param minDrop the maximum amount dropped
      * @param maxDrop the minimum amount dropped
-     * @param chance the chance the {@param item} gets dropped
+     * @param chance  the chance the {@param item} gets dropped
      */
     public DropItem(Item item, int minDrop, int maxDrop, float chance)
     {
@@ -66,11 +66,11 @@ public class DropItem
     }
 
     /**
-     * @param item The dropped {@link net.minecraft.item.Item}
+     * @param item       The dropped {@link net.minecraft.item.Item}
      * @param itemDamage the damage on the item
-     * @param minDrop the maximum amount dropped
-     * @param maxDrop the minimum amount dropped
-     * @param chance the chance the {@param item} gets dropped
+     * @param minDrop    the maximum amount dropped
+     * @param maxDrop    the minimum amount dropped
+     * @param chance     the chance the {@param item} gets dropped
      */
     public DropItem(Item item, int itemDamage, int minDrop, int maxDrop, float chance)
     {

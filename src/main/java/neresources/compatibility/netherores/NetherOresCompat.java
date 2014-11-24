@@ -4,12 +4,12 @@ import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
 import neresources.registry.OreEntry;
 import neresources.utils.ModList;
-import neresources.utils.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.ores.Ores;
 
-public class NetherOresCompat extends CompatBase {
+public class NetherOresCompat extends CompatBase
+{
 
     public static NetherOresCompat instance = null;
 
@@ -20,18 +20,21 @@ public class NetherOresCompat extends CompatBase {
         else
             return instance = new NetherOresCompat();
     }
-    
-    
-    public NetherOresCompat() {
+
+
+    public NetherOresCompat()
+    {
         super(ModList.netherores.toString());
     }
 
     @Override
-    public void init() {
-        for (Ores netherOre:Ores.values())
+    public void init()
+    {
+        for (Ores netherOre : Ores.values())
         {
             if (netherOre.getForced() || ((netherOre.isRegisteredSmelting() || netherOre.isRegisteredMacerator() ||
-                    NetherOresCore.forceOreSpawn.getBoolean(false)) && !netherOre.getDisabled())) {
+                    NetherOresCore.forceOreSpawn.getBoolean(false)) && !netherOre.getDisabled()))
+            {
                 ItemStack ore = netherOre.getItemStack(1);
                 int minY = netherOre.getMinY();
                 int maxY = netherOre.getMaxY();

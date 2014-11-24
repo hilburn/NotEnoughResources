@@ -39,7 +39,7 @@ public class OreMatchEntry
         chances = new float[256];
         minY = 256;
         maxY = 0;
-        for (DistributionBase distribution: ores.values())
+        for (DistributionBase distribution : ores.values())
         {
             int i = 0;
             for (float chance : distribution.getDistribution())
@@ -48,9 +48,9 @@ public class OreMatchEntry
                 chances[i] += chance;
                 if (chances[i] > 0)
                 {
-                    if (minY>i)
+                    if (minY > i)
                         minY = i;
-                    if (i>maxY)
+                    if (i > maxY)
                         maxY = i;
                 }
             }
@@ -58,7 +58,7 @@ public class OreMatchEntry
         }
         if (minY == 256) minY = 0;
         if (maxY == 0) maxY = 255;
-        if (ores.size()>1) bestY = DistributionHelpers.calculateMeanLevel(chances,40,0,1000);
+        if (ores.size() > 1) bestY = DistributionHelpers.calculateMeanLevel(chances, 40, 0, 1000);
     }
 
     public float[] getChances()
@@ -97,13 +97,14 @@ public class OreMatchEntry
         return colour;
     }
 
-    public void addDrop(ItemStack nonOre) {
+    public void addDrop(ItemStack nonOre)
+    {
         drops.add(nonOre);
     }
 
     public void removeDrop(ItemStack removeDrop)
     {
-        for (ItemStack drop:drops)
+        for (ItemStack drop : drops)
             if (drop.isItemEqual(removeDrop)) drops.remove(drop);
     }
 

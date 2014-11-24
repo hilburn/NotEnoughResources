@@ -24,9 +24,9 @@ public class NEIOreHandler extends TemplateRecipeHandler
     private static final int X_ITEM = 8;
     private static final int Y_ITEM = 6;
 
-    private static int CYCLE_TIME =(int) (20 * Settings.CYCLE_TIME);
+    private static int CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
 
-    public static void loadSettings()
+    public static void reloadSettings()
     {
         CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
     }
@@ -131,7 +131,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
             this.oreMatchEntry = oreMatchEntry;
             this.oresAndDrops = oreMatchEntry.getOresAndDrops();
             this.current = 0;
-            this.last = this.oresAndDrops.size()-1;
+            this.last = this.oresAndDrops.size() - 1;
         }
 
         @Override

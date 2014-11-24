@@ -27,7 +27,7 @@ public class OreRegistry
     public void register(OreEntry entry)
     {
         String key = MapKeys.getKey(entry.getOre());
-        if (key==null) return;
+        if (key == null) return;
         ItemStack drop = entry.getOre();
         String dropKey = MapKeys.getKey(drop);
         if (dropKey != null && !dropToOreMap.containsKey(dropKey))
@@ -69,7 +69,7 @@ public class OreRegistry
                 }
             }
         }
-        for (ItemStack nonOre:nonOres)
+        for (ItemStack nonOre : nonOres)
         {
             String key = MapKeys.getKey(nonOre);
             if (dropToOreMap.containsKey(key))
@@ -100,10 +100,10 @@ public class OreRegistry
         if (oreMod.removeDrops() == null) return true;
         String oreKey = MapKeys.getKey(oreMod.ore());
         if (oreKey == null) return false;
-        for (ItemStack drop: oreMod.removeDrops())
+        for (ItemStack drop : oreMod.removeDrops())
         {
             String dropKey = MapKeys.getKey(drop);
-            if (dropKey==null || !dropToOreMap.containsKey(dropKey)) continue;
+            if (dropKey == null || !dropToOreMap.containsKey(dropKey)) continue;
             if (dropToOreMap.get(dropKey).equalsIgnoreCase(oreKey))
             {
                 dropToOreMap.remove(dropKey);
@@ -118,11 +118,11 @@ public class OreRegistry
         if (oreMod.addDrops() == null) return true;
         String oreKey = MapKeys.getKey(oreMod.ore());
         if (oreKey == null || !matchEntryMap.containsKey(oreKey)) return false;
-        for (ItemStack drop: oreMod.addDrops())
+        for (ItemStack drop : oreMod.addDrops())
         {
             String dropKey = MapKeys.getKey(drop);
             if (dropKey == null || dropToOreMap.containsKey(dropKey)) continue;
-            dropToOreMap.put(dropKey,oreKey);
+            dropToOreMap.put(dropKey, oreKey);
             matchEntryMap.get(oreKey).addDrop(drop);
         }
         return true;

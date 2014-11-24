@@ -11,6 +11,6 @@ public class KeyGen
      */
     public static String getKey(ItemStack itemStack)
     {
-        return Item.getIdFromItem(itemStack.getItem())+":"+itemStack.getItemDamage();
+        return Item.getIdFromItem(itemStack.getItem()) + ":" + itemStack.getItemDamage();
     }
 }
