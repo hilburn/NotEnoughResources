@@ -4,6 +4,7 @@ import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.compatibility.metallurgy.MetallurgyCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
+import neresources.compatibility.netherores.NetherOresCompat;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -11,13 +12,14 @@ public enum ModList
 {
     cofhcore("CoFHCore", CoFHCompat.class),
     minecraft("neresources", MinecraftCompat.class),
-    metallurgy("Metallurgy", MetallurgyCompat.class);
+    metallurgy("Metallurgy", MetallurgyCompat.class),
+    netherores("NetherOres", NetherOresCompat.class);
 
     private String name;
-    private Class compat;
+    private Class<? extends CompatBase> compat;
 
 
-    ModList(String name, Class compat)
+    ModList(String name, Class<? extends CompatBase> compat)
     {
         this.name = name;
         this.compat = compat;
