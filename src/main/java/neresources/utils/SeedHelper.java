@@ -3,6 +3,7 @@ package neresources.utils;
 import neresources.api.entry.ISeedEntry;
 import neresources.registry.SeedEntry;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.common.ForgeHooks;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class SeedHelper
         {
             if (o == null || o.getClass() != seedEntry) continue;
             ItemStack seed = (ItemStack) ReflectionHelper.getObject(seedEntry, "seed", o);
-            int weight = ReflectionHelper.getInt(seedEntry, "itemWeight", o);
+            int weight = ReflectionHelper.getInt(WeightedRandom.Item.class, "itemWeight", o);
             result.add(new SeedEntry(seed, weight));
         }
         return result;

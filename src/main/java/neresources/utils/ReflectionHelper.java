@@ -10,7 +10,7 @@ public class ReflectionHelper
         Integer result = null;
         try
         {
-            Field getField = clazz.getField(name);
+            Field getField = clazz.getDeclaredField(name);
             getField.setAccessible(true);
             result = getField.getInt(instance);
         } catch (NoSuchFieldException e)
