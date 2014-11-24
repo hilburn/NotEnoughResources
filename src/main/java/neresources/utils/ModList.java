@@ -2,6 +2,7 @@ package neresources.utils;
 
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
+import neresources.compatibility.metallurgy.MetallurgyCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
 
 import java.lang.reflect.InvocationTargetException;
@@ -9,7 +10,8 @@ import java.lang.reflect.InvocationTargetException;
 public enum ModList
 {
     cofhcore("CoFHCore", CoFHCompat.class),
-    minecraft("neresources", MinecraftCompat.class);
+    minecraft("neresources", MinecraftCompat.class),
+    metallurgy("Metallurgy", MetallurgyCompat.class);
 
     private String name;
     private Class compat;
