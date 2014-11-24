@@ -5,6 +5,18 @@ import java.lang.reflect.Field;
 public class ReflectionHelper
 {
 
+    public static boolean doesFieldExist(Class clazz, String name)
+    {
+        try
+        {
+            Field field = clazz.getField(name);
+        } catch (NoSuchFieldException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public static Integer getInt(Class clazz, String name, Object instance)
     {
         Integer result = null;
