@@ -39,7 +39,7 @@ ner.ore.silkTouch=SilkTouch Needed
 
 #Mob View
 ner.mob.title=Mob Drops
-ner.mob.biome=Spawn Biome
+ner.mob.biome=Spawn Biomes: Hover mouse here
 ner.mob.exp=Experience Dropped
 
 #Seed View

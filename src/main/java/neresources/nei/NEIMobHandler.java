@@ -2,15 +2,15 @@ package neresources.nei;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.api.entry.IMobEntry;
 import neresources.config.Settings;
+import neresources.gui.GuiContainerHook;
 import neresources.reference.Resources;
 import neresources.registry.MobRegistry;
+import neresources.utils.*;
 import neresources.utils.Font;
-import neresources.utils.MobHelper;
-import neresources.utils.RenderHelper;
-import neresources.utils.TranslationHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -18,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NEIMobHandler extends TemplateRecipeHandler
@@ -130,7 +131,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
         Font font = new Font(false);
         font.print(cachedMob.mob.getMobName(), 2, 2);
-        font.print(TranslationHelper.translateToLocal("ner.mob.biome") + ": " + cachedMob.mob.getBiomes()[0], 2, 12);
+        font.print(TranslationHelper.translateToLocal("ner.mob.biome"), 2, 12);
         font.print(cachedMob.mob.getLightLevel(), 2, 22);
         font.print(TranslationHelper.translateToLocal("ner.mob.exp") + ": " + MobHelper.getExpDrop(cachedMob.mob), 2, 32);
 
@@ -148,6 +149,25 @@ public class NEIMobHandler extends TemplateRecipeHandler
         cachedMob.cycleOutputs(cycleticks, recipe);
     }
 
+    @Override
+    public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int recipe)
+    {
+        currenttip = super.handleTooltip(gui, currenttip, recipe);
+        if (isOnBiome(GuiDraw.getMousePosition(), gui, recipe))
+        {
+            CachedMob cachedMob = (CachedMob) arecipes.get(recipe);
+            Collections.addAll(currenttip, cachedMob.mob.getBiomes());
+        }
+        return currenttip;
+    }
+
+    private boolean isOnBiome(Point mousePosition, GuiRecipe gui, int recipe)
+    {
+        GuiContainerHook guiContainerHook = new GuiContainerHook(gui, gui.width, gui.height);
+        Point offset = gui.getRecipePosition(recipe);
+        Point relMouse = new Point(mousePosition.x - guiContainerHook.getGuiLeft() - offset.x, mousePosition.y - guiContainerHook.getGuiTop() - offset.y);
+        return 2 <= relMouse.x && relMouse.x < gui.width && 12 <= relMouse.y && relMouse.y < 12 + 10;
+    }
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
