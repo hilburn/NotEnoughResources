@@ -3,8 +3,10 @@ package neresources.registry;
 import neresources.api.distributions.DistributionBase;
 import neresources.api.utils.DistributionHelpers;
 import neresources.api.utils.KeyGen;
+import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
 import neresources.utils.ColorHelper;
+import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
 import java.util.*;
@@ -18,6 +20,7 @@ public class OreMatchEntry
     private int minY;
     private int maxY;
     private int bestY;
+    private boolean denseOre;
     private int colour;
     List<ItemStack> drops = new ArrayList<ItemStack>();
 
@@ -45,7 +48,7 @@ public class OreMatchEntry
             for (float chance : distribution.getDistribution())
             {
                 if (++i == chances.length) break;
-                chances[i] += chance;
+                chances[i] += chance * (denseOre && i<81? Compatibility.DENSE_ORES_MULTIPLIER:1);
                 if (chances[i] > 0)
                 {
                     if (minY > i)
@@ -100,12 +103,22 @@ public class OreMatchEntry
     public void addDrop(ItemStack nonOre)
     {
         drops.add(nonOre);
+        if (MapKeys.getKey(nonOre).startsWith("denseore"))
+        {
+            denseOre = true;
+            calcChances();
+        }
     }
 
     public void removeDrop(ItemStack removeDrop)
     {
         for (ItemStack drop : drops)
             if (drop.isItemEqual(removeDrop)) drops.remove(drop);
+        if (MapKeys.getKey(removeDrop).startsWith("denseore"))
+        {
+            denseOre = false;
+            calcChances();
+        }
     }
 
     public List<ItemStack> getDrops()

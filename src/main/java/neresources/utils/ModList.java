@@ -13,11 +13,16 @@ public enum ModList
     cofhcore("CoFHCore", CoFHCompat.class),
     minecraft("neresources", MinecraftCompat.class),
     metallurgy("Metallurgy", MetallurgyCompat.class),
-    netherores("NetherOres", NetherOresCompat.class);
+    netherores("NetherOres", NetherOresCompat.class),
+    denseores("denseores");
 
     private String name;
     private Class<? extends CompatBase> compat;
 
+    ModList(String name)
+    {
+        this(name,null);
+    }
 
     ModList(String name, Class<? extends CompatBase> compat)
     {
@@ -33,6 +38,7 @@ public enum ModList
 
     public CompatBase initialise()
     {
+        if (compat == null) return null;
         try
         {
             return (CompatBase) compat.getMethod("newInstance").invoke(null);
