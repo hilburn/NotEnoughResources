@@ -23,7 +23,6 @@ public class Compatibility
             if (entry instanceof IMobEntry) MobRegistry.getInstance().registerMob((IMobEntry) entry);
             else if (entry instanceof IDungeonEntry) DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);
             else if (entry instanceof IOreEntry) OreRegistry.getInstance().registerOre(((IOreEntry) entry));
-            else if (entry instanceof IModifyOre) OreRegistry.getInstance().addDrops((IModifyOre) entry);
             else if (entry instanceof ISeedEntry) GrassSeedRegistry.getInstance().add(((ISeedEntry) entry));
         }
 
