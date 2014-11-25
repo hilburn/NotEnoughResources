@@ -30,7 +30,7 @@ public class Compatibility
         {
             for (String oreDictEntry: OreDictionary.getOreNames())
             {
-                if (oreDictEntry.startsWith("denseore"))
+                if (oreDictEntry.startsWith("denseore") && OreDictionary.getOres(oreDictEntry).size() > 0)
                 {
                     ItemStack denseOre = OreDictionary.getOres(oreDictEntry).get(0);
                     ItemStack ore = OreDictionary.getOres(oreDictEntry.replace("dense","")).get(0);
