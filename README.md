@@ -7,7 +7,7 @@ Currently in Alpha:
 
 a) does not fully implement biome/dimension variation
 
-b) Y levels or ore spawning might be slightly inaccurate, but that's what you get when dealing with statistics 
+b) Y levels of ore spawning might be slightly inaccurate, but that's what you get when dealing with statistics 
 
 ## Contributors
 hilburn, way2muchnoise
