@@ -173,7 +173,7 @@ public class CoFHCompat extends CompatBase
         for (WeightedRandomBlock ore : ores)
         {
             if (ore.block == Blocks.gravel || ore.block == Blocks.dirt) return;
-            registerOre(new OreEntry(new ItemStack(ore.block, 1, ore.metadata), new DistributionCustom(DistributionHelpers.multiplyArray(baseChance, ore.itemWeight / totalWeight))));
+            registerOre(new OreEntry(new ItemStack(ore.block, 1, ore.metadata), new DistributionCustom(DistributionHelpers.multiplyArray(baseChance, (float)ore.itemWeight / totalWeight))));
         }
     }
 
