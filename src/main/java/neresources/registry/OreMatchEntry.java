@@ -2,7 +2,6 @@ package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
 import neresources.api.utils.DistributionHelpers;
-import neresources.api.utils.KeyGen;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
 import neresources.utils.ColorHelper;
@@ -31,7 +30,7 @@ public class OreMatchEntry
 
     public void add(OreEntry entry)
     {
-        silkTouchMap.put(KeyGen.getKey(entry.getOre()), entry.needSilkTouch());
+        silkTouchMap.put(MapKeys.key(entry.getOre()), entry.needSilkTouch());
         ores.put(entry.getOre(), entry.getDistribution());
         calcChances();
         if (colour == ColorHelper.BLACK) colour = entry.getColour();
@@ -91,7 +90,7 @@ public class OreMatchEntry
 
     public boolean isSilkTouchNeeded(ItemStack itemStack)
     {
-        Boolean silkTouch = this.silkTouchMap.get(KeyGen.getKey(itemStack));
+        Boolean silkTouch = this.silkTouchMap.get(MapKeys.key(itemStack));
         return silkTouch == null || silkTouchMap.size() < (denseOre ? 3 : 2) ? false : silkTouch;
     }
 
@@ -110,7 +109,7 @@ public class OreMatchEntry
             silkTouch = true;
             calcChances();
         }
-        silkTouchMap.put(KeyGen.getKey(nonOre), silkTouch);
+        silkTouchMap.put(MapKeys.key(nonOre), silkTouch);
     }
 
     public void removeDrop(ItemStack removeDrop)
@@ -119,7 +118,7 @@ public class OreMatchEntry
             if (drop.isItemEqual(removeDrop))
             {
                 drops.remove(drop);
-                silkTouchMap.remove(KeyGen.getKey(removeDrop));
+                silkTouchMap.remove(MapKeys.key(removeDrop));
             }
         if (MapKeys.getKey(removeDrop).startsWith("denseore"))
         {

@@ -1,7 +1,7 @@
 package neresources.registry;
 
 import neresources.api.entry.ISeedEntry;
-import neresources.api.utils.KeyGen;
+import neresources.utils.MapKeys;
 import neresources.utils.SeedHelper;
 import net.minecraft.item.ItemStack;
 
@@ -28,21 +28,21 @@ public class GrassSeedRegistry
         for (ISeedEntry entry : seedEntryList)
         {
             totalWeight += entry.getWeight();
-            seedDrops.put(KeyGen.getKey(entry.getDrop()), entry);
+            seedDrops.put(MapKeys.getKey(entry.getDrop()), entry);
         }
         totalWeight *= 8;
     }
 
     public void add(ISeedEntry entry)
     {
-        String key = KeyGen.getKey(entry.getDrop());
+        String key = MapKeys.getKey(entry.getDrop());
         if (!seedDrops.containsKey(key)) return;
         seedDrops.put(key, new SeedEntry(entry.getDrop(), (totalWeight * entry.getWeight())));
     }
 
     public boolean contains(ItemStack itemStack)
     {
-        return contains(KeyGen.getKey(itemStack));
+        return contains(MapKeys.getKey(itemStack));
     }
 
     private boolean contains(String key)
@@ -52,7 +52,7 @@ public class GrassSeedRegistry
 
     public float getChance(ItemStack itemStack)
     {
-        String key = KeyGen.getKey(itemStack);
+        String key = MapKeys.getKey(itemStack);
         if (!contains(key)) return -1;
         else return ((float) seedDrops.get(key).getWeight()) / totalWeight;
     }

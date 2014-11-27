@@ -1,6 +1,5 @@
 package neresources.utils;
 
-import neresources.api.utils.KeyGen;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -16,7 +15,7 @@ public class MapKeys
             for (int i = 0; i < oreDictIds.length; i++)
                 oreDictNames[i] = OreDictionary.getOreName(oreDictIds[i]);
             if (oreDictNames.length == 0)
-                oreDictNames = new String[]{KeyGen.getKey(itemStack)};
+                oreDictNames = new String[]{key(itemStack)};
             return oreDictNames;
         }
         return new String[0];
@@ -31,5 +30,10 @@ public class MapKeys
             return keys[0];
         }
         return null;
+    }
+
+    public static String key(ItemStack itemStack)
+    {
+        return itemStack.getItem().getClass().toString() + ":" + itemStack.getItemDamage();
     }
 }

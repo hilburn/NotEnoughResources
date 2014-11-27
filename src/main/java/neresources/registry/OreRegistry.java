@@ -127,4 +127,11 @@ public class OreRegistry
         }
         return true;
     }
+
+    public boolean addOreLink(String from, String to)
+    {
+        if (from == null || to == null || dropToOreMap.containsKey(from)) return false;
+        dropToOreMap.put(from,to);
+        return true;
+    }
 }
