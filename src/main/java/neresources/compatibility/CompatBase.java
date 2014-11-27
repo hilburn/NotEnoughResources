@@ -1,21 +1,23 @@
 package neresources.compatibility;
 
-import cpw.mods.fml.common.Loader;
 import neresources.registry.MobEntry;
 import neresources.registry.MobRegistry;
 import neresources.registry.OreEntry;
 import neresources.registry.OreRegistry;
+import neresources.utils.ModList;
 
 public class CompatBase
 {
-
-    public CompatBase(String name)
+    public boolean load(ModList mod)
     {
-        if (Loader.isModLoaded(name))
+        if (mod.isLoaded()) {
             init();
+            return true;
+        }
+        return false;
     }
 
-    public void init()
+    protected void init()
     {
     }
 

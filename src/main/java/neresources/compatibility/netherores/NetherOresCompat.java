@@ -3,7 +3,6 @@ package neresources.compatibility.netherores;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
 import neresources.registry.OreEntry;
-import neresources.utils.ModList;
 import net.minecraft.item.ItemStack;
 import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.ores.Ores;
@@ -11,20 +10,11 @@ import powercrystals.netherores.ores.Ores;
 public class NetherOresCompat extends CompatBase
 {
 
-    public static NetherOresCompat instance = null;
+    private static final NetherOresCompat instance = new NetherOresCompat();
 
-    public static NetherOresCompat newInstance()
+    public static NetherOresCompat instance()
     {
-        if (instance != null)
-            return instance;
-        else
-            return instance = new NetherOresCompat();
-    }
-
-
-    public NetherOresCompat()
-    {
-        super(ModList.netherores.toString());
+        return instance;
     }
 
     @Override

@@ -4,8 +4,8 @@ import cofh.api.world.IFeatureGenerator;
 import cofh.core.world.WorldHandler;
 import cofh.lib.util.WeightedRandomBlock;
 import cofh.lib.world.*;
-import cofh.lib.world.feature.*;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.utils.DistributionHelpers;
@@ -27,7 +27,7 @@ public class CoFHCompat extends CompatBase
     private static List<IFeatureGenerator> features;
     public static boolean cofhReplace = false;
 
-    public static CoFHCompat instance = null;
+    private static final CoFHCompat instance = new CoFHCompat();
 
     private static Class featureGenUniform;
     private static Class featureGenNormal;
@@ -37,40 +37,31 @@ public class CoFHCompat extends CompatBase
     private static Class featureGenUnderFluid;
     public static boolean isVersionB6;
 
-    public static CoFHCompat newInstance()
+    public static CoFHCompat instance()
     {
-        if (instance != null)
-            return instance;
-        else
-        {
-            if (LoaderHelper.isModVersion(ModList.cofhcore.toString(), "1.7.10R3.0.0B6"))
-            {
-                featureGenUniform = FeatureOreGenUniform.class;
-                featureGenNormal = FeatureOreGenNormal.class;
-                featureGenSurface = FeatureOreGenSurface.class;
-                isVersionB6 = true;
-            } else
-            {
-                featureGenUniform = FeatureGenUniform.class;
-                featureGenNormal = FeatureGenNormal.class;
-                featureGenSurface = FeatureGenSurface.class;
-                featureGenLargeVein = FeatureGenLargeVein.class;
-                featureGenTopBlock = FeatureGenTopBlock.class;
-                featureGenUnderFluid = FeatureGenUnderfluid.class;
-                isVersionB6 = false;
-            }
-            return instance = new CoFHCompat();
-        }
-    }
-
-    private void vB6()
-    {
-
+        return instance;
     }
 
     public CoFHCompat()
     {
-        super(ModList.cofhcore.toString());
+        if (Loader.isModLoaded("CoFHCore")) {
+            if (LoaderHelper.isModVersion("CoFHCore", "1.7.10R3.0.0B6")) {
+                featureGenUniform = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureOreGenUniform");
+                featureGenNormal = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureOreGenNormal");
+                featureGenSurface = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureOreGenSurface");
+                isVersionB6 = true;
+            } else {
+                featureGenUniform = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureGenUniform");
+                featureGenNormal = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureGenNormal");
+                featureGenSurface = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureGenSurface");
+                featureGenLargeVein = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureGenLargeVein");
+                featureGenTopBlock = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureGenTopBlock");
+                featureGenUnderFluid = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureGenUnderfluid");
+                isVersionB6 = false;
+            }
+            Class worldHandler = ReflectionHelper.findClass("cofh.core.world.WorldHandler");
+            if (worldHandler!=null) cofhReplace = ReflectionHelper.getBoolean(worldHandler, "genReplaceVanilla", null);
+        }
     }
 
     @Override

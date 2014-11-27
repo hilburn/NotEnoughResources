@@ -8,7 +8,10 @@ import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
-import neresources.registry.*;
+import neresources.registry.AddOreDrop;
+import neresources.registry.DungeonRegistry;
+import neresources.registry.MobEntry;
+import neresources.registry.OreEntry;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -24,23 +27,15 @@ import java.util.HashMap;
 public class MinecraftCompat extends CompatBase
 {
 
-    public static MinecraftCompat instance = null;
+    private static final MinecraftCompat instance = new MinecraftCompat();
 
-    public static MinecraftCompat newInstance()
+    public static MinecraftCompat instance()
     {
-        if (instance != null)
-            return instance;
-        else
-            return instance = new MinecraftCompat();
-    }
-
-    public MinecraftCompat()
-    {
-        super("neresources");
+        return instance;
     }
 
     @Override
-    public void init()
+    protected void init()
     {
         registerVanillaMobs();
         registerDungeonLoot();

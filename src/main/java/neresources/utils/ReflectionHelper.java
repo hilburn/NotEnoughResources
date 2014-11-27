@@ -90,4 +90,13 @@ public class ReflectionHelper
         return null;
     }
 
+    public static Class findClass(String name)
+    {
+        try {
+            return Class.forName(name);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
 }

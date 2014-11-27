@@ -26,7 +26,7 @@ public class Compatibility
             else if (entry instanceof ISeedEntry) GrassSeedRegistry.getInstance().add(((ISeedEntry) entry));
         }
 
-        if (Loader.isModLoaded(ModList.denseores.toString()))
+        if (ModList.denseores.isLoaded())
         {
             for (String oreDictEntry: OreDictionary.getOreNames())
             {

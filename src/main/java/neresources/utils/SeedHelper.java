@@ -15,14 +15,8 @@ public class SeedHelper
     {
         List<ISeedEntry> result = new ArrayList<ISeedEntry>();
         Class<?> seedEntry;
-        try
-        {
-            seedEntry = Class.forName("net.minecraftforge.common.ForgeHooks$SeedEntry");
-        } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        seedEntry = ReflectionHelper.findClass("net.minecraftforge.common.ForgeHooks$SeedEntry");
+        if (seedEntry==null) return result;
         List seedList = (List) ReflectionHelper.getObject(ForgeHooks.class, "seedList", null);
         for (Object o : seedList)
         {

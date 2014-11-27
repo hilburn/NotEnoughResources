@@ -6,7 +6,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
 import neresources.registry.OreEntry;
-import neresources.utils.ModList;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -16,19 +15,10 @@ import java.util.Set;
 public class MetallurgyCompat extends CompatBase
 {
 
-    public static MetallurgyCompat instance = null;
+    private static final MetallurgyCompat instance = new MetallurgyCompat();
 
-    public static MetallurgyCompat newInstance()
-    {
-        if (instance != null)
-            return instance;
-        else
-            return instance = new MetallurgyCompat();
-    }
-
-    public MetallurgyCompat()
-    {
-        super(ModList.metallurgy.toString());
+    public static MetallurgyCompat instance() {
+        return instance;
     }
 
     @Override
