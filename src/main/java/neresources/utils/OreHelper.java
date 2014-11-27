@@ -12,7 +12,16 @@ public class OreHelper
         thermalFoundation("thermalfoundation.block.BlockOre"),
         netherOre("powercrystals.netherores.ores.BlockNetherOres"),
         netherOreOverride("powercrystals.netherores.ores.BlockNetherOverrideOre"),
-        metallurgy("com.teammetallurgy.metallurgy.metals.MetalBlock");
+        metallurgy("com.teammetallurgy.metallurgy.metals.MetalBlock"),
+        electriOre("Reika.ElectriCraft.Blocks.BlockElectriOre"),
+        fluoriteOre("Reika.ReactorCraft.Blocks.BlockFluoriteOre"),
+        reactorOre("Reika.ReactorCraft.Blocks.BlockReactorOre"),
+        thaumcraftOre("thaumcraft.common.blocks.BlockCustomOre"),
+        BROre("erogenousbeef.bigreactors.common.block.BlockBROre"),
+        forestryOre("forestry.core.gadgets.BlockResource"),
+        quartzOre("appeng.block.solids.OreQuartz"),
+        chargedQuartzOre("appeng.block.solids.OreQuartzCharged"),
+        TiCOre("tconstruct.smeltery.blocks.MetalOre");
 
         public String className;
 
