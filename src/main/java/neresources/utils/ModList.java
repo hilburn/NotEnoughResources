@@ -12,6 +12,7 @@ import neresources.compatibility.netherores.NetherOresCompat;
 import neresources.compatibility.reika.ElectriCraftCompat;
 import neresources.compatibility.reika.ReactorCraftCompat;
 import neresources.compatibility.thaumcraft.ThaumcraftCompat;
+import neresources.compatibility.tinkersconstruct.TiConCompat;
 
 public enum ModList
 {
@@ -25,6 +26,7 @@ public enum ModList
     electricraft("ElectriCraft", new ElectriCraftCompat()),
     reactorcraft("ReactorCraft", new ReactorCraftCompat()),
     forestry("Forestry",new ForestryCompat()),
+    ticon("TConstruct", new TiConCompat()),
     denseores("denseores");
 
     private String name;
