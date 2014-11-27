@@ -14,7 +14,7 @@ public class WeightedRandomChestContentHelper
      * @param contents
      * @return
      */
-    public static WeightedRandomChestContent[] sort(WeightedRandomChestContent[] contents, IDungeonEntry entry)
+    public static WeightedRandomChestContent[] sort(WeightedRandomChestContent[] contents)
     {
         if (contents.length <= 1) return contents;
 
@@ -22,13 +22,18 @@ public class WeightedRandomChestContentHelper
         WeightedRandomChestContent[] left = subArray(contents, 0, split);
         WeightedRandomChestContent[] right = subArray(contents, split, contents.length);
 
-        left = sort(left, entry);
-        right = sort(right, entry);
+        left = sort(left);
+        right = sort(right);
 
-        return merge(left, right, entry);
+        return merge(left, right);
     }
 
-    private static WeightedRandomChestContent[] merge(WeightedRandomChestContent[] left, WeightedRandomChestContent[] right, IDungeonEntry entry)
+    private static float getAverageChance(WeightedRandomChestContent chestContent)
+    {
+        return (float)(chestContent.theMaximumChanceToGenerateItem+chestContent.theMinimumChanceToGenerateItem)/2*chestContent.itemWeight;
+    }
+
+    private static WeightedRandomChestContent[] merge(WeightedRandomChestContent[] left, WeightedRandomChestContent[] right)
     {
         int length = left.length + right.length;
         WeightedRandomChestContent[] merged = new WeightedRandomChestContent[length];
@@ -40,7 +45,7 @@ public class WeightedRandomChestContentHelper
         {
             if ((li < left.length) && (ri < right.length))
             {
-                if (DungeonHelper.getChance(entry, left[li]) >= DungeonHelper.getChance(entry, right[ri]))
+                if (getAverageChance(left[li]) >= getAverageChance(right[ri]))
                 {
                     merged[i] = left[li];
                     i++;

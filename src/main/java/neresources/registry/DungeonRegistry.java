@@ -1,7 +1,7 @@
 package neresources.registry;
 
 import neresources.api.entry.IDungeonEntry;
-import neresources.utils.DungeonHelper;
+
 import neresources.utils.ReflectionHelper;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
@@ -12,9 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DungeonRegistry
-{
-    private Map<String, IDungeonEntry> registry = new LinkedHashMap<String, IDungeonEntry>();
+public class DungeonRegistry {
+    private Map<String, DungeonEntry> registry = new LinkedHashMap<String, DungeonEntry>();
     public static Map<String, String> categoryToLocalKeyMap = new LinkedHashMap<String, String>();
     private static DungeonRegistry instance = null;
 
@@ -72,23 +71,23 @@ public class DungeonRegistry
         registerChestHook(entry.getName(), entry.getChestGenHooks());
     }
 
-    public List<IDungeonEntry> getDungeons(ItemStack item)
+    public List<DungeonEntry> getDungeons(ItemStack item)
     {
-        List<IDungeonEntry> list = new ArrayList<IDungeonEntry>();
-        for (IDungeonEntry entry : registry.values())
-            if (DungeonHelper.hasItem(entry, item)) list.add(entry);
+        List<DungeonEntry> list = new ArrayList<DungeonEntry>();
+        for (DungeonEntry entry : registry.values())
+            if (entry.containsItem(item)) list.add(entry);
         return list;
     }
 
-    public List<IDungeonEntry> getDungeons()
+    public List<DungeonEntry> getDungeons()
     {
-        return new ArrayList<IDungeonEntry>(registry.values());
+        return new ArrayList<DungeonEntry>(registry.values());
     }
 
-    public String getNumStacks(IDungeonEntry entry)
+    public String getNumStacks(DungeonEntry entry)
     {
-        int max = entry.getChestGenHooks().getMax();
-        int min = entry.getChestGenHooks().getMin();
+        int max = entry.getMaxStacks();
+        int min = entry.getMinStacks();
         if (min == max) return max + " " + TranslationHelper.translateToLocal("ner.stacks");
         return min + " - " + max + " " + TranslationHelper.translateToLocal("ner.stacks");
     }
