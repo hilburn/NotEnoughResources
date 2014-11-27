@@ -1,6 +1,7 @@
 package neresources.utils;
 
 import cpw.mods.fml.common.Loader;
+import neresources.compatibility.BigReactors.BigReactorsCompat;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.compatibility.metallurgy.MetallurgyCompat;
@@ -13,6 +14,7 @@ public enum ModList
     cofhcore("CoFHCore", CoFHCompat.instance()),
     metallurgy("Metallurgy", MetallurgyCompat.instance()),
     netherores("NetherOres", NetherOresCompat.instance()),
+    bigreactors("BigReactors", BigReactorsCompat.instance()),
     denseores("denseores");
 
     private String name;
