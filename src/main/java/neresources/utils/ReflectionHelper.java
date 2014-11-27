@@ -1,23 +1,16 @@
 package neresources.utils;
 
 import java.lang.reflect.Field;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class ReflectionHelper
 {
-    public static Map<String,String> deObfMap = new LinkedHashMap<String, String>();
-    public ReflectionHelper()
-    {
-        deObfMap.put("numberOfBlocks", "field_76541_b");
-        deObfMap.put("itemWeight", "field_76292_a");
-    }
+    public static boolean isObf = false;
 
     public static boolean doesFieldExist(Class clazz, String name)
     {
         try
         {
-            Field field = clazz.getDeclaredField(name);
+            clazz.getDeclaredField(name);
         } catch (NoSuchFieldException e)
         {
             return false;

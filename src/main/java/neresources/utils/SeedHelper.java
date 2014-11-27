@@ -23,8 +23,7 @@ public class SeedHelper
             if (o == null || o.getClass() != seedEntry) continue;
             ItemStack seed = (ItemStack) ReflectionHelper.getObject(seedEntry, "seed", o);
             if (seed == null || seed.getItem() == null) continue;
-            boolean isObf = ReflectionHelper.doesFieldExist(WeightedRandom.Item.class, "field_76292_a");
-            int weight = ReflectionHelper.getInt(WeightedRandom.Item.class, isObf ? "field_76292_a" : "itemWeight", o);
+            int weight = ReflectionHelper.getInt(WeightedRandom.Item.class, DeObfMappings.itemWeight.getFieldName(), o);
             result.add(new SeedEntry(seed, weight));
         }
         return result;

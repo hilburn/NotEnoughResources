@@ -5,6 +5,7 @@ import erogenousbeef.bigreactors.world.BRWorldGenerator;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
 import neresources.registry.OreEntry;
+import neresources.utils.DeObfMappings;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -25,8 +26,7 @@ public class BigReactorsCompat extends CompatBase {
             int maxY = ReflectionHelper.getInt(BRSimpleOreGenerator.class,"maxY",oreGen);
             int minVeins = ReflectionHelper.getInt(BRSimpleOreGenerator.class,"minClustersPerChunk",oreGen);
             int maxVeins = ReflectionHelper.getInt(BRSimpleOreGenerator.class,"maxClustersPerChunk",oreGen);
-            boolean isObf = ReflectionHelper.doesFieldExist(WorldGenMinable.class, "field_76541_b");
-            int veinSize = ReflectionHelper.getInt(WorldGenMinable.class, isObf ? "field_76541_b" : "numberOfBlocks",oreGen).intValue();
+            int veinSize = ReflectionHelper.getInt(WorldGenMinable.class, DeObfMappings.numberOfBlocks.getFieldName(), oreGen);
             Block oreBlock = (Block) ReflectionHelper.getObject(BRSimpleOreGenerator.class,"blockToGenerate",oreGen);
             Block toReplace = (Block) ReflectionHelper.getObject(BRSimpleOreGenerator.class,"blockToReplace",oreGen);
             int metadata = ReflectionHelper.getInt(BRSimpleOreGenerator.class,"blockToGenerateMetadata",oreGen);

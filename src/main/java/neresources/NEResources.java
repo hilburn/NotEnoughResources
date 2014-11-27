@@ -15,6 +15,8 @@ import neresources.proxy.CommonProxy;
 import neresources.reference.MetaData;
 import neresources.reference.Reference;
 import neresources.utils.LogHelper;
+import neresources.utils.ReflectionHelper;
+import net.minecraft.util.WeightedRandom;
 
 @Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, guiFactory = "neresources.gui.ModGuiFactory", dependencies = "after:NotEnoughItems;after:CoFHCore")
 public class NEResources
@@ -39,6 +41,9 @@ public class NEResources
 
         LogHelper.info("Updating ModMetaData...");
         metadata = MetaData.init(metadata);
+
+        ReflectionHelper.isObf = ReflectionHelper.doesFieldExist(WeightedRandom.Item.class, "field_76292_a");
+        LogHelper.debug("Minecraft is " + (ReflectionHelper.isObf ? "obf" : "deObf"));
     }
 
     @EventHandler
