@@ -26,7 +26,6 @@ public class BigReactorsCompat extends CompatBase {
             int minVeins = ReflectionHelper.getInt(BRSimpleOreGenerator.class,"minClustersPerChunk",oreGen);
             int maxVeins = ReflectionHelper.getInt(BRSimpleOreGenerator.class,"maxClustersPerChunk",oreGen);
             boolean isObf = ReflectionHelper.doesFieldExist(WorldGenMinable.class, "field_76541_b");
-            System.out.println("Obfuscated Minecraft: "+isObf);
             int veinSize = ReflectionHelper.getInt(WorldGenMinable.class, isObf ? "field_76541_b" : "numberOfBlocks",oreGen).intValue();
             Block oreBlock = (Block) ReflectionHelper.getObject(BRSimpleOreGenerator.class,"blockToGenerate",oreGen);
             Block toReplace = (Block) ReflectionHelper.getObject(BRSimpleOreGenerator.class,"blockToReplace",oreGen);
