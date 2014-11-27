@@ -42,12 +42,12 @@ public class TiConCompat extends CompatBase{
         if (PHConstruct.generateTinBush) generateOreBush(bushes[3],PHConstruct.tinBushDensity, PHConstruct.tinBushDensity, getAverageSize(12), 32, 32);
         if (PHConstruct.generateAluminumBush) generateOreBush(bushes[4],PHConstruct.aluminumBushDensity, PHConstruct.aluminumBushDensity, getAverageSize(14), 32, 32);
         if (PHConstruct.generateEssenceBush) generateOreBush(bushes[5],PHConstruct.essenceBushRarity, PHConstruct.essenceBushRarity, getAverageSize(12), 32, 32);
-        if (PHConstruct.generateIronSurface);
-        if (PHConstruct.generateGoldSurface);
-        if (PHConstruct.generateCopperSurface);
-        if (PHConstruct.generateTinSurface);
-        if (PHConstruct.generateAluminumSurface);
-        if (PHConstruct.generateCobaltSurface);
+        if (PHConstruct.generateIronSurface) generateSurface(gravel[0], PHConstruct.ironsRarity, 12);
+        if (PHConstruct.generateGoldSurface) generateSurface(gravel[1],PHConstruct.goldsRarity,20);
+        if (PHConstruct.generateCopperSurface) generateSurface(gravel[2],PHConstruct.cobaltsRarity,12);
+        if (PHConstruct.generateTinSurface) generateSurface(gravel[3],PHConstruct.tinsRarity,12);
+        if (PHConstruct.generateAluminumSurface) generateSurface(gravel[4],PHConstruct.aluminumsRarity,12);
+        if (PHConstruct.generateCobaltSurface) generateSurface(gravel[5],PHConstruct.cobaltsRarity,30);
     }
 
     private float getAverageSize(int chance)
@@ -60,6 +60,22 @@ public class TiConCompat extends CompatBase{
             else result+=1.5F;
         }
         return result/chance;
+    }
+
+    private void generateSurface(ItemStack ore, int rarity, int veinSize)
+    {
+        float chanceToSpawn = 1F/rarity;
+        float numOres = 0.7F*veinSize;
+        double cubeLength = Math.pow(numOres,0.3333D);
+        float[] distribution = DistributionHelpers.getOverworldSurfaceDistribution(round(cubeLength));
+        distribution = DistributionHelpers.multiplyArray(distribution, chanceToSpawn);
+        registerOre(new OreEntry(ore,new DistributionCustom(distribution)));
+    }
+
+    private int round(double val)
+    {
+        if (val%1>0.5) return (int)Math.ceil(val);
+        return (int)Math.floor(val);
     }
 
     private void generateOreBush(ItemStack bush, int density, int rarity, float averageSize, int midY, int var)
