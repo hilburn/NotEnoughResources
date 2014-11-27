@@ -21,13 +21,14 @@ public class ReactorCraftCompat extends CompatBase{
             List<ItemStack> drops = reactorOre.getOreDrop(metadata);
             for (ItemStack drop:drops)
             {
-                NEResourcesAPI.registerEntry(new AddOreDrop(ore,drop));
+                if (!drop.isItemEqual(ore))
+                    NEResourcesAPI.registerEntry(new AddOreDrop(ore,drop));
             }
             int minY = reactorOre.minY;
             int maxY = reactorOre.maxY;
             int numVeins = reactorOre.perChunk;
             int veinSize = reactorOre.veinSize;
-            float chance = (numVeins*veinSize)/((maxY-minY+1)*256);
+            float chance = (float)(numVeins*veinSize)/((maxY-minY+1)*256);
             if (!generates) continue;
             registerOre(new OreEntry(ore,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }

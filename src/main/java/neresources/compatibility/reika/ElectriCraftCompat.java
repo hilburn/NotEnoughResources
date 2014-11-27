@@ -18,7 +18,7 @@ public class ElectriCraftCompat extends CompatBase {
             int maxY = electriOre.maxY;
             int numVeins = electriOre.perChunk;
             int veinSize = electriOre.veinSize;
-            float chance = (numVeins*veinSize)/((maxY-minY+1)*256);
+            float chance = (float)(numVeins*veinSize)/((maxY-minY+1)*256);
             registerOre(new OreEntry(ore,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
