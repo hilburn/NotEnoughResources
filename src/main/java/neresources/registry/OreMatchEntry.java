@@ -48,7 +48,7 @@ public class OreMatchEntry
             for (float chance : distribution.getDistribution())
             {
                 if (++i == chances.length) break;
-                chances[i] += chance * (denseOre && i<81? Compatibility.DENSE_ORES_MULTIPLIER:1);
+                chances[i] += chance * (denseOre && i < 81 ? Compatibility.DENSE_ORES_MULTIPLIER : 1);
                 if (chances[i] > 0)
                 {
                     if (minY > i)
@@ -92,7 +92,7 @@ public class OreMatchEntry
     public boolean isSilkTouchNeeded(ItemStack itemStack)
     {
         Boolean silkTouch = this.silkTouchMap.get(KeyGen.getKey(itemStack));
-        return silkTouch == null ? false : silkTouch;
+        return silkTouch == null || silkTouchMap.size() < (denseOre ? 3 : 2) ? false : silkTouch;
     }
 
     public int getColour()
@@ -103,17 +103,24 @@ public class OreMatchEntry
     public void addDrop(ItemStack nonOre)
     {
         drops.add(nonOre);
+        boolean silkTouch = false;
         if (MapKeys.getKey(nonOre).startsWith("denseore"))
         {
             denseOre = true;
+            silkTouch = true;
             calcChances();
         }
+        silkTouchMap.put(KeyGen.getKey(nonOre), silkTouch);
     }
 
     public void removeDrop(ItemStack removeDrop)
     {
         for (ItemStack drop : drops)
-            if (drop.isItemEqual(removeDrop)) drops.remove(drop);
+            if (drop.isItemEqual(removeDrop))
+            {
+                drops.remove(drop);
+                silkTouchMap.remove(KeyGen.getKey(removeDrop));
+            }
         if (MapKeys.getKey(removeDrop).startsWith("denseore"))
         {
             denseOre = false;
