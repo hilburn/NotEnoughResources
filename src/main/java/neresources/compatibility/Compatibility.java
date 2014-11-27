@@ -1,6 +1,5 @@
 package neresources.compatibility;
 
-import cpw.mods.fml.common.Loader;
 import neresources.api.NEResourcesAPI;
 import neresources.api.entry.*;
 import neresources.registry.*;

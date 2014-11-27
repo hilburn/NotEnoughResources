@@ -1,9 +1,9 @@
 package neresources.utils;
 
 import cpw.mods.fml.common.Loader;
-import neresources.compatibility.bigreactors.BigReactorsCompat;
-import neresources.compatibility.appliedenergistics2.AE2Compat;
 import neresources.compatibility.CompatBase;
+import neresources.compatibility.appliedenergistics2.AE2Compat;
+import neresources.compatibility.bigreactors.BigReactorsCompat;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.compatibility.forestry.ForestryCompat;
 import neresources.compatibility.metallurgy.MetallurgyCompat;

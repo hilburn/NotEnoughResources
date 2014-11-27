@@ -1,6 +1,5 @@
 package neresources.utils;
 
-import neresources.api.entry.IDungeonEntry;
 import net.minecraft.util.WeightedRandomChestContent;
 
 import java.util.Arrays;

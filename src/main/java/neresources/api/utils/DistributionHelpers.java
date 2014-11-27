@@ -88,6 +88,11 @@ public class DistributionHelpers
         return result;
     }
 
+    public static float[] getOverworldSurfaceDistribution(float maxChance)
+    {
+        return getTriangularDistribution(69,5,maxChance);
+    }
+
     /**
      * @param base base distribution
      * @param add  the to add distribution

@@ -12,7 +12,6 @@ import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
 import neresources.registry.OreEntry;
 import neresources.utils.LoaderHelper;
-import neresources.utils.ModList;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
