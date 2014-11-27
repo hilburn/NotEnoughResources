@@ -140,7 +140,7 @@ public class CoFHCompat extends CompatBase
     {
         int safeMinY = Math.max(minY, 0);
         int safeMaxY = Math.min(maxY, 255);
-        float chance = (float) numVeins / (safeMaxY - safeMinY) * veinSize / 256F;
+        float chance = (float) numVeins / (safeMaxY - safeMinY+1) * veinSize / 256F;
         return DistributionHelpers.getRoundedSquareDistribution(Math.max(0, minY - veinSize / 2), safeMinY, safeMaxY, Math.min(maxY + veinSize / 2, 255), chance);
     }
 
