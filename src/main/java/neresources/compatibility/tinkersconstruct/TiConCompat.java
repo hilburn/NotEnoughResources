@@ -17,16 +17,12 @@ import tconstruct.world.TinkerWorld;
 
 public class TiConCompat extends CompatBase{
     private Block slagBlock;
-    private Block oreBerry;
-    private Block oreBerry2;
     ItemStack[] bushes;
     ItemStack[] gravel = new ItemStack[6];
 
     @Override
     protected void init() {
         slagBlock = TinkerWorld.oreSlag;
-        oreBerry = TinkerWorld.oreBerry;
-        oreBerry2 = TinkerWorld.oreBerrySecond;
         bushes = new ItemStack[]{new ItemStack(TinkerWorld.oreBerry,1,12),new ItemStack(TinkerWorld.oreBerry,1,13),new ItemStack(TinkerWorld.oreBerry,1,14),new ItemStack(TinkerWorld.oreBerry,1,15),new ItemStack(TinkerWorld.oreBerrySecond,1,12),new ItemStack(TinkerWorld.oreBerrySecond,1,13)};
         for (int i=0; i< bushes.length; i++)
             NEResourcesAPI.registerEntry(new AddOreDrop(bushes[i],new ItemStack(TinkerWorld.oreBerries,1,i)));

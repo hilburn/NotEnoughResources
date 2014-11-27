@@ -91,7 +91,7 @@ public class DistributionHelpers
     public static float[] getOverworldSurfaceDistribution(int oreDiameter)
     {
         float[] result = new float[256];
-        float[] triangularDist = getTriangularDistribution(69,5,1F/11F);
+        float[] triangularDist = getOverworldSurface();
         float chance = (float)oreDiameter/256F;
         for (int i=0;i<result.length-oreDiameter;i++)
         {
@@ -101,6 +101,11 @@ public class DistributionHelpers
                 result[i+j]+=triangularDist[i]*chance;
         }
         return result;
+    }
+
+    public static float[] getOverworldSurface()
+    {
+        return getTriangularDistribution(69,5,1F/11F);
     }
 
     /**

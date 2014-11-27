@@ -4,6 +4,8 @@ import cofh.api.world.IFeatureGenerator;
 import cofh.core.world.WorldHandler;
 import cofh.lib.util.WeightedRandomBlock;
 import cofh.lib.world.*;
+import cofh.lib.world.feature.FeatureBase;
+import cofh.lib.world.feature.FeatureBase.GenRestriction;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
@@ -69,6 +71,8 @@ public class CoFHCompat extends CompatBase
     {
         for (IFeatureGenerator feature : features)
         {
+            GenRestriction dimensionRestriction = (GenRestriction) ReflectionHelper.getObject(FeatureBase.class,"dimensionRestriction",feature);
+            GenRestriction biomeRestriction = (GenRestriction) ReflectionHelper.getObject(FeatureBase.class,"biomeRestriction",feature);
             if (feature.getClass() == featureGenUniform)
             {
                 int maxY = ReflectionHelper.getInt(featureGenUniform, "maxY", feature);
@@ -91,7 +95,15 @@ public class CoFHCompat extends CompatBase
                     registerOreEntries(oreGen.ores, getChancesForNormal(meanY, maxVar, oreGen.veinSize, count));
             } else if (feature.getClass() == featureGenSurface)
             {
+                int count = ReflectionHelper.getInt(featureGenSurface,"count",feature);
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenSurface, "worldGen", feature);
+                CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
+                if (oreGen.ores != null)
+                {
+                    int diameter = (int)Math.pow(oreGen.veinSize,0.333333D);
+                    registerOreEntries(oreGen.ores, DistributionHelpers.multiplyArray(DistributionHelpers.getOverworldSurfaceDistribution(diameter),count));
+                }
             } else if (feature.getClass() == featureGenLargeVein)
             {
                 int count = ReflectionHelper.getInt(featureGenLargeVein, "count", feature);
@@ -114,7 +126,14 @@ public class CoFHCompat extends CompatBase
                     registerOreEntries(oreGen.ores, DistributionHelpers.multiplyArray(oreDistribution, (float) count * oreGen.veinSize / 256F));
             } else if (feature.getClass() == featureGenTopBlock)
             {
+                int count = ReflectionHelper.getInt(featureGenTopBlock,"count",feature);
+                WorldGenerator worldGen = (WorldGenerator) ReflectionHelper.getObject(featureGenTopBlock, "worldGen", feature);
+                CoFHWorldGen oreGen = getCoFHWorldGen(worldGen);
 
+                if (oreGen.ores != null)
+                {
+                    registerOreEntries(oreGen.ores, DistributionHelpers.multiplyArray(DistributionHelpers.getOverworldSurface(),count*oreGen.veinSize));
+                }
             } else if (feature.getClass() == featureGenUnderFluid)
             {
                 boolean water = ReflectionHelper.getBoolean(featureGenUnderFluid, "water", feature);
