@@ -115,7 +115,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
         if (stack != null)
         {
             if (((CachedOre) arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
-                currenttip.add("§3" + TranslationHelper.translateToLocal("ner.ore.silkTouch"));
+                currenttip.add("\u00A73" + TranslationHelper.translateToLocal("ner.ore.silkTouch"));
         }
         return currenttip;
     }
