@@ -1,0 +1,46 @@
+ner.config.itemsPerColumn.title=每列显示物品数
+ner.config.itemsPerColumn.description=调整NEI面板中每列显示地牢物品与生物掉落物的数量
+ner.config.itemsPerRow.title=每行显示物品数
+ner.config.itemsPerRow.description=设置NEI面板中每行显示地牢物品的数量
+ner.config.cycleTime.title=循环间隔
+ner.config.cycleTime.description=调整NEI面板中单种物品持续显示的时间
+ner.config.extraRange.title=层数范围
+ner.config.extraRange.description=调整矿物生成中显示的层数最大值
+
+#Usage: ner.page pageNumber ner.of lastPage
+ner.page=页数
+ner.of=/
+#Usage X ner.stacks
+ner.stacks=组
+
+#Dungeon View
+ner.dungeon.title=地牢物品
+ner.dungeon.mineshaftCorridor=废弃矿井
+ner.dungeon.pyramidDesertyChest=沙漠神殿
+ner.dungeon.pyramidJungleChest=废弃矿井
+ner.dungeon.pyramidJungleDispenser=丛林神庙
+ner.dungeon.strongholdCorridor=要塞走廊
+ner.dungeon.strongholdLibrary=要塞图书馆
+ner.dungeon.strongholdCrossing=要塞交叉走廊
+ner.dungeon.villageBlacksmith=铁匠铺
+ner.dungeon.bonusChest=奖励箱子
+ner.dungeon.dungeonChest=小型地牢
+
+#Enchantments View
+ner.enchantments.title=附魔属性
+
+#Grass View
+ner.grass.title=草种信息
+
+#Ore View
+ner.ore.title=矿物生成
+ner.ore.bestY=常见层数
+ner.ore.silkTouch=需要精准采集
+
+#Mob View
+ner.mob.title=生物信息
+ner.mob.biome=生成群系: 悬停鼠标查看
+ner.mob.exp=掉落经验
+
+#Seed View
+ner.seed.title=种子信息
