@@ -48,9 +48,6 @@ public class CoFHCompat extends CompatBase
                 featureGenUniform = FeatureOreGenUniform.class;
                 featureGenNormal = FeatureOreGenNormal.class;
                 featureGenSurface = FeatureOreGenSurface.class;
-                featureGenLargeVein = null;
-                featureGenTopBlock = null;
-                featureGenUnderFluid = null;
                 isVersionB6 = true;
             } else
             {
@@ -64,6 +61,11 @@ public class CoFHCompat extends CompatBase
             }
             return instance = new CoFHCompat();
         }
+    }
+
+    private void vB6()
+    {
+
     }
 
     public CoFHCompat()
