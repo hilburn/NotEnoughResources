@@ -5,6 +5,7 @@ import neresources.compatibility.appliedenergistics2.AE2Compat;
 import neresources.compatibility.bigreactors.BigReactorsCompat;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
+import neresources.compatibility.forestry.ForestryCompat;
 import neresources.compatibility.metallurgy.MetallurgyCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
 import neresources.compatibility.netherores.NetherOresCompat;
@@ -23,6 +24,7 @@ public enum ModList
     thaumcraft("Thaumcraft", new ThaumcraftCompat()),
     electricraft("ElectriCraft", new ElectriCraftCompat()),
     reactorcraft("ReactorCraft", new ReactorCraftCompat()),
+    forestry("Forestry",new ForestryCompat()),
     denseores("denseores");
 
     private String name;
