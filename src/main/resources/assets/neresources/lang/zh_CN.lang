@@ -1,7 +1,7 @@
 ner.config.itemsPerColumn.title=每列显示物品数
 ner.config.itemsPerColumn.description=调整NEI面板中每列显示地牢物品与生物掉落物的数量
 ner.config.itemsPerRow.title=每行显示物品数
-ner.config.itemsPerRow.description=设置NEI面板中每行显示地牢物品的数量
+ner.config.itemsPerRow.description=调整NEI面板中每行显示地牢物品的数量
 ner.config.cycleTime.title=循环间隔
 ner.config.cycleTime.description=调整NEI面板中单种物品持续显示的时间
 ner.config.extraRange.title=层数范围
@@ -14,7 +14,7 @@ ner.of=/
 ner.stacks=组
 
 #Dungeon View
-ner.dungeon.title=地牢物品
+ner.dungeon.title=地牢箱子信息
 ner.dungeon.mineshaftCorridor=废弃矿井
 ner.dungeon.pyramidDesertyChest=沙漠神殿
 ner.dungeon.pyramidJungleChest=废弃矿井
