@@ -25,7 +25,11 @@ public class MapKeys
     public static String getKey(ItemStack drop)
     {
         String[] keys = getKeys(drop);
-        if (keys.length > 0) return keys[0];
+        if (keys.length > 0)
+        {
+            if (keys[0].equals("oreCertusQuartz") && keys.length>1)return keys[1];
+            return keys[0];
+        }
         return null;
     }
 }

@@ -1,4 +1,4 @@
-package neresources.compatibility.BigReactors;
+package neresources.compatibility.bigreactors;
 
 import erogenousbeef.bigreactors.world.BRSimpleOreGenerator;
 import erogenousbeef.bigreactors.world.BRWorldGenerator;
