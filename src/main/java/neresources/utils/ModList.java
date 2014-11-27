@@ -14,15 +14,15 @@ import neresources.compatibility.thaumcraft.ThaumcraftCompat;
 
 public enum ModList
 {
-    minecraft(MinecraftCompat.instance()),
-    cofhcore("CoFHCore", CoFHCompat.instance()),
-    metallurgy("Metallurgy", MetallurgyCompat.instance()),
-    netherores("NetherOres", NetherOresCompat.instance()),
-    bigreactors("BigReactors", BigReactorsCompat.instance()),
-    ae2("appliedenergistics2", AE2Compat.instance()),
-    thaumcraft("Thaumcraft", ThaumcraftCompat.instance()),
-    electricraft("ElectriCraft", ElectriCraftCompat.instance()),
-    reactorcraft("ReactorCraft", ReactorCraftCompat.instance()),
+    minecraft(new MinecraftCompat()),
+    cofhcore("CoFHCore", new CoFHCompat()),
+    metallurgy("Metallurgy", new MetallurgyCompat()),
+    netherores("NetherOres", new NetherOresCompat()),
+    bigreactors("BigReactors", new BigReactorsCompat()),
+    ae2("appliedenergistics2", new AE2Compat()),
+    thaumcraft("Thaumcraft", new ThaumcraftCompat()),
+    electricraft("ElectriCraft", new ElectriCraftCompat()),
+    reactorcraft("ReactorCraft", new ReactorCraftCompat()),
     denseores("denseores");
 
     private String name;

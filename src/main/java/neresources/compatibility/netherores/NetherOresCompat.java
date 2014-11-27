@@ -10,13 +10,6 @@ import powercrystals.netherores.ores.Ores;
 public class NetherOresCompat extends CompatBase
 {
 
-    private static final NetherOresCompat instance = new NetherOresCompat();
-
-    public static NetherOresCompat instance()
-    {
-        return instance;
-    }
-
     @Override
     public void init()
     {

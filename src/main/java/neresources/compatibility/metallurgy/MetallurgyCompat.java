@@ -15,12 +15,6 @@ import java.util.Set;
 public class MetallurgyCompat extends CompatBase
 {
 
-    private static final MetallurgyCompat instance = new MetallurgyCompat();
-
-    public static MetallurgyCompat instance() {
-        return instance;
-    }
-
     @Override
     public void init()
     {

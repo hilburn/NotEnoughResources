@@ -13,11 +13,6 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import java.util.Set;
 
 public class BigReactorsCompat extends CompatBase {
-    private static final BigReactorsCompat instance = new BigReactorsCompat();
-    public static BigReactorsCompat instance()
-    {
-        return instance;
-    }
 
     @Override
     protected void init() {

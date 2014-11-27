@@ -27,8 +27,6 @@ public class CoFHCompat extends CompatBase
     private static List<IFeatureGenerator> features;
     public static boolean cofhReplace = false;
 
-    private static final CoFHCompat instance = new CoFHCompat();
-
     private static Class featureGenUniform;
     private static Class featureGenNormal;
     private static Class featureGenSurface;
@@ -37,10 +35,6 @@ public class CoFHCompat extends CompatBase
     private static Class featureGenUnderFluid;
     public static boolean isVersionB6;
 
-    public static CoFHCompat instance()
-    {
-        return instance;
-    }
 
     public CoFHCompat()
     {

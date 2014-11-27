@@ -12,11 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class AE2Compat extends CompatBase {
-    private static final AE2Compat instance = new AE2Compat();
-
-    public static CompatBase instance() {
-        return instance;
-    }
 
     @Override
     protected void init() {

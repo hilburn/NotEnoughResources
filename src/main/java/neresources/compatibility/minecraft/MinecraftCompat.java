@@ -27,13 +27,6 @@ import java.util.HashMap;
 public class MinecraftCompat extends CompatBase
 {
 
-    private static final MinecraftCompat instance = new MinecraftCompat();
-
-    public static MinecraftCompat instance()
-    {
-        return instance;
-    }
-
     @Override
     protected void init()
     {
