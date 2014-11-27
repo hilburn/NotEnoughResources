@@ -12,13 +12,14 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class ForestryCompat extends CompatBase{
-    Block oreBlock = ForestryBlock.resources.block();
+    Block oreBlock;
     @Override
     protected void init() {
         registerOres();
     }
 
     private void registerOres() {
+        oreBlock = ForestryBlock.resources.block();
         ItemStack apatite = ForestryItem.apatite.getItemStack();
         NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(oreBlock,1,0),apatite));
         if (Config.generateApatiteOre) genApatite();

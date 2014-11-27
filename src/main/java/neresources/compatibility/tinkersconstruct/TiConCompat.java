@@ -1,4 +1,10 @@
 package neresources.compatibility.tinkersconstruct;
 
-public class TiConCompat {
+import neresources.compatibility.CompatBase;
+
+public class TiConCompat extends CompatBase{
+    @Override
+    protected void init() {
+        super.init();
+    }
 }
