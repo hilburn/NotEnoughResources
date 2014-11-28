@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class Conditional
 {
+    public static final Map<Conditional,Conditional> reverse = new LinkedHashMap<Conditional, Conditional>();
+
     public static final Conditional magmaCream = new Conditional("ner.magmaCream.text", Modifier.darkRed);
     public static final Conditional slimeBall = new Conditional("ner.slimeBall.text",Modifier.lightGreen);
     public static final Conditional rareDrop = new Conditional("ner.rareDrop.text",Modifier.purple);
@@ -50,8 +52,6 @@ public class Conditional
     public static final Conditional belowLooting = new Conditional("ner.belowLooting.text",aboveLooting);
     public static final Conditional killedBy = new Conditional("ner.killedBy.text",Modifier.darkRed);
     public static final Conditional notKilledBy = new Conditional("ner.notKilledBy.text",killedBy);
-
-    public static final Map<Conditional,Conditional> reverse = new LinkedHashMap<Conditional, Conditional>();
 
     protected String text;
     protected String colour = "";
