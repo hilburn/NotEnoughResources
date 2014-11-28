@@ -1,17 +1,13 @@
 package neresources.utils;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-public class OreHelper
+public class SilkTouchHelper
 {
-    public static enum OreClasses
+    public static enum SilkTouchClasses
     {
-        minecraftOre("net.minecraft.block.BlockOre"),
-        minecraftRedStoneOre("net.minecraft.block.BlockRedstoneOre"),
-        thermalFoundation("thermalfoundation.block.BlockOre"),
-        netherOre("powercrystals.netherores.ores.BlockNetherOres"),
-        netherOreOverride("powercrystals.netherores.ores.BlockNetherOverrideOre"),
         metallurgy("com.teammetallurgy.metallurgy.metals.MetalBlock"),
         electriOre("Reika.ElectriCraft.Blocks.BlockElectriOre"),
         fluoriteOre("Reika.ReactorCraft.Blocks.BlockFluoriteOre"),
@@ -20,12 +16,11 @@ public class OreHelper
         BROre("erogenousbeef.bigreactors.common.block.BlockBROre"),
         forestryOre("forestry.core.gadgets.BlockResource"),
         quartzOre("appeng.block.solids.OreQuartz"),
-        chargedQuartzOre("appeng.block.solids.OreQuartzCharged"),
-        TiCOre("tconstruct.smeltery.blocks.MetalOre");
+        chargedQuartzOre("appeng.block.solids.OreQuartzCharged");
 
         public String className;
 
-        private OreClasses(String className)
+        private SilkTouchClasses(String className)
         {
             this.className = className;
         }
@@ -39,8 +34,9 @@ public class OreHelper
     public static boolean isOreBlock(ItemStack itemStack)
     {
         Block block = Block.getBlockFromItem(itemStack.getItem());
-        for (OreClasses oreClass : OreClasses.values())
-            if (block.getClass().toString().equals(oreClass.getClassNameToString())) return true;
+        if (block == Blocks.diamond_ore || block == Blocks.lapis_ore || block == Blocks.redstone_ore || block == Blocks.lit_redstone_ore) return true;
+        for (SilkTouchClasses silkTouchClass : SilkTouchClasses.values())
+            if (block.getClass().toString().equals(silkTouchClass.getClassNameToString())) return true;
         return false;
     }
 }

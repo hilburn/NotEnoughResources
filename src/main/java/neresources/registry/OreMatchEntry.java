@@ -91,7 +91,7 @@ public class OreMatchEntry
     public boolean isSilkTouchNeeded(ItemStack itemStack)
     {
         Boolean silkTouch = this.silkTouchMap.get(MapKeys.key(itemStack));
-        return silkTouch == null || silkTouchMap.size() < (denseOre ? 3 : 2) ? false : silkTouch;
+        return silkTouch == null ? false : silkTouch;
     }
 
     public int getColour()
@@ -115,11 +115,13 @@ public class OreMatchEntry
     public void removeDrop(ItemStack removeDrop)
     {
         for (ItemStack drop : drops)
+        {
             if (drop.isItemEqual(removeDrop))
             {
                 drops.remove(drop);
                 silkTouchMap.remove(MapKeys.key(removeDrop));
             }
+        }
         if (MapKeys.getKey(removeDrop).startsWith("denseore"))
         {
             denseOre = false;
