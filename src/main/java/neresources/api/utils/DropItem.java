@@ -92,7 +92,14 @@ public class DropItem
 
     private String getDropChance()
     {
-        return chance == 1F ? "" : " (" + String.valueOf((int) (chance * 100)) + "%)";
+        return chance < 1F ?" (" + formatChance() + "%)":"";
+    }
+
+    private String formatChance()
+    {
+        float chance = this.chance * 100;
+        if (chance<10) return String.format("%.1f",chance);
+        return String.format("%2d",(int)chance);
     }
 
     private List<String> getTooltipText()

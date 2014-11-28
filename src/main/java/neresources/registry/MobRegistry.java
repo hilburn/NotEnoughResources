@@ -4,14 +4,11 @@ import neresources.api.entry.IMobEntry;
 import neresources.utils.MobHelper;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MobRegistry
 {
-    private Map<String, IMobEntry> registry = new LinkedHashMap<String, IMobEntry>();
+    private Set<IMobEntry> registry = new LinkedHashSet<IMobEntry>();
 
     private static MobRegistry instance = null;
 
@@ -29,9 +26,9 @@ public class MobRegistry
 
     public boolean registerMob(String key, IMobEntry entry)
     {
-        if (!registry.containsKey(key))
+        if (!registry.contains(entry))
         {
-            registry.put(key, entry);
+            registry.add(entry);
             return true;
         }
         return false;
@@ -39,19 +36,19 @@ public class MobRegistry
 
     public IMobEntry getMobEntry(String key)
     {
-        return registry.get(key);
+        return null;//registry.get(key);
     }
 
     public List<IMobEntry> getMobsThatDropItem(ItemStack item)
     {
         List<IMobEntry> list = new ArrayList<IMobEntry>();
-        for (IMobEntry entry : registry.values())
+        for (IMobEntry entry : registry)
             if (MobHelper.dropsItem(entry, item)) list.add(entry);
         return list;
     }
 
     public List<IMobEntry> getMobs()
     {
-        return new ArrayList<IMobEntry>(registry.values());
+        return new ArrayList<IMobEntry>(registry);
     }
 }

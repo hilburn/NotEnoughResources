@@ -9,6 +9,7 @@ public class Conditional
     public static Conditional slimeBall = new Conditional("ner.slimeball.text",Modifier.lightGreen);
     public static Conditional rareDrop = new Conditional("ner.raredrop.text",Modifier.purple);
     public static Conditional burning = new Conditional("ner.burning.text",Modifier.lightRed);
+    public static Conditional silkTouch = new Conditional("ner.ore.silkTouch",Modifier.darkCyan);
 
     private String text;
     private String colour = "";

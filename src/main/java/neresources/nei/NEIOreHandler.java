@@ -3,6 +3,7 @@ package neresources.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neresources.api.utils.*;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.OreMatchEntry;
@@ -115,7 +116,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
         if (stack != null)
         {
             if (((CachedOre) arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
-                currenttip.add("\u00A73" + TranslationHelper.translateToLocal("ner.ore.silkTouch"));
+                currenttip.add(Conditional.silkTouch.toString());
         }
         return currenttip;
     }
