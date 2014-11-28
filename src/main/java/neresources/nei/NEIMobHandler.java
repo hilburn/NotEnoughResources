@@ -5,6 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.api.entry.IMobEntry;
+import neresources.api.utils.DropItem;
 import neresources.config.Settings;
 import neresources.gui.GuiContainerHook;
 import neresources.reference.Resources;
@@ -19,8 +20,7 @@ import net.minecraft.item.ItemSword;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 public class NEIMobHandler extends TemplateRecipeHandler
@@ -163,6 +163,16 @@ public class NEIMobHandler extends TemplateRecipeHandler
         return currenttip;
     }
 
+    @Override
+    public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> toolTip, int recipe)
+    {
+        if (stack != null)
+        {
+            toolTip.addAll(((CachedMob) arecipes.get(recipe)).getToolTip(stack));
+        }
+        return toolTip;
+    }
+
     private boolean isOnBiome(Point mousePosition, GuiRecipe gui, int recipe)
     {
         GuiContainerHook guiContainerHook = new GuiContainerHook(gui, gui.width, gui.height);
@@ -228,5 +238,13 @@ public class NEIMobHandler extends TemplateRecipeHandler
             }
         }
 
+        public List<String> getToolTip(ItemStack stack)
+        {
+            for (DropItem item:mob.getDrops())
+            {
+                if (item.item.isItemEqual(stack)) return item.conditionals;
+            }
+            return new ArrayList<String>();
+        }
     }
 }
