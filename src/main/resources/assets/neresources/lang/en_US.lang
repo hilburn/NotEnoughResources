@@ -45,14 +45,60 @@ ner.mob.exp=Experience Dropped
 #Seed View
 ner.seed.title=Seed Drop
 
-#Conditionals
-ner.playerkill.text=Killed By Player
-ner.magmacream.text=Small and Large Magma Cubes
-ner.slimeball.text=Tiny Slimes only
-ner.raredrop.text=Rare Drop
-ner.burning.text=When on fire
-ner.slimescale.text=Scales with Slime Size
-ner.kingslime.text=King Slimes only
+#Conditionals - when translating retain '%s' as this lets the modifier be properly inserted into the string
+ner.magmaCream.text=Small and Large Magma Cubes
+ner.slimeBall.text=Tiny Slimes only
+ner.rareDrop.text=Rare Drop
+
+ner.slimeScale.text=Scales with Slime Size
+ner.kingSlime.text=King Slimes only
 ner.beheading.text=Beheading increases chance
-ner.randomaspect.text=Random Aspect
+ner.randomAspect.text=Random Aspect
 ner.equipmentDrop.text=Dropped Equipment
+
+ner.burning.text=When on fire
+ner.notBurning.text=When not on fire
+ner.wet.text=When wet
+ner.notWet.text=When not wet
+ner.hasPotion.text=When affected by %s
+ner.hasNoPotion.text=When not affected by %s
+ner.beyond.text=Further than %sm from spawn
+ner.nearer.text=Closer than %sm from spawn
+ner.raining.text=When raining
+ner.dry.text=When not raining
+ner.thundering.text=When storming
+ner.notThundering.text=When not storming
+ner.moonPhase.text=During %s Moon
+ner.notMoonPhase.text=Out of %s Moon
+ner.pastTime.text=Day time past %s
+ner.beforeTime.text=Day time before %s
+ner.pastWorldTime.text=World time past %s
+ner.beforeWorldTime.text=World time before %s
+ner.pastWorldDifficulty.text=Past World Difficulty %s
+ner.beforeWorldDifficulty.text=Before World Difficulty %s
+ner.inDimension.text=In Dimension %s
+ner.notInDimension.text=Not in Dimension %s
+ner.inBiome.text=In Biome %s
+ner.notInBiome.text=Not in Biome %s
+ner.onBlock.text=On %s
+ner.notOnBlock.text=Not on %s
+ner.below.text=Below Y Level %s
+ner.above.text=Above Y Level %s
+ner.playerOnline.text=When Player %s online
+ner.playerOffline.text=When Player %s offline
+ner.playerKill.text=Killed by a Player
+ner.notPlayerKill.text=Not killed by a Player
+ner.aboveLooting.text=Looting above %s
+ner.belowLooting.text=Looting below %s
+ner.killedBy.text=When killed by %s
+ner.notKilledBy.text=When not killed by %s
+
+#Moon Phases
+ner.full.moon=Full
+ner.waning_gibbous.moon=Waning Gibbous
+ner.third_quarter.moon=Third Quarter
+ner.waning_crescent.moon=Waning Crescent
+ner.new.moon=New
+ner.waxing_crescent.moon=Waxing Crescent
+ner.first_quarter.moon=First Quarter
+ner.waxing_gibbous.moon=Waxing Gibbous

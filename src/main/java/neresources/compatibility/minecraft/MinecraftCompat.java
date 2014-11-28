@@ -4,7 +4,7 @@ import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.api.distributions.DistributionUnderWater;
-import neresources.api.utils.Conditional;
+import neresources.api.utils.conditionals.Conditional;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import neresources.compatibility.CompatBase;

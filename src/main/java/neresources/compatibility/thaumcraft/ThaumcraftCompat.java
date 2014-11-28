@@ -4,6 +4,7 @@ import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.utils.*;
+import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.AddOreDrop;
 import neresources.registry.MobEntry;
@@ -36,7 +37,7 @@ public class ThaumcraftCompat extends CompatBase {
 
     private void registerMobs()
     {
-        Conditional randomAspect = new Conditional("ner.randomaspect.taxt", Modifier.pink);
+        Conditional randomAspect = new Conditional("ner.randomAspect.text", Modifier.pink);
         String[] tainted = new String[]{"Tainted areas"};
         DropItem flesh = new DropItem(Items.rotten_flesh,0,2);
         DropItem brain = new DropItem(ConfigItems.itemZombieBrain,0,1);

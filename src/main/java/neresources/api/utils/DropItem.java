@@ -1,5 +1,6 @@
 package neresources.api.utils;
 
+import neresources.api.utils.conditionals.Conditional;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

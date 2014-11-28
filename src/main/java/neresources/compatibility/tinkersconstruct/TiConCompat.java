@@ -5,6 +5,7 @@ import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.api.utils.*;
+import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.*;
 import neresources.utils.MapKeys;
@@ -125,8 +126,8 @@ public class TiConCompat extends CompatBase{
 
     private void registerBlueSlimes()
     {
-        Conditional scalesWithSlimeSize = new Conditional("ner.slimescale.text");
-        Conditional kingSlimeOnly = new Conditional("ner.kingslime.text", Modifier.darkBlue);
+        Conditional scalesWithSlimeSize = new Conditional("ner.slimeScale.text");
+        Conditional kingSlimeOnly = new Conditional("ner.kingSlime.text", Modifier.darkBlue);
         List<ItemStack> toolDrops = getTinkerTools();
         DropItem[] toolDropItems = new DropItem[toolDrops.size()+3];
         toolDropItems[0] = new DropItem(new ItemStack(TinkerWorld.strangeFood,1),0,10,scalesWithSlimeSize);
