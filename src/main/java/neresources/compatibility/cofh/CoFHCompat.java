@@ -71,8 +71,13 @@ public class CoFHCompat extends CompatBase
     {
         for (IFeatureGenerator feature : features)
         {
-            GenRestriction dimensionRestriction = (GenRestriction) ReflectionHelper.getObject(FeatureBase.class,"dimensionRestriction",feature);
-            GenRestriction biomeRestriction = (GenRestriction) ReflectionHelper.getObject(FeatureBase.class,"biomeRestriction",feature);
+            GenRestriction dimensionRestriction;
+            GenRestriction biomeRestriction;
+            if (feature instanceof FeatureBase)
+            {
+                dimensionRestriction = (GenRestriction) ReflectionHelper.getObject(FeatureBase.class, "dimensionRestriction", feature);
+                biomeRestriction = (GenRestriction) ReflectionHelper.getObject(FeatureBase.class, "biomeRestriction", feature);
+            }
             if (feature.getClass() == featureGenUniform)
             {
                 int maxY = ReflectionHelper.getInt(featureGenUniform, "maxY", feature);

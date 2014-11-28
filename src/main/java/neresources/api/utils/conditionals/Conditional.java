@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class Conditional
 {
-
     public static final Conditional magmaCream = new Conditional("ner.magmaCream.text", Modifier.darkRed);
     public static final Conditional slimeBall = new Conditional("ner.slimeBall.text",Modifier.lightGreen);
     public static final Conditional rareDrop = new Conditional("ner.rareDrop.text",Modifier.purple);
