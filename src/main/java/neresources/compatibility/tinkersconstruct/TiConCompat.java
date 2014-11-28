@@ -4,16 +4,32 @@ import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
-import neresources.api.utils.DistributionHelpers;
+import neresources.api.utils.*;
 import neresources.compatibility.CompatBase;
-import neresources.registry.AddOreDrop;
-import neresources.registry.OreEntry;
-import neresources.registry.OreRegistry;
+import neresources.registry.*;
 import neresources.utils.MapKeys;
 import net.minecraft.block.Block;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
+import tconstruct.armor.TinkerArmor;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
+import tconstruct.world.entity.BlueSlime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TiConCompat extends CompatBase{
     private Block slagBlock;
@@ -44,6 +60,8 @@ public class TiConCompat extends CompatBase{
         if (PHConstruct.generateTinSurface) generateSurface(gravel[3],PHConstruct.tinsRarity,12);
         if (PHConstruct.generateAluminumSurface) generateSurface(gravel[4],PHConstruct.aluminumsRarity,12);
         if (PHConstruct.generateCobaltSurface) generateSurface(gravel[5],PHConstruct.cobaltsRarity,30);
+        if (PHConstruct.enableTBlueSlime) registerBlueSlimes();
+        registerDropChanges();
     }
 
     private float getAverageSize(int chance)
@@ -103,5 +121,70 @@ public class TiConCompat extends CompatBase{
         DistributionHelpers.addDistribution(distribution,DistributionHelpers.getSquareDistribution(0,127,chance));
         registerOre(new OreEntry(ardite,new DistributionCustom(distribution)));
         registerOre(new OreEntry(cobalt,new DistributionCustom(distribution)));
+    }
+
+    private void registerBlueSlimes()
+    {
+        Conditional scalesWithSlimeSize = new Conditional("ner.slimescale.text");
+        Conditional kingSlimeOnly = new Conditional("ner.kingslime.text", Modifier.darkBlue);
+        List<ItemStack> toolDrops = getTinkerTools();
+        DropItem[] toolDropItems = new DropItem[toolDrops.size()+3];
+        toolDropItems[0] = new DropItem(new ItemStack(TinkerWorld.strangeFood,1),0,10,scalesWithSlimeSize);
+        toolDropItems[1] = new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 1),1,1,0.2F,kingSlimeOnly);
+        toolDropItems[2] = new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3),1,1,kingSlimeOnly);
+        for (int i=0;i<toolDrops.size();i++)
+        {
+            toolDropItems[i+3] = new DropItem(toolDrops.get(i),1,1,1F/toolDrops.size(),kingSlimeOnly);
+        }
+
+        registerMob(new MobEntry(new BlueSlime(null), LightLevel.any,toolDropItems));
+    }
+
+    private List<ItemStack> getTinkerTools()
+    {
+        List<ItemStack> result = new ArrayList<ItemStack>();
+        for (int i=0;i<TConstructRegistry.tools.size();i++)
+        {
+            ToolCore tool = TConstructRegistry.tools.get(i);
+
+            final ItemStack headStack = new ItemStack(tool.getHeadItem(), 1, 17);
+            final ItemStack handleStack = new ItemStack(tool.getHandleItem(), 1, 17);
+            final ItemStack accessoryStack = tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+            final ItemStack extraStack = tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
+
+            String loc = "tool." + tool.getToolName().toLowerCase() + ".kingslime"; // special localization the same way as materials
+            String name;
+            if (StatCollector.canTranslate(loc))
+                name = StatCollector.translateToLocal(loc);
+            else
+                name = StatCollector.translateToLocal("tool.kingslimeprefix") + " " + tool.getLocalizedToolName();
+
+            ItemStack toolStack = ToolBuilder.instance.buildTool(headStack, handleStack, accessoryStack, extraStack, name);
+
+            if (toolStack != null)
+            {
+                NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
+                tags.setInteger("Attack", 5 + tool.getDamageVsEntity(null));
+                tags.setInteger("TotalDurability", 2500);
+                tags.setInteger("BaseDurability", 2500);
+                tags.setInteger("MiningSpeed", 1400);
+                result.add(toolStack);
+            }
+        }
+        return result;
+    }
+
+    private void registerDropChanges()
+    {
+        Conditional beheading = new Conditional("ner.beheading.text",Modifier.orange);
+        NEResourcesAPI.registerEntry(new ChangeMobDrop(EntityDragon.class,new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3),5,5,Conditional.playerKill)));
+        NEResourcesAPI.registerEntry(new ChangeMobDrop(IBossDisplayData.class,new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3),1,1,Conditional.playerKill)));
+        NEResourcesAPI.registerEntry(new ChangeMobDrop(IMob.class,new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 1),1,1,0.025F,Conditional.playerKill,Conditional.rareDrop)));
+        Class[] entityClasses = new Class[]{EntitySkeleton.class,EntitySkeleton.class,EntityZombie.class,EntityCreeper.class};
+        for (int i=0;i<entityClasses.length;i++)
+        {
+            NEResourcesAPI.registerEntry(new ChangeMobDrop(entityClasses[i],true,i==1,i==1?new ItemStack[]{new ItemStack(Items.skull, 1, 1)}:new ItemStack[0],new DropItem[]{new DropItem(new ItemStack(Items.skull, 1, i),1,1,Conditional.playerKill,beheading)}));
+        }
+        NEResourcesAPI.registerEntry(new ChangeMobDrop(EntitySkeleton.class,true,true,new DropItem(new ItemStack(TinkerTools.materials, 1, 8),1,1,0.2F)));
     }
 }

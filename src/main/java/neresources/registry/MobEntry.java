@@ -4,6 +4,7 @@ import neresources.api.entry.IMobEntry;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +57,25 @@ public class MobEntry implements IMobEntry
         return biomes.toArray(new String[biomes.size()]);
     }
 
+    public boolean addDrop(DropItem item)
+    {
+        for (DropItem drop:drops)
+            if (drop.item.isItemEqual(item.item)) return false;
+        drops.add(item);
+        return true;
+    }
+
     @Override
     public LightLevel getLightLevel()
     {
         return lightLevel;
+    }
+
+    public void removeDrop(ItemStack item)
+    {
+        int i=0;
+        for (;i<drops.size();i++)
+            if (drops.get(i).item.isItemEqual(item)) break;
+        if (i<drops.size()) drops.remove(i);
     }
 }

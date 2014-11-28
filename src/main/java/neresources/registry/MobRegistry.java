@@ -1,7 +1,11 @@
 package neresources.registry;
 
 import neresources.api.entry.IMobEntry;
+import neresources.api.entry.IModifyMob;
+import neresources.api.utils.DropItem;
+import neresources.utils.ClassScraper;
 import neresources.utils.MobHelper;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.item.ItemStack;
 
 import java.util.*;
@@ -50,5 +54,51 @@ public class MobRegistry
     public List<IMobEntry> getMobs()
     {
         return new ArrayList<IMobEntry>(registry);
+    }
+
+    public void removeMobDrops(IModifyMob entry)
+    {
+        int wither = entry.witherSkeleton()?1:0;
+        for (IMobEntry regEntry:registry)
+        {
+
+            Set classes = new LinkedHashSet();
+            if (entry.isExactMatch())
+                classes.add(regEntry.getEntity().getClass());
+            else classes = ClassScraper.getGeneralizations(regEntry.getEntity().getClass());
+            for (Object clazz : classes)
+            {
+                if (clazz == entry.applyToClass())
+                {
+                    if (clazz == EntitySkeleton.class)
+                        if (((EntitySkeleton)regEntry.getEntity()).getSkeletonType() != wither) break;
+                    for (ItemStack item : entry.removeItems())
+                        ((MobEntry) regEntry).removeDrop(item);
+                }
+            }
+        }
+    }
+
+    public void addMobDrops(IModifyMob entry)
+    {
+        int wither = entry.witherSkeleton()?1:0;
+        for (IMobEntry regEntry:registry)
+        {
+
+            Set classes = new LinkedHashSet();
+            if (entry.isExactMatch())
+                classes.add(regEntry.getEntity().getClass());
+            else classes = ClassScraper.getGeneralizations(regEntry.getEntity().getClass());
+            for (Object clazz : classes)
+            {
+                if (clazz == entry.applyToClass())
+                {
+                    if (clazz == EntitySkeleton.class)
+                        if (((EntitySkeleton)regEntry.getEntity()).getSkeletonType() != wither) break;
+                    for (DropItem item : entry.addItems())
+                        ((MobEntry) regEntry).addDrop(item);
+                }
+            }
+        }
     }
 }

@@ -42,11 +42,13 @@ public class Compatibility
         for (Object entry : NEResourcesAPI.getEntryRegistry())
         {
             if (entry instanceof IModifyOre) OreRegistry.getInstance().removeDrops((IModifyOre) entry);
+            if (entry instanceof IModifyMob) MobRegistry.getInstance().removeMobDrops((IModifyMob) entry);
         }
 
         for (Object entry : NEResourcesAPI.getEntryRegistry())
         {
             if (entry instanceof IModifyOre) OreRegistry.getInstance().addDrops((IModifyOre) entry);
+            if (entry instanceof IModifyMob) MobRegistry.getInstance().addMobDrops((IModifyMob) entry);
         }
 
 

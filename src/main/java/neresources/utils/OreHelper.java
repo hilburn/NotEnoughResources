@@ -39,6 +39,7 @@ public class OreHelper
     public static boolean isOreBlock(ItemStack itemStack)
     {
         Block block = Block.getBlockFromItem(itemStack.getItem());
+        if (block==null) return false;
         for (OreClasses oreClass : OreClasses.values())
             if (block.getClass().toString().equals(oreClass.getClassNameToString())) return true;
         return false;

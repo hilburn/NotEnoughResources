@@ -35,7 +35,7 @@ ner.grass.title=Grass Drops
 #Ore View
 ner.ore.title=Ore Gen
 ner.ore.bestY=bestY
-ner.ore.silkTouch=SilkTouch Needed
+ner.ore.silkTouch=Silk Touch Needed
 
 #Mob View
 ner.mob.title=Mob Drops
@@ -51,3 +51,6 @@ ner.magmacream.text=Small and Large Magma Cubes
 ner.slimeball.text=Tiny Slimes only
 ner.raredrop.text=Rare Drop
 ner.burning.text=When on fire
+ner.slimescale.text=Scales with Slime Size
+ner.kingslime.text=King Slimes only
+ner.beheading.text=Beheading increases chance

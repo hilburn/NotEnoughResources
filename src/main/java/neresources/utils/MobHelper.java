@@ -22,8 +22,8 @@ public class MobHelper
 
     public static int getExpDrop(IMobEntry entry)
     {
-        if (entry instanceof EntityLiving)
-            return EntityHelper.getExperience((EntityLiving) entry);
+        if (entry.getEntity() instanceof EntityLiving)
+            return EntityHelper.getExperience((EntityLiving) entry.getEntity());
         return 0;
     }
 }

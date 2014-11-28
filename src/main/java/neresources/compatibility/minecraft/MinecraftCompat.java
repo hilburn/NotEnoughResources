@@ -114,7 +114,7 @@ public class MinecraftCompat extends CompatBase
 
         //Wither Skeleton
         DropItem coal = new DropItem(Items.coal, 0, 1, 0.33F);
-        DropItem skull = new DropItem(Items.skull, 1, 1, 0.025F,Conditional.playerKill,Conditional.rareDrop);
+        DropItem skull = new DropItem(new ItemStack(Items.skull,1,1), 1, 1, 0.025F,Conditional.playerKill,Conditional.rareDrop);
         EntitySkeleton witherSkeleton = new EntitySkeleton(null);
         witherSkeleton.setSkeletonType(1);
         registerMob(new MobEntry(witherSkeleton, LightLevel.hostile, new String[]{"Nether Fortress"}, bone, coal, skull));
