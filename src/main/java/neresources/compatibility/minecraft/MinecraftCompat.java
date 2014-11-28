@@ -145,6 +145,10 @@ public class MinecraftCompat extends CompatBase
         DropItem magma = new DropItem(Items.magma_cream, 0, 1,Conditional.magmaCream);
         registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null), 1), LightLevel.hostile, new String[]{"Nether"}, magma));
 
+        //Blaze
+        DropItem blazeRod = new DropItem(Items.blaze_rod, 0, 1, Conditional.playerKill);
+        registerMob(new MobEntry(new EntityBlaze(null), LightLevel.blaze, new String[]{"Nether Fortress"}, blazeRod));
+
         //Silverfish
         registerMob(new MobEntry(new EntitySilverfish(null), LightLevel.hostile));
 
@@ -158,10 +162,6 @@ public class MinecraftCompat extends CompatBase
 
         //Cave Spider
         registerMob(new MobEntry(new EntityCaveSpider(null), LightLevel.hostile, string, spider));
-
-        //Blaze
-        DropItem blazeRod = new DropItem(Items.blaze_rod, 0, 1, Conditional.playerKill);
-        registerMob(new MobEntry(new EntityBlaze(null), LightLevel.blaze, new String[]{"Nether Fortress"}, blazeRod));
 
         //Squid
         DropItem ink = new DropItem(Items.dye, 0, 1, 3);

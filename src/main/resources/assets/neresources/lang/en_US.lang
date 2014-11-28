@@ -54,3 +54,5 @@ ner.burning.text=When on fire
 ner.slimescale.text=Scales with Slime Size
 ner.kingslime.text=King Slimes only
 ner.beheading.text=Beheading increases chance
+ner.randomaspect.text=Random Aspect
+ner.equipmentDrop.text=Dropped Equipment

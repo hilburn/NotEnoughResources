@@ -3,14 +3,18 @@ package neresources.compatibility.thaumcraft;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
-import neresources.api.utils.DistributionHelpers;
+import neresources.api.utils.*;
 import neresources.compatibility.CompatBase;
 import neresources.registry.AddOreDrop;
+import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.monster.*;
 
 public class ThaumcraftCompat extends CompatBase {
     @Override
@@ -27,6 +31,60 @@ public class ThaumcraftCompat extends CompatBase {
         if (Config.genCinnibar) genCinnibar();
         if (Config.genAmber) genAmber();
         if (Config.genInfusedStone) genInfused();
+        registerMobs();
+    }
+
+    private void registerMobs()
+    {
+        Conditional randomAspect = new Conditional("ner.randomaspect.taxt", Modifier.pink);
+        String[] tainted = new String[]{"Tainted areas"};
+        DropItem flesh = new DropItem(Items.rotten_flesh,0,2);
+        DropItem brain = new DropItem(ConfigItems.itemZombieBrain,0,1);
+        if (Config.spawnAngryZombie) registerMob(new MobEntry(new EntityBrainyZombie(null), LightLevel.hostile,flesh,brain));
+
+        DropItem essence = new DropItem(new ItemStack(ConfigItems.itemWispEssence),1,1,randomAspect);
+        if (Config.spawnWisp) registerMob(new MobEntry(new EntityWisp(null),LightLevel.hostile,essence));
+
+        DropItem knowledge = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 9),1,1,Conditional.playerKill,Conditional.rareDrop);
+        DropItem bean = new DropItem(new ItemStack(ConfigItems.itemManaBean),0,1,randomAspect);
+        if (Config.spawnPech) registerMob(new MobEntry(new EntityPech(null),LightLevel.any,bean,knowledge));
+
+        DropItem taintSlime = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 11),0,1);
+        DropItem taintTendril = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 12),0,1);
+        if (Config.spawnTaintacle)
+        {
+            registerMob(new MobEntry(new EntityTaintacle(null),LightLevel.any,tainted,taintSlime,taintTendril));
+            registerMob(new MobEntry(new EntityTaintacleSmall(null),LightLevel.any,tainted));
+        }
+        if (Config.spawnTaintSpore)
+        {
+            registerMob(new MobEntry(new EntityTaintSporeSwarmer(null),LightLevel.any,tainted,taintSlime,taintTendril));
+        }
+        taintSlime = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 11),0,1,0.166F);
+        taintTendril = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 12),0,1,0.166F);
+        EntityLivingBase[] taintedEntities = new EntityLivingBase[]{new EntityTaintChicken(null), new EntityTaintCow(null), new EntityTaintCreeper(null), new EntityTaintPig(null), new EntityTaintSheep(null),
+                                                                    new EntityTaintSheep(null), new EntityTaintSpider(null), new EntityTaintVillager(null)};
+        for (EntityLivingBase entity:taintedEntities)
+            registerMob(new MobEntry(entity,LightLevel.any,tainted,taintSlime,taintTendril));
+
+        DropItem string = new DropItem(Items.string, 0, 2);
+        DropItem spider = new DropItem(Items.spider_eye, 1, 1, 0.33F,Conditional.playerKill);
+        registerMob(new MobEntry(new EntityMindSpider(null), LightLevel.hostile,string,spider));
+
+        knowledge = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 9),0,1,0.1F);
+        DropItem voidSeed = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 17),0,1,0.2F);
+        DropItem crimsonRites = new DropItem(new ItemStack(ConfigItems.itemEldritchObject, 1, 1),1,1,0.025F,Conditional.playerKill,Conditional.rareDrop);
+        DropItem cultHelmet = new DropItem(new ItemStack(ConfigItems.itemHelmetCultistPlate),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem cultChest = new DropItem(new ItemStack(ConfigItems.itemChestCultistPlate),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem cultLegs = new DropItem(new ItemStack(ConfigItems.itemLegsCultistPlate),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem cultBoots = new DropItem(new ItemStack(ConfigItems.itemBootsCultist),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem thaumSword = new DropItem(new ItemStack(ConfigItems.itemSwordThaumium),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem cultRobeHelmet = new DropItem(new ItemStack(ConfigItems.itemHelmetCultistRobe),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem voidSword = new DropItem(new ItemStack(ConfigItems.itemSwordVoid),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem cultRobeChest = new DropItem(new ItemStack(ConfigItems.itemChestCultistRobe),0,1,0.085F,Conditional.equipmentDrop);
+        DropItem cultRobeLegs = new DropItem(new ItemStack(ConfigItems.itemLegsCultistRobe),0,1,0.085F,Conditional.equipmentDrop);
+        registerMob(new MobEntry(new EntityCultistKnight(null), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultHelmet, cultChest, cultLegs, cultBoots, thaumSword, cultRobeHelmet, voidSword));
+        registerMob(new MobEntry(new EntityCultistCleric(null),LightLevel.hostile,voidSeed,knowledge,crimsonRites,cultRobeHelmet,cultRobeChest,cultRobeLegs,cultBoots));
     }
 
     private void genInfused() {

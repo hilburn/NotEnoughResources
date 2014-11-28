@@ -10,6 +10,7 @@ public class Conditional
     public static Conditional rareDrop = new Conditional("ner.raredrop.text",Modifier.purple);
     public static Conditional burning = new Conditional("ner.burning.text",Modifier.lightRed);
     public static Conditional silkTouch = new Conditional("ner.ore.silkTouch",Modifier.darkCyan);
+    public static Conditional equipmentDrop = new Conditional("ner.equipmentDrop.text",Modifier.lightCyan);
 
     private String text;
     private String colour = "";
