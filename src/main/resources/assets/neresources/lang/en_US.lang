@@ -44,3 +44,10 @@ ner.mob.exp=Experience Dropped
 
 #Seed View
 ner.seed.title=Seed Drop
+
+#Conditionals
+ner.playerkill.text=Killed By Player
+ner.magmacream.text=Small and Large Magma Cubes
+ner.slimeball.text=Tiny Slimes only
+ner.raredrop.text=Rare Drop
+ner.burning.text=When on fire
