@@ -2,7 +2,7 @@ package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
 import neresources.utils.ColorHelper;
-import neresources.utils.OreHelper;
+import neresources.utils.SilkTouchHelper;
 import net.minecraft.item.ItemStack;
 
 public class OreEntry
@@ -14,7 +14,7 @@ public class OreEntry
 
     public OreEntry(ItemStack ore, DistributionBase distribution)
     {
-        this(ore, distribution, ColorHelper.BLACK, OreHelper.isOreBlock(ore));
+        this(ore, distribution, ColorHelper.BLACK, SilkTouchHelper.isOreBlock(ore));
     }
 
     public OreEntry(ItemStack ore, DistributionBase distribution, boolean needSilkTouch)
@@ -24,7 +24,7 @@ public class OreEntry
 
     public OreEntry(ItemStack ore, DistributionBase distribution, int colour)
     {
-        this(ore, distribution, colour, OreHelper.isOreBlock(ore));
+        this(ore, distribution, colour, SilkTouchHelper.isOreBlock(ore));
     }
 
     public OreEntry(ItemStack ore, DistributionBase distribution, int colour, boolean needSilkTouch)
