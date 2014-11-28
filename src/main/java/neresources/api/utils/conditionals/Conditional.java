@@ -36,6 +36,8 @@ public class Conditional
     public static final Conditional beforeWorldTime = new Conditional("ner.beforeWorldTime.text",pastWorldTime);
     public static final Conditional pastWorldDifficulty = new Conditional("ner.pastWorldDifficulty.text",Modifier.orange);
     public static final Conditional beforeWorldDifficulty = new Conditional("ner.beforeWorldDifficulty.text",pastWorldDifficulty);
+    public static final Conditional gameDifficulty = new Conditional("ner.gameDifficulty.text",Modifier.orange);
+    public static final Conditional notGameDifficulty = new Conditional("ner.notGameDifficulty.text",gameDifficulty);
     public static final Conditional inDimension = new Conditional("ner.inDimension.text",Modifier.yellow);
     public static final Conditional notInDimension = new Conditional("ner.notInDimension.text",inDimension);
     public static final Conditional inBiome = new Conditional("ner.inBiome.text",Modifier.orange);

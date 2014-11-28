@@ -1,11 +1,11 @@
 package neresources.api.utils.conditionals;
 
-public class ExtendedConditionals extends Conditional
+public class ExtendedConditional extends Conditional
 {
     Conditional conditional;
     String value;
 
-    public ExtendedConditionals(Conditional conditional, String value)
+    public ExtendedConditional(Conditional conditional, String value)
     {
         this.conditional=conditional;
         this.value=value;

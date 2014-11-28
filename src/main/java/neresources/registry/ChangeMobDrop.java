@@ -51,6 +51,11 @@ public class ChangeMobDrop implements IModifyMob
         witherSkeleton=wither;
     }
 
+    public void setWitherSkeleton(boolean witherSkeleton)
+    {
+        this.witherSkeleton = witherSkeleton;
+    }
+
     @Override
     public Class applyToClass()
     {

@@ -103,8 +103,13 @@ public class DropItem
         return String.format("%2d",(int)chance);
     }
 
-    private List<String> getTooltipText()
+    public List<String> getTooltipText()
     {
         return conditionals;
+    }
+
+    public void addConditionals(List<String> conditionals)
+    {
+        this.conditionals.addAll(conditionals);
     }
 }
