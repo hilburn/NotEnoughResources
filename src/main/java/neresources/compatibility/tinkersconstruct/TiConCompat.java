@@ -1,5 +1,6 @@
 package neresources.compatibility.tinkersconstruct;
 
+import cpw.mods.fml.common.Optional;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
@@ -9,6 +10,7 @@ import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.*;
 import neresources.utils.MapKeys;
+import neresources.utils.ModList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -39,6 +41,12 @@ public class TiConCompat extends CompatBase{
 
     @Override
     protected void init() {
+        register();
+    }
+
+    @Optional.Method(modid = "TConstruct")
+    private void register()
+    {
         slagBlock = TinkerWorld.oreSlag;
         bushes = new ItemStack[]{new ItemStack(TinkerWorld.oreBerry,1,12),new ItemStack(TinkerWorld.oreBerry,1,13),new ItemStack(TinkerWorld.oreBerry,1,14),new ItemStack(TinkerWorld.oreBerry,1,15),new ItemStack(TinkerWorld.oreBerrySecond,1,12),new ItemStack(TinkerWorld.oreBerrySecond,1,13)};
         for (int i=0; i< bushes.length; i++)
@@ -92,7 +100,7 @@ public class TiConCompat extends CompatBase{
         if (val%1>0.5) return (int)Math.ceil(val);
         return (int)Math.floor(val);
     }
-
+    
     private void generateOreBush(ItemStack bush, int density, int rarity, float averageSize, int midY, int var)
     {
         float chanceToSpawn = (float)density/rarity;
@@ -107,7 +115,7 @@ public class TiConCompat extends CompatBase{
         float chance = ((float)numVeins*veinSize)/((maxY-minY+1)*256);
         registerOre(new OreEntry(ore,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
     }
-
+    @Optional.Method(modid = "TConstruct")
     private void generateNetherOres()
     {
         int netherDensity = PHConstruct.netherDensity;
@@ -124,6 +132,7 @@ public class TiConCompat extends CompatBase{
         registerOre(new OreEntry(cobalt,new DistributionCustom(distribution)));
     }
 
+    @Optional.Method(modid = "TConstruct")
     private void registerBlueSlimes()
     {
         Conditional scalesWithSlimeSize = new Conditional("ner.slimeScale.text");
@@ -140,7 +149,7 @@ public class TiConCompat extends CompatBase{
 
         registerMob(new MobEntry(new BlueSlime(null), LightLevel.any,toolDropItems));
     }
-
+    @Optional.Method(modid = "TConstruct")
     private List<ItemStack> getTinkerTools()
     {
         List<ItemStack> result = new ArrayList<ItemStack>();
@@ -175,6 +184,7 @@ public class TiConCompat extends CompatBase{
         return result;
     }
 
+    @Optional.Method(modid = "TConstruct")
     private void registerDropChanges()
     {
         Conditional beheading = new Conditional("ner.beheading.text",Modifier.orange);

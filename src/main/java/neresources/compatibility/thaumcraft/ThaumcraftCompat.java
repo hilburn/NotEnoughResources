@@ -1,5 +1,6 @@
 package neresources.compatibility.thaumcraft;
 
+import cpw.mods.fml.common.Optional;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
@@ -18,8 +19,16 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.monster.*;
 
 public class ThaumcraftCompat extends CompatBase {
+
     @Override
     protected void init() {
+        registerThaumcraftOres();
+        registerThaumcraftMobs();
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+    private void registerThaumcraftOres()
+    {
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre,1,7);
         ItemStack amberDrop = new ItemStack(ConfigItems.itemResource,1,6);
         NEResourcesAPI.registerEntry(new AddOreDrop(amber,amberDrop));
@@ -32,10 +41,10 @@ public class ThaumcraftCompat extends CompatBase {
         if (Config.genCinnibar) genCinnibar();
         if (Config.genAmber) genAmber();
         if (Config.genInfusedStone) genInfused();
-        registerMobs();
     }
 
-    private void registerMobs()
+    @Optional.Method(modid = "Thaumcraft")
+    private void registerThaumcraftMobs()
     {
         Conditional randomAspect = new Conditional("ner.randomAspect.text", Modifier.pink);
         String[] tainted = new String[]{"Tainted areas"};
@@ -87,7 +96,7 @@ public class ThaumcraftCompat extends CompatBase {
         registerMob(new MobEntry(new EntityCultistKnight(null), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultHelmet, cultChest, cultLegs, cultBoots, thaumSword, cultRobeHelmet, voidSword));
         registerMob(new MobEntry(new EntityCultistCleric(null),LightLevel.hostile,voidSeed,knowledge,crimsonRites,cultRobeHelmet,cultRobeChest,cultRobeLegs,cultBoots));
     }
-
+    @Optional.Method(modid = "Thaumcraft")
     private void genInfused() {
         int minY=5;
         int maxY=59;
@@ -99,7 +108,7 @@ public class ThaumcraftCompat extends CompatBase {
             registerOre(new OreEntry(infusedStone,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
-
+    @Optional.Method(modid = "Thaumcraft")
     private void genAmber() {
         int minY = 0;
         int maxY = 64;
@@ -111,7 +120,7 @@ public class ThaumcraftCompat extends CompatBase {
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre,1,7);
         registerOre(new OreEntry(amber,new DistributionCustom(distribution)));
     }
-
+    @Optional.Method(modid = "Thaumcraft")
     private void genCinnibar() {
         int minY=0;
         int maxY = 64/5;
