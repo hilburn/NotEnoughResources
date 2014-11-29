@@ -5,23 +5,33 @@ import neresources.api.messages.utils.MessageKeys;
 
 public class SendMessage
 {
-    public static void sendMessage(RegisterOreMessage entry)
+    public static void sendMessage(RegisterOreMessage message)
     {
-        FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,MessageKeys.registerOre,entry.getMessage());
+        sendMessage(message, MessageKeys.registerOre);
     }
 
-    public static void sendMessage(ModifyOreMessage entry)
+    public static void sendMessage(ModifyOreMessage message)
     {
-        FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,MessageKeys.modifyOre,entry.getMessage());
+        sendMessage(message, MessageKeys.modifyOre);
     }
 
-    public static void sendMessage(RegisterMobMessage entry)
+    public static void sendMessage(RegisterMobMessage message)
     {
-        FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,MessageKeys.registerMob,entry.getMessage());
+        sendMessage(message, MessageKeys.registerMob);
     }
 
-    public static void sendMessage(ModifyMobMessage entry)
+    public static void sendMessage(ModifyMobMessage message)
     {
-        FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,MessageKeys.modifyMob,entry.getMessage());
+        sendMessage(message,MessageKeys.modifyMob);
+    }
+    
+    public static void sendMessage(RemoveMobMessage message)
+    {
+        sendMessage(message,MessageKeys.removeMob);
+    }
+
+    public static void sendMessage(Message message, String key)
+    {
+        FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,key,message.getMessage());
     }
 }

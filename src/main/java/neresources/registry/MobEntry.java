@@ -1,6 +1,5 @@
 package neresources.registry;
 
-import neresources.api.messages.IMobEntry;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,7 +9,7 @@ import scala.actors.threadpool.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobEntry implements IMobEntry
+public class MobEntry
 {
     private EntityLivingBase entity;
     private List<DropItem> drops = new ArrayList<DropItem>();
@@ -33,13 +32,11 @@ public class MobEntry implements IMobEntry
         this.drops.addAll(Arrays.asList(drops));
     }
 
-    @Override
     public EntityLivingBase getEntity()
     {
         return entity;
     }
 
-    @Override
     public String getMobName()
     {
         return entity.getCommandSenderName();
@@ -63,7 +60,6 @@ public class MobEntry implements IMobEntry
         return true;
     }
 
-    @Override
     public LightLevel getLightLevel()
     {
         return lightLevel;

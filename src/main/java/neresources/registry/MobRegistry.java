@@ -1,7 +1,5 @@
 package neresources.registry;
 
-import neresources.api.messages.IMobEntry;
-import neresources.api.messages.IModifyMob;
 import neresources.api.utils.DropItem;
 import neresources.utils.ClassScraper;
 import neresources.utils.MobHelper;
@@ -15,7 +13,7 @@ import java.util.Set;
 
 public class MobRegistry
 {
-    private Set<IMobEntry> registry = new LinkedHashSet<IMobEntry>();
+    private Set<MobEntry> registry = new LinkedHashSet<MobEntry>();
 
     private static MobRegistry instance = null;
 
@@ -26,12 +24,12 @@ public class MobRegistry
         return instance;
     }
 
-    public boolean registerMob(IMobEntry entry)
+    public boolean registerMob(MobEntry entry)
     {
         return registerMob(entry.getMobName(), entry);
     }
 
-    public boolean registerMob(String key, IMobEntry entry)
+    public boolean registerMob(String key, MobEntry entry)
     {
         if (!registry.contains(entry))
         {
@@ -41,28 +39,28 @@ public class MobRegistry
         return false;
     }
 
-    public IMobEntry getMobEntry(String key)
+    public MobEntry getMobEntry(String key)
     {
         return null;//registry.get(key);
     }
 
-    public List<IMobEntry> getMobsThatDropItem(ItemStack item)
+    public List<MobEntry> getMobsThatDropItem(ItemStack item)
     {
-        List<IMobEntry> list = new ArrayList<IMobEntry>();
-        for (IMobEntry entry : registry)
+        List<MobEntry> list = new ArrayList<MobEntry>();
+        for (MobEntry entry : registry)
             if (MobHelper.dropsItem(entry, item)) list.add(entry);
         return list;
     }
 
-    public List<IMobEntry> getMobs()
+    public List<MobEntry> getMobs()
     {
-        return new ArrayList<IMobEntry>(registry);
+        return new ArrayList<MobEntry>(registry);
     }
 
-    public void removeMobDrops(IModifyMob entry)
+    public void removeMobDrops(ChangeMobDrop entry)
     {
         int wither = entry.witherSkeleton() ? 1 : 0;
-        for (IMobEntry regEntry : registry)
+        for (MobEntry regEntry : registry)
         {
 
             Set classes = new LinkedHashSet();
@@ -76,16 +74,16 @@ public class MobRegistry
                     if (clazz == EntitySkeleton.class)
                         if (((EntitySkeleton) regEntry.getEntity()).getSkeletonType() != wither) break;
                     for (ItemStack item : entry.removeItems())
-                        ((MobEntry) regEntry).removeDrop(item);
+                        regEntry.removeDrop(item);
                 }
             }
         }
     }
 
-    public void addMobDrops(IModifyMob entry)
+    public void addMobDrops(ChangeMobDrop entry)
     {
         int wither = entry.witherSkeleton() ? 1 : 0;
-        for (IMobEntry regEntry : registry)
+        for (MobEntry regEntry : registry)
         {
 
             Set classes = new LinkedHashSet();
@@ -99,7 +97,7 @@ public class MobRegistry
                     if (clazz == EntitySkeleton.class)
                         if (((EntitySkeleton) regEntry.getEntity()).getSkeletonType() != wither) break;
                     for (DropItem item : entry.addItems())
-                        ((MobEntry) regEntry).addDrop(item);
+                        regEntry.addDrop(item);
                 }
             }
         }

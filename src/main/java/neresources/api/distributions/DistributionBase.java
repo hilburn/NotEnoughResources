@@ -1,6 +1,6 @@
 package neresources.api.distributions;
 
-import neresources.api.utils.DistributionHelpers;
+import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -26,7 +26,7 @@ public abstract class DistributionBase
 
     public NBTTagCompound writeToNBT(NBTTagCompound result)
     {
-        result.setIntArray(MessageKeys.distribution, DistributionHelpers.getIntArray(distribution));
+        result.setIntArray(MessageKeys.distribution, MessageHelper.getIntArray(distribution));
         result.setInteger(MessageKeys.bestHeight, bestHeight);
         return result;
     }

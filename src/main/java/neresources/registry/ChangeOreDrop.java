@@ -1,9 +1,8 @@
 package neresources.registry;
 
-import neresources.api.messages.IModifyOre;
 import net.minecraft.item.ItemStack;
 
-public class ChangeOreDrop implements IModifyOre
+public class ChangeOreDrop
 {
     private ItemStack ore;
     private ItemStack[] addDrops = new ItemStack[0];
@@ -31,19 +30,16 @@ public class ChangeOreDrop implements IModifyOre
         this.addDrops = addDrops;
     }
 
-    @Override
     public ItemStack ore()
     {
         return ore;
     }
 
-    @Override
     public ItemStack[] removeDrops()
     {
         return removeDrops;
     }
 
-    @Override
     public ItemStack[] addDrops()
     {
         return addDrops;

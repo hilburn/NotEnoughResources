@@ -1,10 +1,9 @@
 package neresources.registry;
 
-import neresources.api.messages.IModifyMob;
 import neresources.api.utils.DropItem;
 import net.minecraft.item.ItemStack;
 
-public class ChangeMobDrop implements IModifyMob
+public class ChangeMobDrop
 {
     private Class mobClass;
     private DropItem[] addDrops = new DropItem[0];
@@ -56,31 +55,26 @@ public class ChangeMobDrop implements IModifyMob
         this.witherSkeleton = witherSkeleton;
     }
 
-    @Override
     public Class applyToClass()
     {
         return mobClass;
     }
 
-    @Override
     public boolean isExactMatch()
     {
         return exactMatch;
     }
 
-    @Override
     public boolean witherSkeleton()
     {
         return witherSkeleton;
     }
 
-    @Override
     public DropItem[] addItems()
     {
         return addDrops;
     }
 
-    @Override
     public ItemStack[] removeItems()
     {
         return removeDrops;

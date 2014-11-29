@@ -32,7 +32,7 @@ public class MessageHelper
 
     public static ItemStack[] getItemStacks(NBTTagCompound tagCompound, String key)
     {
-        return getItemStacks(tagCompound.getTagList(key,10));
+        return getItemStacks(tagCompound.getTagList(key, 10));
     }
 
     public static ItemStack[] getItemStacks(NBTTagList list)
@@ -114,5 +114,14 @@ public class MessageHelper
             return new DistributionCustom(distribution,tagCompound.getInteger(MessageKeys.bestHeight));
         else
             return new DistributionCustom(distribution);
+    }
+
+    public static String getClass(Object clazz)
+    {
+        if (clazz instanceof String)
+            return (String) clazz;
+        if (clazz instanceof Class)
+            return ((Class)clazz).getName();
+        return "";
     }
 }

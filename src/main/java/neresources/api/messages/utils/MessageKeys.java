@@ -8,12 +8,13 @@ public class MessageKeys
     public static final String registerOre = "registerOre";
     public static final String modifyMob = "modifyMob";
     public static final String modifyOre = "modifyOre";
+    public static final String removeMob = "removeMob";
+    public static final String removeOre = "removeOre";
 
     public static final String distribution = "distribution";
     public static final String bestHeight = "bestHeight";
     public static final String ore = "ore";
     public static final String className = "className";
-    public static final String priority = "priority";
     public static final String lightLevel = "lightLevel";
     public static final String conditionals = "conditionals";
     public static final String colour = "colour";

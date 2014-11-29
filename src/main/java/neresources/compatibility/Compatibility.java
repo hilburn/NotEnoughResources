@@ -20,12 +20,10 @@ public class Compatibility
 
         for (Object entry : NEResourcesAPI.getEntryRegistry())
         {
-            if (entry instanceof IMobEntry) MobRegistry.getInstance().registerMob((IMobEntry) entry);
-            else if (entry instanceof IDungeonEntry)
-                DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);
-            else if (entry instanceof IOreEntry) OreRegistry.getInstance().registerOre(((IOreEntry) entry));
+            if (entry instanceof MobEntry) MobRegistry.getInstance().registerMob((MobEntry) entry);
+            else if (entry instanceof IDungeonEntry)DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);
             else if (entry instanceof ISeedEntry) GrassSeedRegistry.getInstance().add(((ISeedEntry) entry));
-            else if (entry instanceof OreEntry) OreRegistry.getInstance().register((OreEntry)entry);
+            else if (entry instanceof OreEntry) OreRegistry.getInstance().register((OreEntry) entry);
         }
 
         if (ModList.denseores.isLoaded())
@@ -44,14 +42,14 @@ public class Compatibility
         //remove drops
         for (Object entry : NEResourcesAPI.getEntryRegistry())
         {
-            if (entry instanceof IModifyOre) OreRegistry.getInstance().addDrops((IModifyOre) entry);
-            if (entry instanceof IModifyMob) MobRegistry.getInstance().removeMobDrops((IModifyMob) entry);
+            if (entry instanceof ChangeOreDrop) OreRegistry.getInstance().addDrops((ChangeOreDrop) entry);
+            if (entry instanceof ChangeMobDrop) MobRegistry.getInstance().removeMobDrops((ChangeMobDrop) entry);
         }
 
         for (Object entry : NEResourcesAPI.getEntryRegistry())
         {
-            if (entry instanceof IModifyOre) OreRegistry.getInstance().removeDrops((IModifyOre) entry);
-            if (entry instanceof IModifyMob) MobRegistry.getInstance().addMobDrops((IModifyMob) entry);
+            if (entry instanceof ChangeOreDrop) OreRegistry.getInstance().removeDrops((ChangeOreDrop) entry);
+            if (entry instanceof ChangeMobDrop) MobRegistry.getInstance().addMobDrops((ChangeMobDrop) entry);
         }
 
 

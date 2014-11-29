@@ -4,11 +4,11 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neresources.api.messages.IMobEntry;
 import neresources.api.utils.DropItem;
 import neresources.config.Settings;
 import neresources.gui.GuiContainerHook;
 import neresources.reference.Resources;
+import neresources.registry.MobEntry;
 import neresources.registry.MobRegistry;
 import neresources.utils.Font;
 import neresources.utils.MobHelper;
@@ -69,7 +69,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         if (ingredient.getItem() instanceof ItemSword)
         {
-            for (IMobEntry entry : MobRegistry.getInstance().getMobs())
+            for (MobEntry entry : MobRegistry.getInstance().getMobs())
                 arecipes.add(new CachedMob(entry));
             lastRecipe = -1;
         }
@@ -80,7 +80,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(NEIConfig.MOB))
         {
-            for (IMobEntry entry : MobRegistry.getInstance().getMobs())
+            for (MobEntry entry : MobRegistry.getInstance().getMobs())
                 arecipes.add(new CachedMob(entry));
             lastRecipe = -1;
         } else super.loadCraftingRecipes(outputId, results);
@@ -89,7 +89,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        for (IMobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
+        for (MobEntry entry : MobRegistry.getInstance().getMobsThatDropItem(result))
             arecipes.add(new CachedMob(entry));
         lastRecipe = -1;
     }
@@ -184,11 +184,11 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe
     {
-        public IMobEntry mob;
+        public MobEntry mob;
         public int set, lastSet;
         private long cycleAt;
 
-        public CachedMob(IMobEntry mob)
+        public CachedMob(MobEntry mob)
         {
             this.mob = mob;
             this.set = 0;

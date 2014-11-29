@@ -1,7 +1,5 @@
 package neresources.registry;
 
-import neresources.api.messages.IModifyOre;
-import neresources.api.messages.IOreEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -40,47 +38,6 @@ public class OreRegistry
 
     }
 
-    public boolean registerOre(IOreEntry entry)
-    {
-        ItemStack[] drops = entry.getOreMatches();
-        List<ItemStack> nonOres = new ArrayList<ItemStack>();
-        for (ItemStack drop : drops)
-        {
-            String key = MapKeys.getKey(drop);
-            if (key == null) return false;
-            if (!ItemStack.areItemStacksEqual(drop, entry.getOre(drop)))
-            {
-                if (!dropToOreMap.containsKey(key))
-                {
-                    String oreKey = MapKeys.getKey(entry.getOre(drop));
-                    if (oreKey == null) continue;
-                    dropToOreMap.put(key, oreKey);
-                }
-                nonOres.add(drop);
-            } else
-            {
-                OreEntry oreEntry = new OreEntry(drop, entry.getDistribution(drop), entry.getColour(drop));
-                if (matchEntryMap.containsKey(key))
-                {
-                    matchEntryMap.get(key).add(oreEntry);
-                } else
-                {
-                    matchEntryMap.put(key, new OreMatchEntry(oreEntry));
-                }
-            }
-        }
-        for (ItemStack nonOre : nonOres)
-        {
-            String key = MapKeys.getKey(nonOre);
-            if (dropToOreMap.containsKey(key))
-            {
-                if (matchEntryMap.containsKey(dropToOreMap.get(key)))
-                    matchEntryMap.get(dropToOreMap.get(key)).addDrop(nonOre);
-            }
-        }
-        return true;
-    }
-
     public OreMatchEntry getRegistryMatches(ItemStack itemStack)
     {
         String key = MapKeys.getKey(itemStack);
@@ -95,7 +52,7 @@ public class OreRegistry
         return new ArrayList<OreMatchEntry>(matchEntryMap.values());
     }
 
-    public boolean removeDrops(IModifyOre oreMod)
+    public boolean removeDrops(ChangeOreDrop oreMod)
     {
         if (oreMod.removeDrops() == null) return true;
         String oreKey = MapKeys.getKey(oreMod.ore());
@@ -113,7 +70,7 @@ public class OreRegistry
         return true;
     }
 
-    public boolean addDrops(IModifyOre oreMod)
+    public boolean addDrops(ChangeOreDrop oreMod)
     {
         if (oreMod.addDrops() == null) return true;
         String oreKey = MapKeys.getKey(oreMod.ore());
