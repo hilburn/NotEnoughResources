@@ -1,5 +1,7 @@
 package neresources.api.utils;
 
+import net.minecraft.nbt.NBTTagIntArray;
+
 public class DistributionHelpers
 {
     public static final float PI = 3.14159265359F;
@@ -214,5 +216,13 @@ public class DistributionHelpers
         for (float val : distribution)
             result += val;
         return result;
+    }
+
+    public static int[] getIntArray(float[] distribution)
+    {
+        int[] array = new int[distribution.length];
+        for (int i=0;i<array.length;i++)
+            array[i] = (int)(distribution[i]*100000);
+        return array;
     }
 }

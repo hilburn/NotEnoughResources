@@ -114,14 +114,16 @@ public class OreMatchEntry
 
     public void removeDrop(ItemStack removeDrop)
     {
+        List<ItemStack> newDrops = new ArrayList<ItemStack>();
         for (ItemStack drop : drops)
         {
             if (drop.isItemEqual(removeDrop))
             {
-                drops.remove(drop);
                 silkTouchMap.remove(MapKeys.key(removeDrop));
             }
+            else newDrops.add(drop);
         }
+        drops = newDrops;
         if (MapKeys.getKey(removeDrop).startsWith("denseore"))
         {
             denseOre = false;

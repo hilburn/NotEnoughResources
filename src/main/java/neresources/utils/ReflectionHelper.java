@@ -1,6 +1,8 @@
 package neresources.utils;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 public class ReflectionHelper
 {
@@ -100,6 +102,21 @@ public class ReflectionHelper
         {
             return null;
         }
+    }
+
+    public static Object initialize(Class clazz, Class argClass, Object arg)
+    {
+        try
+        {
+            return clazz.getConstructor(argClass).newInstance(arg);
+        } catch (Exception e)
+        {
+            for (Constructor constructor:clazz.getConstructors())
+            {
+                System.out.println(constructor);
+            }
+        }
+        return null;
     }
 
 }

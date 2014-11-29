@@ -3,6 +3,9 @@ package neresources.api.utils;
 import neresources.api.utils.conditionals.Conditional;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,5 +114,19 @@ public class DropItem
     public void addConditionals(List<String> conditionals)
     {
         this.conditionals.addAll(conditionals);
+    }
+
+    public NBTTagCompound getNBTTagCompound()
+    {
+        NBTTagCompound compound = new NBTTagCompound();
+        compound.setTag("stack",item.writeToNBT(new NBTTagCompound()));
+        compound.setInteger("max", this.maxDrop);
+        compound.setInteger("min",this.minDrop);
+        compound.setFloat("chance",this.chance);
+        NBTTagList conditionals = new NBTTagList();
+        for (String condition:this.conditionals)
+            conditionals.appendTag(new NBTTagString(condition));
+        compound.setTag("conditionals",conditionals);
+        return compound;
     }
 }

@@ -38,6 +38,11 @@ public class LightLevel
         return new LightLevel(level, splitString[1].equals("a") ? Relative.above : Relative.below);
     }
 
+    public String encode()
+    {
+        return this.lightLevel +":"+(relative==Relative.above?"a":"b");
+    }
+
     /**
      * @param level    the level of light
      * @param relative the relative positive is above, negative is below. Zero will also be below.

@@ -40,14 +40,8 @@ public class IMCHandler
         if (className.equals("")) return;
         Class clazz = ReflectionHelper.findClass(className);
         if (clazz == null || !checkInstanceOf(clazz, EntityLivingBase.class)) return;
-        EntityLivingBase entity;
-        try
-        {
-            entity = (EntityLivingBase) clazz.getConstructor(World.class).newInstance(null);
-        } catch (Exception e)
-        {
-            return;
-        }
+        EntityLivingBase entity = (EntityLivingBase) ReflectionHelper.initialize(clazz,World.class,null);
+        if (entity==null) return;
         String lightLevel = tagCompound.getString("lightLevel");
         NBTTagList biomeTags = tagCompound.getTagList("biomes", 8);
         NBTTagList dropItemTags = tagCompound.getTagList("dropItems", 10);
