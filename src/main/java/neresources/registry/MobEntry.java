@@ -5,6 +5,7 @@ import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +21,16 @@ public class MobEntry implements IMobEntry
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
-        for (String biome : biomes)
-            this.biomes.add(biome);
-        for (DropItem drop : drops)
-            this.drops.add(drop);
+        this.biomes.addAll(Arrays.asList(biomes));
+        this.drops.addAll(Arrays.asList(drops));
     }
 
     public MobEntry(EntityLivingBase entity, LightLevel lightLevel, DropItem... drops)
     {
         this.entity = entity;
         this.lightLevel = lightLevel;
-        this.biomes.add("all");
-        for (DropItem drop : drops)
-            this.drops.add(drop);
+        this.biomes.add("Any");
+        this.drops.addAll(Arrays.asList(drops));
     }
 
     @Override

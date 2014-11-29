@@ -37,7 +37,7 @@ public class IMCHandler
     public static void registerMob(NBTTagCompound tagCompound)
     {
         String className = tagCompound.getString("className");
-        if (className == "") return;
+        if (className.equals("")) return;
         Class clazz = ReflectionHelper.findClass(className);
         if (clazz==null || !checkInstanceOf(clazz, EntityLivingBase.class)) return;
         EntityLivingBase entity;
@@ -50,14 +50,14 @@ public class IMCHandler
         String lightLevel = tagCompound.getString("lightLevel");
         NBTTagList biomeTags = tagCompound.getTagList("biomes", 8);
         NBTTagList dropItemTags = tagCompound.getTagList("dropItems",10);
-        LightLevel level = lightLevel==""? LightLevel.any : LightLevel.decodeLightLevel(lightLevel);
+        LightLevel level = lightLevel.equals("")? LightLevel.any : LightLevel.decodeLightLevel(lightLevel);
         List<String> biomes = new ArrayList<String>();
         if (biomeTags!=null)
         {
             for (int i = 0; i < biomeTags.tagCount(); i++)
             {
                 String tag = biomeTags.getStringTagAt(i);
-                if (tag != "") biomes.add(tag);
+                if (tag.equals("")) biomes.add(tag);
             }
         }
         else biomes.add("Any");
@@ -93,7 +93,7 @@ public class IMCHandler
     public static void modifyMobDrops(NBTTagCompound tagCompound)
     {
         String className = tagCompound.getString("className");
-        if (className == "") return;
+        if (className.equals("")) return;
         Class clazz = ReflectionHelper.findClass(className);
         if (clazz==null) return;
         boolean wither = tagCompound.getBoolean("wither");
@@ -164,7 +164,7 @@ public class IMCHandler
         for (int i = 0; i < conditional.tagCount(); i++)
         {
             String condition = conditional.getStringTagAt(i);
-            if (condition!="") result.add(new Conditional(condition));
+            if (!condition.equals("")) result.add(new Conditional(condition));
         }
         return result.toArray(new Conditional[result.size()]);
     }

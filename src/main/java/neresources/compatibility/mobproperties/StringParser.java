@@ -6,7 +6,6 @@ import neresources.api.utils.conditionals.ExtendedConditional;
 import neresources.registry.ChangeMobDrop;
 import neresources.utils.TranslationHelper;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -62,11 +61,11 @@ public class StringParser
 
     private static Conditional stringToConditional(String condition)
     {
-        condition.trim();
+        condition = condition.trim();
         Conditional result = null;
         boolean reverse = condition.startsWith("!");
         boolean moon = false, block = false, biome = false, gameDifficulty = false,worldDifficulty = false;
-        if (reverse) condition.replace("!","");
+        if (reverse) condition = condition.replace("!","");
         for (String key:conditionalMap.keySet())
         {
             if (condition.startsWith(key))
@@ -78,10 +77,10 @@ public class StringParser
                 else if(result == Conditional.gameDifficulty) gameDifficulty=true;
                 else if(result == Conditional.beforeWorldDifficulty) return null; //worldDifficulty=true;
                 if (reverse) result = Conditional.reverse.get(result);
-                condition.replace(key,"");
+                condition = condition.replace(key,"");
             }
         }
-        if (condition==null) return null;
+        if (result == null) return null;
         if (condition.length()>0)
         {
             if (moon) condition = TranslationHelper.translateToLocal("ner."+condition+".moon");
