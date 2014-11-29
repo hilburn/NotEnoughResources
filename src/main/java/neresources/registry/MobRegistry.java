@@ -59,47 +59,37 @@ public class MobRegistry
 
     public void removeMobDrops(ChangeMobDrop entry)
     {
-        int wither = entry.witherSkeleton() ? 1 : 0;
-        for (MobEntry regEntry : registry)
-        {
-
-            Set classes = new LinkedHashSet();
-            if (entry.isExactMatch())
-                classes.add(regEntry.getEntity().getClass());
-            else classes = ClassScraper.getGeneralizations(regEntry.getEntity().getClass());
-            for (Object clazz : classes)
-            {
-                if (clazz == entry.applyToClass())
-                {
-                    if (clazz == EntitySkeleton.class)
-                        if (((EntitySkeleton) regEntry.getEntity()).getSkeletonType() != wither) break;
-                    for (ItemStack item : entry.removeItems())
-                        regEntry.removeDrop(item);
-                }
-            }
-        }
+        for (MobEntry regEntry : getRegistryMatches(entry.applyToClass(),entry.isExactMatch(),entry.witherSkeleton()))
+            for (ItemStack item : entry.removeItems())
+                regEntry.removeDrop(item);
     }
 
     public void addMobDrops(ChangeMobDrop entry)
     {
-        int wither = entry.witherSkeleton() ? 1 : 0;
+        for (MobEntry regEntry : getRegistryMatches(entry.applyToClass(),entry.isExactMatch(),entry.witherSkeleton()))
+            for (DropItem item : entry.addItems())
+                regEntry.addDrop(item);
+    }
+
+    public Set<MobEntry> getRegistryMatches(Class clazz, boolean exactMatch, boolean witherSkeleton)
+    {
+        Set<MobEntry> result = new LinkedHashSet<MobEntry>();
+        int wither = witherSkeleton? 1 : 0;
         for (MobEntry regEntry : registry)
         {
-
             Set classes = new LinkedHashSet();
-            if (entry.isExactMatch())
-                classes.add(regEntry.getEntity().getClass());
+            if (exactMatch) classes.add(regEntry.getEntity().getClass());
             else classes = ClassScraper.getGeneralizations(regEntry.getEntity().getClass());
-            for (Object clazz : classes)
+            for (Object generalClass : classes)
             {
-                if (clazz == entry.applyToClass())
+                if (generalClass == clazz)
                 {
-                    if (clazz == EntitySkeleton.class)
+                    if (exactMatch && clazz == EntitySkeleton.class)
                         if (((EntitySkeleton) regEntry.getEntity()).getSkeletonType() != wither) break;
-                    for (DropItem item : entry.addItems())
-                        regEntry.addDrop(item);
+                    result.add(regEntry);
                 }
             }
         }
+        return result;
     }
 }

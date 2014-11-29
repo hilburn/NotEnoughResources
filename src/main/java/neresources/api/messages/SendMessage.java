@@ -32,6 +32,6 @@ public class SendMessage
 
     public static void sendMessage(Message message, String key)
     {
-        FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,key,message.getMessage());
+        if (message.isValid()) FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,key,message.getMessage());
     }
 }
