@@ -6,7 +6,7 @@ import forestry.core.config.ForestryItem;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
-import neresources.registry.AddOreDrop;
+import neresources.registry.ChangeOreDrop;
 import neresources.registry.OreEntry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class ForestryCompat extends CompatBase{
     private void registerOres() {
         oreBlock = ForestryBlock.resources.block();
         ItemStack apatite = ForestryItem.apatite.getItemStack();
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(oreBlock,1,0),apatite));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(oreBlock,1,0),apatite));
         if (Config.generateApatiteOre) genApatite();
         if (Config.generateCopperOre) genCopper();
         if (Config.generateTinOre) genTin();

@@ -20,6 +20,20 @@ public class LightLevel
         this.relative = relative;
     }
 
+    public static LightLevel decodeLightLevel(String string)
+    {
+        if (string==null||!string.contains(":")) return any;
+        String[] splitString = string.split(":");
+
+        if (splitString.length!=2) return any;
+        int level;
+        try{
+            level = Integer.valueOf(splitString[0]);
+        }catch (Exception e) {return any;}
+        if (level<0 || level>15) return any;
+        return new LightLevel(level,splitString[1].equals("a")?Relative.above:Relative.below);
+    }
+
     /**
      * @param level    the level of light
      * @param relative the relative positive is above, negative is below. Zero will also be below.

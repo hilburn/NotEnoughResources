@@ -10,7 +10,6 @@ import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.*;
 import neresources.utils.MapKeys;
-import neresources.utils.ModList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -50,7 +49,7 @@ public class TiConCompat extends CompatBase{
         slagBlock = TinkerWorld.oreSlag;
         bushes = new ItemStack[]{new ItemStack(TinkerWorld.oreBerry,1,12),new ItemStack(TinkerWorld.oreBerry,1,13),new ItemStack(TinkerWorld.oreBerry,1,14),new ItemStack(TinkerWorld.oreBerry,1,15),new ItemStack(TinkerWorld.oreBerrySecond,1,12),new ItemStack(TinkerWorld.oreBerrySecond,1,13)};
         for (int i=0; i< bushes.length; i++)
-            NEResourcesAPI.registerEntry(new AddOreDrop(bushes[i],new ItemStack(TinkerWorld.oreBerries,1,i)));
+            NEResourcesAPI.registerEntry(new ChangeOreDrop(bushes[i],new ItemStack(TinkerWorld.oreBerries,1,i)));
         for (int i=0;i<6;i++)
             gravel[i] = new ItemStack(TinkerWorld.oreGravel,1,i);
         if (PHConstruct.generateCopper) generateUnderground(new ItemStack(slagBlock, 1, 3), PHConstruct.copperuDensity, PHConstruct.copperuMinY, PHConstruct.copperuMaxY, 8);
@@ -100,7 +99,7 @@ public class TiConCompat extends CompatBase{
         if (val%1>0.5) return (int)Math.ceil(val);
         return (int)Math.floor(val);
     }
-    
+
     private void generateOreBush(ItemStack bush, int density, int rarity, float averageSize, int midY, int var)
     {
         float chanceToSpawn = (float)density/rarity;

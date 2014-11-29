@@ -9,7 +9,7 @@ import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
-import neresources.registry.AddOreDrop;
+import neresources.registry.ChangeOreDrop;
 import neresources.registry.DungeonRegistry;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
@@ -40,12 +40,12 @@ public class MinecraftCompat extends CompatBase
     private void registerVanillaOreDrops()
     {
         registerOre(new OreEntry(new ItemStack(Blocks.clay), new DistributionUnderWater(0.0035F)));
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.clay), new ItemStack(Items.clay_ball, 4)));
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.coal_ore), new ItemStack(Items.coal)));
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.diamond_ore), new ItemStack(Items.diamond)));
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.lapis_ore), new ItemStack(Items.dye, 4, 4)));
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.emerald_ore), new ItemStack(Items.emerald)));
-        NEResourcesAPI.registerEntry(new AddOreDrop(new ItemStack(Blocks.redstone_ore), new ItemStack(Items.redstone, 4)));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.clay), new ItemStack(Items.clay_ball, 4)));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.coal_ore), new ItemStack(Items.coal)));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.diamond_ore), new ItemStack(Items.diamond)));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.lapis_ore), new ItemStack(Items.dye, 4, 4)));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.emerald_ore), new ItemStack(Items.emerald)));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.redstone_ore), new ItemStack(Items.redstone, 4)));
     }
 
     private void registerVanillaMobs()

@@ -6,7 +6,7 @@ import appeng.core.features.AEFeature;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
-import neresources.registry.AddOreDrop;
+import neresources.registry.ChangeOreDrop;
 import neresources.registry.OreEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -23,8 +23,8 @@ public class AE2Compat extends CompatBase {
         OreDictionary.registerOre("oreChargedCertusQuartz",chargedQuartz);
         OreDictionary.registerOre("crystalChargedCertusQuartz",itemCharged);
 
-        NEResourcesAPI.registerEntry(new AddOreDrop(quartzOre,itemQuartz));
-        NEResourcesAPI.registerEntry(new AddOreDrop(chargedQuartz,itemCharged));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(quartzOre,itemQuartz));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(chargedQuartz,itemCharged));
 
         boolean spawn = AEConfig.instance.featureFlags.contains(AEFeature.CertusQuartzWorldGen);
         if (!spawn) return;

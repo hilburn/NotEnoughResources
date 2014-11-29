@@ -33,7 +33,7 @@ public class Compatibility
                 {
                     ItemStack denseOre = OreDictionary.getOres(oreDictEntry).get(0);
                     ItemStack ore = OreDictionary.getOres(oreDictEntry.replace("dense","")).get(0);
-                    OreRegistry.getInstance().addDrops(new AddOreDrop(ore,denseOre));
+                    OreRegistry.getInstance().addDrops(new ChangeOreDrop(ore,denseOre));
                 }
             }
         }

@@ -4,7 +4,7 @@ import Reika.ReactorCraft.Registry.ReactorOres;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
-import neresources.registry.AddOreDrop;
+import neresources.registry.ChangeOreDrop;
 import neresources.registry.OreEntry;
 import net.minecraft.item.ItemStack;
 
@@ -22,7 +22,7 @@ public class ReactorCraftCompat extends CompatBase{
             for (ItemStack drop:drops)
             {
                 if (!drop.isItemEqual(ore))
-                    NEResourcesAPI.registerEntry(new AddOreDrop(ore,drop));
+                    NEResourcesAPI.registerEntry(new ChangeOreDrop(ore,drop));
             }
             int minY = reactorOre.minY;
             int maxY = reactorOre.maxY;

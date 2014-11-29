@@ -3,9 +3,11 @@ package neresources;
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import neresources.utils.IMCHandler;
 import neresources.config.ConfigHandler;
 import neresources.config.Settings;
 import neresources.proxy.CommonProxy;
@@ -41,6 +43,16 @@ public class NEResources
 
         ReflectionHelper.isObf = ReflectionHelper.doesFieldExist(WeightedRandom.Item.class, "field_76292_a");
         LogHelper.debug("Minecraft is " + (ReflectionHelper.isObf ? "obf" : "deObf"));
+    }
+
+    @EventHandler
+    public void imcCallback(FMLInterModComms.IMCEvent event)
+    {
+        for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
+        {
+           if (imcMessage.isNBTMessage())
+               IMCHandler.registerIMCMessage(imcMessage.key,imcMessage.getNBTValue());
+        }
     }
 
     @EventHandler

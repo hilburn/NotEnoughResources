@@ -7,7 +7,7 @@ import neresources.api.distributions.DistributionSquare;
 import neresources.api.utils.*;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
-import neresources.registry.AddOreDrop;
+import neresources.registry.ChangeOreDrop;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,12 +31,12 @@ public class ThaumcraftCompat extends CompatBase {
     {
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre,1,7);
         ItemStack amberDrop = new ItemStack(ConfigItems.itemResource,1,6);
-        NEResourcesAPI.registerEntry(new AddOreDrop(amber,amberDrop));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(amber,amberDrop));
         for (int i=0;i<6;i++)
         {
             ItemStack infusedStone = new ItemStack(ConfigBlocks.blockCustomOre,1,i+1);
             ItemStack infusedShard = new ItemStack(ConfigItems.itemShard, 2, i);
-            NEResourcesAPI.registerEntry(new AddOreDrop(infusedStone,infusedShard));
+            NEResourcesAPI.registerEntry(new ChangeOreDrop(infusedStone,infusedShard));
         }
         if (Config.genCinnibar) genCinnibar();
         if (Config.genAmber) genAmber();
