@@ -1,11 +1,10 @@
 package neresources.registry;
 
-import neresources.api.entry.IModifyOre;
+import neresources.api.messages.IModifyOre;
 import net.minecraft.item.ItemStack;
 
 public class ChangeOreDrop implements IModifyOre
 {
-
     private ItemStack ore;
     private ItemStack[] addDrops = new ItemStack[0];
     private ItemStack[] removeDrops = new ItemStack[0];

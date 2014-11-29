@@ -1,4 +1,4 @@
-package neresources.api.entry;
+package neresources.api.messages;
 
 import neresources.api.distributions.DistributionBase;
 import net.minecraft.item.ItemStack;

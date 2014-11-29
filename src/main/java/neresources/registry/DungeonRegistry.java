@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.api.entry.IDungeonEntry;
+import neresources.api.messages.IDungeonEntry;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.api.entry.IModifyMob;
+import neresources.api.messages.IModifyMob;
 import neresources.api.utils.DropItem;
 import net.minecraft.item.ItemStack;
 

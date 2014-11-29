@@ -1,7 +1,7 @@
 package neresources.registry;
 
-import neresources.api.entry.IMobEntry;
-import neresources.api.entry.IModifyMob;
+import neresources.api.messages.IMobEntry;
+import neresources.api.messages.IModifyMob;
 import neresources.api.utils.DropItem;
 import neresources.utils.ClassScraper;
 import neresources.utils.MobHelper;

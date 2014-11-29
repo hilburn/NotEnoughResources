@@ -1,6 +1,6 @@
 package neresources.utils;
 
-import neresources.api.entry.ISeedEntry;
+import neresources.api.messages.ISeedEntry;
 import neresources.registry.SeedEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;

@@ -1,5 +1,6 @@
 package neresources.utils;
 
+import neresources.api.utils.ColorHelper;
 import neresources.reference.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

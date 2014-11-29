@@ -1,6 +1,8 @@
 package neresources.api.utils;
 
-import net.minecraft.nbt.NBTTagIntArray;
+import neresources.api.distributions.DistributionCustom;
+import neresources.api.messages.utils.MessageKeys;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class DistributionHelpers
 {
@@ -216,13 +218,5 @@ public class DistributionHelpers
         for (float val : distribution)
             result += val;
         return result;
-    }
-
-    public static int[] getIntArray(float[] distribution)
-    {
-        int[] array = new int[distribution.length];
-        for (int i=0;i<array.length;i++)
-            array[i] = (int)(distribution[i]*100000);
-        return array;
     }
 }

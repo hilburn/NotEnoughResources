@@ -4,7 +4,7 @@ import neresources.api.distributions.DistributionBase;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
-import neresources.utils.ColorHelper;
+import neresources.api.utils.ColorHelper;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 

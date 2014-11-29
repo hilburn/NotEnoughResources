@@ -1,4 +1,4 @@
-package neresources.utils;
+package neresources.api.utils;
 
 public class ColorHelper
 {

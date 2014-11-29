@@ -4,7 +4,7 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neresources.api.entry.IMobEntry;
+import neresources.api.messages.IMobEntry;
 import neresources.api.utils.DropItem;
 import neresources.config.Settings;
 import neresources.gui.GuiContainerHook;

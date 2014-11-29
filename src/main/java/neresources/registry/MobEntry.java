@@ -1,6 +1,6 @@
 package neresources.registry;
 
-import neresources.api.entry.IMobEntry;
+import neresources.api.messages.IMobEntry;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import net.minecraft.entity.EntityLivingBase;

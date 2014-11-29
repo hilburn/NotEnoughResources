@@ -1,7 +1,7 @@
 package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
-import neresources.utils.ColorHelper;
+import neresources.api.utils.ColorHelper;
 import neresources.utils.SilkTouchHelper;
 import net.minecraft.item.ItemStack;
 

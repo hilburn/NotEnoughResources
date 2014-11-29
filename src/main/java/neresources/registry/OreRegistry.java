@@ -1,7 +1,7 @@
 package neresources.registry;
 
-import neresources.api.entry.IModifyOre;
-import neresources.api.entry.IOreEntry;
+import neresources.api.messages.IModifyOre;
+import neresources.api.messages.IOreEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 

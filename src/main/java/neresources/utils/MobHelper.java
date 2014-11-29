@@ -1,6 +1,6 @@
 package neresources.utils;
 
-import neresources.api.entry.IMobEntry;
+import neresources.api.messages.IMobEntry;
 import neresources.api.utils.DropItem;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;

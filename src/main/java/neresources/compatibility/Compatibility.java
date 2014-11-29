@@ -1,7 +1,7 @@
 package neresources.compatibility;
 
 import neresources.api.NEResourcesAPI;
-import neresources.api.entry.*;
+import neresources.api.messages.*;
 import neresources.registry.*;
 import neresources.utils.ModList;
 import net.minecraft.item.ItemStack;
