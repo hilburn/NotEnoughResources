@@ -59,12 +59,6 @@ public class NEResources
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent e)
-    {
-
-    }
-
-    @EventHandler
     public void loadComplete(FMLLoadCompleteEvent event)
     {
         PROXY.initCompatibility();

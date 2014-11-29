@@ -1,6 +1,7 @@
 package neresources.api.utils.conditionals;
 
 import neresources.api.utils.Modifier;
+import neresources.utils.TranslationHelper;
 import net.minecraft.util.StatCollector;
 
 import java.util.LinkedHashMap;
@@ -81,6 +82,6 @@ public class Conditional
     @Override
     public String toString()
     {
-        return colour + StatCollector.translateToLocal(text);
+        return colour + TranslationHelper.translateToLocal(text);
     }
 }

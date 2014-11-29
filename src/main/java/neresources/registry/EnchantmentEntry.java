@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.utils.TranslationHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.StatCollector;
 
@@ -16,7 +17,7 @@ public class EnchantmentEntry
     {
         String s = this.enchantment.getTranslatedName(1);
         if (this.enchantment.getMinLevel() != this.enchantment.getMaxLevel())
-            s += "-" + StatCollector.translateToLocal("enchantment.level." + this.enchantment.getMaxLevel());
+            s += "-" + TranslationHelper.translateToLocal("enchantment.level." + this.enchantment.getMaxLevel());
         return s;
     }
 

@@ -14,6 +14,7 @@ import neresources.compatibility.CompatBase;
 import neresources.registry.*;
 import neresources.utils.MapKeys;
 import neresources.utils.ModList;
+import neresources.utils.TranslationHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -24,7 +25,6 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -180,10 +180,10 @@ public class TiConCompat extends CompatBase
 
             String loc = "tool." + tool.getToolName().toLowerCase() + ".kingslime"; // special localization the same way as materials
             String name;
-            if (StatCollector.canTranslate(loc))
-                name = StatCollector.translateToLocal(loc);
+            if (TranslationHelper.canTranslate(loc))
+                name = TranslationHelper.translateToLocal(loc);
             else
-                name = StatCollector.translateToLocal("tool.kingslimeprefix") + " " + tool.getLocalizedToolName();
+                name = TranslationHelper.translateToLocal("tool.kingslimeprefix") + " " + tool.getLocalizedToolName();
 
             ItemStack toolStack = ToolBuilder.instance.buildTool(headStack, handleStack, accessoryStack, extraStack, name);
 
