@@ -1,6 +1,5 @@
 package neresources.utils;
 
-import forestry.core.utils.NBTUtil;
 import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.utils.DropItem;
@@ -10,8 +9,6 @@ import neresources.registry.ChangeMobDrop;
 import neresources.registry.ChangeOreDrop;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
-import neresources.utils.ClassScraper;
-import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

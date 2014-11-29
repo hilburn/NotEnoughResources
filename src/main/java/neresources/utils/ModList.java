@@ -17,17 +17,17 @@ import neresources.compatibility.tinkersconstruct.TiConCompat;
 public enum ModList
 {
     minecraft(new MinecraftCompat()),
-    cofhcore("CoFHCore", new CoFHCompat()),
-    metallurgy("Metallurgy", new MetallurgyCompat()),
-    netherores("NetherOres", new NetherOresCompat()),
-    bigreactors("BigReactors", new BigReactorsCompat()),
-    ae2("appliedenergistics2", new AE2Compat()),
-    thaumcraft("Thaumcraft", new ThaumcraftCompat()),
-    electricraft("ElectriCraft", new ElectriCraftCompat()),
-    reactorcraft("ReactorCraft", new ReactorCraftCompat()),
-    forestry("Forestry",new ForestryCompat()),
-    ticon("TConstruct", new TiConCompat()),
-    denseores("denseores");
+    cofhcore(Names.COFHCORE, new CoFHCompat()),
+    metallurgy(Names.METALLURGY, new MetallurgyCompat()),
+    netherores(Names.NETHERORES, new NetherOresCompat()),
+    bigreactors(Names.BIGREACTORS, new BigReactorsCompat()),
+    ae2(Names.APPLIEDENERGISTICS, new AE2Compat()),
+    thaumcraft(Names.THAUMCRAFT, new ThaumcraftCompat()),
+    electricraft(Names.ELECTRICRAFT, new ElectriCraftCompat()),
+    reactorcraft(Names.REACTORCRAFT, new ReactorCraftCompat()),
+    forestry(Names.FORESTRY,new ForestryCompat()),
+    ticon(Names.TICON, new TiConCompat()),
+    denseores(Names.DENSEORES);
 
     private String name;
     private CompatBase compat;
@@ -69,4 +69,18 @@ public enum ModList
         return compat.load(this);
     }
 
+    public class Names
+    {
+        public static final String COFHCORE = "CoFHCore";
+        public static final String METALLURGY = "Metallurgy";
+        public static final String APPLIEDENERGISTICS = "appliedenergistics2";
+        public static final String BIGREACTORS = "BigReactors";
+        public static final String FORESTRY = "Forestry";
+        public static final String NETHERORES = "NetherOres";
+        public static final String ELECTRICRAFT = "ElectriCraft";
+        public static final String REACTORCRAFT = "ReactorCraft";
+        public static final String THAUMCRAFT = "Thaumcraft";
+        public static final String TICON = "TConstruct";
+        public static final String DENSEORES = "denseores";
+    }
 }

@@ -10,6 +10,7 @@ import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.*;
 import neresources.utils.MapKeys;
+import neresources.utils.ModList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -43,7 +44,7 @@ public class TiConCompat extends CompatBase{
         register();
     }
 
-    @Optional.Method(modid = "TConstruct")
+    @Optional.Method(modid = ModList.Names.TICON)
     private void register()
     {
         slagBlock = TinkerWorld.oreSlag;
@@ -114,7 +115,7 @@ public class TiConCompat extends CompatBase{
         float chance = ((float)numVeins*veinSize)/((maxY-minY+1)*256);
         registerOre(new OreEntry(ore,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
     }
-    @Optional.Method(modid = "TConstruct")
+    @Optional.Method(modid = ModList.Names.TICON)
     private void generateNetherOres()
     {
         int netherDensity = PHConstruct.netherDensity;
@@ -131,7 +132,7 @@ public class TiConCompat extends CompatBase{
         registerOre(new OreEntry(cobalt,new DistributionCustom(distribution)));
     }
 
-    @Optional.Method(modid = "TConstruct")
+    @Optional.Method(modid = ModList.Names.TICON)
     private void registerBlueSlimes()
     {
         Conditional scalesWithSlimeSize = new Conditional("ner.slimeScale.text");
@@ -148,7 +149,7 @@ public class TiConCompat extends CompatBase{
 
         registerMob(new MobEntry(new BlueSlime(null), LightLevel.any,toolDropItems));
     }
-    @Optional.Method(modid = "TConstruct")
+    @Optional.Method(modid = ModList.Names.TICON)
     private List<ItemStack> getTinkerTools()
     {
         List<ItemStack> result = new ArrayList<ItemStack>();
@@ -183,7 +184,7 @@ public class TiConCompat extends CompatBase{
         return result;
     }
 
-    @Optional.Method(modid = "TConstruct")
+    @Optional.Method(modid = ModList.Names.TICON)
     private void registerDropChanges()
     {
         Conditional beheading = new Conditional("ner.beheading.text",Modifier.orange);

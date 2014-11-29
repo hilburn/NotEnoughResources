@@ -10,6 +10,7 @@ import neresources.compatibility.CompatBase;
 import neresources.registry.ChangeOreDrop;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
+import neresources.utils.ModList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ public class ThaumcraftCompat extends CompatBase {
         registerThaumcraftMobs();
     }
 
-    @Optional.Method(modid = "Thaumcraft")
+    @Optional.Method(modid = ModList.Names.THAUMCRAFT)
     private void registerThaumcraftOres()
     {
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre,1,7);
@@ -43,7 +44,7 @@ public class ThaumcraftCompat extends CompatBase {
         if (Config.genInfusedStone) genInfused();
     }
 
-    @Optional.Method(modid = "Thaumcraft")
+    @Optional.Method(modid = ModList.Names.THAUMCRAFT)
     private void registerThaumcraftMobs()
     {
         Conditional randomAspect = new Conditional("ner.randomAspect.text", Modifier.pink);
@@ -96,7 +97,7 @@ public class ThaumcraftCompat extends CompatBase {
         registerMob(new MobEntry(new EntityCultistKnight(null), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultHelmet, cultChest, cultLegs, cultBoots, thaumSword, cultRobeHelmet, voidSword));
         registerMob(new MobEntry(new EntityCultistCleric(null),LightLevel.hostile,voidSeed,knowledge,crimsonRites,cultRobeHelmet,cultRobeChest,cultRobeLegs,cultBoots));
     }
-    @Optional.Method(modid = "Thaumcraft")
+    @Optional.Method(modid = ModList.Names.THAUMCRAFT)
     private void genInfused() {
         int minY=5;
         int maxY=59;
@@ -108,7 +109,7 @@ public class ThaumcraftCompat extends CompatBase {
             registerOre(new OreEntry(infusedStone,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
-    @Optional.Method(modid = "Thaumcraft")
+    @Optional.Method(modid = ModList.Names.THAUMCRAFT)
     private void genAmber() {
         int minY = 0;
         int maxY = 64;
@@ -120,7 +121,7 @@ public class ThaumcraftCompat extends CompatBase {
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre,1,7);
         registerOre(new OreEntry(amber,new DistributionCustom(distribution)));
     }
-    @Optional.Method(modid = "Thaumcraft")
+    @Optional.Method(modid = ModList.Names.THAUMCRAFT)
     private void genCinnibar() {
         int minY=0;
         int maxY = 64/5;
