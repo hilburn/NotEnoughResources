@@ -2,7 +2,6 @@ package neresources.api.utils.conditionals;
 
 import neresources.api.utils.Modifier;
 import neresources.utils.TranslationHelper;
-import net.minecraft.util.StatCollector;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -2,7 +2,6 @@ package neresources.registry;
 
 import neresources.utils.TranslationHelper;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.StatCollector;
 
 public class EnchantmentEntry
 {
