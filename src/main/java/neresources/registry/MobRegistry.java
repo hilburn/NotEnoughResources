@@ -8,7 +8,10 @@ import neresources.utils.MobHelper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.item.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MobRegistry
 {
@@ -58,8 +61,8 @@ public class MobRegistry
 
     public void removeMobDrops(IModifyMob entry)
     {
-        int wither = entry.witherSkeleton()?1:0;
-        for (IMobEntry regEntry:registry)
+        int wither = entry.witherSkeleton() ? 1 : 0;
+        for (IMobEntry regEntry : registry)
         {
 
             Set classes = new LinkedHashSet();
@@ -71,7 +74,7 @@ public class MobRegistry
                 if (clazz == entry.applyToClass())
                 {
                     if (clazz == EntitySkeleton.class)
-                        if (((EntitySkeleton)regEntry.getEntity()).getSkeletonType() != wither) break;
+                        if (((EntitySkeleton) regEntry.getEntity()).getSkeletonType() != wither) break;
                     for (ItemStack item : entry.removeItems())
                         ((MobEntry) regEntry).removeDrop(item);
                 }
@@ -81,8 +84,8 @@ public class MobRegistry
 
     public void addMobDrops(IModifyMob entry)
     {
-        int wither = entry.witherSkeleton()?1:0;
-        for (IMobEntry regEntry:registry)
+        int wither = entry.witherSkeleton() ? 1 : 0;
+        for (IMobEntry regEntry : registry)
         {
 
             Set classes = new LinkedHashSet();
@@ -94,7 +97,7 @@ public class MobRegistry
                 if (clazz == entry.applyToClass())
                 {
                     if (clazz == EntitySkeleton.class)
-                        if (((EntitySkeleton)regEntry.getEntity()).getSkeletonType() != wither) break;
+                        if (((EntitySkeleton) regEntry.getEntity()).getSkeletonType() != wither) break;
                     for (DropItem item : entry.addItems())
                         ((MobEntry) regEntry).addDrop(item);
                 }

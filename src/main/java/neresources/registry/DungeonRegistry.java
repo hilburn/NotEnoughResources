@@ -11,7 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DungeonRegistry {
+public class DungeonRegistry
+{
     private Map<String, DungeonEntry> registry = new LinkedHashMap<String, DungeonEntry>();
     public static Map<String, String> categoryToLocalKeyMap = new LinkedHashMap<String, String>();
     private static DungeonRegistry instance = null;

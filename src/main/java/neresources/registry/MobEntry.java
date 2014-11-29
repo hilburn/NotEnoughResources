@@ -57,7 +57,7 @@ public class MobEntry implements IMobEntry
 
     public boolean addDrop(DropItem item)
     {
-        for (DropItem drop:drops)
+        for (DropItem drop : drops)
             if (drop.item.isItemEqual(item.item)) return false;
         drops.add(item);
         return true;
@@ -71,9 +71,9 @@ public class MobEntry implements IMobEntry
 
     public void removeDrop(ItemStack item)
     {
-        int i=0;
-        for (;i<drops.size();i++)
+        int i = 0;
+        for (; i < drops.size(); i++)
             if (drops.get(i).item.isItemEqual(item)) break;
-        if (i<drops.size()) drops.remove(i);
+        if (i < drops.size()) drops.remove(i);
     }
 }

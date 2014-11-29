@@ -11,20 +11,22 @@ import neresources.registry.OreEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class AE2Compat extends CompatBase {
+public class AE2Compat extends CompatBase
+{
 
     @Override
-    protected void init() {
+    protected void init()
+    {
         ItemStack quartzOre = AEApi.instance().blocks().blockQuartzOre.stack(1);
         ItemStack chargedQuartz = AEApi.instance().blocks().blockQuartzOreCharged.stack(1);
         ItemStack itemQuartz = AEApi.instance().materials().materialCertusQuartzCrystal.stack(1);
         ItemStack itemCharged = AEApi.instance().materials().materialCertusQuartzCrystalCharged.stack(1);
 
-        OreDictionary.registerOre("oreChargedCertusQuartz",chargedQuartz);
-        OreDictionary.registerOre("crystalChargedCertusQuartz",itemCharged);
+        OreDictionary.registerOre("oreChargedCertusQuartz", chargedQuartz);
+        OreDictionary.registerOre("crystalChargedCertusQuartz", itemCharged);
 
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(quartzOre,itemQuartz));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(chargedQuartz,itemCharged));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(quartzOre, itemQuartz));
+        NEResourcesAPI.registerEntry(new ChangeOreDrop(chargedQuartz, itemCharged));
 
         boolean spawn = AEConfig.instance.featureFlags.contains(AEFeature.CertusQuartzWorldGen);
         if (!spawn) return;
@@ -33,9 +35,9 @@ public class AE2Compat extends CompatBase {
         float spawnChargedChance = AEConfig.instance.spawnChargedChance;
         int minY = 52;
         int maxY = 74;
-        float chance = (float)(numVeins*veinSize)/((maxY-minY+1)*256)*1.5F;
+        float chance = (float) (numVeins * veinSize) / ((maxY - minY + 1) * 256) * 1.5F;
 
-        registerOre(new OreEntry(quartzOre,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance*spawnChargedChance)));
-        registerOre(new OreEntry(chargedQuartz,new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance*(1F-spawnChargedChance))));
+        registerOre(new OreEntry(quartzOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance * spawnChargedChance)));
+        registerOre(new OreEntry(chargedQuartz, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance * (1F - spawnChargedChance))));
     }
 }

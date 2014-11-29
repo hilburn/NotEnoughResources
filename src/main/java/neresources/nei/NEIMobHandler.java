@@ -20,7 +20,8 @@ import net.minecraft.item.ItemSword;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NEIMobHandler extends TemplateRecipeHandler
@@ -240,7 +241,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
 
         public List<String> getToolTip(ItemStack stack)
         {
-            for (DropItem item:mob.getDrops())
+            for (DropItem item : mob.getDrops())
             {
                 if (item.item.isItemEqual(stack)) return item.conditionals;
             }

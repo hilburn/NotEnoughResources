@@ -25,7 +25,7 @@ public enum ModList
     thaumcraft(Names.THAUMCRAFT, new ThaumcraftCompat()),
     electricraft(Names.ELECTRICRAFT, new ElectriCraftCompat()),
     reactorcraft(Names.REACTORCRAFT, new ReactorCraftCompat()),
-    forestry(Names.FORESTRY,new ForestryCompat()),
+    forestry(Names.FORESTRY, new ForestryCompat()),
     ticon(Names.TICON, new TiConCompat()),
     denseores(Names.DENSEORES);
 
@@ -42,7 +42,7 @@ public enum ModList
 
     ModList(String name)
     {
-        this(name,null);
+        this(name, null);
     }
 
     ModList(String name, CompatBase compat)

@@ -26,7 +26,7 @@ public class MapKeys
         String[] keys = getKeys(drop);
         if (keys.length > 0)
         {
-            if (keys[0].equals("oreCertusQuartz") && keys.length>1)return keys[1];
+            if (keys[0].equals("oreCertusQuartz") && keys.length > 1) return keys[1];
             return keys[0];
         }
         return null;

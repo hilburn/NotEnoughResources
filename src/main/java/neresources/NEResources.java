@@ -1,18 +1,21 @@
 package neresources;
 
-import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import neresources.utils.IMCHandler;
 import neresources.config.ConfigHandler;
 import neresources.config.Settings;
 import neresources.proxy.CommonProxy;
 import neresources.reference.MetaData;
 import neresources.reference.Reference;
+import neresources.utils.IMCHandler;
 import neresources.utils.LogHelper;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.util.WeightedRandom;
@@ -50,8 +53,8 @@ public class NEResources
     {
         for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
         {
-           if (imcMessage.isNBTMessage())
-               IMCHandler.registerIMCMessage(imcMessage.key,imcMessage.getNBTValue());
+            if (imcMessage.isNBTMessage())
+                IMCHandler.registerIMCMessage(imcMessage.key, imcMessage.getNBTValue());
         }
     }
 

@@ -18,16 +18,16 @@ public class ChangeOreDrop implements IModifyOre
 
     public ChangeOreDrop(ItemStack ore, boolean add, ItemStack... drops)
     {
-        this.ore=ore;
+        this.ore = ore;
         if (add)
-            this.addDrops=drops;
+            this.addDrops = drops;
         else
-            this.removeDrops=drops;
+            this.removeDrops = drops;
     }
 
     public ChangeOreDrop(ItemStack ore, ItemStack[] removeDrops, ItemStack[] addDrops)
     {
-        this.ore=ore;
+        this.ore = ore;
         this.removeDrops = removeDrops;
         this.addDrops = addDrops;
     }

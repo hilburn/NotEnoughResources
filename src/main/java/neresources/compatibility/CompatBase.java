@@ -11,14 +11,14 @@ public class CompatBase
 {
     public boolean load(ModList mod)
     {
-        if (mod.isLoaded()) {
-            LogHelper.info("Loading compatibility for "+mod.toString());
+        if (mod.isLoaded())
+        {
+            LogHelper.info("Loading compatibility for " + mod.toString());
             init();
             return true;
-        }
-        else
+        } else
         {
-            LogHelper.info(mod.toString()+" not loaded - skipping");
+            LogHelper.info(mod.toString() + " not loaded - skipping");
         }
         return false;
     }

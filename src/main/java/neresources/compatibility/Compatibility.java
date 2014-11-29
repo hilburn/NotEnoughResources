@@ -9,7 +9,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class Compatibility
 {
-    public static final float DENSE_ORES_MULTIPLIER = 1F+2F*(1000F/20480F);
+    public static final float DENSE_ORES_MULTIPLIER = 1F + 2F * (1000F / 20480F);
+
     public static void init()
     {
         for (ModList mod : ModList.values())
@@ -20,20 +21,21 @@ public class Compatibility
         for (Object entry : NEResourcesAPI.getEntryRegistry())
         {
             if (entry instanceof IMobEntry) MobRegistry.getInstance().registerMob((IMobEntry) entry);
-            else if (entry instanceof IDungeonEntry) DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);
+            else if (entry instanceof IDungeonEntry)
+                DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);
             else if (entry instanceof IOreEntry) OreRegistry.getInstance().registerOre(((IOreEntry) entry));
             else if (entry instanceof ISeedEntry) GrassSeedRegistry.getInstance().add(((ISeedEntry) entry));
         }
 
         if (ModList.denseores.isLoaded())
         {
-            for (String oreDictEntry: OreDictionary.getOreNames())
+            for (String oreDictEntry : OreDictionary.getOreNames())
             {
                 if (oreDictEntry.startsWith("denseore") && OreDictionary.getOres(oreDictEntry).size() > 0)
                 {
                     ItemStack denseOre = OreDictionary.getOres(oreDictEntry).get(0);
-                    ItemStack ore = OreDictionary.getOres(oreDictEntry.replace("dense","")).get(0);
-                    OreRegistry.getInstance().addDrops(new ChangeOreDrop(ore,denseOre));
+                    ItemStack ore = OreDictionary.getOres(oreDictEntry.replace("dense", "")).get(0);
+                    OreRegistry.getInstance().addDrops(new ChangeOreDrop(ore, denseOre));
                 }
             }
         }

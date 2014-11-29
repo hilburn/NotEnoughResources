@@ -4,9 +4,9 @@ import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.api.distributions.DistributionUnderWater;
-import neresources.api.utils.conditionals.Conditional;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
+import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.registry.ChangeOreDrop;
@@ -62,22 +62,22 @@ public class MinecraftCompat extends CompatBase
         //Cow
         DropItem leather = new DropItem(Items.leather, 0, 2);
         DropItem beef = new DropItem(Items.beef, 1, 3);
-        DropItem steak = new DropItem(Items.cooked_beef, 1, 3,Conditional.burning);
+        DropItem steak = new DropItem(Items.cooked_beef, 1, 3, Conditional.burning);
         registerMob(new MobEntry(new EntityCow(null), LightLevel.any, leather, beef, steak));
 
         //Mooshroom
-        registerMob(new MobEntry(new EntityMooshroom(null), LightLevel.any, leather,beef, steak));
+        registerMob(new MobEntry(new EntityMooshroom(null), LightLevel.any, leather, beef, steak));
 
         //Chicken
         DropItem feather = new DropItem(Items.feather, 0, 2);
         DropItem chicken = new DropItem(Items.chicken, 1, 1);
-        DropItem cookedchicken = new DropItem(Items.cooked_chicken, 1, 1,Conditional.burning);
-        registerMob(new MobEntry(new EntityChicken(null), LightLevel.any, feather, chicken,cookedchicken));
+        DropItem cookedchicken = new DropItem(Items.cooked_chicken, 1, 1, Conditional.burning);
+        registerMob(new MobEntry(new EntityChicken(null), LightLevel.any, feather, chicken, cookedchicken));
 
         //Pig
         DropItem pork = new DropItem(Items.porkchop, 1, 3);
-        DropItem cookedpork = new DropItem(Items.cooked_porkchop, 1, 3,Conditional.burning);
-        registerMob(new MobEntry(new EntityPig(null), LightLevel.any, pork,cookedpork));
+        DropItem cookedpork = new DropItem(Items.cooked_porkchop, 1, 3, Conditional.burning);
+        registerMob(new MobEntry(new EntityPig(null), LightLevel.any, pork, cookedpork));
 
         //Sheep
         DropItem wool = new DropItem(new ItemStack(Blocks.wool), 1, 1);
@@ -97,15 +97,15 @@ public class MinecraftCompat extends CompatBase
 
         //Zombie
         DropItem rottenFlesh = new DropItem(Items.rotten_flesh, 0, 2);
-        ironIngot = new DropItem(Items.iron_ingot, 1, 1, 0.008F,Conditional.playerKill,Conditional.rareDrop);
-        DropItem potato = new DropItem(Items.potato, 1, 1, 0.008F,Conditional.playerKill,Conditional.rareDrop);
-        DropItem carrot = new DropItem(Items.carrot, 1, 1, 0.008F,Conditional.playerKill,Conditional.rareDrop);
+        ironIngot = new DropItem(Items.iron_ingot, 1, 1, 0.008F, Conditional.playerKill, Conditional.rareDrop);
+        DropItem potato = new DropItem(Items.potato, 1, 1, 0.008F, Conditional.playerKill, Conditional.rareDrop);
+        DropItem carrot = new DropItem(Items.carrot, 1, 1, 0.008F, Conditional.playerKill, Conditional.rareDrop);
         registerMob(new MobEntry(new EntityZombie(null), LightLevel.hostile, rottenFlesh, ironIngot, potato, carrot));
 
         //Zombie Pigman
         DropItem goldNugget = new DropItem(Items.gold_nugget, 0, 1);
-        DropItem goldIngot = new DropItem(Items.gold_ingot, 0, 1, 0.025F,Conditional.playerKill,Conditional.rareDrop);
-        registerMob(new MobEntry(new EntityPigZombie(null), LightLevel.any, new String[]{"Nether"}, rottenFlesh, goldNugget,goldIngot));
+        DropItem goldIngot = new DropItem(Items.gold_ingot, 0, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop);
+        registerMob(new MobEntry(new EntityPigZombie(null), LightLevel.any, new String[]{"Nether"}, rottenFlesh, goldNugget, goldIngot));
 
         //Skeleton
         DropItem bone = new DropItem(Items.bone, 0, 2);
@@ -114,7 +114,7 @@ public class MinecraftCompat extends CompatBase
 
         //Wither Skeleton
         DropItem coal = new DropItem(Items.coal, 0, 1, 0.33F);
-        DropItem skull = new DropItem(new ItemStack(Items.skull,1,1), 1, 1, 0.025F,Conditional.playerKill,Conditional.rareDrop);
+        DropItem skull = new DropItem(new ItemStack(Items.skull, 1, 1), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop);
         EntitySkeleton witherSkeleton = new EntitySkeleton(null);
         witherSkeleton.setSkeletonType(1);
         registerMob(new MobEntry(witherSkeleton, LightLevel.hostile, new String[]{"Nether Fortress"}, bone, coal, skull));
@@ -138,11 +138,11 @@ public class MinecraftCompat extends CompatBase
         registerMob(new MobEntry(new EntityWitch(null), LightLevel.hostile, bottle, glowstone, gunpowder, redstone, spider, stick, sugar));
 
         //Slimes
-        DropItem slimeball = new DropItem(Items.slime_ball, 0, 2,Conditional.slimeBall);
+        DropItem slimeball = new DropItem(Items.slime_ball, 0, 2, Conditional.slimeBall);
         registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntitySlime(null), 1), LightLevel.hostile, slimeball));
 
         //Magma Cube
-        DropItem magma = new DropItem(Items.magma_cream, 0, 1,Conditional.magmaCream);
+        DropItem magma = new DropItem(Items.magma_cream, 0, 1, Conditional.magmaCream);
         registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null), 1), LightLevel.hostile, new String[]{"Nether"}, magma));
 
         //Blaze
@@ -157,7 +157,7 @@ public class MinecraftCompat extends CompatBase
 
         //Spider
         DropItem string = new DropItem(Items.string, 0, 2);
-        spider = new DropItem(Items.spider_eye, 1, 1, 0.33F,Conditional.playerKill);
+        spider = new DropItem(Items.spider_eye, 1, 1, 0.33F, Conditional.playerKill);
         registerMob(new MobEntry(new EntitySpider(null), LightLevel.hostile, string, spider));
 
         //Cave Spider

@@ -22,16 +22,20 @@ public class LightLevel
 
     public static LightLevel decodeLightLevel(String string)
     {
-        if (string==null||!string.contains(":")) return any;
+        if (string == null || !string.contains(":")) return any;
         String[] splitString = string.split(":");
 
-        if (splitString.length!=2) return any;
+        if (splitString.length != 2) return any;
         int level;
-        try{
+        try
+        {
             level = Integer.valueOf(splitString[0]);
-        }catch (Exception e) {return any;}
-        if (level<0 || level>15) return any;
-        return new LightLevel(level,splitString[1].equals("a")?Relative.above:Relative.below);
+        } catch (Exception e)
+        {
+            return any;
+        }
+        if (level < 0 || level > 15) return any;
+        return new LightLevel(level, splitString[1].equals("a") ? Relative.above : Relative.below);
     }
 
     /**

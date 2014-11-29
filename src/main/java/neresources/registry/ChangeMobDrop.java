@@ -14,32 +14,32 @@ public class ChangeMobDrop implements IModifyMob
 
     public ChangeMobDrop(Class clazz, DropItem... dropItems)
     {
-        this(clazz,false,dropItems);
+        this(clazz, false, dropItems);
     }
 
     public ChangeMobDrop(Class clazz, boolean exact, DropItem... dropItems)
     {
-        this(clazz,exact,false,dropItems);
+        this(clazz, exact, false, dropItems);
     }
 
     public ChangeMobDrop(Class clazz, ItemStack... dropItems)
     {
-        this(clazz,false,dropItems);
+        this(clazz, false, dropItems);
     }
 
     public ChangeMobDrop(Class clazz, boolean exact, ItemStack... dropItems)
     {
-        this(clazz,exact,false,dropItems);
+        this(clazz, exact, false, dropItems);
     }
 
     public ChangeMobDrop(Class clazz, boolean exact, boolean wither, DropItem... dropItems)
     {
-        this(clazz,exact,wither,new ItemStack[0],dropItems==null?new DropItem[0]:dropItems);
+        this(clazz, exact, wither, new ItemStack[0], dropItems == null ? new DropItem[0] : dropItems);
     }
 
     public ChangeMobDrop(Class clazz, boolean exact, boolean wither, ItemStack... dropItems)
     {
-        this(clazz,exact,wither,dropItems==null?new ItemStack[0]:dropItems,new DropItem[0]);
+        this(clazz, exact, wither, dropItems == null ? new ItemStack[0] : dropItems, new DropItem[0]);
     }
 
     public ChangeMobDrop(Class clazz, boolean exact, boolean wither, ItemStack[] removeDrops, DropItem[] addDrops)
@@ -48,7 +48,7 @@ public class ChangeMobDrop implements IModifyMob
         this.removeDrops = removeDrops;
         this.addDrops = addDrops;
         exactMatch = exact;
-        witherSkeleton=wither;
+        witherSkeleton = wither;
     }
 
     public void setWitherSkeleton(boolean witherSkeleton)

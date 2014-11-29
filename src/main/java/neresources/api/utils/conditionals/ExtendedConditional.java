@@ -7,8 +7,8 @@ public class ExtendedConditional extends Conditional
 
     public ExtendedConditional(Conditional conditional, String value)
     {
-        this.conditional=conditional;
-        this.value=value;
+        this.conditional = conditional;
+        this.value = value;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class DropItem
         this.minDrop = minDrop;
         this.maxDrop = maxDrop;
         this.chance = chance;
-        for (Conditional conditional:conditionals)
+        for (Conditional conditional : conditionals)
             this.conditionals.add(conditional.toString());
     }
 
@@ -93,14 +93,14 @@ public class DropItem
 
     private String getDropChance()
     {
-        return chance < 1F ?" (" + formatChance() + "%)":"";
+        return chance < 1F ? " (" + formatChance() + "%)" : "";
     }
 
     private String formatChance()
     {
         float chance = this.chance * 100;
-        if (chance<10) return String.format("%.1f",chance);
-        return String.format("%2d",(int)chance);
+        if (chance < 10) return String.format("%.1f", chance);
+        return String.format("%2d", (int) chance);
     }
 
     public List<String> getTooltipText()

@@ -93,9 +93,11 @@ public class ReflectionHelper
 
     public static Class findClass(String name)
     {
-        try {
+        try
+        {
             return Class.forName(name);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e)
+        {
             return null;
         }
     }

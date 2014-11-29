@@ -1,18 +1,17 @@
 package neresources.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class ClassScraper {
+public class ClassScraper
+{
 
-    public static Class[] getSuperInterfaces(Class[] childInterfaces) {
+    public static Class[] getSuperInterfaces(Class[] childInterfaces)
+    {
 
         List allInterfaces = new ArrayList();
 
-        for (int i = 0; i < childInterfaces.length; i++) {
+        for (int i = 0; i < childInterfaces.length; i++)
+        {
             allInterfaces.add(childInterfaces[i]);
             allInterfaces.addAll(
                     Arrays.asList(
@@ -22,18 +21,21 @@ public class ClassScraper {
         return (Class[]) allInterfaces.toArray(new Class[allInterfaces.size()]);
     }
 
-    public static Set getGeneralizations(Class classObject) {
+    public static Set getGeneralizations(Class classObject)
+    {
         Set generalizations = new HashSet();
 
         generalizations.add(classObject);
 
         Class superClass = classObject.getSuperclass();
-        if (superClass != null) {
+        if (superClass != null)
+        {
             generalizations.addAll(getGeneralizations(superClass));
         }
 
         Class[] superInterfaces = classObject.getInterfaces();
-        for (int i = 0; i < superInterfaces.length; i++) {
+        for (int i = 0; i < superInterfaces.length; i++)
+        {
             Class superInterface = superInterfaces[i];
             generalizations.addAll(getGeneralizations(superInterface));
         }

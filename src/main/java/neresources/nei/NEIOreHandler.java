@@ -3,7 +3,7 @@ package neresources.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neresources.api.utils.conditionals.*;
+import neresources.api.utils.conditionals.Conditional;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.OreMatchEntry;
