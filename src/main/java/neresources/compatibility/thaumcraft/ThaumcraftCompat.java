@@ -1,16 +1,14 @@
 package neresources.compatibility.thaumcraft;
 
 import cpw.mods.fml.common.Optional;
-import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
-import neresources.api.utils.DistributionHelpers;
-import neresources.api.utils.DropItem;
-import neresources.api.utils.LightLevel;
-import neresources.api.utils.Modifier;
+import neresources.api.messages.ModifyOreMessage;
+import neresources.api.utils.*;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.ChangeOreDrop;
+import neresources.registry.MessageRegistry;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
 import neresources.utils.ModList;
@@ -37,12 +35,12 @@ public class ThaumcraftCompat extends CompatBase
     {
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre, 1, 7);
         ItemStack amberDrop = new ItemStack(ConfigItems.itemResource, 1, 6);
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(amber, amberDrop));
+        MessageRegistry.addMessage(new ModifyOreMessage(amber, Priority.FIRST, amberDrop));
         for (int i = 0; i < 6; i++)
         {
             ItemStack infusedStone = new ItemStack(ConfigBlocks.blockCustomOre, 1, i + 1);
             ItemStack infusedShard = new ItemStack(ConfigItems.itemShard, 2, i);
-            NEResourcesAPI.registerEntry(new ChangeOreDrop(infusedStone, infusedShard));
+            MessageRegistry.addMessage(new ModifyOreMessage(infusedStone, Priority.FIRST, infusedShard));
         }
         if (Config.genCinnibar) genCinnibar();
         if (Config.genAmber) genAmber();

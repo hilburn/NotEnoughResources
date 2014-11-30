@@ -1,10 +1,11 @@
 package neresources.compatibility.reika;
 
 import Reika.ReactorCraft.Registry.ReactorOres;
-import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
+import neresources.api.messages.ModifyOreMessage;
+import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
-import neresources.registry.ChangeOreDrop;
+import neresources.registry.MessageRegistry;
 import neresources.registry.OreEntry;
 import net.minecraft.item.ItemStack;
 
@@ -24,7 +25,7 @@ public class ReactorCraftCompat extends CompatBase
             for (ItemStack drop : drops)
             {
                 if (!drop.isItemEqual(ore))
-                    NEResourcesAPI.registerEntry(new ChangeOreDrop(ore, drop));
+                    MessageRegistry.addMessage(new ModifyOreMessage(ore, Priority.FIRST, drop));
             }
             int minY = reactorOre.minY;
             int maxY = reactorOre.maxY;

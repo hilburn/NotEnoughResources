@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.messages.RemoveMobMessage;
 import neresources.api.utils.DropItem;
 import neresources.utils.ClassScraper;
 import neresources.utils.MobHelper;
@@ -59,16 +60,21 @@ public class MobRegistry
 
     public void removeMobDrops(ChangeMobDrop entry)
     {
-        for (MobEntry regEntry : getRegistryMatches(entry.applyToClass(),entry.isExactMatch(),entry.witherSkeleton()))
+        for (MobEntry regEntry : getRegistryMatches(entry.getFilterClass(),entry.isExactMatch(),entry.witherSkeleton()))
             for (ItemStack item : entry.removeItems())
                 regEntry.removeDrop(item);
     }
 
     public void addMobDrops(ChangeMobDrop entry)
     {
-        for (MobEntry regEntry : getRegistryMatches(entry.applyToClass(),entry.isExactMatch(),entry.witherSkeleton()))
+        for (MobEntry regEntry : getRegistryMatches(entry.getFilterClass(),entry.isExactMatch(),entry.witherSkeleton()))
             for (DropItem item : entry.addItems())
                 regEntry.addDrop(item);
+    }
+
+    public void removeMob(RemoveMobMessage message)
+    {
+
     }
 
     public Set<MobEntry> getRegistryMatches(Class clazz, boolean exactMatch, boolean witherSkeleton)

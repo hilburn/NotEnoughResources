@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.messages.ModifyOreMessage;
 import net.minecraft.item.ItemStack;
 
 public class ChangeOreDrop
@@ -28,6 +29,13 @@ public class ChangeOreDrop
         this.ore = ore;
         this.removeDrops = removeDrops;
         this.addDrops = addDrops;
+    }
+
+    public ChangeOreDrop(ModifyOreMessage message)
+    {
+        this.ore = message.getOre();
+        this.removeDrops = message.getRemoveDrops();
+        this.addDrops = message.getAddDrops();
     }
 
     public ItemStack ore()

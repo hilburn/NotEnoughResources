@@ -1,7 +1,5 @@
 package neresources.compatibility;
 
-import neresources.api.NEResourcesAPI;
-import neresources.api.messages.*;
 import neresources.registry.*;
 import neresources.utils.ModList;
 import net.minecraft.item.ItemStack;
@@ -18,14 +16,6 @@ public class Compatibility
             mod.initialise();
         }
 
-        for (Object entry : NEResourcesAPI.getEntryRegistry())
-        {
-            if (entry instanceof MobEntry) MobRegistry.getInstance().registerMob((MobEntry) entry);
-            else if (entry instanceof IDungeonEntry)DungeonRegistry.getInstance().registerDungeonEntry((IDungeonEntry) entry);
-            else if (entry instanceof ISeedEntry) GrassSeedRegistry.getInstance().add(((ISeedEntry) entry));
-            else if (entry instanceof OreEntry) OreRegistry.getInstance().register((OreEntry) entry);
-        }
-
         if (ModList.denseores.isLoaded())
         {
             for (String oreDictEntry : OreDictionary.getOreNames())
@@ -39,19 +29,6 @@ public class Compatibility
             }
         }
 
-        //remove drops
-        for (Object entry : NEResourcesAPI.getEntryRegistry())
-        {
-            if (entry instanceof ChangeOreDrop) OreRegistry.getInstance().addDrops((ChangeOreDrop) entry);
-            if (entry instanceof ChangeMobDrop) MobRegistry.getInstance().removeMobDrops((ChangeMobDrop) entry);
-        }
-
-        for (Object entry : NEResourcesAPI.getEntryRegistry())
-        {
-            if (entry instanceof ChangeOreDrop) OreRegistry.getInstance().removeDrops((ChangeOreDrop) entry);
-            if (entry instanceof ChangeMobDrop) MobRegistry.getInstance().addMobDrops((ChangeMobDrop) entry);
-        }
-
-
+        MessageRegistry.processMessages();
     }
 }

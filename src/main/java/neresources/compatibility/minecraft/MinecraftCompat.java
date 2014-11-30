@@ -1,18 +1,16 @@
 package neresources.compatibility.minecraft;
 
-import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.api.distributions.DistributionUnderWater;
+import neresources.api.messages.ModifyOreMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
+import neresources.api.utils.Priority;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
-import neresources.registry.ChangeOreDrop;
-import neresources.registry.DungeonRegistry;
-import neresources.registry.MobEntry;
-import neresources.registry.OreEntry;
+import neresources.registry.*;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -40,12 +38,12 @@ public class MinecraftCompat extends CompatBase
     private void registerVanillaOreDrops()
     {
         registerOre(new OreEntry(new ItemStack(Blocks.clay), new DistributionUnderWater(0.0035F)));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.clay), new ItemStack(Items.clay_ball, 4)));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.coal_ore), new ItemStack(Items.coal)));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.diamond_ore), new ItemStack(Items.diamond)));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.lapis_ore), new ItemStack(Items.dye, 4, 4)));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.emerald_ore), new ItemStack(Items.emerald)));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(new ItemStack(Blocks.redstone_ore), new ItemStack(Items.redstone, 4)));
+        MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.clay), Priority.FIRST, new ItemStack(Items.clay_ball, 4)));
+        MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.coal_ore), Priority.FIRST, new ItemStack(Items.coal)));
+        MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.diamond_ore), Priority.FIRST, new ItemStack(Items.diamond)));
+        MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.lapis_ore), Priority.FIRST, new ItemStack(Items.dye, 4, 4)));
+        MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.emerald_ore), Priority.FIRST, new ItemStack(Items.emerald)));
+        MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.redstone_ore), Priority.FIRST, new ItemStack(Items.redstone, 4)));
     }
 
     private void registerVanillaMobs()

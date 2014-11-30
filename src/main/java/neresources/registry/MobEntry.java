@@ -1,9 +1,12 @@
 package neresources.registry;
 
+import neresources.api.messages.RegisterMobMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
+import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
@@ -30,6 +33,15 @@ public class MobEntry
         this.lightLevel = lightLevel;
         this.biomes.add("Any");
         this.drops.addAll(Arrays.asList(drops));
+    }
+
+    public MobEntry(RegisterMobMessage message)
+    {
+        if (!ReflectionHelper.checkInstanceOf(message.getMobClass(), EntityLivingBase.class)) return;
+        entity = (EntityLivingBase) ReflectionHelper.initialize(message.getMobClass(),World.class,null);
+        this.lightLevel = message.getLightLevel();
+        for (DropItem drop: message.getDrops())
+            drops.add(drop);
     }
 
     public EntityLivingBase getEntity()

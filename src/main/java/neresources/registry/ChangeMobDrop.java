@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.messages.ModifyMobMessage;
 import neresources.api.utils.DropItem;
 import net.minecraft.item.ItemStack;
 
@@ -50,12 +51,21 @@ public class ChangeMobDrop
         witherSkeleton = wither;
     }
 
+    public ChangeMobDrop(ModifyMobMessage message)
+    {
+        this.mobClass = message.getFilterClass();
+        this.removeDrops = message.getRemoveDrops();
+        this.addDrops = message.getAddDrops();
+        this.exactMatch = message.isStrict();
+        this.witherSkeleton = message.isWither();
+    }
+
     public void setWitherSkeleton(boolean witherSkeleton)
     {
         this.witherSkeleton = witherSkeleton;
     }
 
-    public Class applyToClass()
+    public Class getFilterClass()
     {
         return mobClass;
     }

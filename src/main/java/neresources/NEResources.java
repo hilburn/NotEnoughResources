@@ -14,7 +14,7 @@ import neresources.config.Settings;
 import neresources.proxy.CommonProxy;
 import neresources.reference.MetaData;
 import neresources.reference.Reference;
-import neresources.utils.IMCHandler;
+import neresources.registry.MessageRegistry;
 import neresources.utils.LogHelper;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.util.WeightedRandom;
@@ -53,7 +53,7 @@ public class NEResources
         for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
         {
             if (imcMessage.isNBTMessage())
-                IMCHandler.registerIMCMessage(imcMessage.key, imcMessage.getNBTValue());
+                MessageRegistry.registerMessage(imcMessage.key, imcMessage.getNBTValue());
         }
     }
 

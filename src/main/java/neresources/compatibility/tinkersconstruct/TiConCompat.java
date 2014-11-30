@@ -1,14 +1,12 @@
 package neresources.compatibility.tinkersconstruct;
 
 import cpw.mods.fml.common.Optional;
-import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
-import neresources.api.utils.DistributionHelpers;
-import neresources.api.utils.DropItem;
-import neresources.api.utils.LightLevel;
-import neresources.api.utils.Modifier;
+import neresources.api.messages.ModifyMobMessage;
+import neresources.api.messages.ModifyOreMessage;
+import neresources.api.utils.*;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.*;
@@ -55,7 +53,7 @@ public class TiConCompat extends CompatBase
         slagBlock = TinkerWorld.oreSlag;
         bushes = new ItemStack[]{new ItemStack(TinkerWorld.oreBerry, 1, 12), new ItemStack(TinkerWorld.oreBerry, 1, 13), new ItemStack(TinkerWorld.oreBerry, 1, 14), new ItemStack(TinkerWorld.oreBerry, 1, 15), new ItemStack(TinkerWorld.oreBerrySecond, 1, 12), new ItemStack(TinkerWorld.oreBerrySecond, 1, 13)};
         for (int i = 0; i < bushes.length; i++)
-            NEResourcesAPI.registerEntry(new ChangeOreDrop(bushes[i], new ItemStack(TinkerWorld.oreBerries, 1, i)));
+            MessageRegistry.addMessage(new ModifyOreMessage(bushes[i], Priority.FIRST, new ItemStack(TinkerWorld.oreBerries, 1, i)));
         for (int i = 0; i < 6; i++)
             gravel[i] = new ItemStack(TinkerWorld.oreGravel, 1, i);
         if (PHConstruct.generateCopper)
@@ -204,14 +202,14 @@ public class TiConCompat extends CompatBase
     private void registerDropChanges()
     {
         Conditional beheading = new Conditional("ner.beheading.text", Modifier.orange);
-        NEResourcesAPI.registerEntry(new ChangeMobDrop(EntityDragon.class, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 5, 5, Conditional.playerKill)));
-        NEResourcesAPI.registerEntry(new ChangeMobDrop(IBossDisplayData.class, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 1, 1, Conditional.playerKill)));
-        NEResourcesAPI.registerEntry(new ChangeMobDrop(IMob.class, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop)));
+        MessageRegistry.addMessage(new ModifyMobMessage(EntityDragon.class, true, Priority.FIRST, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 5, 5, Conditional.playerKill)));
+        MessageRegistry.addMessage(new ModifyMobMessage(IBossDisplayData.class,false, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 1, 1, Conditional.playerKill)));
+        MessageRegistry.addMessage(new ModifyMobMessage(IMob.class, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop)));
         Class[] entityClasses = new Class[]{EntitySkeleton.class, EntitySkeleton.class, EntityZombie.class, EntityCreeper.class};
         for (int i = 0; i < entityClasses.length; i++)
         {
-            NEResourcesAPI.registerEntry(new ChangeMobDrop(entityClasses[i], true, i == 1, i == 1 ? new ItemStack[]{new ItemStack(Items.skull, 1, 1)} : new ItemStack[0], new DropItem[]{new DropItem(new ItemStack(Items.skull, 1, i), 1, 1, Conditional.playerKill, beheading)}));
+            MessageRegistry.addMessage(new ModifyMobMessage(entityClasses[i], true, i == 1, new DropItem[]{new DropItem(new ItemStack(Items.skull, 1, i), 1, 1, Conditional.playerKill, beheading)},i == 1 ? new ItemStack[]{new ItemStack(Items.skull, 1, 1)} : new ItemStack[0],Priority.THIRD,Priority.SECOND));
         }
-        NEResourcesAPI.registerEntry(new ChangeMobDrop(EntitySkeleton.class, true, true, new DropItem(new ItemStack(TinkerTools.materials, 1, 8), 1, 1, 0.2F)));
+        MessageRegistry.addMessage(new ModifyMobMessage(EntitySkeleton.class, true, true, new DropItem(new ItemStack(TinkerTools.materials, 1, 8), 1, 1, 0.2F)));
     }
 }

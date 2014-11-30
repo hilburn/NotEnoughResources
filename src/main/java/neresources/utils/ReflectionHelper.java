@@ -119,4 +119,11 @@ public class ReflectionHelper
         return null;
     }
 
+    public static boolean checkInstanceOf(Class clazz, Class checkClass)
+    {
+        for (Object instanceOf : ClassScraper.getGeneralizations(clazz))
+            if (instanceOf == checkClass) return true;
+        return false;
+    }
+
 }

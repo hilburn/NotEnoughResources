@@ -3,10 +3,11 @@ package neresources.compatibility.appliedenergistics2;
 import appeng.api.AEApi;
 import appeng.core.AEConfig;
 import appeng.core.features.AEFeature;
-import neresources.api.NEResourcesAPI;
 import neresources.api.distributions.DistributionSquare;
+import neresources.api.messages.ModifyOreMessage;
+import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
-import neresources.registry.ChangeOreDrop;
+import neresources.registry.MessageRegistry;
 import neresources.registry.OreEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -25,8 +26,8 @@ public class AE2Compat extends CompatBase
         OreDictionary.registerOre("oreChargedCertusQuartz", chargedQuartz);
         OreDictionary.registerOre("crystalChargedCertusQuartz", itemCharged);
 
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(quartzOre, itemQuartz));
-        NEResourcesAPI.registerEntry(new ChangeOreDrop(chargedQuartz, itemCharged));
+        MessageRegistry.addMessage(new ModifyOreMessage(quartzOre, Priority.FIRST, itemQuartz));
+        MessageRegistry.addMessage(new ModifyOreMessage(chargedQuartz, Priority.FIRST, itemCharged));
 
         boolean spawn = AEConfig.instance.featureFlags.contains(AEFeature.CertusQuartzWorldGen);
         if (!spawn) return;

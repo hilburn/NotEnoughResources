@@ -1,7 +1,11 @@
 package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
+import neresources.api.messages.ModifyMessage;
+import neresources.api.messages.ModifyOreMessage;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.ColorHelper;
+import neresources.api.utils.Priority;
 import neresources.utils.SilkTouchHelper;
 import net.minecraft.item.ItemStack;
 
@@ -33,6 +37,16 @@ public class OreEntry
         this.needSilkTouch = needSilkTouch;
         this.distribution = distribution;
         this.colour = colour;
+    }
+
+    public OreEntry(RegisterOreMessage message)
+    {
+        this.ore = message.getOre();
+        this.distribution = message.getDistribution();
+        this.needSilkTouch = message.needSilkTouch();
+        this.colour = message.getColour();
+        if (message.getDrops().length>0)
+            MessageRegistry.addMessage(new ModifyOreMessage(this.ore,true,Priority.FIRST,message.getDrops()));
     }
 
     public ItemStack getOre()
