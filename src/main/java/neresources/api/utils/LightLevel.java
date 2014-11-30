@@ -40,7 +40,7 @@ public class LightLevel
 
     public String encode()
     {
-        return this.lightLevel +":"+(relative==Relative.above?"a":"b");
+        return this.lightLevel + ":" + (relative == Relative.above ? "a" : "b");
     }
 
     /**

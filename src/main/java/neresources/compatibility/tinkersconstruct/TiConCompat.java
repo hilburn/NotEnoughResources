@@ -9,7 +9,10 @@ import neresources.api.messages.ModifyOreMessage;
 import neresources.api.utils.*;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
-import neresources.registry.*;
+import neresources.registry.MessageRegistry;
+import neresources.registry.MobEntry;
+import neresources.registry.OreEntry;
+import neresources.registry.OreRegistry;
 import neresources.utils.MapKeys;
 import neresources.utils.ModList;
 import neresources.utils.TranslationHelper;
@@ -203,12 +206,12 @@ public class TiConCompat extends CompatBase
     {
         Conditional beheading = new Conditional("ner.beheading.text", Modifier.orange);
         MessageRegistry.addMessage(new ModifyMobMessage(EntityDragon.class, true, Priority.FIRST, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 5, 5, Conditional.playerKill)));
-        MessageRegistry.addMessage(new ModifyMobMessage(IBossDisplayData.class,false, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 1, 1, Conditional.playerKill)));
+        MessageRegistry.addMessage(new ModifyMobMessage(IBossDisplayData.class, false, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 3), 1, 1, Conditional.playerKill)));
         MessageRegistry.addMessage(new ModifyMobMessage(IMob.class, new DropItem(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop)));
         Class[] entityClasses = new Class[]{EntitySkeleton.class, EntitySkeleton.class, EntityZombie.class, EntityCreeper.class};
         for (int i = 0; i < entityClasses.length; i++)
         {
-            MessageRegistry.addMessage(new ModifyMobMessage(entityClasses[i], true, i == 1, new DropItem[]{new DropItem(new ItemStack(Items.skull, 1, i), 1, 1, Conditional.playerKill, beheading)},i == 1 ? new ItemStack[]{new ItemStack(Items.skull, 1, 1)} : new ItemStack[0],Priority.THIRD,Priority.SECOND));
+            MessageRegistry.addMessage(new ModifyMobMessage(entityClasses[i], true, i == 1, new DropItem[]{new DropItem(new ItemStack(Items.skull, 1, i + (i == 3 ? 1 : 0)), 0, 1, Conditional.playerKill, beheading)}, i == 1 ? new ItemStack[]{new ItemStack(Items.skull, 1, 1)} : new ItemStack[0], Priority.THIRD, Priority.SECOND));
         }
         MessageRegistry.addMessage(new ModifyMobMessage(EntitySkeleton.class, true, true, new DropItem(new ItemStack(TinkerTools.materials, 1, 8), 1, 1, 0.2F)));
     }

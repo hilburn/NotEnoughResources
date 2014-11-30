@@ -2,7 +2,6 @@ package neresources.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 public class ReflectionHelper
 {
@@ -111,7 +110,7 @@ public class ReflectionHelper
             return clazz.getConstructor(argClass).newInstance(arg);
         } catch (Exception e)
         {
-            for (Constructor constructor:clazz.getConstructors())
+            for (Constructor constructor : clazz.getConstructors())
             {
                 System.out.println(constructor);
             }
@@ -119,7 +118,7 @@ public class ReflectionHelper
         return null;
     }
 
-    public static boolean checkInstanceOf(Class clazz, Class checkClass)
+    public static boolean isInstanceOf(Class clazz, Class checkClass)
     {
         for (Object instanceOf : ClassScraper.getGeneralizations(clazz))
             if (instanceOf == checkClass) return true;

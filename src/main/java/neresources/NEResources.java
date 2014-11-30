@@ -52,6 +52,7 @@ public class NEResources
     {
         for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
         {
+            LogHelper.debug("Message Received - Sender: " + imcMessage.getSender() + " - Message Type: " + imcMessage.key);
             if (imcMessage.isNBTMessage())
                 MessageRegistry.registerMessage(imcMessage.key, imcMessage.getNBTValue());
         }

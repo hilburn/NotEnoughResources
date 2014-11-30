@@ -29,7 +29,7 @@ public class ModifyOreMessage extends ModifyMessage
 
     public ModifyOreMessage(ItemStack ore, boolean add, Priority priority, ItemStack... drops)
     {
-        super(priority,add);
+        super(priority, add);
         this.ore = ore;
         if (add)
             this.addDrops = drops;
@@ -44,7 +44,7 @@ public class ModifyOreMessage extends ModifyMessage
 
     public ModifyOreMessage(ItemStack ore, ItemStack[] removeDrops, ItemStack[] addDrops, Priority removePriority, Priority addPriority)
     {
-        super(addPriority,removePriority);
+        super(addPriority, removePriority);
         this.ore = ore;
         this.removeDrops = removeDrops;
         this.addDrops = addDrops;
@@ -86,18 +86,18 @@ public class ModifyOreMessage extends ModifyMessage
     @Override
     public boolean hasAdd()
     {
-        return addDrops.length>0;
+        return addDrops.length > 0;
     }
 
     @Override
     public boolean hasRemove()
     {
-        return removeDrops.length>0;
+        return removeDrops.length > 0;
     }
 
     @Override
     public boolean isValid()
     {
-        return ore!=null && (hasAdd() || hasRemove());
+        return ore != null && (hasAdd() || hasRemove());
     }
 }

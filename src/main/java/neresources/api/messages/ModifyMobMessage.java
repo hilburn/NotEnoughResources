@@ -15,32 +15,32 @@ public class ModifyMobMessage extends ModifyMessage
     private ItemStack[] removeDrops = new ItemStack[0];
     private boolean strict;
     private boolean witherSkeleton;
-    
+
     public ModifyMobMessage(Class clazz, DropItem... addDrops)
     {
-        this(clazz,false,false,addDrops);
+        this(clazz, false, false, addDrops);
     }
-    
+
     public ModifyMobMessage(Class clazz, boolean strict, DropItem... addDrops)
     {
-        this(clazz, strict,false,addDrops);
+        this(clazz, strict, false, addDrops);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, DropItem... addDrops)
     {
-        this(clazz, strict,witherSkeleton,Priority.SECOND,addDrops);
+        this(clazz, strict, witherSkeleton, Priority.SECOND, addDrops);
     }
 
-    public ModifyMobMessage(Class clazz, Priority priority,  DropItem... addDrops)
+    public ModifyMobMessage(Class clazz, Priority priority, DropItem... addDrops)
     {
-        this(clazz,false,false,priority,addDrops);
+        this(clazz, false, false, priority, addDrops);
     }
 
-    public ModifyMobMessage(Class clazz, boolean strict, Priority priority,  DropItem... addDrops)
+    public ModifyMobMessage(Class clazz, boolean strict, Priority priority, DropItem... addDrops)
     {
-        this(clazz, strict,false,priority,addDrops);
+        this(clazz, strict, false, priority, addDrops);
     }
-    
+
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, Priority priority, DropItem... addDrops)
     {
         this(clazz, strict, witherSkeleton, addDrops, new ItemStack[0], priority);
@@ -48,27 +48,27 @@ public class ModifyMobMessage extends ModifyMessage
 
     public ModifyMobMessage(Class clazz, ItemStack... removeDrops)
     {
-        this(clazz,false,false,removeDrops);
+        this(clazz, false, false, removeDrops);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, ItemStack... removeDrops)
     {
-        this(clazz, strict,false,removeDrops);
+        this(clazz, strict, false, removeDrops);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, ItemStack... removeDrops)
     {
-        this(clazz, strict,witherSkeleton,Priority.SECOND,removeDrops);
+        this(clazz, strict, witherSkeleton, Priority.SECOND, removeDrops);
     }
 
-    public ModifyMobMessage(Class clazz, Priority priority,  ItemStack... removeDrops)
+    public ModifyMobMessage(Class clazz, Priority priority, ItemStack... removeDrops)
     {
-        this(clazz,false,false,priority,removeDrops);
+        this(clazz, false, false, priority, removeDrops);
     }
 
-    public ModifyMobMessage(Class clazz, boolean strict, Priority priority,  ItemStack... removeDrops)
+    public ModifyMobMessage(Class clazz, boolean strict, Priority priority, ItemStack... removeDrops)
     {
-        this(clazz, strict,false,priority,removeDrops);
+        this(clazz, strict, false, priority, removeDrops);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, Priority priority, ItemStack... removeDrops)
@@ -78,27 +78,27 @@ public class ModifyMobMessage extends ModifyMessage
 
     public ModifyMobMessage(Class clazz, DropItem[] addDrops, ItemStack[] removeDrops)
     {
-        this(clazz,addDrops,removeDrops,Priority.SECOND);
+        this(clazz, addDrops, removeDrops, Priority.SECOND);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, DropItem[] addDrops, ItemStack[] removeDrops)
     {
-        this(clazz, strict,addDrops,removeDrops,Priority.SECOND);
+        this(clazz, strict, addDrops, removeDrops, Priority.SECOND);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, DropItem[] addDrops, ItemStack[] removeDrops)
     {
-        this(clazz, strict,witherSkeleton,addDrops,removeDrops,Priority.SECOND);
+        this(clazz, strict, witherSkeleton, addDrops, removeDrops, Priority.SECOND);
     }
 
     public ModifyMobMessage(Class clazz, DropItem[] addDrops, ItemStack[] removeDrops, Priority priority)
     {
-        this(clazz,false,addDrops,removeDrops,priority);
+        this(clazz, false, addDrops, removeDrops, priority);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, DropItem[] addDrops, ItemStack[] removeDrops, Priority priority)
     {
-        this(clazz, strict,false,addDrops,removeDrops,priority);
+        this(clazz, strict, false, addDrops, removeDrops, priority);
     }
 
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, DropItem[] addDrops, ItemStack[] removeDrops, Priority priority)
@@ -108,20 +108,20 @@ public class ModifyMobMessage extends ModifyMessage
 
     public ModifyMobMessage(Class clazz, boolean strict, boolean witherSkeleton, DropItem[] addDrops, ItemStack[] removeDrops, Priority addPriority, Priority removePriority)
     {
-        super(addPriority,removePriority);
-        initialize(clazz, strict,witherSkeleton,addDrops,removeDrops);
+        super(addPriority, removePriority);
+        initialize(clazz, strict, witherSkeleton, addDrops, removeDrops);
     }
 
     @Override
     public boolean hasAdd()
     {
-        return addDrops.length>0;
+        return addDrops.length > 0;
     }
 
     @Override
     public boolean hasRemove()
     {
-        return removeDrops.length>0;
+        return removeDrops.length > 0;
     }
 
     public Class getFilterClass()
@@ -152,7 +152,7 @@ public class ModifyMobMessage extends ModifyMessage
     public ModifyMobMessage(NBTTagCompound tagCompound)
     {
         super(tagCompound);
-        initialize(ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className)),tagCompound.getBoolean(MessageKeys.strict),tagCompound.getBoolean(MessageKeys.wither),MessageHelper.getDropItems(tagCompound,MessageKeys.addDrops),MessageHelper.getItemStacks(tagCompound,MessageKeys.removeDrops));
+        initialize(ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className)), tagCompound.getBoolean(MessageKeys.strict), tagCompound.getBoolean(MessageKeys.wither), MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops), MessageHelper.getItemStacks(tagCompound, MessageKeys.removeDrops));
     }
 
     private void initialize(Class clazz, boolean strict, boolean witherSkeleton, DropItem[] addDrops, ItemStack[] removeDrops)
@@ -160,7 +160,7 @@ public class ModifyMobMessage extends ModifyMessage
         this.clazz = clazz;
         this.strict = strict;
         this.witherSkeleton = witherSkeleton;
-        this.addDrops  = addDrops;
+        this.addDrops = addDrops;
         this.removeDrops = removeDrops;
     }
 
@@ -179,6 +179,6 @@ public class ModifyMobMessage extends ModifyMessage
     @Override
     public boolean isValid()
     {
-        return clazz!=null && (hasAdd() || hasRemove());
+        return clazz != null && (hasAdd() || hasRemove());
     }
 }

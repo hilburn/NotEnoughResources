@@ -1,7 +1,6 @@
 package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
-import neresources.api.messages.ModifyMessage;
 import neresources.api.messages.ModifyOreMessage;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.ColorHelper;
@@ -45,8 +44,8 @@ public class OreEntry
         this.distribution = message.getDistribution();
         this.needSilkTouch = message.needSilkTouch();
         this.colour = message.getColour();
-        if (message.getDrops().length>0)
-            MessageRegistry.addMessage(new ModifyOreMessage(this.ore,true,Priority.FIRST,message.getDrops()));
+        if (message.getDrops().length > 0)
+            MessageRegistry.addMessage(new ModifyOreMessage(this.ore, true, Priority.FIRST, message.getDrops()));
     }
 
     public ItemStack getOre()

@@ -1,6 +1,8 @@
 package neresources.compatibility;
 
-import neresources.registry.*;
+import neresources.registry.ChangeOreDrop;
+import neresources.registry.MessageRegistry;
+import neresources.registry.OreRegistry;
 import neresources.utils.ModList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

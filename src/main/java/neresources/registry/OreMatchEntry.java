@@ -1,10 +1,10 @@
 package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
+import neresources.api.utils.ColorHelper;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
-import neresources.api.utils.ColorHelper;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -120,8 +120,7 @@ public class OreMatchEntry
             if (drop.isItemEqual(removeDrop))
             {
                 silkTouchMap.remove(MapKeys.key(removeDrop));
-            }
-            else newDrops.add(drop);
+            } else newDrops.add(drop);
         }
         drops = newDrops;
         if (MapKeys.getKey(removeDrop).startsWith("denseore"))

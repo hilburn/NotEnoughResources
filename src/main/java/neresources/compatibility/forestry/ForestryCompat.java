@@ -7,7 +7,6 @@ import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.ModifyOreMessage;
 import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
-import neresources.registry.ChangeOreDrop;
 import neresources.registry.MessageRegistry;
 import neresources.registry.OreEntry;
 import net.minecraft.block.Block;

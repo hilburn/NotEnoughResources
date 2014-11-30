@@ -14,20 +14,20 @@ public class MessageRegistry
     private static Set<ModifyMessage> modifyMessages = new LinkedHashSet<ModifyMessage>();
     private static Set<RemoveMessage> removeMessages = new LinkedHashSet<RemoveMessage>();
 
-    public static void getModifyMessages(Priority priority, Set<ModifyMessage> add, Set<ModifyMessage> remove )
+    public static void getModifyMessages(Priority priority, Set<ModifyMessage> add, Set<ModifyMessage> remove)
     {
         for (ModifyMessage message : modifyMessages)
         {
-            if(message.hasAdd() && message.getAddPriority() == priority) add.add(message);
-            if(message.hasRemove() && message.getRemovePriority() == priority) remove.add(message);
+            if (message.hasAdd() && message.getAddPriority() == priority) add.add(message);
+            if (message.hasRemove() && message.getRemovePriority() == priority) remove.add(message);
         }
     }
 
     public static void addMessage(Message message)
     {
-        if (message==null || !message.isValid()) return;
-        if (message instanceof ModifyMessage) modifyMessages.add((ModifyMessage)message);
-        else if (message instanceof RemoveMessage) removeMessages.add((RemoveMessage)message);
+        if (message == null || !message.isValid()) return;
+        if (message instanceof ModifyMessage) modifyMessages.add((ModifyMessage) message);
+        else if (message instanceof RemoveMessage) removeMessages.add((RemoveMessage) message);
         else registerMessages.add(message);
     }
 
@@ -46,13 +46,15 @@ public class MessageRegistry
     {
         for (Message message : registerMessages)
         {
-            if (message instanceof RegisterOreMessage) OreRegistry.getInstance().register(new OreEntry((RegisterOreMessage)message));
-            else if (message instanceof RegisterMobMessage) MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
+            if (message instanceof RegisterOreMessage)
+                OreRegistry.getInstance().register(new OreEntry((RegisterOreMessage) message));
+            else if (message instanceof RegisterMobMessage)
+                MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
         }
 
         for (Message message : removeMessages)
         {
-            if (message instanceof RemoveMobMessage) MobRegistry.getInstance().removeMob((RemoveMobMessage)message);
+            if (message instanceof RemoveMobMessage) MobRegistry.getInstance().removeMob((RemoveMobMessage) message);
         }
 
         for (Priority priority : Priority.values())
@@ -62,13 +64,17 @@ public class MessageRegistry
             getModifyMessages(priority, addMessages, removeMessages);
             for (ModifyMessage addMessage : addMessages)
             {
-                if (addMessage instanceof ModifyMobMessage) MobRegistry.getInstance().addMobDrops(new ChangeMobDrop((ModifyMobMessage)addMessage));
-                if (addMessage instanceof ModifyOreMessage) OreRegistry.getInstance().addDrops(new ChangeOreDrop((ModifyOreMessage) addMessage));
+                if (addMessage instanceof ModifyMobMessage)
+                    MobRegistry.getInstance().addMobDrops(new ChangeMobDrop((ModifyMobMessage) addMessage));
+                if (addMessage instanceof ModifyOreMessage)
+                    OreRegistry.getInstance().addDrops(new ChangeOreDrop((ModifyOreMessage) addMessage));
             }
             for (ModifyMessage removeMessage : removeMessages)
             {
-                if (removeMessage instanceof ModifyMobMessage) MobRegistry.getInstance().removeMobDrops(new ChangeMobDrop((ModifyMobMessage)removeMessage));
-                if (removeMessage instanceof ModifyOreMessage) OreRegistry.getInstance().removeDrops(new ChangeOreDrop((ModifyOreMessage)removeMessage));
+                if (removeMessage instanceof ModifyMobMessage)
+                    MobRegistry.getInstance().removeMobDrops(new ChangeMobDrop((ModifyMobMessage) removeMessage));
+                if (removeMessage instanceof ModifyOreMessage)
+                    OreRegistry.getInstance().removeDrops(new ChangeOreDrop((ModifyOreMessage) removeMessage));
             }
         }
     }

@@ -10,7 +10,7 @@ public enum Priority
 
     public static Priority getPriority(int i)
     {
-        if (i<0||i>=values().length) return FIRST;
+        if (i < 0 || i >= values().length) return FIRST;
         return values()[i];
     }
 

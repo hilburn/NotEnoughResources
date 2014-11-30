@@ -21,8 +21,7 @@ public abstract class ModifyMessage extends Message
         {
             addPriority = priority;
             removePriority = Priority.FIRST;
-        }
-        else
+        } else
         {
             addPriority = Priority.FIRST;
             removePriority = priority;
@@ -53,7 +52,7 @@ public abstract class ModifyMessage extends Message
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
         tagCompound.setInteger(MessageKeys.addPriority, addPriority.ordinal());
-        tagCompound.setInteger(MessageKeys.removePriority,removePriority.ordinal());
+        tagCompound.setInteger(MessageKeys.removePriority, removePriority.ordinal());
         return tagCompound;
     }
 }

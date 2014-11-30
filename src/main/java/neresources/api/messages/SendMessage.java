@@ -22,16 +22,16 @@ public class SendMessage
 
     public static void sendMessage(ModifyMobMessage message)
     {
-        sendMessage(message,MessageKeys.modifyMob);
+        sendMessage(message, MessageKeys.modifyMob);
     }
-    
+
     public static void sendMessage(RemoveMobMessage message)
     {
-        sendMessage(message,MessageKeys.removeMob);
+        sendMessage(message, MessageKeys.removeMob);
     }
 
     public static void sendMessage(Message message, String key)
     {
-        if (message.isValid()) FMLInterModComms.sendMessage(MessageKeys.notEnoughResources,key,message.getMessage());
+        if (message.isValid()) FMLInterModComms.sendMessage(MessageKeys.notEnoughResources, key, message.getMessage());
     }
 }

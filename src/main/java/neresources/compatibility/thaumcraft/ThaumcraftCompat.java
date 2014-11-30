@@ -7,7 +7,6 @@ import neresources.api.messages.ModifyOreMessage;
 import neresources.api.utils.*;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
-import neresources.registry.ChangeOreDrop;
 import neresources.registry.MessageRegistry;
 import neresources.registry.MobEntry;
 import neresources.registry.OreEntry;
@@ -60,7 +59,7 @@ public class ThaumcraftCompat extends CompatBase
         DropItem essence = new DropItem(new ItemStack(ConfigItems.itemWispEssence), 1, 1, randomAspect);
         if (Config.spawnWisp) registerMob(new MobEntry(new EntityWisp(null), LightLevel.hostile, essence));
 
-        DropItem knowledge = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 9), 1, 1, Conditional.playerKill, Conditional.rareDrop);
+        DropItem knowledge = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 9), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop);
         DropItem bean = new DropItem(new ItemStack(ConfigItems.itemManaBean), 0, 1, randomAspect);
         if (Config.spawnPech) registerMob(new MobEntry(new EntityPech(null), LightLevel.any, bean, knowledge));
 

@@ -34,14 +34,14 @@ public class RegisterMobMessage extends Message
     {
         this.mobClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className));
         this.lightLevel = LightLevel.decodeLightLevel(tagCompound.getString(MessageKeys.lightLevel));
-        this.drops = MessageHelper.getDropItems(tagCompound,MessageKeys.addDrops);
+        this.drops = MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setString(MessageKeys.className,mobClass.getName());
-        tagCompound.setString(MessageKeys.lightLevel,lightLevel.encode());
+        tagCompound.setString(MessageKeys.className, mobClass.getName());
+        tagCompound.setString(MessageKeys.lightLevel, lightLevel.encode());
         tagCompound.setTag(MessageKeys.addDrops, MessageHelper.getDropItemList(drops));
         return tagCompound;
     }
@@ -49,7 +49,7 @@ public class RegisterMobMessage extends Message
     @Override
     public boolean isValid()
     {
-        return mobClass!=null;
+        return mobClass != null;
     }
 
     public Class getMobClass()

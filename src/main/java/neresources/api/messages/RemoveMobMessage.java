@@ -1,35 +1,35 @@
 package neresources.api.messages;
 
-import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
+import neresources.utils.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class RemoveMobMessage extends RemoveMessage
 {
-    private String className;
+    private Class filterClass;
     private boolean strict;
     private boolean witherSkeleton;
 
-    public RemoveMobMessage(Object clazz)
+    public RemoveMobMessage(Class clazz)
     {
         this(clazz, false);
     }
 
-    public RemoveMobMessage(Object clazz, boolean strict)
+    public RemoveMobMessage(Class clazz, boolean strict)
     {
-        this(clazz,strict,false);
+        this(clazz, strict, false);
     }
 
-    public RemoveMobMessage(Object clazz, boolean strict, boolean witherSkeleton)
+    public RemoveMobMessage(Class clazz, boolean strict, boolean witherSkeleton)
     {
-        this.className = MessageHelper.getClass(clazz);
+        this.filterClass = clazz;
         this.strict = strict;
         this.witherSkeleton = witherSkeleton;
     }
 
     public RemoveMobMessage(NBTTagCompound tagCompound)
     {
-        this.className = tagCompound.getString(MessageKeys.className);
+        this.filterClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className));
         this.strict = tagCompound.getBoolean(MessageKeys.strict);
         this.witherSkeleton = tagCompound.getBoolean(MessageKeys.wither);
     }
@@ -37,7 +37,7 @@ public class RemoveMobMessage extends RemoveMessage
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setString(MessageKeys.className, this.className);
+        tagCompound.setString(MessageKeys.className, this.filterClass.getName());
         tagCompound.setBoolean(MessageKeys.strict, this.strict);
         tagCompound.setBoolean(MessageKeys.wither, this.witherSkeleton);
         return tagCompound;
@@ -46,6 +46,21 @@ public class RemoveMobMessage extends RemoveMessage
     @Override
     public boolean isValid()
     {
-        return !this.className.equals("");
+        return !this.filterClass.equals("");
+    }
+
+    public Class getFilterClass()
+    {
+        return filterClass;
+    }
+
+    public boolean isStrict()
+    {
+        return strict;
+    }
+
+    public boolean isWither()
+    {
+        return witherSkeleton;
     }
 }

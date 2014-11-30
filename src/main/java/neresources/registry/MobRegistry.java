@@ -60,27 +60,27 @@ public class MobRegistry
 
     public void removeMobDrops(ChangeMobDrop entry)
     {
-        for (MobEntry regEntry : getRegistryMatches(entry.getFilterClass(),entry.isExactMatch(),entry.witherSkeleton()))
+        for (MobEntry regEntry : getRegistryMatches(entry.getFilterClass(), entry.isExactMatch(), entry.witherSkeleton()))
             for (ItemStack item : entry.removeItems())
                 regEntry.removeDrop(item);
     }
 
     public void addMobDrops(ChangeMobDrop entry)
     {
-        for (MobEntry regEntry : getRegistryMatches(entry.getFilterClass(),entry.isExactMatch(),entry.witherSkeleton()))
+        for (MobEntry regEntry : getRegistryMatches(entry.getFilterClass(), entry.isExactMatch(), entry.witherSkeleton()))
             for (DropItem item : entry.addItems())
                 regEntry.addDrop(item);
     }
 
     public void removeMob(RemoveMobMessage message)
     {
-
+        registry.removeAll(getRegistryMatches(message.getFilterClass(), message.isStrict(), message.isWither()));
     }
 
     public Set<MobEntry> getRegistryMatches(Class clazz, boolean exactMatch, boolean witherSkeleton)
     {
         Set<MobEntry> result = new LinkedHashSet<MobEntry>();
-        int wither = witherSkeleton? 1 : 0;
+        int wither = witherSkeleton ? 1 : 0;
         for (MobEntry regEntry : registry)
         {
             Set classes = new LinkedHashSet();

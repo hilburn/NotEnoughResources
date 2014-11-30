@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MobEntry
@@ -37,11 +38,12 @@ public class MobEntry
 
     public MobEntry(RegisterMobMessage message)
     {
-        if (!ReflectionHelper.checkInstanceOf(message.getMobClass(), EntityLivingBase.class)) return;
-        entity = (EntityLivingBase) ReflectionHelper.initialize(message.getMobClass(),World.class,null);
+        if (!ReflectionHelper.isInstanceOf(message.getMobClass(), EntityLivingBase.class)) return;
+        entity = (EntityLivingBase) ReflectionHelper.initialize(message.getMobClass(), World.class, null);
         this.lightLevel = message.getLightLevel();
-        for (DropItem drop: message.getDrops())
+        for (DropItem drop : message.getDrops())
             drops.add(drop);
+        Collections.sort(drops);
     }
 
     public EntityLivingBase getEntity()
@@ -69,6 +71,7 @@ public class MobEntry
         for (DropItem drop : drops)
             if (drop.item.isItemEqual(item.item)) return false;
         drops.add(item);
+        Collections.sort(drops);
         return true;
     }
 

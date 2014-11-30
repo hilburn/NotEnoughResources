@@ -10,13 +10,13 @@ import net.minecraft.nbt.NBTTagString;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropItem
+public class DropItem implements Comparable<DropItem>
 {
     public int minDrop, maxDrop;
     public ItemStack item;
     public float chance;
     public List<String> conditionals = new ArrayList<String>();
-
+    private float sortIndex;
 
     /**
      * @param item    The dropped {@link net.minecraft.item.ItemStack} (chance for drop will be 100%)
@@ -40,6 +40,7 @@ public class DropItem
         this.minDrop = minDrop;
         this.maxDrop = maxDrop;
         this.chance = chance;
+        sortIndex = Math.min(chance, 1F) * (float) (minDrop + maxDrop);
         for (Conditional conditional : conditionals)
             this.conditionals.add(conditional.toString());
     }
@@ -119,14 +120,26 @@ public class DropItem
     public NBTTagCompound getNBTTagCompound()
     {
         NBTTagCompound compound = new NBTTagCompound();
-        compound.setTag("stack",item.writeToNBT(new NBTTagCompound()));
+        compound.setTag("stack", item.writeToNBT(new NBTTagCompound()));
         compound.setInteger("max", this.maxDrop);
-        compound.setInteger("min",this.minDrop);
-        compound.setFloat("chance",this.chance);
+        compound.setInteger("min", this.minDrop);
+        compound.setFloat("chance", this.chance);
         NBTTagList conditionals = new NBTTagList();
-        for (String condition:this.conditionals)
+        for (String condition : this.conditionals)
             conditionals.appendTag(new NBTTagString(condition));
-        compound.setTag("conditionals",conditionals);
+        compound.setTag("conditionals", conditionals);
         return compound;
+    }
+
+    public float getSortIndex()
+    {
+        return sortIndex;
+    }
+
+    @Override
+    public int compareTo(DropItem o)
+    {
+        float result = getSortIndex() - o.getSortIndex();
+        return result < 0 ? 1 : -1;
     }
 }

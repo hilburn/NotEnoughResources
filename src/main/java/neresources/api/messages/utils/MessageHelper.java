@@ -17,15 +17,15 @@ public class MessageHelper
     public static NBTTagList getItemStackList(ItemStack... stacks)
     {
         NBTTagList result = new NBTTagList();
-        for (ItemStack stack:stacks)
+        for (ItemStack stack : stacks)
             result.appendTag(stack.writeToNBT(new NBTTagCompound()));
         return result;
     }
 
-    public static  NBTTagList getDropItemList(DropItem... dropItems)
+    public static NBTTagList getDropItemList(DropItem... dropItems)
     {
         NBTTagList result = new NBTTagList();
-        for (DropItem dropItem:dropItems)
+        for (DropItem dropItem : dropItems)
             result.appendTag(dropItem.getNBTTagCompound());
         return result;
     }
@@ -98,8 +98,8 @@ public class MessageHelper
     public static int[] getIntArray(float[] distribution)
     {
         int[] array = new int[distribution.length];
-        for (int i=0;i<array.length;i++)
-            array[i] = (int)(distribution[i]*NBT_MULTIPLIER);
+        for (int i = 0; i < array.length; i++)
+            array[i] = (int) (distribution[i] * NBT_MULTIPLIER);
         return array;
     }
 
@@ -108,10 +108,10 @@ public class MessageHelper
         if (!tagCompound.hasKey(MessageKeys.distribution)) return null;
         int[] array = tagCompound.getIntArray(MessageKeys.distribution);
         float[] distribution = new float[256];
-        for (int i=0;i<array.length && i<distribution.length;i++)
-            distribution[i] = (float)array[i]/NBT_MULTIPLIER;
+        for (int i = 0; i < array.length && i < distribution.length; i++)
+            distribution[i] = (float) array[i] / NBT_MULTIPLIER;
         if (tagCompound.hasKey(MessageKeys.bestHeight))
-            return new DistributionCustom(distribution,tagCompound.getInteger(MessageKeys.bestHeight));
+            return new DistributionCustom(distribution, tagCompound.getInteger(MessageKeys.bestHeight));
         else
             return new DistributionCustom(distribution);
     }
@@ -121,7 +121,7 @@ public class MessageHelper
         if (clazz instanceof String)
             return (String) clazz;
         if (clazz instanceof Class)
-            return ((Class)clazz).getName();
+            return ((Class) clazz).getName();
         return "";
     }
 }
