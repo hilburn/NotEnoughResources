@@ -1,13 +1,13 @@
 package neresources.registry;
 
+import neresources.api.messages.RegisterDungeonMessage;
+import neresources.utils.ReflectionHelper;
 import neresources.utils.WeightedRandomChestContentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class DungeonEntry
 {
@@ -18,13 +18,22 @@ public class DungeonEntry
     public DungeonEntry(String name, ChestGenHooks chestGenHooks)
     {
         int totalWeight = 0;
-        for (WeightedRandomChestContent chestItem : chestGenHooks.getItems(new Random()))
+        List<WeightedRandomChestContent> content = (ArrayList<WeightedRandomChestContent>) ReflectionHelper.getObject(ChestGenHooks.class, "contents" , chestGenHooks);
+        for (WeightedRandomChestContent chestItem : content)
             totalWeight += chestItem.itemWeight;
-        for (WeightedRandomChestContent chestItem : WeightedRandomChestContentHelper.sort(chestGenHooks.getItems(new Random())))
+        for (WeightedRandomChestContent chestItem : WeightedRandomChestContentHelper.sort(content.toArray(new WeightedRandomChestContent[content.size()])))
             chestDrops.put(chestItem.theItemId, (float) (chestItem.theMaximumChanceToGenerateItem + chestItem.theMinimumChanceToGenerateItem) / 2 * (float) chestItem.itemWeight / totalWeight);
         this.name = name;
         this.minStacks = chestGenHooks.getMin();
         this.maxStacks = chestGenHooks.getMax();
+    }
+
+    public DungeonEntry(RegisterDungeonMessage message)
+    {
+        chestDrops = message.getChestDrops();
+        name = message.getName();
+        maxStacks = message.getMaxStacks();
+        minStacks = message.getMinStacks();
     }
 
     public boolean containsItem(ItemStack itemStack)

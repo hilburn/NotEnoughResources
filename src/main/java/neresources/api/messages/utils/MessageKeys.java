@@ -4,6 +4,7 @@ public class MessageKeys
 {
     public static final String notEnoughResources = "neresources";
 
+    public static final String registerDungeon = "registerDungeon";
     public static final String registerMob = "registerMob";
     public static final String registerOre = "registerOre";
     public static final String modifyMob = "modifyMob";
@@ -14,10 +15,15 @@ public class MessageKeys
     public static final String distribution = "distribution";
     public static final String bestHeight = "bestHeight";
     public static final String ore = "ore";
-    public static final String className = "className";
+    public static final String name = "name";
     public static final String lightLevel = "lightLevel";
     public static final String conditionals = "conditionals";
     public static final String colour = "colour";
+
+    public static final String itemList = "itemList";
+    public static final String chance  = "chance";
+    public static final String min  = "min";
+    public static final String max  = "max";
 
     public static final String addPriority = "addPriority";
     public static final String removePriority = "removePriority";

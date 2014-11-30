@@ -36,6 +36,7 @@ public class MessageRegistry
         Message message = null;
         if (key.equals(MessageKeys.registerMob)) message = new RegisterMobMessage(tagCompound);
         else if (key.equals(MessageKeys.registerOre)) message = new RegisterOreMessage(tagCompound);
+        else if (key.equals(MessageKeys.registerDungeon)) message = new RegisterDungeonMessage(tagCompound);
         else if (key.equals(MessageKeys.modifyMob)) message = new ModifyMobMessage(tagCompound);
         else if (key.equals(MessageKeys.modifyOre)) message = new ModifyOreMessage(tagCompound);
         else if (key.equals(MessageKeys.removeMob)) message = new RemoveMobMessage(tagCompound);
@@ -50,6 +51,8 @@ public class MessageRegistry
                 OreRegistry.getInstance().register(new OreEntry((RegisterOreMessage) message));
             else if (message instanceof RegisterMobMessage)
                 MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
+            else if (message instanceof RegisterDungeonMessage)
+                DungeonRegistry.getInstance().registerDungeonEntry(new DungeonEntry((RegisterDungeonMessage)message));
         }
 
         for (Message message : removeMessages)

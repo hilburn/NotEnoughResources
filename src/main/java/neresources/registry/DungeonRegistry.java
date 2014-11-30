@@ -1,6 +1,5 @@
 package neresources.registry;
 
-import neresources.api.messages.IDungeonEntry;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
@@ -66,9 +65,11 @@ public class DungeonRegistry
         return registerChestHook(name, chestGenHooks);
     }
 
-    public void registerDungeonEntry(IDungeonEntry entry)
+    public void registerDungeonEntry(DungeonEntry entry)
     {
-        registerChestHook(entry.getName(), entry.getChestGenHooks());
+        String name = entry.getName();
+        if (registry.containsKey(name)) return;
+        registry.put(name, entry);
     }
 
     public List<DungeonEntry> getDungeons(ItemStack item)

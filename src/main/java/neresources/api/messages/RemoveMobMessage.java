@@ -29,7 +29,7 @@ public class RemoveMobMessage extends RemoveMessage
 
     public RemoveMobMessage(NBTTagCompound tagCompound)
     {
-        this.filterClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className));
+        this.filterClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.name));
         this.strict = tagCompound.getBoolean(MessageKeys.strict);
         this.witherSkeleton = tagCompound.getBoolean(MessageKeys.wither);
     }
@@ -37,7 +37,7 @@ public class RemoveMobMessage extends RemoveMessage
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setString(MessageKeys.className, this.filterClass.getName());
+        tagCompound.setString(MessageKeys.name, this.filterClass.getName());
         tagCompound.setBoolean(MessageKeys.strict, this.strict);
         tagCompound.setBoolean(MessageKeys.wither, this.witherSkeleton);
         return tagCompound;

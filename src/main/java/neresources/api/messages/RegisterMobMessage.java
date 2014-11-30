@@ -32,7 +32,7 @@ public class RegisterMobMessage extends Message
 
     public RegisterMobMessage(NBTTagCompound tagCompound)
     {
-        this.mobClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className));
+        this.mobClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.name));
         this.lightLevel = LightLevel.decodeLightLevel(tagCompound.getString(MessageKeys.lightLevel));
         this.drops = MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops);
     }
@@ -40,7 +40,7 @@ public class RegisterMobMessage extends Message
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setString(MessageKeys.className, mobClass.getName());
+        tagCompound.setString(MessageKeys.name, mobClass.getName());
         tagCompound.setString(MessageKeys.lightLevel, lightLevel.encode());
         tagCompound.setTag(MessageKeys.addDrops, MessageHelper.getDropItemList(drops));
         return tagCompound;

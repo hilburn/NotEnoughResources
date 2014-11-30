@@ -5,6 +5,10 @@ import neresources.api.messages.utils.MessageKeys;
 
 public class SendMessage
 {
+    public static void sendMessage(RegisterDungeonMessage message)
+    {
+        sendMessage(message, MessageKeys.registerDungeon);
+    }
     public static void sendMessage(RegisterOreMessage message)
     {
         sendMessage(message, MessageKeys.registerOre);

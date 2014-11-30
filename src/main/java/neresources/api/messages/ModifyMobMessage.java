@@ -152,7 +152,7 @@ public class ModifyMobMessage extends ModifyMessage
     public ModifyMobMessage(NBTTagCompound tagCompound)
     {
         super(tagCompound);
-        initialize(ReflectionHelper.findClass(tagCompound.getString(MessageKeys.className)), tagCompound.getBoolean(MessageKeys.strict), tagCompound.getBoolean(MessageKeys.wither), MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops), MessageHelper.getItemStacks(tagCompound, MessageKeys.removeDrops));
+        initialize(ReflectionHelper.findClass(tagCompound.getString(MessageKeys.name)), tagCompound.getBoolean(MessageKeys.strict), tagCompound.getBoolean(MessageKeys.wither), MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops), MessageHelper.getItemStacks(tagCompound, MessageKeys.removeDrops));
     }
 
     private void initialize(Class clazz, boolean strict, boolean witherSkeleton, DropItem[] addDrops, ItemStack[] removeDrops)
@@ -168,7 +168,7 @@ public class ModifyMobMessage extends ModifyMessage
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
         super.writeToNBT(tagCompound);
-        tagCompound.setString(MessageKeys.className, this.clazz.getName());
+        tagCompound.setString(MessageKeys.name, this.clazz.getName());
         tagCompound.setBoolean(MessageKeys.strict, this.strict);
         tagCompound.setBoolean(MessageKeys.wither, this.witherSkeleton);
         tagCompound.setTag(MessageKeys.addDrops, MessageHelper.getDropItemList(addDrops));
