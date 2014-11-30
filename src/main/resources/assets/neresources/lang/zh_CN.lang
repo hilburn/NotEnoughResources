@@ -1,7 +1,7 @@
 ner.config.itemsPerColumn.title=每列显示物品数
-ner.config.itemsPerColumn.description=调整NEI面板中每列显示地牢物品与生物掉落物的数量
+ner.config.itemsPerColumn.description=调整NEI面板中每列显示地牢资源与生物掉落物的数量
 ner.config.itemsPerRow.title=每行显示物品数
-ner.config.itemsPerRow.description=调整NEI面板中每行显示地牢物品的数量
+ner.config.itemsPerRow.description=调整NEI面板中每行显示地牢资源的数量
 ner.config.cycleTime.title=循环间隔
 ner.config.cycleTime.description=调整NEI面板中单种物品持续显示的时间
 ner.config.extraRange.title=层数范围
@@ -14,7 +14,7 @@ ner.of=/
 ner.stacks=组
 
 #Dungeon View
-ner.dungeon.title=地牢箱子信息
+ner.dungeon.title=地牢资源
 ner.dungeon.mineshaftCorridor=废弃矿井
 ner.dungeon.pyramidDesertyChest=沙漠神殿
 ner.dungeon.pyramidJungleChest=废弃矿井
@@ -27,10 +27,10 @@ ner.dungeon.bonusChest=奖励箱子
 ner.dungeon.dungeonChest=小型地牢
 
 #Enchantments View
-ner.enchantments.title=附魔属性
+ner.enchantments.title=可用附魔属性
 
 #Grass View
-ner.grass.title=草种信息
+ner.grass.title=草种掉落信息
 
 #Ore View
 ner.ore.title=矿物生成
@@ -38,9 +38,69 @@ ner.ore.bestY=常见层数
 ner.ore.silkTouch=需要精准采集
 
 #Mob View
-ner.mob.title=生物信息
-ner.mob.biome=生成群系: 悬停鼠标查看
+ner.mob.title=生物资源
+ner.mob.biome=生成群系: 将鼠标悬停在此处查看
 ner.mob.exp=掉落经验
 
 #Seed View
-ner.seed.title=种子信息
+ner.seed.title=种子掉落信息
+
+#Conditionals - when translating retain '%s' as this lets the modifier be properly inserted into the string
+ner.magmaCream.text=仅小型或大型岩浆怪掉落
+ner.slimeBall.text=仅小型史莱姆掉落
+ner.rareDrop.text=稀有掉落物
+
+ner.slimeScale.text=掉落数量由史莱姆大小决定
+ner.kingSlime.text=仅史莱姆王掉落
+ner.beheading.text=使用带斩首属性的工具击杀将增加掉落几率
+ner.randomAspect.text=随机要素
+ner.equipmentDrop.text=装备掉落物
+
+ner.burning.text=掉落条件: 燃烧致死
+ner.notBurning.text=掉落条件: 未燃烧致死
+ner.wet.text=掉落条件: 沾水
+ner.notWet.text=掉落条件: 未沾水
+ner.hasPotion.text=掉落条件: 带有状态效果%s
+ner.hasNoPotion.text=掉落条件: 无状态效果%s
+ner.beyond.text=掉落条件: 距离出生点超过%s米
+ner.nearer.text=掉落条件: 距离出生点小于%s米
+ner.raining.text=掉落条件: 降雨时
+ner.dry.text=掉落条件: 无降雨
+ner.thundering.text=掉落条件: 雷暴天气时
+ner.notThundering.text=掉落条件: 无雷暴天气
+ner.moonPhase.text=掉落条件: 月相处于%s时
+ner.notMoonPhase.text=掉落条件: 月相不处于%s时
+ner.pastTime.text=掉落条件: 生存天数多于%s
+ner.beforeTime.text=掉落条件: 生存天数少于%s
+ner.pastWorldTime.text=掉落条件: 时间在%s之前
+ner.beforeWorldTime.text=掉落条件: 时间在%s之后
+ner.pastWorldDifficulty.text=掉落条件: 游戏难度大于%s
+ner.beforeWorldDifficulty.text=掉落条件: 游戏难度小于%s
+ner.gameDifficulty.text=掉落条件: 游戏难度为%s
+ner.notGameDifficulty.text=掉落条件: 游戏难度不为%s
+ner.inDimension.text=掉落条件: 处于世界%s中
+ner.notInDimension.text=掉落条件: 不处于世界%s中
+ner.inBiome.text=掉落条件: 处于生物群系%s中
+ner.notInBiome.text=掉落条件: 不处于生物群系%s中
+ner.onBlock.text=掉落条件: 处在%s上
+ner.notOnBlock.text=掉落条件: 不处在%s上
+ner.below.text=掉落条件: 在%s层以下
+ner.above.text=掉落条件: 在%s层以上
+ner.playerOnline.text=掉落条件: 玩家%s在线时
+ner.playerOffline.text=掉落条件: 玩家%s离线时
+ner.playerKill.text=掉落条件: 被玩家杀死
+ner.notPlayerKill.text=掉落条件: 非玩家杀死
+ner.aboveLooting.text=掉落条件: 掠夺附魔等级大于%s
+ner.belowLooting.text=掉落条件: 掠夺附魔等级大于%s
+ner.killedBy.text=掉落条件: 被%s杀死
+ner.notKilledBy.text=掉落条件: 未被%s杀死
+
+#Moon Phases
+ner.full.moon=满月
+ner.waning_gibbous.moon=亏凸月
+ner.third_quarter.moon=下弦月
+ner.waning_crescent.moon=残月
+ner.new.moon=新月
+ner.waxing_crescent.moon=娥眉月
+ner.first_quarter.moon=上弦月
+ner.waxing_gibbous.moon=盈凸月
