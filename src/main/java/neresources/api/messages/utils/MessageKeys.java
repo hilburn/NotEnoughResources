@@ -7,8 +7,10 @@ public class MessageKeys
     public static final String registerDungeon = "registerDungeon";
     public static final String registerMob = "registerMob";
     public static final String registerOre = "registerOre";
+    public static final String registerPlant = "registerPlant";
     public static final String modifyMob = "modifyMob";
     public static final String modifyOre = "modifyOre";
+    public static final String modifyPlant = "modifyPlant";
     public static final String removeMob = "removeMob";
     public static final String removeOre = "removeOre";
 

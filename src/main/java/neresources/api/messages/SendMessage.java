@@ -28,6 +28,10 @@ public class SendMessage
     {
         sendMessage(message, MessageKeys.modifyMob);
     }
+    public static void sendMessage(ModifyPlantMessage message)
+    {
+        sendMessage(message, MessageKeys.modifyPlant);
+    }
 
     public static void sendMessage(RemoveMobMessage message)
     {

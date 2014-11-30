@@ -78,8 +78,6 @@ public class MessageHelper
         if (stack == null || stack.getItem() == null) return null;
         int max = Math.max(tagCompound.getInteger("max"), 1);
         int min = tagCompound.getInteger("min");
-        max = Math.max(max, stack.stackSize);
-        stack.stackSize = 1;
         float chance = tagCompound.getFloat("chance");
         if (chance == 0) chance = 1F;
         Conditional[] conditionals = decodeConditionals(tagCompound.getTagList("conditionals", 8));

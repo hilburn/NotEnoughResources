@@ -18,6 +18,11 @@ public class DropItem implements Comparable<DropItem>
     public List<String> conditionals = new ArrayList<String>();
     private float sortIndex;
 
+    public DropItem(ItemStack item, float chance)
+    {
+        this(item,0,1,chance);
+    }
+
     /**
      * @param item    The dropped {@link net.minecraft.item.ItemStack} (chance for drop will be 100%)
      * @param minDrop the maximum amount dropped

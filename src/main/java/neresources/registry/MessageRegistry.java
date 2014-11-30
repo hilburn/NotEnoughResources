@@ -39,6 +39,7 @@ public class MessageRegistry
         else if (key.equals(MessageKeys.registerDungeon)) message = new RegisterDungeonMessage(tagCompound);
         else if (key.equals(MessageKeys.modifyMob)) message = new ModifyMobMessage(tagCompound);
         else if (key.equals(MessageKeys.modifyOre)) message = new ModifyOreMessage(tagCompound);
+        else if (key.equals(MessageKeys.modifyPlant)) message = new ModifyPlantMessage(tagCompound);
         else if (key.equals(MessageKeys.removeMob)) message = new RemoveMobMessage(tagCompound);
         addMessage(message);
     }
@@ -69,14 +70,14 @@ public class MessageRegistry
             {
                 if (addMessage instanceof ModifyMobMessage)
                     MobRegistry.getInstance().addMobDrops(new ChangeMobDrop((ModifyMobMessage) addMessage));
-                if (addMessage instanceof ModifyOreMessage)
+                else if (addMessage instanceof ModifyOreMessage)
                     OreRegistry.getInstance().addDrops(new ChangeOreDrop((ModifyOreMessage) addMessage));
             }
             for (ModifyMessage removeMessage : removeMessages)
             {
                 if (removeMessage instanceof ModifyMobMessage)
                     MobRegistry.getInstance().removeMobDrops(new ChangeMobDrop((ModifyMobMessage) removeMessage));
-                if (removeMessage instanceof ModifyOreMessage)
+                else if (removeMessage instanceof ModifyOreMessage)
                     OreRegistry.getInstance().removeDrops(new ChangeOreDrop((ModifyOreMessage) removeMessage));
             }
         }
