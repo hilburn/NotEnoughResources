@@ -2,7 +2,6 @@ package neresources.api.messages.utils;
 
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.utils.DropItem;
-import neresources.api.utils.conditionals.Conditional;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -28,7 +27,7 @@ public class MessageHelper
     {
         NBTTagList result = new NBTTagList();
         for (DropItem dropItem : dropItems)
-            result.appendTag(dropItem.getNBTTagCompound());
+            result.appendTag(dropItem.writeToNBT());
         return result;
     }
 
@@ -63,36 +62,11 @@ public class MessageHelper
         {
             for (int i = 0; i < list.tagCount(); i++)
             {
-                DropItem item = decodeDropItem(list.getCompoundTagAt(i));
+                DropItem item = DropItem.readFromNBT(list.getCompoundTagAt(i));
                 if (item != null) dropItems.add(item);
             }
         }
         return dropItems.toArray(new DropItem[dropItems.size()]);
-    }
-
-    public static DropItem decodeDropItem(NBTTagCompound tagCompound)
-    {
-        NBTTagCompound item = tagCompound.getCompoundTag("stack");
-        if (item.hasNoTags()) return null;
-        ItemStack stack = ItemStack.loadItemStackFromNBT(item);
-        if (stack == null || stack.getItem() == null) return null;
-        int max = Math.max(tagCompound.getInteger("max"), 1);
-        int min = tagCompound.getInteger("min");
-        float chance = tagCompound.getFloat("chance");
-        if (chance == 0) chance = 1F;
-        Conditional[] conditionals = decodeConditionals(tagCompound.getTagList("conditionals", 8));
-        return new DropItem(stack, min, max, chance, conditionals);
-    }
-
-    public static Conditional[] decodeConditionals(NBTTagList conditional)
-    {
-        List<Conditional> result = new ArrayList<Conditional>();
-        for (int i = 0; i < conditional.tagCount(); i++)
-        {
-            String condition = conditional.getStringTagAt(i);
-            if (!condition.equals("")) result.add(new Conditional(condition));
-        }
-        return result.toArray(new Conditional[result.size()]);
     }
 
     public static int[] getIntArray(float[] distribution)

@@ -1,6 +1,5 @@
 package neresources.registry;
 
-import neresources.api.messages.ISeedEntry;
 import neresources.utils.MapKeys;
 import neresources.utils.SeedHelper;
 import net.minecraft.item.ItemStack;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 public class GrassSeedRegistry
 {
-    private Map<String, ISeedEntry> seedDrops = new LinkedHashMap<String, ISeedEntry>();
+    private Map<String, SeedEntry> seedDrops = new LinkedHashMap<String, SeedEntry>();
     private int totalWeight = 0;
     private static GrassSeedRegistry instance = null;
 
@@ -24,8 +23,8 @@ public class GrassSeedRegistry
 
     public GrassSeedRegistry()
     {
-        List<ISeedEntry> seedEntryList = SeedHelper.getSeeds();
-        for (ISeedEntry entry : seedEntryList)
+        List<SeedEntry> seedEntryList = SeedHelper.getSeeds();
+        for (SeedEntry entry : seedEntryList)
         {
             totalWeight += entry.getWeight();
             seedDrops.put(MapKeys.getKey(entry.getDrop()), entry);
@@ -33,7 +32,7 @@ public class GrassSeedRegistry
         totalWeight *= 8;
     }
 
-    public void add(ISeedEntry entry)
+    public void add(SeedEntry entry)
     {
         String key = MapKeys.getKey(entry.getDrop());
         if (!seedDrops.containsKey(key)) return;
@@ -60,7 +59,7 @@ public class GrassSeedRegistry
     public Map<ItemStack, Float> getAllDrops()
     {
         Map<ItemStack, Float> result = new LinkedHashMap<ItemStack, Float>();
-        for (ISeedEntry entry : seedDrops.values())
+        for (SeedEntry entry : seedDrops.values())
         {
             result.put(entry.getDrop(), ((float) entry.getWeight()) / totalWeight);
         }

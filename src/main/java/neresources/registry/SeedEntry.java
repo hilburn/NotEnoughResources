@@ -1,9 +1,8 @@
 package neresources.registry;
 
-import neresources.api.messages.ISeedEntry;
 import net.minecraft.item.ItemStack;
 
-public class SeedEntry implements ISeedEntry
+public class SeedEntry
 {
     private ItemStack seed;
     private int itemWeight;
@@ -14,13 +13,11 @@ public class SeedEntry implements ISeedEntry
         this.itemWeight = itemWeight;
     }
 
-    @Override
     public ItemStack getDrop()
     {
         return seed;
     }
 
-    @Override
     public int getWeight()
     {
         return itemWeight;

@@ -22,7 +22,7 @@ public class NEIGrassHandler extends TemplateRecipeHandler
     private static final int GRASS_Y = 5;
     private static final int OUTPUT_X = 2;
     private static final int OUTPUT_SCALE = 20;
-    private static final int OUTPUT_Y = 50;
+    private static final int OUTPUT_Y = 51;
     private static final int INPUT_ARROW_Y = 20;
 
     @Override

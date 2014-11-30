@@ -13,6 +13,7 @@ public class MessageKeys
     public static final String modifyPlant = "modifyPlant";
     public static final String removeMob = "removeMob";
     public static final String removeOre = "removeOre";
+    public static final String removePlant = "removePlant";
 
     public static final String distribution = "distribution";
     public static final String bestHeight = "bestHeight";
@@ -38,4 +39,5 @@ public class MessageKeys
     public static final String silkTouch = "silkTouch";
     public static final String wither = "wither";
     public static final String strict = "strict";
+
 }

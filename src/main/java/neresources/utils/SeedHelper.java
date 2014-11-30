@@ -1,6 +1,5 @@
 package neresources.utils;
 
-import neresources.api.messages.ISeedEntry;
 import neresources.registry.SeedEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
@@ -11,9 +10,9 @@ import java.util.List;
 
 public class SeedHelper
 {
-    public static List<ISeedEntry> getSeeds()
+    public static List<SeedEntry> getSeeds()
     {
-        List<ISeedEntry> result = new ArrayList<ISeedEntry>();
+        List<SeedEntry> result = new ArrayList<SeedEntry>();
         Class<?> seedEntry;
         seedEntry = ReflectionHelper.findClass("net.minecraftforge.common.ForgeHooks$SeedEntry");
         if (seedEntry == null) return result;

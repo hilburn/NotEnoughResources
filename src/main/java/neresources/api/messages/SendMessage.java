@@ -28,6 +28,12 @@ public class SendMessage
     {
         sendMessage(message, MessageKeys.modifyMob);
     }
+
+    public static void sendMessage(RegisterPlantMessage message)
+    {
+        sendMessage(message, MessageKeys.registerPlant);
+    }
+
     public static void sendMessage(ModifyPlantMessage message)
     {
         sendMessage(message, MessageKeys.modifyPlant);
@@ -36,6 +42,11 @@ public class SendMessage
     public static void sendMessage(RemoveMobMessage message)
     {
         sendMessage(message, MessageKeys.removeMob);
+    }
+
+    public static void sendMessage(RemovePlantMessage message)
+    {
+        sendMessage(message, MessageKeys.removePlant);
     }
 
     public static void sendMessage(Message message, String key)
