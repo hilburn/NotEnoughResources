@@ -4,6 +4,7 @@ import neresources.api.distributions.DistributionBase;
 import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
 import neresources.api.utils.ColorHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -39,6 +40,15 @@ public class RegisterOreMessage extends Message
         this.colour = colour;
     }
 
+    public RegisterOreMessage(NBTTagCompound tagCompound)
+    {
+        this.ore = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.ore));
+        this.drops = MessageHelper.getItemStacks(tagCompound, MessageKeys.addDrops);
+        this.needSilkTouch = tagCompound.getBoolean(MessageKeys.silkTouch);
+        this.distribution = MessageHelper.getDistribution(tagCompound);
+        this.colour = tagCompound.hasKey(MessageKeys.colour)?tagCompound.getInteger(MessageKeys.colour):ColorHelper.BLACK;
+    }
+
     public ItemStack getOre()
     {
         return this.ore;
@@ -57,6 +67,11 @@ public class RegisterOreMessage extends Message
     public int getColour()
     {
         return colour;
+    }
+
+    public ItemStack[] getDrops()
+    {
+        return drops;
     }
 
     @Override

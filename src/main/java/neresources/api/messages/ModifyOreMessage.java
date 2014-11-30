@@ -17,6 +17,11 @@ public class ModifyOreMessage extends ModifyMessage
         this(ore, true, drops);
     }
 
+    public ModifyOreMessage(ItemStack ore, Priority priority, ItemStack... drops)
+    {
+        this(ore, true, priority, drops);
+    }
+
     public ModifyOreMessage(ItemStack ore, boolean add, ItemStack... drops)
     {
         this(ore, add, Priority.SECOND, drops);
@@ -53,17 +58,17 @@ public class ModifyOreMessage extends ModifyMessage
         this.removeDrops = MessageHelper.getItemStacks(tagCompound, MessageKeys.removeDrops);
     }
 
-    public ItemStack ore()
+    public ItemStack getOre()
     {
         return ore;
     }
 
-    public ItemStack[] removeDrops()
+    public ItemStack[] getRemoveDrops()
     {
         return removeDrops;
     }
 
-    public ItemStack[] addDrops()
+    public ItemStack[] getAddDrops()
     {
         return addDrops;
     }
@@ -79,8 +84,20 @@ public class ModifyOreMessage extends ModifyMessage
     }
 
     @Override
+    public boolean hasAdd()
+    {
+        return addDrops.length>0;
+    }
+
+    @Override
+    public boolean hasRemove()
+    {
+        return removeDrops.length>0;
+    }
+
+    @Override
     public boolean isValid()
     {
-        return ore!=null && !(addDrops.length==0 && removeDrops.length==0);
+        return ore!=null && (hasAdd() || hasRemove());
     }
 }

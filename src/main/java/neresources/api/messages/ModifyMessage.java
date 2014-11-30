@@ -29,6 +29,20 @@ public abstract class ModifyMessage extends Message
         }
     }
 
+    public Priority getAddPriority()
+    {
+        return addPriority;
+    }
+
+    public Priority getRemovePriority()
+    {
+        return removePriority;
+    }
+
+    public abstract boolean hasAdd();
+
+    public abstract boolean hasRemove();
+
     public ModifyMessage(NBTTagCompound tagCompound)
     {
         addPriority = Priority.getPriority(tagCompound.getInteger(MessageKeys.addPriority));
