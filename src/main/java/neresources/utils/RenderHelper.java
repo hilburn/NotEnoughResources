@@ -69,6 +69,12 @@ public class RenderHelper
         {
             GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+            if (entityLivingBase instanceof EntityDragon)
+            {
+                pitch = 20-pitch;
+                GL11.glRotatef(yaw < 90 ? (yaw < -90 ? 90 : -yaw) : -90, 0.0F, 1.0F, 0.0F);
+            }
+            else pitch = -pitch;
         }
         if (entityLivingBase instanceof EntitySquid)
         {

@@ -102,22 +102,24 @@ public class NEIMobHandler extends TemplateRecipeHandler
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 130);
 
         EntityLivingBase entityLivingBase = ((CachedMob) arecipes.get(recipe)).getMob();
+        boolean normal = entityLivingBase.width <= entityLivingBase.height;
         float scale = getScale(entityLivingBase);
-        int offsetX = entityLivingBase.width < entityLivingBase.height ? (int) (72 - scale) : 72;
-        if (scale == 70.0F) offsetX = (int) (72 - scale / 2);
-        RenderHelper.renderEntity(30, 165 - offsetX, scale, 150 - GuiDraw.getMousePosition().x, 150 - GuiDraw.getMousePosition().y, entityLivingBase);
+        float offsetX = normal ? (scale > 34.0F ? (75 - scale/2) : (75 - scale)) : 72 ;
+        RenderHelper.renderEntity(30, 165 - (int)offsetX, scale, 150 - GuiDraw.getMousePosition().x, 150 - GuiDraw.getMousePosition().y, entityLivingBase);
     }
 
     private float getScale(EntityLivingBase entityLivingBase)
     {
         float width = entityLivingBase.width;
         float height = entityLivingBase.height;
-        if (width < height)
+        if (width <= height)
         {
-            if (height < 1) return 70.0F;
+            if (height < 0.8) return 70.0F;
+            else if (height < 1) return 35.0F;
             else if (height < 2) return 32.0F;
             else if (height < 3) return 26.0F;
-            else return 20.0F;
+            else if (height < 4) return 20.0F;
+            else return 10.0F;
         } else
         {
             if (width < 1) return 38.0F;
