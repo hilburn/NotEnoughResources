@@ -1,18 +1,33 @@
 package neresources.api.messages;
 
+import neresources.api.messages.utils.MessageHelper;
+import neresources.api.messages.utils.MessageKeys;
+import neresources.api.utils.DropItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class RegisterPlantMessage extends Message
 {
+    private ItemStack plant;
+    private DropItem[] addDrops;
+
+    public RegisterPlantMessage(NBTTagCompound tagCompound)
+    {
+        this.plant = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.stack));
+        this.addDrops = MessageHelper.getDropItems(tagCompound,MessageKeys.addDrops);
+    }
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
+        tagCompound.setTag(MessageKeys.stack, plant.writeToNBT(new NBTTagCompound()));
+        tagCompound.setTag(MessageKeys.addDrops,MessageHelper.getDropItemList(addDrops));
         return tagCompound;
     }
 
     @Override
     public boolean isValid()
     {
-        return false;
+        return plant!=null && addDrops.length>0;
     }
 }

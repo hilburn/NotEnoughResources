@@ -41,7 +41,7 @@ public class RegisterOreMessage extends Message
 
     public RegisterOreMessage(NBTTagCompound tagCompound)
     {
-        this.ore = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.ore));
+        this.ore = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.stack));
         this.drops = MessageHelper.getItemStacks(tagCompound, MessageKeys.addDrops);
         this.needSilkTouch = tagCompound.getBoolean(MessageKeys.silkTouch);
         this.distribution = MessageHelper.getDistribution(tagCompound);
@@ -76,7 +76,7 @@ public class RegisterOreMessage extends Message
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setTag(MessageKeys.ore, ore.writeToNBT(new NBTTagCompound()));
+        tagCompound.setTag(MessageKeys.stack, ore.writeToNBT(new NBTTagCompound()));
         tagCompound.setTag(MessageKeys.addDrops, MessageHelper.getItemStackList(drops));
         distribution.writeToNBT(tagCompound);
         tagCompound.setBoolean(MessageKeys.silkTouch, needSilkTouch);

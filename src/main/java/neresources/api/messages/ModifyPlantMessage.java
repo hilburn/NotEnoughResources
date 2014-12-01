@@ -83,7 +83,7 @@ public class ModifyPlantMessage extends ModifyMessage
     public ModifyPlantMessage(NBTTagCompound tagCompound)
     {
         super(tagCompound);
-        this.plant = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.ore));
+        this.plant = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.stack));
         this.addDrops = MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops);
         this.removeDrops = MessageHelper.getItemStacks(tagCompound, MessageKeys.removeDrops);
     }
@@ -92,7 +92,7 @@ public class ModifyPlantMessage extends ModifyMessage
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
         super.writeToNBT(tagCompound);
-        tagCompound.setTag(MessageKeys.ore, plant.writeToNBT(new NBTTagCompound()));
+        tagCompound.setTag(MessageKeys.stack, plant.writeToNBT(new NBTTagCompound()));
         tagCompound.setTag(MessageKeys.addDrops,MessageHelper.getDropItemList(addDrops));
         tagCompound.setTag(MessageKeys.removeDrops,MessageHelper.getItemStackList(removeDrops));
         return tagCompound;

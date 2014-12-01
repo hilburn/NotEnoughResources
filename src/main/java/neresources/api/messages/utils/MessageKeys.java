@@ -17,7 +17,7 @@ public class MessageKeys
 
     public static final String distribution = "distribution";
     public static final String bestHeight = "bestHeight";
-    public static final String ore = "ore";
+    public static final String stack = "stack";
     public static final String name = "name";
     public static final String lightLevel = "lightLevel";
     public static final String conditionals = "conditionals";
