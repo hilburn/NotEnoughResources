@@ -8,6 +8,7 @@ public class MessageKeys
     public static final String registerMob = "registerMob";
     public static final String registerOre = "registerOre";
     public static final String registerPlant = "registerPlant";
+    public static final String addToRegistry = "add";
     public static final String modifyMob = "modifyMob";
     public static final String modifyOre = "modifyOre";
     public static final String modifyPlant = "modifyPlant";
@@ -28,6 +29,7 @@ public class MessageKeys
     public static final String min  = "min";
     public static final String max  = "max";
 
+    public static final String priority = "priority";
     public static final String addPriority = "addPriority";
     public static final String removePriority = "removePriority";
 

@@ -1,10 +1,11 @@
 package neresources.api.messages;
 
 import neresources.api.messages.utils.MessageKeys;
+import neresources.api.utils.Priority;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class RemoveMobMessage extends RemoveMessage
+public class RemoveMobMessage extends RegistryMessage
 {
     private Class filterClass;
     private boolean strict;
@@ -15,13 +16,28 @@ public class RemoveMobMessage extends RemoveMessage
         this(clazz, false);
     }
 
+    public RemoveMobMessage(Priority priority, Class clazz)
+    {
+        this(priority, clazz, false);
+    }
+
     public RemoveMobMessage(Class clazz, boolean strict)
     {
         this(clazz, strict, false);
     }
 
+    public RemoveMobMessage(Priority priority, Class clazz, boolean strict)
+    {
+        this(priority, clazz, strict, false);
+    }
+
     public RemoveMobMessage(Class clazz, boolean strict, boolean witherSkeleton)
     {
+        this(Priority.FIRST, clazz, strict, witherSkeleton);
+    }
+    public RemoveMobMessage(Priority priority, Class clazz, boolean strict, boolean witherSkeleton)
+    {
+        super(priority,false);
         this.filterClass = clazz;
         this.strict = strict;
         this.witherSkeleton = witherSkeleton;
@@ -29,6 +45,7 @@ public class RemoveMobMessage extends RemoveMessage
 
     public RemoveMobMessage(NBTTagCompound tagCompound)
     {
+        super(tagCompound);
         this.filterClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.name));
         this.strict = tagCompound.getBoolean(MessageKeys.strict);
         this.witherSkeleton = tagCompound.getBoolean(MessageKeys.wither);
@@ -37,6 +54,7 @@ public class RemoveMobMessage extends RemoveMessage
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
+        super.writeToNBT(tagCompound);
         tagCompound.setString(MessageKeys.name, this.filterClass.getName());
         tagCompound.setBoolean(MessageKeys.strict, this.strict);
         tagCompound.setBoolean(MessageKeys.wither, this.witherSkeleton);

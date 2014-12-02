@@ -12,7 +12,7 @@ public class MessageRegistry
 {
     private static Set<Message> registerMessages = new LinkedHashSet<Message>();
     private static Set<ModifyMessage> modifyMessages = new LinkedHashSet<ModifyMessage>();
-    private static Set<RemoveMessage> removeMessages = new LinkedHashSet<RemoveMessage>();
+    private static Set<RegistryMessage> removeMessages = new LinkedHashSet<RegistryMessage>();
 
     public static void getModifyMessages(Priority priority, Set<ModifyMessage> add, Set<ModifyMessage> remove)
     {
@@ -27,7 +27,7 @@ public class MessageRegistry
     {
         if (message == null || !message.isValid()) return;
         if (message instanceof ModifyMessage) modifyMessages.add((ModifyMessage) message);
-        else if (message instanceof RemoveMessage) removeMessages.add((RemoveMessage) message);
+        else if (message instanceof RegistryMessage) removeMessages.add((RegistryMessage) message);
         else registerMessages.add(message);
     }
 
