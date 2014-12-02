@@ -23,6 +23,21 @@ public class DimensionRegistry
         registry.put(block,saved);
     }
 
+    public static void registerDimension(BlockRestriction block, Integer... dims)
+    {
+        registerDimension(block,Arrays.asList(dims));
+    }
+
+    public static void registerDimension(BlockRestriction block, List<Integer> dims)
+    {
+        Set<Integer> saved = registry.get(block);
+        if (saved == null)
+            saved = new TreeSet<Integer>();
+        saved.addAll(dims);
+        altDimensions.addAll(dims);
+        registry.put(block,saved);
+    }
+
     public static Set<Integer> getDimensions(BlockRestriction block)
     {
         if (registry.containsKey(block)) return registry.get(block);
