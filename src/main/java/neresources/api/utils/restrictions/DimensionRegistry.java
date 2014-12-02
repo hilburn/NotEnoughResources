@@ -1,6 +1,4 @@
-package neresources.registry;
-
-import neresources.api.utils.restrictions.BlockRestriction;
+package neresources.api.utils.restrictions;
 
 import java.util.*;
 

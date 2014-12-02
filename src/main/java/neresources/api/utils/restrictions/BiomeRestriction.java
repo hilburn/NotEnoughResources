@@ -12,7 +12,18 @@ import java.util.List;
 
 public class BiomeRestriction
 {
-    public static BiomeRestriction NONE = new BiomeRestriction();
+    public static final BiomeRestriction NONE = new BiomeRestriction();
+    public static final BiomeRestriction OCEAN = new BiomeRestriction(BiomeDictionary.Type.OCEAN);
+    public static final BiomeRestriction PLAINS = new BiomeRestriction(BiomeDictionary.Type.PLAINS);
+    public static final BiomeRestriction FOREST = new BiomeRestriction(BiomeDictionary.Type.FOREST);
+    public static final BiomeRestriction SANDY = new BiomeRestriction(BiomeDictionary.Type.FOREST);
+    public static final BiomeRestriction SNOWY = new BiomeRestriction(BiomeDictionary.Type.FOREST);
+    public static final BiomeRestriction HILLS = new BiomeRestriction(BiomeDictionary.Type.HILLS);
+    public static final BiomeRestriction MUSHROOM = new BiomeRestriction(BiomeDictionary.Type.MUSHROOM);
+
+    public static final BiomeRestriction HOT = new BiomeRestriction(BiomeDictionary.Type.HOT);
+    public static final BiomeRestriction COLD = new BiomeRestriction(BiomeDictionary.Type.COLD);
+    public static final BiomeRestriction TEMPERATE = new BiomeRestriction(Type.BLACKLIST, BiomeDictionary.Type.HOT,BiomeDictionary.Type.COLD);
 
     private List<BiomeGenBase> biomes = new ArrayList<BiomeGenBase>();
     private Type type;
@@ -29,8 +40,30 @@ public class BiomeRestriction
 
     public BiomeRestriction(Type type, BiomeGenBase biome)
     {
-        this.biomes.add(biome);
+        this(type, biome, new BiomeGenBase[0]);
+    }
+
+    public BiomeRestriction(BiomeGenBase biome, BiomeGenBase... moreBiomes)
+    {
+        this(Type.WHITELIST, biome, moreBiomes);
+    }
+
+    public BiomeRestriction(Type type, BiomeGenBase biome, BiomeGenBase... moreBiomes)
+    {
         this.type = type;
+        switch(type)
+        {
+            case NONE:
+                break;
+            case WHITELIST:
+                this.biomes.add(biome);
+                this.biomes.addAll(Arrays.asList(moreBiomes));
+                break;
+            default:
+                biomes = Arrays.asList(BiomeGenBase.getBiomeGenArray());
+                biomes.remove(biome);
+                biomes.removeAll(Arrays.asList(moreBiomes));
+        }
     }
 
     public BiomeRestriction(BiomeDictionary.Type type, BiomeDictionary.Type... biomeTypes)
@@ -41,6 +74,22 @@ public class BiomeRestriction
     public BiomeRestriction(Type type, BiomeDictionary.Type biomeType, BiomeDictionary.Type... biomeTypes)
     {
         this.type = type;
+        switch(type)
+        {
+            case NONE:
+                break;
+            case WHITELIST:
+                biomes = getBiomes(biomeType, biomeTypes);
+                break;
+            default:
+                biomes = Arrays.asList(BiomeGenBase.getBiomeGenArray());
+                biomes.removeAll(getBiomes(biomeType, biomeTypes));
+        }
+    }
+
+    private List<BiomeGenBase> getBiomes(BiomeDictionary.Type biomeType, BiomeDictionary.Type... biomeTypes)
+    {
+        List<BiomeGenBase> biomes = new ArrayList<BiomeGenBase>();
         biomes.addAll(Arrays.asList(BiomeDictionary.getBiomesForType(biomeType)));
         for (int i = 1; i< biomeTypes.length; i++)
         {
@@ -51,6 +100,7 @@ public class BiomeRestriction
             }
             biomes = newBiomes;
         }
+        return biomes;
     }
 
     public BiomeRestriction(NBTTagCompound tagCompound)

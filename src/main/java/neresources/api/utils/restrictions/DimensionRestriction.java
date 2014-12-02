@@ -1,8 +1,8 @@
 package neresources.api.utils.restrictions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class DimensionRestriction
 {
@@ -42,14 +42,77 @@ public class DimensionRestriction
         this.type = Type.NONE;
     }
 
-    public List<Integer> getValidDimensions(List<Integer> dimensions)
+    public String getValidString(BlockRestriction blockRestriction)
+    {
+        Set<Integer> dimensions = DimensionRegistry.getDimensions(blockRestriction);
+        if (dimensions!=null) return getDimensionString(dimensions);
+        return getAltDimensionString(DimensionRegistry.getAltDimensions());
+    }
+
+    private Set<Integer> getValidDimensions(Set<Integer> dimensions)
     {
         if (type == Type.NONE) return dimensions;
-        List<Integer> result = new ArrayList<Integer>();
+        Set<Integer> result = new TreeSet<Integer>();
         for (int dimension:dimensions)
         {
             if (dimension>=min == (type == Type.WHITELIST) == dimension<=max) result.add(dimension);
         }
         return result;
+    }
+
+    private String getDimensionString(Set<Integer> dimensions)
+    {
+        return getString(getValidDimensions(dimensions));
+    }
+
+    private String getString(Set<Integer> set)
+    {
+        String result = "";
+        int lastParsed = Integer.MIN_VALUE;
+        Iterator<Integer> itr = set.iterator();
+        while (itr.hasNext())
+        {
+            int dimension = itr.next();
+            if (dimension==lastParsed+1)
+            {
+                if (!result.endsWith("-")) result+="-";
+                if (!itr.hasNext()) result+=dimension;
+            }
+            else
+            {
+                if (result.endsWith("-")) result+=lastParsed;
+                result += (result.length()>0?",":"") + dimension;
+            }
+            lastParsed = dimension;
+        }
+        return result;
+    }
+
+    private String getAltDimensionString(Set<Integer> dimensions)
+    {
+
+        Set<Integer> validDimensions = new TreeSet<Integer>();
+        int dimMin = Integer.MAX_VALUE;
+        int dimMax = Integer.MIN_VALUE;
+        Iterator<Integer> itr = dimensions.iterator();
+        while (itr.hasNext())
+        {
+            int dim  = itr.next();
+            if (dim<dimMin) dimMin = dim;
+            if (dim>dimMax) dimMax = dim;
+        }
+        for (int i = Math.min(min,dimMin)-1;i<=Math.max(max,dimMax)+1;i++)
+            if (!dimensions.contains(i)) validDimensions.add(i);
+        String result = getString(getValidDimensions(type!=Type.NONE?validDimensions:dimensions));
+        if (result.isEmpty()) return "No Valid Spawn Dimensions";
+        switch (type)
+        {
+            default:
+                return result;
+            case NONE:
+                return "Not "+result;
+            case BLACKLIST:
+                return "<="+result+"=<";
+        }
     }
 }
