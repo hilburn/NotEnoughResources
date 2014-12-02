@@ -1,4 +1,4 @@
-package neresources.registry;
+package neresources.entries;
 
 import neresources.api.messages.RegisterDungeonMessage;
 import neresources.utils.ReflectionHelper;

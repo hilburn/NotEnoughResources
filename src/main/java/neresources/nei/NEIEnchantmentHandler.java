@@ -5,7 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
-import neresources.registry.EnchantmentEntry;
+import neresources.entries.EnchantmentEntry;
 import neresources.registry.EnchantmentRegistry;
 import neresources.utils.Font;
 import neresources.utils.TranslationHelper;

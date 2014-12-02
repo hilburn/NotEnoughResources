@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.entries.EnchantmentEntry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

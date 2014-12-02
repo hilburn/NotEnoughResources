@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.entries.SeedEntry;
 import neresources.utils.MapKeys;
 import neresources.utils.SeedHelper;
 import net.minecraft.item.ItemStack;

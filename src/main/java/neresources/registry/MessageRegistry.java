@@ -3,6 +3,9 @@ package neresources.registry;
 import neresources.api.messages.*;
 import neresources.api.messages.utils.MessageKeys;
 import neresources.api.utils.Priority;
+import neresources.entries.DungeonEntry;
+import neresources.entries.MobEntry;
+import neresources.entries.OreEntry;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.LinkedHashSet;

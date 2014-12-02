@@ -1,6 +1,6 @@
 package neresources.utils;
 
-import neresources.registry.SeedEntry;
+import neresources.entries.SeedEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.common.ForgeHooks;

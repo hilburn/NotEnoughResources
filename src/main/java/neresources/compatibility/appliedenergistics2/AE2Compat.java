@@ -8,7 +8,7 @@ import neresources.api.messages.ModifyOreMessage;
 import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
 import neresources.registry.MessageRegistry;
-import neresources.registry.OreEntry;
+import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 

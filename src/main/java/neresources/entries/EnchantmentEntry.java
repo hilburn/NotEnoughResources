@@ -1,4 +1,4 @@
-package neresources.registry;
+package neresources.entries;
 
 import neresources.utils.TranslationHelper;
 import net.minecraft.enchantment.Enchantment;

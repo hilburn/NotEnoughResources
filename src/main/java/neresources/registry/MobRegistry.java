@@ -2,6 +2,7 @@ package neresources.registry;
 
 import neresources.api.messages.RemoveMobMessage;
 import neresources.api.utils.DropItem;
+import neresources.entries.MobEntry;
 import neresources.utils.ClassScraper;
 import neresources.utils.MobHelper;
 import net.minecraft.entity.monster.EntitySkeleton;

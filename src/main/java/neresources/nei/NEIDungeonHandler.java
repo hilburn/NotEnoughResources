@@ -5,7 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
-import neresources.registry.DungeonEntry;
+import neresources.entries.DungeonEntry;
 import neresources.registry.DungeonRegistry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;

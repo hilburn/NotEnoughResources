@@ -8,7 +8,7 @@ import neresources.api.utils.DropItem;
 import neresources.config.Settings;
 import neresources.gui.GuiContainerHook;
 import neresources.reference.Resources;
-import neresources.registry.MobEntry;
+import neresources.entries.MobEntry;
 import neresources.registry.MobRegistry;
 import neresources.utils.Font;
 import neresources.utils.MobHelper;

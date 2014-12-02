@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.entries.OreEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 

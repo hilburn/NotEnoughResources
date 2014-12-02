@@ -1,7 +1,7 @@
 package neresources.utils;
 
 import neresources.api.utils.DropItem;
-import neresources.registry.MobEntry;
+import neresources.entries.MobEntry;
 import net.minecraft.entity.EntityHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;

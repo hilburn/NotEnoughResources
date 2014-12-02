@@ -40,4 +40,8 @@ public class MessageKeys
     public static final String wither = "wither";
     public static final String strict = "strict";
 
+
+    public static final String biomeArray = "biomeArray";
+    public static final String type = "type";
+
 }

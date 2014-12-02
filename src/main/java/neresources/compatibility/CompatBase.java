@@ -1,8 +1,8 @@
 package neresources.compatibility;
 
-import neresources.registry.MobEntry;
+import neresources.entries.MobEntry;
 import neresources.registry.MobRegistry;
-import neresources.registry.OreEntry;
+import neresources.entries.OreEntry;
 import neresources.registry.OreRegistry;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;

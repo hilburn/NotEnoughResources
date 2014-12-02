@@ -1,10 +1,11 @@
-package neresources.registry;
+package neresources.entries;
 
 import neresources.api.distributions.DistributionBase;
 import neresources.api.messages.ModifyOreMessage;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.ColorHelper;
 import neresources.api.utils.Priority;
+import neresources.registry.MessageRegistry;
 import neresources.utils.SilkTouchHelper;
 import net.minecraft.item.ItemStack;
 

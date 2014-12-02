@@ -2,7 +2,7 @@ package neresources.compatibility.netherores;
 
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
-import neresources.registry.OreEntry;
+import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
 import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.ores.Ores;

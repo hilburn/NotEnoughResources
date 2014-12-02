@@ -1,4 +1,4 @@
-package neresources.registry;
+package neresources.entries;
 
 import net.minecraft.item.ItemStack;
 

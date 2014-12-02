@@ -3,7 +3,7 @@ package neresources.compatibility.reika;
 import Reika.ElectriCraft.Registry.ElectriOres;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
-import neresources.registry.OreEntry;
+import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
 
 public class ElectriCraftCompat extends CompatBase

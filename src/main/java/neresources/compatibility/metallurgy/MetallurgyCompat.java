@@ -5,7 +5,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.registry.GameRegistry;
 import neresources.api.distributions.DistributionSquare;
 import neresources.compatibility.CompatBase;
-import neresources.registry.OreEntry;
+import neresources.entries.OreEntry;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

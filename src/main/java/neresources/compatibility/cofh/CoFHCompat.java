@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.Side;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
-import neresources.registry.OreEntry;
+import neresources.entries.OreEntry;
 import neresources.utils.LoaderHelper;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.init.Blocks;
