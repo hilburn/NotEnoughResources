@@ -1,6 +1,6 @@
 package neresources.utils;
 
-import neresources.registry.SeedEntry;
+import neresources.registry.PlantDrop;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.common.ForgeHooks;
@@ -10,9 +10,9 @@ import java.util.List;
 
 public class SeedHelper
 {
-    public static List<SeedEntry> getSeeds()
+    public static List<PlantDrop> getSeeds()
     {
-        List<SeedEntry> result = new ArrayList<SeedEntry>();
+        List<PlantDrop> result = new ArrayList<PlantDrop>();
         Class<?> seedEntry;
         seedEntry = ReflectionHelper.findClass("net.minecraftforge.common.ForgeHooks$SeedEntry");
         if (seedEntry == null) return result;
@@ -23,7 +23,7 @@ public class SeedHelper
             ItemStack seed = (ItemStack) ReflectionHelper.getObject(seedEntry, "seed", o);
             if (seed == null || seed.getItem() == null) continue;
             int weight = ReflectionHelper.getInt(WeightedRandom.Item.class, DeObfMappings.itemWeight.getFieldName(), o);
-            result.add(new SeedEntry(seed, weight));
+            result.add(new PlantDrop(seed, weight));
         }
         return result;
     }

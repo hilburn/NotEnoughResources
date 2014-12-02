@@ -2,12 +2,12 @@ package neresources.registry;
 
 import net.minecraft.item.ItemStack;
 
-public class SeedEntry
+public class PlantDrop
 {
     private ItemStack seed;
     private int itemWeight;
 
-    public SeedEntry(ItemStack seed, int itemWeight)
+    public PlantDrop(ItemStack seed, int itemWeight)
     {
         this.seed = seed;
         this.itemWeight = itemWeight;

@@ -36,6 +36,7 @@ public class MinecraftCompat extends CompatBase
         registerDungeonLoot();
         if (!CoFHCompat.cofhReplace) registerOres();
         registerVanillaOreDrops();
+        registerVanillaPlants();
     }
 
     private void registerVanillaOreDrops()
@@ -189,5 +190,10 @@ public class MinecraftCompat extends CompatBase
         registerOre(new OreEntry(new ItemStack(Blocks.emerald_ore), new DistributionSquare(0, 5, 12, 17, 0.0012F)));
         registerOre(new OreEntry(new ItemStack(Blocks.gold_ore), new DistributionSquare(0, 5, 29, 35, 0.0012F)));
         registerOre(new OreEntry(new ItemStack(Blocks.coal_ore), new DistributionSquare(0, 5, 54, 76, 0.01F)));
+    }
+
+    private void registerVanillaPlants()
+    {
+
     }
 }

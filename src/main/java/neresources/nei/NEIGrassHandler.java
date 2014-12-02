@@ -4,7 +4,9 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.reference.Resources;
-import neresources.registry.GrassSeedRegistry;
+import neresources.registry.PlantDrop;
+import neresources.registry.PlantEntry;
+import neresources.registry.PlantRegistry;
 import neresources.utils.TranslationHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -61,7 +63,8 @@ public class NEIGrassHandler extends TemplateRecipeHandler
     public void loadCraftingRecipes(String outputId, Object... results)
     {
         if (outputId.equals(NEIConfig.GRASS))
-            arecipes.add(new CachedSeedOutput(GrassSeedRegistry.getInstance().getAllDrops().keySet()));
+            for (PlantEntry entry : PlantRegistry.getInstance().getAllPlants())
+            arecipes.add(new CachedSeedOutput(entry));
         else
             super.loadCraftingRecipes(outputId, results);
     }
@@ -72,24 +75,24 @@ public class NEIGrassHandler extends TemplateRecipeHandler
         if (ingredients[0] instanceof ItemStack)
         {
             ItemStack ingredient = (ItemStack) ingredients[0];
-            if (ingredient.isItemEqual(new ItemStack(Blocks.tallgrass, 1, 1)))
-                arecipes.add(new CachedSeedOutput(GrassSeedRegistry.getInstance().getAllDrops().keySet()));
+            if (PlantRegistry.getInstance().contains(ingredient))
+                arecipes.add(new CachedSeedOutput(PlantRegistry.getInstance().getEntry(ingredient)));
         } else super.loadUsageRecipes(inputId, ingredients);
     }
 
     public class CachedSeedOutput extends TemplateRecipeHandler.CachedRecipe
     {
-        private Set<ItemStack> seeds = new LinkedHashSet<ItemStack>();
+        private PlantEntry plantEntry;
 
-        public CachedSeedOutput(Set<ItemStack> seeds)
+        public CachedSeedOutput(PlantEntry entry)
         {
-            this.seeds.addAll(seeds);
+            plantEntry = entry;
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(new ItemStack(Blocks.tallgrass, 1, 1), GRASS_X, GRASS_Y);
+            return new PositionedStack(plantEntry.getPlant(), GRASS_X, GRASS_Y);
         }
 
         @Override
@@ -98,9 +101,9 @@ public class NEIGrassHandler extends TemplateRecipeHandler
             List<PositionedStack> list = new ArrayList<PositionedStack>();
             int xOffset = 0;
             int yOffset = 0;
-            for (ItemStack itemStack : seeds)
+            for (PlantDrop plantDrop : plantEntry.getDrops())
             {
-                list.add(new PositionedStack(itemStack, OUTPUT_X + xOffset, OUTPUT_Y + yOffset));
+                list.add(new PositionedStack(plantDrop.getDrop(), OUTPUT_X + xOffset, OUTPUT_Y + yOffset));
                 yOffset += OUTPUT_SCALE;
                 if (yOffset > 147)
                 {

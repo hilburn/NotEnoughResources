@@ -1,9 +1,6 @@
 package neresources.compatibility;
 
-import neresources.registry.MobEntry;
-import neresources.registry.MobRegistry;
-import neresources.registry.OreEntry;
-import neresources.registry.OreRegistry;
+import neresources.registry.*;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;
 
@@ -35,5 +32,10 @@ public class CompatBase
     public void registerOre(OreEntry entry)
     {
         OreRegistry.getInstance().register(entry);
+    }
+
+    public void registerPlant(PlantEntry entry)
+    {
+        PlantRegistry.getInstance().registerPlant(entry);
     }
 }
