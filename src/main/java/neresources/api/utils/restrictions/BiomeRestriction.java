@@ -111,14 +111,18 @@ public class BiomeRestriction
         type = Type.values()[tagCompound.getByte(MessageKeys.type)];
     }
 
-    public List<BiomeGenBase> getBiomes()
+    public List<String> toStringList()
     {
-        return biomes;
-    }
-
-    public Type getType()
-    {
-        return type;
+        List<String> result = new ArrayList<String>();
+        for (int i = 0; i<biomes.size();)
+        {
+            String add = "";
+            for (int j=i;j<i+3 && j<biomes.size();j++)
+                add+=(add.isEmpty()?"":",")+biomes.get(j).biomeName;
+            i+=3;
+            result.add(add);
+        }
+        return result;
     }
 
     public NBTTagCompound writeToNBT()

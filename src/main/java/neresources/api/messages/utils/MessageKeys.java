@@ -43,5 +43,11 @@ public class MessageKeys
 
     public static final String biomeArray = "biomeArray";
     public static final String type = "type";
+    public static final String restriction = "restriction";
+    public static final String blockRestriction = "block";
+    public static final String dimensionRestriction = "dimension";
+    public static final String biomeRestriction = "biome";
+
+
 
 }

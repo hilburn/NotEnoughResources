@@ -1,5 +1,8 @@
 package neresources.api.utils.restrictions;
 
+import neresources.api.messages.utils.MessageKeys;
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -14,6 +17,11 @@ public class DimensionRestriction
     private int min;
     private int max;
     private Type type;
+
+    public DimensionRestriction()
+    {
+        this.type = Type.NONE;
+    }
 
     public DimensionRestriction(int dim)
     {
@@ -33,16 +41,20 @@ public class DimensionRestriction
     public DimensionRestriction(Type type, int minDim, int maxDim)
     {
         this.type = type;
-        this.min = minDim;
-        this.max = maxDim;
+        this.min = Math.min(minDim,maxDim);
+        this.max = Math.max(maxDim,minDim);
     }
 
-    public DimensionRestriction()
+    public DimensionRestriction(NBTTagCompound tagCompound)
     {
-        this.type = Type.NONE;
+        this.type = Type.values()[tagCompound.getByte(MessageKeys.type)];
+        int minDim = tagCompound.getInteger(MessageKeys.min);
+        int maxDim = tagCompound.getInteger(MessageKeys.max);
+        this.min = Math.min(minDim,maxDim);
+        this.max = Math.max(maxDim,minDim);
     }
 
-    public String getValidString(BlockRestriction blockRestriction)
+    public String getValidDimensions(BlockRestriction blockRestriction)
     {
         Set<Integer> dimensions = DimensionRegistry.getDimensions(blockRestriction);
         if (dimensions!=null) return getDimensionString(dimensions);
@@ -114,5 +126,18 @@ public class DimensionRestriction
             case BLACKLIST:
                 return "<="+result+"=<";
         }
+    }
+
+    public NBTTagCompound writeToNBT()
+    {
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
+    {
+        tagCompound.setInteger(MessageKeys.max,max);
+        tagCompound.setInteger(MessageKeys.min,min);
+        tagCompound.setByte(MessageKeys.type, (byte) type.ordinal());
+        return tagCompound;
     }
 }

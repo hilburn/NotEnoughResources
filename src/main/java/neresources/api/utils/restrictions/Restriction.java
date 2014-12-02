@@ -1,5 +1,8 @@
 package neresources.api.utils.restrictions;
 
+import neresources.api.messages.utils.MessageKeys;
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,10 +62,31 @@ public class Restriction
         this.dimensionRestriction = dimensionRestriction;
     }
 
+    public Restriction(NBTTagCompound tagCompound)
+    {
+        blockRestriction = new BlockRestriction(tagCompound.getCompoundTag(MessageKeys.blockRestriction));
+        biomeRestriction = new BiomeRestriction(tagCompound.getCompoundTag(MessageKeys.biomeRestriction));
+        dimensionRestriction = new DimensionRestriction(tagCompound.getCompoundTag(MessageKeys.dimensionRestriction));
+    }
+
     public List<String> getStringList()
     {
         List<String> result = new ArrayList<String>();
-        result.add(dimensionRestriction.getValidString(blockRestriction));
+        result.add(dimensionRestriction.getValidDimensions(blockRestriction));
+        result.addAll(biomeRestriction.toStringList());
         return result;
+    }
+
+    public NBTTagCompound writeToNBT()
+    {
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
+    {
+        tagCompound.setTag(MessageKeys.blockRestriction,blockRestriction.writeToNBT());
+        tagCompound.setTag(MessageKeys.dimensionRestriction,dimensionRestriction.writeToNBT());
+        tagCompound.setTag(MessageKeys.biomeRestriction,biomeRestriction.writeToNBT());
+        return tagCompound;
     }
 }
