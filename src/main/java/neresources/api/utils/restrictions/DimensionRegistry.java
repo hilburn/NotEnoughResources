@@ -7,6 +7,12 @@ public class DimensionRegistry
     private static Map<BlockRestriction,Set<Integer>> registry = new HashMap<BlockRestriction, Set<Integer>>();
     private static Set<Integer> altDimensions = new TreeSet<Integer>();
 
+    public DimensionRegistry()
+    {
+        registerDimension(BlockRestriction.NETHER,-1);
+        registerDimension(BlockRestriction.END,1);
+    }
+
     public static void registerDimension(BlockRestriction block, int dim)
     {
         Set<Integer> saved = registry.get(block);
