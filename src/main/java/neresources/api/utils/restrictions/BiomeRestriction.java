@@ -25,7 +25,9 @@ public class BiomeRestriction
     public static final BiomeRestriction COLD = new BiomeRestriction(BiomeDictionary.Type.COLD);
     public static final BiomeRestriction TEMPERATE = new BiomeRestriction(Type.BLACKLIST, BiomeDictionary.Type.HOT,BiomeDictionary.Type.COLD);
 
-    private List<BiomeGenBase> biomes = new ArrayList<BiomeGenBase>();
+    public static final BiomeRestriction EXTREME_HILLS = new BiomeRestriction(Type.WHITELIST, BiomeGenBase.extremeHills, BiomeGenBase.extremeHillsEdge);
+
+    private ArrayList<BiomeGenBase> biomes = new ArrayList<BiomeGenBase>();
     private Type type;
 
     public BiomeRestriction()
@@ -60,7 +62,7 @@ public class BiomeRestriction
                 this.biomes.addAll(Arrays.asList(moreBiomes));
                 break;
             default:
-                biomes = Arrays.asList(BiomeGenBase.getBiomeGenArray());
+                biomes = new ArrayList(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
                 biomes.remove(biome);
                 biomes.removeAll(Arrays.asList(moreBiomes));
         }
@@ -82,18 +84,18 @@ public class BiomeRestriction
                 biomes = getBiomes(biomeType, biomeTypes);
                 break;
             default:
-                biomes = Arrays.asList(BiomeGenBase.getBiomeGenArray());
+                biomes = new ArrayList(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
                 biomes.removeAll(getBiomes(biomeType, biomeTypes));
         }
     }
 
-    private List<BiomeGenBase> getBiomes(BiomeDictionary.Type biomeType, BiomeDictionary.Type... biomeTypes)
+    private ArrayList<BiomeGenBase> getBiomes(BiomeDictionary.Type biomeType, BiomeDictionary.Type... biomeTypes)
     {
-        List<BiomeGenBase> biomes = new ArrayList<BiomeGenBase>();
+        ArrayList<BiomeGenBase> biomes = new ArrayList<BiomeGenBase>();
         biomes.addAll(Arrays.asList(BiomeDictionary.getBiomesForType(biomeType)));
         for (int i = 1; i< biomeTypes.length; i++)
         {
-            List<BiomeGenBase> newBiomes = new ArrayList<BiomeGenBase>();
+            ArrayList<BiomeGenBase> newBiomes = new ArrayList<BiomeGenBase>();
             for (BiomeGenBase biome : BiomeDictionary.getBiomesForType(biomeTypes[i]))
             {
                 if (biomes.remove(biome)) newBiomes.add(biome);
@@ -151,5 +153,10 @@ public class BiomeRestriction
             return other.biomes.size() == biomes.size() && other.biomes.containsAll(biomes);
         }
         return false;
+    }
+
+    public boolean isMergeable(BiomeRestriction other)
+    {
+        return other.type==Type.NONE || other.biomes.containsAll(biomes);
     }
 }

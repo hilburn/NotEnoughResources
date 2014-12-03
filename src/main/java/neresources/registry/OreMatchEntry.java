@@ -49,19 +49,31 @@ public class OreMatchEntry
         if (colour == ColorHelper.BLACK) colour = entry.getColour();
     }
 
-    private boolean addMessage(RegisterOreMessage message)
+    private void addMessage(RegisterOreMessage message)
     {
         silkTouchMap.put(MapKeys.key(message.getOre()), message.needSilkTouch());
         ores.put(message.getOre(), message.getDistribution());
         calcChances();
         if (colour == ColorHelper.BLACK) colour = message.getColour();
-        return true;
     }
 
     public boolean add(RegisterOreMessage message)
     {
-        if (!message.getRestriction().equals(restriction)) return false;
-        return addMessage(message);
+        if (!message.getRestriction().isMergeable(this.restriction)) return false;
+        addMessage(message);
+        return message.getRestriction().equals(this.restriction);
+    }
+
+    public void add(OreMatchEntry oreMatchEntry)
+    {
+        if (oreMatchEntry.restriction.isMergeable(this.restriction))
+        {
+            silkTouchMap.putAll(oreMatchEntry.silkTouchMap);
+            ores.putAll(oreMatchEntry.ores);
+            denseOre |= oreMatchEntry.denseOre;
+            calcChances();
+            if (colour == ColorHelper.BLACK) colour = oreMatchEntry.getColour();
+        }
     }
 
     private void calcChances()

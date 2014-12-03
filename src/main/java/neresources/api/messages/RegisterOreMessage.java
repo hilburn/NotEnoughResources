@@ -35,12 +35,32 @@ public class RegisterOreMessage extends RegistryMessage
 
     public RegisterOreMessage(ItemStack ore, DistributionBase distribution, int colour,Restriction restriction, boolean needSilkTouch, ItemStack... drops)
     {
-        this(ore,distribution,colour,Restriction.OVERWORLD_LIKE, needSilkTouch,Priority.FIRST,drops);
+        this(ore,distribution,colour,restriction, needSilkTouch,Priority.FIRST,drops);
     }
 
     public RegisterOreMessage(ItemStack ore, DistributionBase distribution, int colour, boolean needSilkTouch, Priority priority, ItemStack... drops)
     {
         this(ore,distribution,colour,Restriction.OVERWORLD_LIKE,needSilkTouch,priority,drops);
+    }
+
+    public RegisterOreMessage(ItemStack ore, DistributionBase distribution, Restriction restriction, ItemStack... drops)
+    {
+        this(ore, distribution, ColorHelper.BLACK, restriction, false, drops);
+    }
+
+    public RegisterOreMessage(ItemStack ore, DistributionBase distribution,Restriction restriction, boolean needSilkTouch, ItemStack... drops)
+    {
+        this(ore, distribution, ColorHelper.BLACK, restriction, needSilkTouch, drops);
+    }
+
+    public RegisterOreMessage(ItemStack ore, DistributionBase distribution,Restriction restriction, int colour, ItemStack... drops)
+    {
+        this(ore, distribution, colour, restriction, false, drops);
+    }
+
+    public RegisterOreMessage(ItemStack ore, DistributionBase distribution, Restriction restriction,int colour, boolean needSilkTouch, Priority priority, ItemStack... drops)
+    {
+        this(ore,distribution,colour,restriction,needSilkTouch,priority,drops);
     }
 
     public RegisterOreMessage(ItemStack ore, DistributionBase distribution, int colour, Restriction restriction, boolean needSilkTouch, Priority priority, ItemStack... drops)

@@ -22,7 +22,7 @@ public class Restriction
 
     public Restriction()
     {
-        this(BlockRestriction.STONE, BiomeRestriction.NONE, DimensionRestriction.NONE);
+        this(BiomeRestriction.NONE);
     }
 
     public Restriction(BlockRestriction blockRestriction)
@@ -95,9 +95,17 @@ public class Restriction
     {
         if (!(obj instanceof Restriction)) return false;
         Restriction other = (Restriction) obj;
-        if (!other.biomeRestriction.equals(biomeRestriction)) return false;
-        if (!other.blockRestriction.equals(blockRestriction)) return false;
-        if (!other.dimensionRestriction.equals(dimensionRestriction)) return false;
+        if (!other.biomeRestriction.equals(this.biomeRestriction)) return false;
+        if (!other.blockRestriction.equals(this.blockRestriction)) return false;
+        if (!other.dimensionRestriction.equals(this.dimensionRestriction)) return false;
+        return true;
+    }
+
+    public boolean isMergeable(Restriction restriction)
+    {
+        if (!biomeRestriction.isMergeable(restriction.biomeRestriction)) return false;
+        if (!blockRestriction.equals(restriction.blockRestriction)) return false;
+
         return true;
     }
 }
