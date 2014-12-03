@@ -2,6 +2,7 @@ package neresources.api.messages.utils;
 
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.utils.DropItem;
+import neresources.api.utils.PlantDrop;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -28,6 +29,14 @@ public class MessageHelper
         NBTTagList result = new NBTTagList();
         for (DropItem dropItem : dropItems)
             result.appendTag(dropItem.writeToNBT());
+        return result;
+    }
+
+    public static NBTTagList getPlantDropList(PlantDrop... plantDrops)
+    {
+        NBTTagList result = new NBTTagList();
+        for (PlantDrop plantDrop : plantDrops)
+            result.appendTag(plantDrop.writeToNBT());
         return result;
     }
 
@@ -67,6 +76,25 @@ public class MessageHelper
             }
         }
         return dropItems.toArray(new DropItem[dropItems.size()]);
+    }
+
+    public static PlantDrop[] getPlantDrops(NBTTagCompound tagCompound, String key)
+    {
+        return getPlantDrops(tagCompound.getTagList(key, 10));
+    }
+
+    public static PlantDrop[] getPlantDrops(NBTTagList list)
+    {
+        List<PlantDrop> plantDrops = new ArrayList<PlantDrop>();
+        if (list != null)
+        {
+            for (int i = 0; i < list.tagCount(); i++)
+            {
+                PlantDrop item = PlantDrop.readFromNBT(list.getCompoundTagAt(i));
+                if (item != null) plantDrops.add(item);
+            }
+        }
+        return plantDrops.toArray(new PlantDrop[plantDrops.size()]);
     }
 
     public static int[] getIntArray(float[] distribution)

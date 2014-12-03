@@ -36,7 +36,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return Resources.Gui.ENCHANTMENT_NEI.toString();
+        return Resources.Gui.Nei.ENCHANTMENT.toString();
     }
 
     @Override

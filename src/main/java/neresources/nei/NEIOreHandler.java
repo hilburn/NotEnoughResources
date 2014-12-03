@@ -37,7 +37,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return Resources.Gui.ORE_NEI.toString();
+        return Resources.Gui.Nei.ORE.toString();
     }
 
     @Override

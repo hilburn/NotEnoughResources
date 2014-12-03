@@ -7,15 +7,14 @@ import neresources.api.messages.ModifyOreMessage;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
+import neresources.api.utils.PlantDrop;
 import neresources.api.utils.Priority;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.api.utils.restrictions.Restriction;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
-import neresources.registry.DungeonRegistry;
-import neresources.registry.MessageRegistry;
 import neresources.entries.MobEntry;
-import neresources.entries.OreEntry;
+import neresources.registry.*;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -197,6 +196,32 @@ public class MinecraftCompat extends CompatBase
 
     private void registerVanillaPlants()
     {
+        // Potato
+        ItemStack potatoPlant = new ItemStack(Blocks.potatoes);
+        PlantDrop potato = new PlantDrop(new ItemStack(Items.potato), 1, 4);
+        PlantDrop poisonous = new PlantDrop(new ItemStack(Items.poisonous_potato), 0.02F);
+        registerPlant(new PlantEntry(potatoPlant, potato, poisonous));
 
+        //Carrot
+        ItemStack carrotPlant = new ItemStack(Blocks.carrots);
+        PlantDrop carrot = new PlantDrop(new ItemStack(Items.carrot), 1, 4);
+        registerPlant(new PlantEntry(carrotPlant, carrot));
+        /* TODO: find correct stuff for these plants
+        //Wheat
+        ItemStack wheatPlant = new ItemStack(Blocks.wheat);
+        PlantDrop wheat = new PlantDrop(new ItemStack(Items.wheat), 1.0F);
+        PlantDrop seeds = new PlantDrop(new ItemStack(Items.wheat_seeds), 0, 3);
+        registerPlant(new PlantEntry(wheatPlant, wheat, seeds));
+
+        //Melon
+        ItemStack melonStem = new ItemStack(Blocks.melon_stem);
+        PlantDrop melonSlice = new PlantDrop(new ItemStack(Items.melon), 3, 7);
+        registerPlant(new PlantEntry(melonStem, melonSlice));
+
+        //Pumpkin
+        ItemStack pumpkinStem = new ItemStack(Blocks.pumpkin_stem);
+        PlantDrop pumpkin = new PlantDrop(new ItemStack(Blocks.pumpkin), 1.0F);
+        registerPlant(new PlantEntry(pumpkinStem, pumpkin));
+        */
     }
 }

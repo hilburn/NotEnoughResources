@@ -1,8 +1,8 @@
 package neresources.registry;
 
+import neresources.api.utils.PlantDrop;
 import neresources.utils.MapKeys;
 import neresources.utils.SeedHelper;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -50,6 +50,11 @@ public class PlantEntry
     public List<PlantDrop> getDrops()
     {
         return new ArrayList<PlantDrop>(this.drops.values());
+    }
+
+    public PlantDrop getDrop(ItemStack itemStack)
+    {
+        return this.drops.get(MapKeys.getKey(itemStack));
     }
 
     public void multiplyWeight(int multiplier)
