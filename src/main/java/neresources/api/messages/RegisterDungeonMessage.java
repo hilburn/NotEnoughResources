@@ -2,6 +2,7 @@ package neresources.api.messages;
 
 import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
+import neresources.api.utils.Priority;
 import neresources.utils.WeightedRandomChestContentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RegisterDungeonMessage extends Message
+public class RegisterDungeonMessage extends RegistryMessage
 {
     private Map<ItemStack, Float> chestDrops = new LinkedHashMap<ItemStack, Float>();
     private String name;
@@ -23,7 +24,7 @@ public class RegisterDungeonMessage extends Message
     }
     public RegisterDungeonMessage(String name, int minStacks, int maxStacks, List<WeightedRandomChestContent> chestDrops)
     {
-        this(name,minStacks,maxStacks);
+        this(name,minStacks,maxStacks,Priority.FIRST);
         int totalWeight = 0;
         for (WeightedRandomChestContent chestItem : chestDrops)
             totalWeight += chestItem.itemWeight;
@@ -38,18 +39,21 @@ public class RegisterDungeonMessage extends Message
 
     public RegisterDungeonMessage(String name, int minStacks,int maxStacks, Map<ItemStack,Float> chestDrops)
     {
-        this(name,minStacks,maxStacks);
+        this(name,minStacks,maxStacks,Priority.FIRST);
         this.chestDrops = chestDrops;
     }
 
-    private RegisterDungeonMessage(String name, int minStacks, int maxStacks)
+    private RegisterDungeonMessage(String name, int minStacks, int maxStacks, Priority priority)
     {
+        super(priority,true);
         this.name = name;
         this.minStacks = minStacks;
         this.maxStacks = maxStacks;
     }
+
     public RegisterDungeonMessage(NBTTagCompound tagCompound)
     {
+        super(tagCompound);
         this.chestDrops = MessageHelper.nbtTagListToMap(tagCompound.getTagList(MessageKeys.itemList,10));
         this.name = tagCompound.getString(MessageKeys.name);
         this.minStacks = tagCompound.getInteger(MessageKeys.min);
@@ -59,6 +63,7 @@ public class RegisterDungeonMessage extends Message
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
+        super.writeToNBT(tagCompound);
         tagCompound.setTag(MessageKeys.itemList, MessageHelper.mapToNBTTagList(chestDrops));
         tagCompound.setString(MessageKeys.name,name);
         tagCompound.setInteger(MessageKeys.min,minStacks);

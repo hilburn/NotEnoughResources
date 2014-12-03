@@ -1,9 +1,15 @@
 package neresources.api.messages;
 
+import neresources.api.utils.Priority;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class RemovePlantMessage extends RemoveMessage
+public class RemovePlantMessage extends RegistryMessage
 {
+    public RemovePlantMessage(Priority priority)
+    {
+        super(priority, false);
+    }
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {

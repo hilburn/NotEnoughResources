@@ -1,9 +1,9 @@
 package neresources.compatibility.mobproperties;
 
+import neresources.api.messages.ModifyMobMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.api.utils.conditionals.ExtendedConditional;
-import neresources.registry.ChangeMobDrop;
 import neresources.utils.TranslationHelper;
 import net.minecraft.block.Block;
 import net.minecraft.world.EnumDifficulty;
@@ -43,18 +43,18 @@ public class StringParser
 
     public static final String witherString = "if_wither_skeleton";
 
-    public static ChangeMobDrop addConditionals(ChangeMobDrop mobDrop, List<String> conditions)
+    public static ModifyMobMessage addConditionals(ModifyMobMessage mobDrop, List<String> conditions)
     {
         List<String> addConditions = new ArrayList<String>();
         for (String condition : conditions)
         {
-            if (condition.equals(witherString)) mobDrop.setWitherSkeleton(true);
+            if (condition.equals(witherString)) mobDrop.setWither(true);
             Conditional conditional = stringToConditional(condition);
             if (conditional != null)
                 addConditions.add(conditional.toString());
         }
         if (!addConditions.isEmpty())
-            for (DropItem item : mobDrop.addItems())
+            for (DropItem item : mobDrop.getAddDrops())
                 item.addConditionals(addConditions);
 
         return mobDrop;

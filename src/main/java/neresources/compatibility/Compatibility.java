@@ -1,6 +1,6 @@
 package neresources.compatibility;
 
-import neresources.registry.ChangeOreDrop;
+import neresources.api.messages.ModifyOreMessage;
 import neresources.registry.MessageRegistry;
 import neresources.registry.OreRegistry;
 import neresources.utils.ModList;
@@ -26,7 +26,7 @@ public class Compatibility
                 {
                     ItemStack denseOre = OreDictionary.getOres(oreDictEntry).get(0);
                     ItemStack ore = OreDictionary.getOres(oreDictEntry.replace("dense", "")).get(0);
-                    OreRegistry.getInstance().addDrops(new ChangeOreDrop(ore, denseOre));
+                    OreRegistry.getInstance().addDrops(new ModifyOreMessage(ore, denseOre));
                 }
             }
         }

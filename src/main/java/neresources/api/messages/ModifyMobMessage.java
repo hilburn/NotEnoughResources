@@ -176,9 +176,16 @@ public class ModifyMobMessage extends ModifyMessage
         return tagCompound;
     }
 
+    public void setWither(boolean wither)
+    {
+        this.witherSkeleton = wither;
+    }
+
     @Override
     public boolean isValid()
     {
         return clazz != null && (hasAdd() || hasRemove());
     }
+
+
 }
