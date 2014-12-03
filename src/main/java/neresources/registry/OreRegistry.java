@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.messages.ModifyOreMessage;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -30,7 +31,6 @@ public class OreRegistry
         String dropKey = MapKeys.getKey(drop);
         if (dropKey != null && !dropToOreMap.containsKey(dropKey))
             dropToOreMap.put(dropKey, key);
-
         if (matchEntryMap.containsKey(key))
             matchEntryMap.get(key).add(entry);
         else
@@ -52,12 +52,12 @@ public class OreRegistry
         return new ArrayList<OreMatchEntry>(matchEntryMap.values());
     }
 
-    public boolean removeDrops(ChangeOreDrop oreMod)
+    public boolean removeDrops(ModifyOreMessage oreMod)
     {
-        if (oreMod.removeDrops() == null) return true;
-        String oreKey = MapKeys.getKey(oreMod.ore());
+        if (oreMod.getRemoveDrops() == null) return true;
+        String oreKey = MapKeys.getKey(oreMod.getOre());
         if (oreKey == null) return false;
-        for (ItemStack drop : oreMod.removeDrops())
+        for (ItemStack drop : oreMod.getRemoveDrops())
         {
             String dropKey = MapKeys.getKey(drop);
             if (dropKey == null || !dropToOreMap.containsKey(dropKey)) continue;
@@ -70,12 +70,12 @@ public class OreRegistry
         return true;
     }
 
-    public boolean addDrops(ChangeOreDrop oreMod)
+    public boolean addDrops(ModifyOreMessage oreMod)
     {
-        if (oreMod.addDrops() == null) return true;
-        String oreKey = MapKeys.getKey(oreMod.ore());
+        if (oreMod.getAddDrops() == null) return true;
+        String oreKey = MapKeys.getKey(oreMod.getOre());
         if (oreKey == null || !matchEntryMap.containsKey(oreKey)) return false;
-        for (ItemStack drop : oreMod.addDrops())
+        for (ItemStack drop : oreMod.getAddDrops())
         {
             String dropKey = MapKeys.getKey(drop);
             if (dropKey == null || dropToOreMap.containsKey(dropKey)) continue;

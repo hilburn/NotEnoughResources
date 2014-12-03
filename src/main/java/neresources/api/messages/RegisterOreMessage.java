@@ -4,10 +4,11 @@ import neresources.api.distributions.DistributionBase;
 import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
 import neresources.api.utils.ColorHelper;
+import neresources.api.utils.Priority;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class RegisterOreMessage extends Message
+public class RegisterOreMessage extends RegistryMessage
 {
     private ItemStack ore;
     private ItemStack[] drops;
@@ -32,6 +33,12 @@ public class RegisterOreMessage extends Message
 
     public RegisterOreMessage(ItemStack ore, DistributionBase distribution, int colour, boolean needSilkTouch, ItemStack... drops)
     {
+        this(ore,distribution,colour,needSilkTouch,Priority.FIRST,drops);
+    }
+
+    public RegisterOreMessage(ItemStack ore, DistributionBase distribution, int colour, boolean needSilkTouch, Priority priority, ItemStack... drops)
+    {
+        super(priority,true);
         this.ore = ore;
         this.drops = drops;
         this.needSilkTouch = needSilkTouch;
@@ -41,6 +48,7 @@ public class RegisterOreMessage extends Message
 
     public RegisterOreMessage(NBTTagCompound tagCompound)
     {
+        super(tagCompound);
         this.ore = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.stack));
         this.drops = MessageHelper.getItemStacks(tagCompound, MessageKeys.addDrops);
         this.needSilkTouch = tagCompound.getBoolean(MessageKeys.silkTouch);
@@ -76,6 +84,7 @@ public class RegisterOreMessage extends Message
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
+        super.writeToNBT(tagCompound);
         tagCompound.setTag(MessageKeys.stack, ore.writeToNBT(new NBTTagCompound()));
         tagCompound.setTag(MessageKeys.addDrops, MessageHelper.getItemStackList(drops));
         distribution.writeToNBT(tagCompound);

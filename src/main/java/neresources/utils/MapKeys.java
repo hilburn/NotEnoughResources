@@ -34,6 +34,6 @@ public class MapKeys
 
     public static String key(ItemStack itemStack)
     {
-        return itemStack.getItem().getClass().toString() + ":" + itemStack.getItemDamage();
+        return itemStack.getItem().hashCode() + ":" + itemStack.getItemDamage();
     }
 }

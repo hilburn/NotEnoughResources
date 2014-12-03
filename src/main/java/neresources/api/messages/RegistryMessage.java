@@ -21,6 +21,11 @@ public abstract class RegistryMessage extends Message
         this.add = tagCompound.getBoolean(MessageKeys.addToRegistry);
     }
 
+    public boolean isAdd()
+    {
+        return add;
+    }
+
     public Priority getAddPriority()
     {
         return add? priority: null;

@@ -12,9 +12,9 @@ public class MessageRegistry
 {
     private static Set<Message> registerMessages = new LinkedHashSet<Message>();
     private static Set<ModifyMessage> modifyMessages = new LinkedHashSet<ModifyMessage>();
-    private static Set<RegistryMessage> removeMessages = new LinkedHashSet<RegistryMessage>();
+    private static Set<RegistryMessage> registryMessages = new LinkedHashSet<RegistryMessage>();
 
-    public static void getModifyMessages(Priority priority, Set<ModifyMessage> add, Set<ModifyMessage> remove)
+    private static void getModifyMessages(Priority priority, Set<ModifyMessage> add, Set<ModifyMessage> remove)
     {
         for (ModifyMessage message : modifyMessages)
         {
@@ -23,12 +23,20 @@ public class MessageRegistry
         }
     }
 
+    private static void getRegistryMessages(Priority priority, Set<RegistryMessage> add, Set<RegistryMessage> remove)
+    {
+        for (RegistryMessage message : registryMessages)
+        {
+            if (message.getAddPriority() == priority) add.add(message);
+            if (message.getRemovePriority() == priority) remove.add(message);
+        }
+    }
+
     public static void addMessage(Message message)
     {
         if (message == null || !message.isValid()) return;
         if (message instanceof ModifyMessage) modifyMessages.add((ModifyMessage) message);
-        else if (message instanceof RegistryMessage) removeMessages.add((RegistryMessage) message);
-        else registerMessages.add(message);
+        else if (message instanceof RegistryMessage) registryMessages.add((RegistryMessage) message);
     }
 
     public static void registerMessage(String key, NBTTagCompound tagCompound)
@@ -46,19 +54,24 @@ public class MessageRegistry
 
     public static void processMessages()
     {
-        for (Message message : registerMessages)
+        for (Priority priority : Priority.values())
         {
-            if (message instanceof RegisterOreMessage)
-                OreRegistry.getInstance().register(new OreEntry((RegisterOreMessage) message));
-            else if (message instanceof RegisterMobMessage)
-                MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
-            else if (message instanceof RegisterDungeonMessage)
-                DungeonRegistry.getInstance().registerDungeonEntry(new DungeonEntry((RegisterDungeonMessage)message));
-        }
-
-        for (Message message : removeMessages)
-        {
-            if (message instanceof RemoveMobMessage) MobRegistry.getInstance().removeMob((RemoveMobMessage) message);
+            Set<RegistryMessage> addMessages = new LinkedHashSet<RegistryMessage>();
+            Set<RegistryMessage> removeMessages = new LinkedHashSet<RegistryMessage>();
+            getRegistryMessages(priority, addMessages, removeMessages);
+            for (RegistryMessage message : addMessages)
+            {
+                if (message instanceof RegisterOreMessage)
+                    OreRegistry.getInstance().register(new OreEntry((RegisterOreMessage) message));
+                else if (message instanceof RegisterMobMessage)
+                    MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
+                else if (message instanceof RegisterDungeonMessage)
+                    DungeonRegistry.getInstance().registerDungeonEntry(new DungeonEntry((RegisterDungeonMessage)message));
+            }
+            for (RegistryMessage message : removeMessages)
+            {
+                if (message instanceof RemoveMobMessage) MobRegistry.getInstance().removeMob((RemoveMobMessage) message);
+            }
         }
 
         for (Priority priority : Priority.values())
@@ -69,16 +82,16 @@ public class MessageRegistry
             for (ModifyMessage addMessage : addMessages)
             {
                 if (addMessage instanceof ModifyMobMessage)
-                    MobRegistry.getInstance().addMobDrops(new ChangeMobDrop((ModifyMobMessage) addMessage));
+                    MobRegistry.getInstance().addMobDrops((ModifyMobMessage) addMessage);
                 else if (addMessage instanceof ModifyOreMessage)
-                    OreRegistry.getInstance().addDrops(new ChangeOreDrop((ModifyOreMessage) addMessage));
+                    OreRegistry.getInstance().addDrops((ModifyOreMessage) addMessage);
             }
             for (ModifyMessage removeMessage : removeMessages)
             {
                 if (removeMessage instanceof ModifyMobMessage)
-                    MobRegistry.getInstance().removeMobDrops(new ChangeMobDrop((ModifyMobMessage) removeMessage));
+                    MobRegistry.getInstance().removeMobDrops((ModifyMobMessage) removeMessage);
                 else if (removeMessage instanceof ModifyOreMessage)
-                    OreRegistry.getInstance().removeDrops(new ChangeOreDrop((ModifyOreMessage) removeMessage));
+                    OreRegistry.getInstance().removeDrops((ModifyOreMessage) removeMessage);
             }
         }
     }

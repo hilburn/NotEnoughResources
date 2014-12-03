@@ -6,13 +6,14 @@ import neresources.api.utils.DropItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class RegisterPlantMessage extends Message
+public class RegisterPlantMessage extends RegistryMessage
 {
     private ItemStack plant;
     private DropItem[] addDrops;
 
     public RegisterPlantMessage(NBTTagCompound tagCompound)
     {
+        super(tagCompound);
         this.plant = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag(MessageKeys.stack));
         this.addDrops = MessageHelper.getDropItems(tagCompound,MessageKeys.addDrops);
     }
@@ -20,6 +21,7 @@ public class RegisterPlantMessage extends Message
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
+        super.writeToNBT(tagCompound);
         tagCompound.setTag(MessageKeys.stack, plant.writeToNBT(new NBTTagCompound()));
         tagCompound.setTag(MessageKeys.addDrops,MessageHelper.getDropItemList(addDrops));
         return tagCompound;

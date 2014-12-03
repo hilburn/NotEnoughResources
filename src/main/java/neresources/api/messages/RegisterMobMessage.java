@@ -4,10 +4,11 @@ import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
+import neresources.api.utils.Priority;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class RegisterMobMessage extends Message
+public class RegisterMobMessage extends RegistryMessage
 {
     private Class mobClass;
     private LightLevel lightLevel;
@@ -25,6 +26,12 @@ public class RegisterMobMessage extends Message
 
     public RegisterMobMessage(Class clazz, LightLevel level, DropItem[] drops)
     {
+        this(Priority.FIRST,clazz,level,drops);
+    }
+
+    public RegisterMobMessage(Priority priority, Class clazz, LightLevel level, DropItem[] drops)
+    {
+        super(priority,true);
         this.mobClass = clazz;
         this.lightLevel = level;
         this.drops = drops;
@@ -32,6 +39,7 @@ public class RegisterMobMessage extends Message
 
     public RegisterMobMessage(NBTTagCompound tagCompound)
     {
+        super(tagCompound);
         this.mobClass = ReflectionHelper.findClass(tagCompound.getString(MessageKeys.name));
         this.lightLevel = LightLevel.decodeLightLevel(tagCompound.getString(MessageKeys.lightLevel));
         this.drops = MessageHelper.getDropItems(tagCompound, MessageKeys.addDrops);
@@ -40,6 +48,7 @@ public class RegisterMobMessage extends Message
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
     {
+        super.writeToNBT(tagCompound);
         tagCompound.setString(MessageKeys.name, mobClass.getName());
         tagCompound.setString(MessageKeys.lightLevel, lightLevel.encode());
         tagCompound.setTag(MessageKeys.addDrops, MessageHelper.getDropItemList(drops));
