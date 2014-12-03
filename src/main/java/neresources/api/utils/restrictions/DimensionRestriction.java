@@ -151,4 +151,17 @@ public class DimensionRestriction
         }
         return false;
     }
+
+    public boolean isMergeable(DimensionRestriction other)
+    {
+        if (other.type==Type.NONE) return true;
+        int dimMin = Math.min(min,other.min)-1;
+        int dimMax = Math.max(max,other.max)+1;
+        Set<Integer> testDimensions = new TreeSet<Integer>();
+        for (int dim = dimMin; dim<=dimMax; dim++)
+            testDimensions.add(dim);
+        Set<Integer> thisValidDimensions = getValidDimensions(testDimensions);
+        Set<Integer> otherValidDimensions = other.getValidDimensions(testDimensions);
+        return otherValidDimensions.containsAll(thisValidDimensions);
+    }
 }

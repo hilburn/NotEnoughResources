@@ -105,7 +105,7 @@ public class Restriction
     {
         if (!biomeRestriction.isMergeable(restriction.biomeRestriction)) return false;
         if (!blockRestriction.equals(restriction.blockRestriction)) return false;
-
+        if (!dimensionRestriction.isMergeable(restriction.dimensionRestriction)) return false;
         return true;
     }
 }

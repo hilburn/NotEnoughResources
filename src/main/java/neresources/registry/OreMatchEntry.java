@@ -59,14 +59,14 @@ public class OreMatchEntry
 
     public boolean add(RegisterOreMessage message)
     {
-        if (!message.getRestriction().isMergeable(this.restriction)) return false;
+        if (!restriction.isMergeable(message.getRestriction())) return false;
         addMessage(message);
         return message.getRestriction().equals(this.restriction);
     }
 
     public void add(OreMatchEntry oreMatchEntry)
     {
-        if (oreMatchEntry.restriction.isMergeable(this.restriction))
+        if (restriction.isMergeable(oreMatchEntry.restriction))
         {
             silkTouchMap.putAll(oreMatchEntry.silkTouchMap);
             ores.putAll(oreMatchEntry.ores);
