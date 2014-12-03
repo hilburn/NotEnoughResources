@@ -94,19 +94,18 @@ public class OreRegistry
 
     public static boolean removeDrops(ModifyOreMessage oreMod)
     {
-//        if (oreMod.getRemoveDrops() == null) return true;
-//        String oreKey = MapKeys.getKey(oreMod.getOre());
-//        if (oreKey == null) return false;
-//        for (ItemStack drop : oreMod.getRemoveDrops())
-//        {
-//            String dropKey = MapKeys.getKey(drop);
-//            if (dropKey == null || !dropToOreMap.containsKey(dropKey)) continue;
-//            if (dropToOreMap.get(dropKey).equalsIgnoreCase(oreKey))
-//            {
-//                dropToOreMap.remove(dropKey);
-//                matchEntryMap.get(oreKey).removeDrop(drop);
-//            }
-//        }
+        if (oreMod.getRemoveDrops() == null) return true;
+        String oreKey = MapKeys.getKey(oreMod.getOre());
+        if (oreKey == null || !dropMap.containsKey(oreKey)|| dropMap.get(oreKey).isEmpty()) return false;
+        for (ItemStack drop : oreMod.getRemoveDrops())
+        {
+            String dropKey = MapKeys.getKey(drop);
+            if (dropKey == null || !dropMap.containsKey(dropKey)) continue;
+            Set<Integer> hashSet = dropMap.get(oreKey);
+            dropMap.get(dropKey).removeAll(hashSet);
+            for (int hashCode:hashSet)
+                matchEntryMap.get(hashCode).removeDrop(drop);
+        }
         return true;
     }
 
