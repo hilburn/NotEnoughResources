@@ -192,9 +192,30 @@ public class MinecraftCompat extends CompatBase
     private void registerVanillaPlants()
     {
         // Potato
-        ItemStack potatoPlant = new ItemStack(Blocks.potatoes, 1, 7);
+        ItemStack potatoPlant = new ItemStack(Blocks.potatoes);
         PlantDrop potato = new PlantDrop(new ItemStack(Items.potato), 1, 4);
         PlantDrop poisonous = new PlantDrop(new ItemStack(Items.poisonous_potato), 0.02F);
         registerPlant(new PlantEntry(potatoPlant, potato, poisonous));
+
+        //Carrot
+        ItemStack carrotPlant = new ItemStack(Blocks.carrots);
+        PlantDrop carrot = new PlantDrop(new ItemStack(Items.carrot), 1, 4);
+        registerPlant(new PlantEntry(carrotPlant, carrot));
+
+        //Wheat
+        ItemStack wheatPlant = new ItemStack(Blocks.wheat);
+        PlantDrop wheat = new PlantDrop(new ItemStack(Items.wheat), 1.0F);
+        PlantDrop seeds = new PlantDrop(new ItemStack(Items.wheat_seeds), 0, 3);
+        registerPlant(new PlantEntry(wheatPlant, wheat, seeds));
+
+        //Melon
+        ItemStack melonStem = new ItemStack(Blocks.melon_stem);
+        PlantDrop melonSlice = new PlantDrop(new ItemStack(Items.melon), 3, 7);
+        registerPlant(new PlantEntry(melonStem, melonSlice));
+
+        //Pumpkin
+        ItemStack pumpkinStem = new ItemStack(Blocks.pumpkin_stem);
+        PlantDrop pumpkin = new PlantDrop(new ItemStack(Blocks.pumpkin), 1.0F);
+        registerPlant(new PlantEntry(pumpkinStem, pumpkin));
     }
 }
