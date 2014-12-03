@@ -1,13 +1,9 @@
 package neresources.compatibility;
 
-<<<<<<< HEAD
+import neresources.api.messages.RegisterOreMessage;
 import neresources.entries.MobEntry;
-import neresources.registry.MobRegistry;
-import neresources.entries.OreEntry;
-import neresources.registry.OreRegistry;
-=======
 import neresources.registry.*;
->>>>>>> origin/master
+import neresources.entries.OreEntry;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;
 
@@ -34,6 +30,11 @@ public class CompatBase
     public void registerMob(MobEntry entry)
     {
         MobRegistry.getInstance().registerMob(entry);
+    }
+
+    public void registerOre(RegisterOreMessage message)
+    {
+        NewOreRegistry.registerOre(message);
     }
 
     public void registerOre(OreEntry entry)

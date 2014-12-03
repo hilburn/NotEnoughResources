@@ -89,4 +89,15 @@ public class Restriction
         tagCompound.setTag(MessageKeys.biomeRestriction,biomeRestriction.writeToNBT());
         return tagCompound;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof Restriction)) return false;
+        Restriction other = (Restriction) obj;
+        if (!other.biomeRestriction.equals(biomeRestriction)) return false;
+        if (!other.blockRestriction.equals(blockRestriction)) return false;
+        if (!other.dimensionRestriction.equals(dimensionRestriction)) return false;
+        return true;
+    }
 }

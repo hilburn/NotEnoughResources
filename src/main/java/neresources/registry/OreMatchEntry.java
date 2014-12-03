@@ -1,8 +1,10 @@
 package neresources.registry;
 
 import neresources.api.distributions.DistributionBase;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.ColorHelper;
 import neresources.api.utils.DistributionHelpers;
+import neresources.api.utils.restrictions.Restriction;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
 import neresources.entries.OreEntry;
@@ -22,11 +24,21 @@ public class OreMatchEntry
     private int bestY;
     private boolean denseOre;
     private int colour;
+    private Restriction restriction;
     List<ItemStack> drops = new ArrayList<ItemStack>();
 
     public OreMatchEntry(OreEntry entry)
     {
         this.add(entry);
+    }
+
+    public OreMatchEntry(RegisterOreMessage entry)
+    {
+        silkTouchMap.put(MapKeys.key(entry.getOre()), entry.needSilkTouch());
+        ores.put(entry.getOre(), entry.getDistribution());
+        restriction = entry.getRestriction();
+        calcChances();
+        if (colour == ColorHelper.BLACK) colour = entry.getColour();
     }
 
     public void add(OreEntry entry)
@@ -35,6 +47,21 @@ public class OreMatchEntry
         ores.put(entry.getOre(), entry.getDistribution());
         calcChances();
         if (colour == ColorHelper.BLACK) colour = entry.getColour();
+    }
+
+    private boolean addMessage(RegisterOreMessage message)
+    {
+        silkTouchMap.put(MapKeys.key(message.getOre()), message.needSilkTouch());
+        ores.put(message.getOre(), message.getDistribution());
+        calcChances();
+        if (colour == ColorHelper.BLACK) colour = message.getColour();
+        return true;
+    }
+
+    public boolean add(RegisterOreMessage message)
+    {
+        if (!message.getRestriction().equals(restriction)) return false;
+        return addMessage(message);
     }
 
     private void calcChances()

@@ -4,6 +4,7 @@ import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
 import neresources.api.distributions.DistributionUnderWater;
 import neresources.api.messages.ModifyOreMessage;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
 import neresources.api.utils.Priority;
@@ -41,7 +42,7 @@ public class MinecraftCompat extends CompatBase
 
     private void registerVanillaOreDrops()
     {
-        registerOre(new OreEntry(new ItemStack(Blocks.clay), new DistributionUnderWater(0.0035F)));
+        registerOre(new RegisterOreMessage(new ItemStack(Blocks.clay), new DistributionUnderWater(0.0035F), new ItemStack(Items.clay_ball,4)));
         MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.clay), Priority.FIRST, new ItemStack(Items.clay_ball, 4)));
         MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.coal_ore), Priority.FIRST, new ItemStack(Items.coal)));
         MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(Blocks.diamond_ore), Priority.FIRST, new ItemStack(Items.diamond)));

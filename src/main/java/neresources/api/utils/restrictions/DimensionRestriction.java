@@ -140,4 +140,15 @@ public class DimensionRestriction
         tagCompound.setByte(MessageKeys.type, (byte) type.ordinal());
         return tagCompound;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof DimensionRestriction)
+        {
+            DimensionRestriction other = (DimensionRestriction) obj;
+            return other.min==min && other.max==max && other.type == type;
+        }
+        return false;
+    }
 }

@@ -141,4 +141,15 @@ public class BiomeRestriction
         tagCompound.setByte(MessageKeys.type,(byte)type.ordinal());
         return tagCompound;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof BiomeRestriction)
+        {
+            BiomeRestriction other = (BiomeRestriction) obj;
+            return other.biomes.size() == biomes.size() && other.biomes.containsAll(biomes);
+        }
+        return false;
+    }
 }

@@ -49,4 +49,21 @@ public class BlockRestriction
         tagCompound.setTag(MessageKeys.stack, new ItemStack(block,1,metadata).writeToNBT(new NBTTagCompound()));
         return tagCompound;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof BlockRestriction)
+        {
+            BlockRestriction other = (BlockRestriction) obj;
+            return other.block == block && other.metadata == metadata;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString()
+    {
+        return block.toString() + ":" + metadata;
+    }
 }
