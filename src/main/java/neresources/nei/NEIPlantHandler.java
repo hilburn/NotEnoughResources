@@ -5,7 +5,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.reference.Resources;
 import neresources.api.utils.PlantDrop;
-import neresources.registry.PlantEntry;
+import neresources.entries.PlantEntry;
 import neresources.registry.PlantRegistry;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;

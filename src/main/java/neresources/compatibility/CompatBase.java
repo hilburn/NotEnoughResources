@@ -2,6 +2,7 @@ package neresources.compatibility;
 
 import neresources.api.messages.RegisterOreMessage;
 import neresources.entries.MobEntry;
+import neresources.entries.PlantEntry;
 import neresources.registry.*;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;

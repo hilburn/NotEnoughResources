@@ -1,4 +1,4 @@
-package neresources.registry;
+package neresources.entries;
 
 import neresources.api.utils.PlantDrop;
 import neresources.utils.MapKeys;

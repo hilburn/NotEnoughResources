@@ -1,6 +1,7 @@
 package neresources.registry;
 
 import neresources.api.utils.PlantDrop;
+import neresources.entries.PlantEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
