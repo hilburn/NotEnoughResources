@@ -3,6 +3,7 @@ package neresources.compatibility.reika;
 import Reika.ReactorCraft.Registry.ReactorOres;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.ModifyOreMessage;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
 import neresources.registry.MessageRegistry;
@@ -33,7 +34,7 @@ public class ReactorCraftCompat extends CompatBase
             int veinSize = reactorOre.veinSize;
             float chance = (float) (numVeins * veinSize) / ((maxY - minY + 1) * 256);
             if (!generates) continue;
-            registerOre(new OreEntry(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
 }

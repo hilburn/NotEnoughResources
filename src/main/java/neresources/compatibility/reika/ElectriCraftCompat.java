@@ -2,6 +2,7 @@ package neresources.compatibility.reika;
 
 import Reika.ElectriCraft.Registry.ElectriOres;
 import neresources.api.distributions.DistributionSquare;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.compatibility.CompatBase;
 import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public class ElectriCraftCompat extends CompatBase
             int numVeins = electriOre.perChunk;
             int veinSize = electriOre.veinSize;
             float chance = (float) (numVeins * veinSize) / ((maxY - minY + 1) * 256);
-            registerOre(new OreEntry(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
 }

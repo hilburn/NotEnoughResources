@@ -60,7 +60,7 @@ public class NewOreRegistry
         return hashCode;
     }
 
-    public List<OreMatchEntry> getOres()
+    public static List<OreMatchEntry> getOres()
     {
         List<OreMatchEntry> result = new ArrayList<OreMatchEntry>();
         Set<Integer> addedCodes = new TreeSet<Integer>();
@@ -78,7 +78,7 @@ public class NewOreRegistry
         return result;
     }
 
-    public List<OreMatchEntry> getRegistryMatches(ItemStack itemStack)
+    public static List<OreMatchEntry> getRegistryMatches(ItemStack itemStack)
     {
         String key = MapKeys.getKey(itemStack);
         List<OreMatchEntry> result = new ArrayList<OreMatchEntry>();
@@ -90,5 +90,41 @@ public class NewOreRegistry
             }
         }
         return result;
+    }
+
+    public static boolean removeDrops(ModifyOreMessage oreMod)
+    {
+//        if (oreMod.getRemoveDrops() == null) return true;
+//        String oreKey = MapKeys.getKey(oreMod.getOre());
+//        if (oreKey == null) return false;
+//        for (ItemStack drop : oreMod.getRemoveDrops())
+//        {
+//            String dropKey = MapKeys.getKey(drop);
+//            if (dropKey == null || !dropToOreMap.containsKey(dropKey)) continue;
+//            if (dropToOreMap.get(dropKey).equalsIgnoreCase(oreKey))
+//            {
+//                dropToOreMap.remove(dropKey);
+//                matchEntryMap.get(oreKey).removeDrop(drop);
+//            }
+//        }
+        return true;
+    }
+
+    public static boolean addDrops(ModifyOreMessage oreMod)
+    {
+        if (oreMod.getAddDrops() == null) return true;
+        String oreKey = MapKeys.getKey(oreMod.getOre());
+        if (oreKey == null || !dropMap.containsKey(oreKey)) return false;
+        for (ItemStack drop : oreMod.getAddDrops())
+        {
+            String dropKey = MapKeys.getKey(drop);
+            if (dropKey == null) continue;
+            Set<Integer> hashSet = dropMap.containsKey(dropKey)? dropMap.get(dropKey) : new LinkedHashSet<Integer>();
+            for (int hashCode : dropMap.get(oreKey))
+                matchEntryMap.get(hashCode).addDrop(drop);
+            hashSet.addAll(dropMap.get(oreKey));
+            dropMap.put(dropKey, hashSet);
+        }
+        return true;
     }
 }

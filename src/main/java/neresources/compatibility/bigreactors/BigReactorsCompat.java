@@ -3,6 +3,7 @@ package neresources.compatibility.bigreactors;
 import erogenousbeef.bigreactors.world.BRSimpleOreGenerator;
 import erogenousbeef.bigreactors.world.BRWorldGenerator;
 import neresources.api.distributions.DistributionSquare;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.compatibility.CompatBase;
 import neresources.entries.OreEntry;
 import neresources.utils.DeObfMappings;
@@ -35,8 +36,7 @@ public class BigReactorsCompat extends CompatBase
             Set<Integer> dimensionBlacklist = (Set<Integer>) ReflectionHelper.getObject(BRSimpleOreGenerator.class, "dimensionBlacklist", oreGen);
             ItemStack ore = new ItemStack(oreBlock, 1, metadata);
             float chance = ((float) (minVeins + maxVeins) / 2) * veinSize / ((maxY - minY + 1) * 256);
-            OreEntry entry = new OreEntry(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance));
-            registerOre(entry);
+            registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
 }

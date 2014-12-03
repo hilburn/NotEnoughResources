@@ -10,9 +10,9 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import neresources.api.distributions.DistributionCustom;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
-import neresources.entries.OreEntry;
 import neresources.utils.LoaderHelper;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.init.Blocks;
@@ -187,7 +187,7 @@ public class CoFHCompat extends CompatBase
         for (WeightedRandomBlock ore : ores)
         {
             if (ore.block == Blocks.gravel || ore.block == Blocks.dirt) return;
-            registerOre(new OreEntry(new ItemStack(ore.block, 1, ore.metadata), new DistributionCustom(DistributionHelpers.multiplyArray(baseChance, (float) ore.itemWeight / totalWeight))));
+            registerOre(new RegisterOreMessage(new ItemStack(ore.block, 1, ore.metadata), new DistributionCustom(DistributionHelpers.multiplyArray(baseChance, (float) ore.itemWeight / totalWeight))));
         }
     }
 

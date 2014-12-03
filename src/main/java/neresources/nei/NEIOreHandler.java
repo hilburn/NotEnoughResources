@@ -6,8 +6,8 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.config.Settings;
 import neresources.reference.Resources;
+import neresources.registry.NewOreRegistry;
 import neresources.registry.OreMatchEntry;
-import neresources.registry.OreRegistry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import neresources.utils.TranslationHelper;
@@ -63,7 +63,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
     {
         if (outputId.equals(NEIConfig.ORE))
         {
-            for (OreMatchEntry entry : OreRegistry.getInstance().getOres())
+            for (OreMatchEntry entry : NewOreRegistry.getOres())
                 arecipes.add(new CachedOre(entry));
             cycleAt = -1;
         } else super.loadCraftingRecipes(outputId, results);
@@ -72,8 +72,8 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(ItemStack result)
     {
-        OreMatchEntry entry = OreRegistry.getInstance().getRegistryMatches(result);
-        if (entry != null) arecipes.add(new CachedOre(entry));
+        for (OreMatchEntry entry : NewOreRegistry.getRegistryMatches(result))
+            if (entry != null) arecipes.add(new CachedOre(entry));
         cycleAt = -1;
     }
 

@@ -65,11 +65,11 @@ public class MessageRegistry
             for (RegistryMessage message : addMessages)
             {
                 if (message instanceof RegisterOreMessage)
-                    OreRegistry.getInstance().register(new OreEntry((RegisterOreMessage) message));
+                    NewOreRegistry.registerOre((RegisterOreMessage) message);
                 else if (message instanceof RegisterMobMessage)
                     MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
                 else if (message instanceof RegisterDungeonMessage)
-                    DungeonRegistry.getInstance().registerDungeonEntry(new DungeonEntry((RegisterDungeonMessage)message));
+                    DungeonRegistry.getInstance().registerDungeonEntry(new DungeonEntry((RegisterDungeonMessage) message));
             }
             for (RegistryMessage message : removeMessages)
             {
@@ -87,14 +87,14 @@ public class MessageRegistry
                 if (addMessage instanceof ModifyMobMessage)
                     MobRegistry.getInstance().addMobDrops((ModifyMobMessage) addMessage);
                 else if (addMessage instanceof ModifyOreMessage)
-                    OreRegistry.getInstance().addDrops((ModifyOreMessage) addMessage);
+                    NewOreRegistry.addDrops((ModifyOreMessage) addMessage);
             }
             for (ModifyMessage removeMessage : removeMessages)
             {
                 if (removeMessage instanceof ModifyMobMessage)
                     MobRegistry.getInstance().removeMobDrops((ModifyMobMessage) removeMessage);
                 else if (removeMessage instanceof ModifyOreMessage)
-                    OreRegistry.getInstance().removeDrops((ModifyOreMessage) removeMessage);
+                    NewOreRegistry.removeDrops((ModifyOreMessage) removeMessage);
             }
         }
     }

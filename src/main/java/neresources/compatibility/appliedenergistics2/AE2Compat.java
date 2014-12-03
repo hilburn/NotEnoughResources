@@ -5,10 +5,10 @@ import appeng.core.AEConfig;
 import appeng.core.features.AEFeature;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.ModifyOreMessage;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
 import neresources.registry.MessageRegistry;
-import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -38,7 +38,7 @@ public class AE2Compat extends CompatBase
         int maxY = 74;
         float chance = (float) (numVeins * veinSize) / ((maxY - minY + 1) * 256) * 1.5F;
 
-        registerOre(new OreEntry(quartzOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance * spawnChargedChance)));
-        registerOre(new OreEntry(chargedQuartz, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance * (1F - spawnChargedChance))));
+        registerOre(new RegisterOreMessage(quartzOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance * spawnChargedChance)));
+        registerOre(new RegisterOreMessage(chargedQuartz, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance * (1F - spawnChargedChance))));
     }
 }

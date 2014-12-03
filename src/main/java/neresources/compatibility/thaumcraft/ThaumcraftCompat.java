@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Optional;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.ModifyOreMessage;
+import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.*;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
@@ -112,7 +113,7 @@ public class ThaumcraftCompat extends CompatBase
         for (int i = 0; i < 6; i++)
         {
             ItemStack infusedStone = new ItemStack(ConfigBlocks.blockCustomOre, 1, i + 1);
-            registerOre(new OreEntry(infusedStone, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(infusedStone, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
         }
     }
 
@@ -127,7 +128,7 @@ public class ThaumcraftCompat extends CompatBase
         float[] distribution = DistributionHelpers.getSquareDistribution(minY, maxY - (int) maxYRange, chance);
         DistributionHelpers.addDistribution(distribution, DistributionHelpers.getRampDistribution(maxY, (int) (maxY - maxYRange), chance), maxY - (int) maxYRange);
         ItemStack amber = new ItemStack(ConfigBlocks.blockCustomOre, 1, 7);
-        registerOre(new OreEntry(amber, new DistributionCustom(distribution)));
+        registerOre(new RegisterOreMessage(amber, new DistributionCustom(distribution)));
     }
 
     @Optional.Method(modid = ModList.Names.THAUMCRAFT)
@@ -138,6 +139,6 @@ public class ThaumcraftCompat extends CompatBase
         float numVeins = 18F;
         float chance = numVeins / (maxY * 256);
         ItemStack ore = new ItemStack(ConfigBlocks.blockCustomOre, 1, 0);
-        registerOre(new OreEntry(ore, new DistributionSquare(minY, maxY, chance)));
+        registerOre(new RegisterOreMessage(ore, new DistributionSquare(minY, maxY, chance)));
     }
 }

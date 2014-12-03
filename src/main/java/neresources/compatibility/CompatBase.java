@@ -3,7 +3,6 @@ package neresources.compatibility;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.entries.MobEntry;
 import neresources.registry.*;
-import neresources.entries.OreEntry;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;
 
@@ -35,11 +34,6 @@ public class CompatBase
     public void registerOre(RegisterOreMessage message)
     {
         NewOreRegistry.registerOre(message);
-    }
-
-    public void registerOre(OreEntry entry)
-    {
-        OreRegistry.getInstance().register(entry);
     }
 
     public void registerPlant(PlantEntry entry)
