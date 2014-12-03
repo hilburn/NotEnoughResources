@@ -201,7 +201,7 @@ public class MinecraftCompat extends CompatBase
         ItemStack carrotPlant = new ItemStack(Blocks.carrots);
         PlantDrop carrot = new PlantDrop(new ItemStack(Items.carrot), 1, 4);
         registerPlant(new PlantEntry(carrotPlant, carrot));
-
+        /* TODO: find correct stuff for these plants
         //Wheat
         ItemStack wheatPlant = new ItemStack(Blocks.wheat);
         PlantDrop wheat = new PlantDrop(new ItemStack(Items.wheat), 1.0F);
@@ -217,5 +217,6 @@ public class MinecraftCompat extends CompatBase
         ItemStack pumpkinStem = new ItemStack(Blocks.pumpkin_stem);
         PlantDrop pumpkin = new PlantDrop(new ItemStack(Blocks.pumpkin), 1.0F);
         registerPlant(new PlantEntry(pumpkinStem, pumpkin));
+        */
     }
 }
