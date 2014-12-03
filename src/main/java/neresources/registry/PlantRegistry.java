@@ -33,7 +33,7 @@ public class PlantRegistry
         registry.put(key, entry);
         for (PlantDrop drop : entry.getDrops())
         {
-            String dropKey = MapKeys.getKey(drop.getDrop());
+            String dropKey = MapKeys.getKey(drop.getSeed());
             if (dropLinks.containsKey(key))
                 dropLinks.get(key).add(key);
             else
@@ -96,7 +96,7 @@ public class PlantRegistry
         Map<ItemStack, Float> map = new LinkedHashMap<ItemStack, Float>();
         float totalWeight = entry.getTotalWeight();
         for (PlantDrop drop : entry.getDrops())
-            map.put(drop.getDrop(), drop.getWeight() / totalWeight);
+            map.put(drop.getSeed(), drop.getWeight() / totalWeight);
         return map;
     }
 }

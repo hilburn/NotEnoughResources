@@ -1,10 +1,7 @@
 package neresources.config;
 
 import cpw.mods.fml.relauncher.Side;
-import neresources.nei.NEIDungeonHandler;
-import neresources.nei.NEIEnchantmentHandler;
-import neresources.nei.NEIMobHandler;
-import neresources.nei.NEIOreHandler;
+import neresources.nei.*;
 
 public final class Settings
 {
@@ -23,6 +20,7 @@ public final class Settings
             NEIMobHandler.reloadSettings();
             NEIOreHandler.reloadSettings();
             NEIEnchantmentHandler.reloadSettings();
+            NEIAdvSeedHandler.reloadSettings();
         }
     }
 }

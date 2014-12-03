@@ -29,8 +29,8 @@ ner.dungeon.dungeonChest=Dungeon
 #Enchantments View
 ner.enchantments.title=Enchantments
 
-#Grass View
-ner.grass.title=Grass Drops
+#Plant View
+ner.plant.title=Plant Drops
 
 #Ore View
 ner.ore.title=Ore Gen
@@ -42,8 +42,8 @@ ner.mob.title=Mob Drops
 ner.mob.biome=Spawn Biomes: Hover mouse here
 ner.mob.exp=Experience Dropped
 
-#Seed View
-ner.seed.title=Seed Drop
+#Advanced Plant View
+ner.advPlant.title=Advanced Plant Drops
 
 #Conditionals - when translating retain '%s' as this lets the modifier be properly inserted into the string
 ner.magmaCream.text=Small and Large Magma Cubes

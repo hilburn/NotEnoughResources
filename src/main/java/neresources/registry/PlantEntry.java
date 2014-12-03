@@ -2,7 +2,6 @@ package neresources.registry;
 
 import neresources.utils.MapKeys;
 import neresources.utils.SeedHelper;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -31,15 +30,15 @@ public class PlantEntry
         for (PlantDrop entry : drops)
         {
             this.totalWeight += entry.getWeight();
-            this.drops.put(MapKeys.getKey(entry.getDrop()), entry);
+            this.drops.put(MapKeys.getKey(entry.getSeed()), entry);
         }
     }
 
     public void add(PlantDrop entry)
     {
-        String key = MapKeys.getKey(entry.getDrop());
+        String key = MapKeys.getKey(entry.getSeed());
         if (!this.drops.containsKey(key)) return;
-        this.drops.put(key, new PlantDrop(entry.getDrop(), (this.totalWeight + entry.getWeight())));
+        this.drops.put(key, new PlantDrop(entry.getSeed(), (this.totalWeight + entry.getWeight())));
     }
 
     public ItemStack getPlant()
@@ -50,6 +49,11 @@ public class PlantEntry
     public List<PlantDrop> getDrops()
     {
         return new ArrayList<PlantDrop>(this.drops.values());
+    }
+
+    public PlantDrop getDrop(ItemStack itemStack)
+    {
+        return this.drops.get(MapKeys.getKey(itemStack));
     }
 
     public void multiplyWeight(int multiplier)

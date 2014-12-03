@@ -43,7 +43,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return Resources.Gui.DUNGEON_NEI.toString();
+        return Resources.Gui.Nei.DUNGEON.toString();
     }
 
     @Override

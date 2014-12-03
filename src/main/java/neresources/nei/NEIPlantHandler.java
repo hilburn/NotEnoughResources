@@ -8,17 +8,14 @@ import neresources.registry.PlantDrop;
 import neresources.registry.PlantEntry;
 import neresources.registry.PlantRegistry;
 import neresources.utils.TranslationHelper;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
-public class NEIGrassHandler extends TemplateRecipeHandler
+public class NEIPlantHandler extends TemplateRecipeHandler
 {
     private static final int GRASS_X = 75;
     private static final int GRASS_Y = 5;
@@ -30,13 +27,13 @@ public class NEIGrassHandler extends TemplateRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return Resources.Gui.GRASS_NEI.toString();
+        return Resources.Gui.Nei.PLANT.toString();
     }
 
     @Override
     public String getRecipeName()
     {
-        return TranslationHelper.translateToLocal("ner.grass.title");
+        return TranslationHelper.translateToLocal("ner.plant.title");
     }
 
     @Override
@@ -56,15 +53,15 @@ public class NEIGrassHandler extends TemplateRecipeHandler
     @Override
     public void loadTransferRects()
     {
-        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(GRASS_X, INPUT_ARROW_Y, 16, 30), NEIConfig.GRASS, new Object()));
+        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(GRASS_X, INPUT_ARROW_Y, 16, 30), NEIConfig.PLANT, new Object()));
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results)
     {
-        if (outputId.equals(NEIConfig.GRASS))
+        if (outputId.equals(NEIConfig.PLANT))
             for (PlantEntry entry : PlantRegistry.getInstance().getAllPlants())
-            arecipes.add(new CachedSeedOutput(entry));
+            arecipes.add(new CachedPlant(entry));
         else
             super.loadCraftingRecipes(outputId, results);
     }
@@ -76,15 +73,15 @@ public class NEIGrassHandler extends TemplateRecipeHandler
         {
             ItemStack ingredient = (ItemStack) ingredients[0];
             if (PlantRegistry.getInstance().contains(ingredient))
-                arecipes.add(new CachedSeedOutput(PlantRegistry.getInstance().getEntry(ingredient)));
+                arecipes.add(new CachedPlant(PlantRegistry.getInstance().getEntry(ingredient)));
         } else super.loadUsageRecipes(inputId, ingredients);
     }
 
-    public class CachedSeedOutput extends TemplateRecipeHandler.CachedRecipe
+    public class CachedPlant extends TemplateRecipeHandler.CachedRecipe
     {
         private PlantEntry plantEntry;
 
-        public CachedSeedOutput(PlantEntry entry)
+        public CachedPlant(PlantEntry entry)
         {
             plantEntry = entry;
         }
@@ -103,12 +100,12 @@ public class NEIGrassHandler extends TemplateRecipeHandler
             int yOffset = 0;
             for (PlantDrop plantDrop : plantEntry.getDrops())
             {
-                list.add(new PositionedStack(plantDrop.getDrop(), OUTPUT_X + xOffset, OUTPUT_Y + yOffset));
-                yOffset += OUTPUT_SCALE;
-                if (yOffset > 147)
+                list.add(new PositionedStack(plantDrop.getSeed(), OUTPUT_X + xOffset, OUTPUT_Y + yOffset));
+                xOffset += OUTPUT_SCALE;
+                if (xOffset > 147)
                 {
-                    yOffset = 0;
-                    xOffset += OUTPUT_SCALE;
+                    xOffset = 0;
+                    yOffset += OUTPUT_SCALE;
                 }
             }
             return list;

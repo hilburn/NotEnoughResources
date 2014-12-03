@@ -43,7 +43,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return Resources.Gui.MOB_NEI.toString();
+        return Resources.Gui.Nei.MOB.toString();
     }
 
     @Override

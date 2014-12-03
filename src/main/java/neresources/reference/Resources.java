@@ -6,12 +6,15 @@ public final class Resources
 {
     public static final class Gui
     {
-        public static final ResourceLocation MOB_NEI = new ResourceLocation(Reference.ID, Textures.Gui.MOB_NEI);
-        public static final ResourceLocation ORE_NEI = new ResourceLocation(Reference.ID, Textures.Gui.ORE_NEI);
-        public static final ResourceLocation DUNGEON_NEI = new ResourceLocation(Reference.ID, Textures.Gui.DUNGEON_NEI);
-        public static final ResourceLocation GRASS_NEI = new ResourceLocation(Reference.ID, Textures.Gui.GRASS_NEI);
-        public static final ResourceLocation SEED_NEI = new ResourceLocation(Reference.ID, Textures.Gui.SEED_NEI);
-        public static final ResourceLocation ENCHANTMENT_NEI = new ResourceLocation(Reference.ID, Textures.Gui.ENCHANTMENT_NEI);
+        public static final class Nei
+        {
+            public static final ResourceLocation MOB = new ResourceLocation(Reference.ID, Textures.Gui.Nei.MOB);
+            public static final ResourceLocation ORE = new ResourceLocation(Reference.ID, Textures.Gui.Nei.ORE);
+            public static final ResourceLocation DUNGEON = new ResourceLocation(Reference.ID, Textures.Gui.Nei.DUNGEON);
+            public static final ResourceLocation PLANT = new ResourceLocation(Reference.ID, Textures.Gui.Nei.PLANT);
+            public static final ResourceLocation ADV_PLANT = new ResourceLocation(Reference.ID, Textures.Gui.Nei.ADV_PLANT);
+            public static final ResourceLocation ENCHANTMENT = new ResourceLocation(Reference.ID, Textures.Gui.Nei.ENCHANTMENT);
+        }
     }
 
     public static final class Vanilla

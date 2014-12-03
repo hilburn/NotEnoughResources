@@ -10,10 +10,7 @@ import neresources.api.utils.Priority;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.cofh.CoFHCompat;
-import neresources.registry.DungeonRegistry;
-import neresources.registry.MessageRegistry;
-import neresources.registry.MobEntry;
-import neresources.registry.OreEntry;
+import neresources.registry.*;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -194,6 +191,10 @@ public class MinecraftCompat extends CompatBase
 
     private void registerVanillaPlants()
     {
-
+        // Potato
+        ItemStack potatoPlant = new ItemStack(Blocks.potatoes, 1, 7);
+        PlantDrop potato = new PlantDrop(new ItemStack(Items.potato), 1, 4);
+        PlantDrop poisonous = new PlantDrop(new ItemStack(Items.poisonous_potato), 0.02F);
+        registerPlant(new PlantEntry(potatoPlant, potato, poisonous));
     }
 }
