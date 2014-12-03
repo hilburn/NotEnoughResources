@@ -2,7 +2,7 @@ package neresources.compatibility;
 
 import neresources.api.messages.ModifyOreMessage;
 import neresources.registry.MessageRegistry;
-import neresources.registry.NewOreRegistry;
+import neresources.registry.OreRegistry;
 import neresources.utils.ModList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -26,7 +26,7 @@ public class Compatibility
                 {
                     ItemStack denseOre = OreDictionary.getOres(oreDictEntry).get(0);
                     ItemStack ore = OreDictionary.getOres(oreDictEntry.replace("dense", "")).get(0);
-                    NewOreRegistry.addDrops(new ModifyOreMessage(ore, denseOre));
+                    OreRegistry.addDrops(new ModifyOreMessage(ore, denseOre));
                 }
             }
         }

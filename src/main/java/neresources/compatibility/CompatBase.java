@@ -33,7 +33,7 @@ public class CompatBase
 
     public void registerOre(RegisterOreMessage message)
     {
-        NewOreRegistry.registerOre(message);
+        OreRegistry.registerOre(message);
     }
 
     public void registerPlant(PlantEntry entry)

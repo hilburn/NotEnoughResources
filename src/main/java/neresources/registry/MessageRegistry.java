@@ -5,7 +5,6 @@ import neresources.api.messages.utils.MessageKeys;
 import neresources.api.utils.Priority;
 import neresources.entries.DungeonEntry;
 import neresources.entries.MobEntry;
-import neresources.entries.OreEntry;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.LinkedHashSet;
@@ -65,7 +64,7 @@ public class MessageRegistry
             for (RegistryMessage message : addMessages)
             {
                 if (message instanceof RegisterOreMessage)
-                    NewOreRegistry.registerOre((RegisterOreMessage) message);
+                    OreRegistry.registerOre((RegisterOreMessage) message);
                 else if (message instanceof RegisterMobMessage)
                     MobRegistry.getInstance().registerMob(new MobEntry((RegisterMobMessage) message));
                 else if (message instanceof RegisterDungeonMessage)
@@ -87,14 +86,14 @@ public class MessageRegistry
                 if (addMessage instanceof ModifyMobMessage)
                     MobRegistry.getInstance().addMobDrops((ModifyMobMessage) addMessage);
                 else if (addMessage instanceof ModifyOreMessage)
-                    NewOreRegistry.addDrops((ModifyOreMessage) addMessage);
+                    OreRegistry.addDrops((ModifyOreMessage) addMessage);
             }
             for (ModifyMessage removeMessage : removeMessages)
             {
                 if (removeMessage instanceof ModifyMobMessage)
                     MobRegistry.getInstance().removeMobDrops((ModifyMobMessage) removeMessage);
                 else if (removeMessage instanceof ModifyOreMessage)
-                    NewOreRegistry.removeDrops((ModifyOreMessage) removeMessage);
+                    OreRegistry.removeDrops((ModifyOreMessage) removeMessage);
             }
         }
     }
