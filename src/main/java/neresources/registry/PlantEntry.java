@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.utils.PlantDrop;
 import neresources.utils.MapKeys;
 import neresources.utils.SeedHelper;
 import net.minecraft.init.Blocks;
@@ -30,15 +31,15 @@ public class PlantEntry
         for (PlantDrop entry : drops)
         {
             this.totalWeight += entry.getWeight();
-            this.drops.put(MapKeys.getKey(entry.getSeed()), entry);
+            this.drops.put(MapKeys.getKey(entry.getDrop()), entry);
         }
     }
 
     public void add(PlantDrop entry)
     {
-        String key = MapKeys.getKey(entry.getSeed());
+        String key = MapKeys.getKey(entry.getDrop());
         if (!this.drops.containsKey(key)) return;
-        this.drops.put(key, new PlantDrop(entry.getSeed(), (this.totalWeight + entry.getWeight())));
+        this.drops.put(key, new PlantDrop(entry.getDrop(), (this.totalWeight + entry.getWeight())));
     }
 
     public ItemStack getPlant()

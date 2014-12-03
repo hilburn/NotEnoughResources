@@ -4,7 +4,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.config.Settings;
 import neresources.reference.Resources;
-import neresources.registry.PlantDrop;
+import neresources.api.utils.PlantDrop;
 import neresources.registry.PlantEntry;
 import neresources.registry.PlantRegistry;
 import neresources.utils.Font;
@@ -191,7 +191,7 @@ public class NEIAdvSeedHandler extends TemplateRecipeHandler
         @Override
         public PositionedStack getOtherStack()
         {
-            return new PositionedStack(entry.getDrops().get(i).getSeed(), 94, Y);
+            return new PositionedStack(entry.getDrops().get(i).getDrop(), 94, Y);
         }
 
         @Override

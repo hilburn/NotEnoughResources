@@ -1,6 +1,6 @@
 package neresources.utils;
 
-import neresources.registry.PlantDrop;
+import neresources.api.utils.PlantDrop;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.common.ForgeHooks;

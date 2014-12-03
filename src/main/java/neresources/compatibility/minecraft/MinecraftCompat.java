@@ -6,6 +6,7 @@ import neresources.api.distributions.DistributionUnderWater;
 import neresources.api.messages.ModifyOreMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.LightLevel;
+import neresources.api.utils.PlantDrop;
 import neresources.api.utils.Priority;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;

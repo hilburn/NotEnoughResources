@@ -1,5 +1,6 @@
 package neresources.registry;
 
+import neresources.api.utils.PlantDrop;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -33,7 +34,7 @@ public class PlantRegistry
         registry.put(key, entry);
         for (PlantDrop drop : entry.getDrops())
         {
-            String dropKey = MapKeys.getKey(drop.getSeed());
+            String dropKey = MapKeys.getKey(drop.getDrop());
             if (dropLinks.containsKey(key))
                 dropLinks.get(key).add(key);
             else
@@ -96,7 +97,7 @@ public class PlantRegistry
         Map<ItemStack, Float> map = new LinkedHashMap<ItemStack, Float>();
         float totalWeight = entry.getTotalWeight();
         for (PlantDrop drop : entry.getDrops())
-            map.put(drop.getSeed(), drop.getWeight() / totalWeight);
+            map.put(drop.getDrop(), drop.getWeight() / totalWeight);
         return map;
     }
 }

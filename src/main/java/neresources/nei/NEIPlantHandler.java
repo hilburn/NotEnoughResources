@@ -4,7 +4,7 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.reference.Resources;
-import neresources.registry.PlantDrop;
+import neresources.api.utils.PlantDrop;
 import neresources.registry.PlantEntry;
 import neresources.registry.PlantRegistry;
 import neresources.utils.TranslationHelper;
@@ -100,7 +100,7 @@ public class NEIPlantHandler extends TemplateRecipeHandler
             int yOffset = 0;
             for (PlantDrop plantDrop : plantEntry.getDrops())
             {
-                list.add(new PositionedStack(plantDrop.getSeed(), OUTPUT_X + xOffset, OUTPUT_Y + yOffset));
+                list.add(new PositionedStack(plantDrop.getDrop(), OUTPUT_X + xOffset, OUTPUT_Y + yOffset));
                 xOffset += OUTPUT_SCALE;
                 if (xOffset > 147)
                 {
