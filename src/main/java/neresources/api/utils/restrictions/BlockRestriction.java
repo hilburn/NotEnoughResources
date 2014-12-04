@@ -64,6 +64,6 @@ public class BlockRestriction
     @Override
     public String toString()
     {
-        return block.toString() + ":" + metadata;
+        return "Block: "+block.getUnlocalizedName() + ":" + metadata;
     }
 }
