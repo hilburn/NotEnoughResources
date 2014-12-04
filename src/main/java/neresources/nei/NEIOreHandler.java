@@ -32,8 +32,6 @@ public class NEIOreHandler extends TemplateRecipeHandler
         CYCLE_TIME = (int) (20 * Settings.CYCLE_TIME);
     }
 
-    private static long cycleAt = -1;
-
     @Override
     public String getGuiTexture()
     {
@@ -65,7 +63,6 @@ public class NEIOreHandler extends TemplateRecipeHandler
         {
             for (OreMatchEntry entry : OreRegistry.getOres())
                 arecipes.add(new CachedOre(entry));
-            cycleAt = -1;
         } else super.loadCraftingRecipes(outputId, results);
     }
 
@@ -74,7 +71,6 @@ public class NEIOreHandler extends TemplateRecipeHandler
     {
         for (OreMatchEntry entry : OreRegistry.getRegistryMatches(result))
             if (entry != null) arecipes.add(new CachedOre(entry));
-        cycleAt = -1;
     }
 
     @Override
@@ -113,10 +109,12 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public List<String> handleItemTooltip(GuiRecipe gui, ItemStack stack, List<String> currenttip, int recipe)
     {
-        if (stack != null)
+        CachedOre cachedOre = (CachedOre) arecipes.get(recipe);
+        if (stack != null && cachedOre.contains(stack))
         {
-            if (((CachedOre) arecipes.get(recipe)).oreMatchEntry.isSilkTouchNeeded(stack))
+            if (cachedOre.oreMatchEntry.isSilkTouchNeeded(stack))
                 currenttip.add(Conditional.silkTouch.toString());
+            currenttip.addAll(cachedOre.getRestrictions());
         }
         return currenttip;
     }
@@ -126,6 +124,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
         private OreMatchEntry oreMatchEntry;
         private List<ItemStack> oresAndDrops;
         private int current, last;
+        private long cycleAt;
 
         public CachedOre(OreMatchEntry oreMatchEntry)
         {
@@ -133,6 +132,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
             this.oresAndDrops = oreMatchEntry.getOresAndDrops();
             this.current = 0;
             this.last = this.oresAndDrops.size() - 1;
+            this.cycleAt = -1;
         }
 
         @Override
@@ -144,6 +144,18 @@ public class NEIOreHandler extends TemplateRecipeHandler
         public int getLineColor()
         {
             return this.oreMatchEntry.getColour();
+        }
+
+        public List<String> getRestrictions()
+        {
+            return this.oreMatchEntry.getRestrictions();
+        }
+
+        public boolean contains(ItemStack itemStack)
+        {
+            for (ItemStack listStack : this.oresAndDrops)
+                if (listStack.isItemEqual(itemStack)) return true;
+            return false;
         }
 
         public void cycleItemStack(long tick)

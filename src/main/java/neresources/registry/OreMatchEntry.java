@@ -168,4 +168,9 @@ public class OreMatchEntry
         list.addAll(drops);
         return list;
     }
+
+    public List<String> getRestrictions()
+    {
+        return this.restriction.getStringList();
+    }
 }
