@@ -157,6 +157,12 @@ public class BiomeRestriction
 
     public boolean isMergeable(BiomeRestriction other)
     {
-        return other.type==Type.NONE || other.biomes.containsAll(biomes);
+        return other.type==Type.NONE || (this.type != Type.NONE && !biomes.isEmpty() && other.biomes.containsAll(biomes));
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Biomes: "+type+(type!=Type.NONE?" - "+ biomes.size():"");
     }
 }

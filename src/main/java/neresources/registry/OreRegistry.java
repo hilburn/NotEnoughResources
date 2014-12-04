@@ -126,4 +126,12 @@ public class OreRegistry
         }
         return true;
     }
+
+    public static void addOreLink(String key, String oreKey)
+    {
+        if (dropMap.containsKey(oreKey))
+        {
+            dropMap.put(key,dropMap.get(oreKey));
+        }
+    }
 }

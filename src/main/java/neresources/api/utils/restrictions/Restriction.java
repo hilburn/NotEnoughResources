@@ -108,4 +108,10 @@ public class Restriction
         if (!dimensionRestriction.isMergeable(restriction.dimensionRestriction)) return false;
         return true;
     }
+
+    @Override
+    public String toString()
+    {
+        return blockRestriction.toString()+", "+dimensionRestriction.toString()+", "+biomeRestriction.toString();
+    }
 }

@@ -164,4 +164,10 @@ public class DimensionRestriction
         Set<Integer> otherValidDimensions = other.getValidDimensions(testDimensions);
         return otherValidDimensions.containsAll(thisValidDimensions);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Dimension: "+ type + (type!=Type.NONE? " "+min+"-"+max:"");
+    }
 }
