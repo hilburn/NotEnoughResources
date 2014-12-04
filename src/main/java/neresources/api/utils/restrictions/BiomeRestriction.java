@@ -62,7 +62,7 @@ public class BiomeRestriction
                 this.biomes.addAll(Arrays.asList(moreBiomes));
                 break;
             default:
-                biomes = new ArrayList(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
+                biomes = new ArrayList<BiomeGenBase>(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
                 biomes.remove(biome);
                 biomes.removeAll(Arrays.asList(moreBiomes));
         }
@@ -84,7 +84,7 @@ public class BiomeRestriction
                 biomes = getBiomes(biomeType, biomeTypes);
                 break;
             default:
-                biomes = new ArrayList(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
+                biomes = new ArrayList<BiomeGenBase>(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
                 biomes.removeAll(getBiomes(biomeType, biomeTypes));
         }
     }
