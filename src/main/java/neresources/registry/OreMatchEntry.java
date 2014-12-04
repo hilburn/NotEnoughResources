@@ -8,6 +8,7 @@ import neresources.api.utils.restrictions.Restriction;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
 import neresources.utils.MapKeys;
+import neresources.utils.SilkTouchHelper;
 import net.minecraft.item.ItemStack;
 
 import java.util.*;
@@ -26,18 +27,18 @@ public class OreMatchEntry
     private Restriction restriction;
     List<ItemStack> drops = new ArrayList<ItemStack>();
 
-    public OreMatchEntry(RegisterOreMessage entry)
+    public OreMatchEntry(RegisterOreMessage message)
     {
-        silkTouchMap.put(MapKeys.key(entry.getOre()), entry.needSilkTouch());
-        ores.put(entry.getOre(), entry.getDistribution());
-        restriction = entry.getRestriction();
+        silkTouchMap.put(MapKeys.key(message.getOre()), message.needSilkTouch() || SilkTouchHelper.isOreBlock(message.getOre()));
+        ores.put(message.getOre(), message.getDistribution());
+        restriction = message.getRestriction();
         calcChances();
-        if (colour == ColorHelper.BLACK) colour = entry.getColour();
+        if (colour == ColorHelper.BLACK) colour = message.getColour();
     }
 
     private void addMessage(RegisterOreMessage message)
     {
-        silkTouchMap.put(MapKeys.key(message.getOre()), message.needSilkTouch());
+        silkTouchMap.put(MapKeys.key(message.getOre()), message.needSilkTouch() || SilkTouchHelper.isOreBlock(message.getOre()));
         ores.put(message.getOre(), message.getDistribution());
         calcChances();
         if (colour == ColorHelper.BLACK) colour = message.getColour();

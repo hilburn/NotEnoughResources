@@ -34,7 +34,7 @@ public class SilkTouchHelper
     public static boolean isOreBlock(ItemStack itemStack)
     {
         Block block = Block.getBlockFromItem(itemStack.getItem());
-        if (block == Blocks.diamond_ore || block == Blocks.lapis_ore || block == Blocks.redstone_ore || block == Blocks.lit_redstone_ore)
+        if (block == Blocks.diamond_ore || block == Blocks.lapis_ore || block == Blocks.redstone_ore || block == Blocks.lit_redstone_ore || block == Blocks.coal_block)
             return true;
         for (SilkTouchClasses silkTouchClass : SilkTouchClasses.values())
             if (block.getClass().toString().equals(silkTouchClass.getClassNameToString())) return true;
