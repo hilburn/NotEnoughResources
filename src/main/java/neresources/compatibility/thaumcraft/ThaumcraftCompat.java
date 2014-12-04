@@ -10,7 +10,6 @@ import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.registry.MessageRegistry;
 import neresources.entries.MobEntry;
-import neresources.entries.OreEntry;
 import neresources.utils.ModList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;

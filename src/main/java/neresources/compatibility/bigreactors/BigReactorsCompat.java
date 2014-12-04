@@ -5,7 +5,6 @@ import erogenousbeef.bigreactors.world.BRWorldGenerator;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.compatibility.CompatBase;
-import neresources.entries.OreEntry;
 import neresources.utils.DeObfMappings;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.block.Block;

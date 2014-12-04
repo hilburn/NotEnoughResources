@@ -7,7 +7,6 @@ import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
 import neresources.registry.MessageRegistry;
-import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;

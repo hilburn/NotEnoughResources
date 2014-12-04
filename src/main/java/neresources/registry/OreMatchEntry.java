@@ -7,7 +7,6 @@ import neresources.api.utils.DistributionHelpers;
 import neresources.api.utils.restrictions.Restriction;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
-import neresources.entries.OreEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -27,24 +26,11 @@ public class OreMatchEntry
     private Restriction restriction;
     List<ItemStack> drops = new ArrayList<ItemStack>();
 
-    public OreMatchEntry(OreEntry entry)
-    {
-        this.add(entry);
-    }
-
     public OreMatchEntry(RegisterOreMessage entry)
     {
         silkTouchMap.put(MapKeys.key(entry.getOre()), entry.needSilkTouch());
         ores.put(entry.getOre(), entry.getDistribution());
         restriction = entry.getRestriction();
-        calcChances();
-        if (colour == ColorHelper.BLACK) colour = entry.getColour();
-    }
-
-    public void add(OreEntry entry)
-    {
-        silkTouchMap.put(MapKeys.key(entry.getOre()), entry.needSilkTouch());
-        ores.put(entry.getOre(), entry.getDistribution());
         calcChances();
         if (colour == ColorHelper.BLACK) colour = entry.getColour();
     }

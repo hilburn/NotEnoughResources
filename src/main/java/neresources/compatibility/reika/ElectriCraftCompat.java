@@ -4,7 +4,6 @@ import Reika.ElectriCraft.Registry.ElectriOres;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.compatibility.CompatBase;
-import neresources.entries.OreEntry;
 import net.minecraft.item.ItemStack;
 
 public class ElectriCraftCompat extends CompatBase
