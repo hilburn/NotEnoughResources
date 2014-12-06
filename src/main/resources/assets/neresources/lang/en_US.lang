@@ -36,6 +36,8 @@ ner.plant.title=Plant Drops
 ner.ore.title=Ore Gen
 ner.ore.bestY=bestY
 ner.ore.silkTouch=Silk Touch Needed
+ner.ore.biomes=Spawn Biomes
+ner.ore.dimensions=Valid Dimensions
 
 #Mob View
 ner.mob.title=Mob Drops

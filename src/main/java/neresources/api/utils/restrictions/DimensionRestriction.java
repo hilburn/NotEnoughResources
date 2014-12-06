@@ -2,6 +2,7 @@ package neresources.api.utils.restrictions;
 
 import neresources.api.messages.utils.MessageKeys;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.DimensionManager;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -57,7 +58,7 @@ public class DimensionRestriction
     public String getValidDimensions(BlockRestriction blockRestriction)
     {
         Set<Integer> dimensions = DimensionRegistry.getDimensions(blockRestriction);
-        if (dimensions!=null) return getDimensionString(dimensions);
+        if (dimensions!= null) return getDimensionString(dimensions);
         return getAltDimensionString(DimensionRegistry.getAltDimensions());
     }
 
@@ -88,7 +89,7 @@ public class DimensionRestriction
             if (dimension==lastParsed+1)
             {
                 if (!result.endsWith("-")) result+="-";
-                if (!itr.hasNext()) result+=dimension;
+                if (!itr.hasNext()) result+= dimension;
             }
             else
             {
@@ -106,12 +107,10 @@ public class DimensionRestriction
         Set<Integer> validDimensions = new TreeSet<Integer>();
         int dimMin = Integer.MAX_VALUE;
         int dimMax = Integer.MIN_VALUE;
-        Iterator<Integer> itr = dimensions.iterator();
-        while (itr.hasNext())
+        for (Integer dim : dimensions)
         {
-            int dim  = itr.next();
-            if (dim<dimMin) dimMin = dim;
-            if (dim>dimMax) dimMax = dim;
+            if (dim < dimMin) dimMin = dim;
+            if (dim > dimMax) dimMax = dim;
         }
         for (int i = Math.min(min,dimMin)-1;i<=Math.max(max,dimMax)+1;i++)
             if (!dimensions.contains(i)) validDimensions.add(i);

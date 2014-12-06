@@ -2,6 +2,7 @@ package neresources.api.utils.restrictions;
 
 import neresources.api.messages.utils.MessageKeys;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +73,11 @@ public class Restriction
     public List<String> getStringList()
     {
         List<String> result = new ArrayList<String>();
-        result.add(dimensionRestriction.getValidDimensions(blockRestriction));
-        result.addAll(biomeRestriction.toStringList());
+        result.add(StatCollector.translateToLocal("ner.ore.dimensions") + ": " + dimensionRestriction.getValidDimensions(blockRestriction));
+        List<String> biomes = new ArrayList<String>();
+        biomes.add(StatCollector.translateToLocal("net.ore.biomes") + ":");
+        biomes.addAll(biomeRestriction.toStringList());
+        if (biomes.size() > 1) result.addAll(biomes);
         return result;
     }
 
