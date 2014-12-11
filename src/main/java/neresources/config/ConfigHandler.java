@@ -43,6 +43,8 @@ public class ConfigHandler
 
         Settings.EXTRA_RANGE = config.getInt(TranslationHelper.translateToLocal("ner.config.extraRange.title"), Configuration.CATEGORY_GENERAL, 3, 0, 25, TranslationHelper.translateToLocal("ner.config.extraRange.description"));
 
+        Settings.useDimNames = config.getBoolean(TranslationHelper.translateToLocal("ner.config.dimNames.title"), Configuration.CATEGORY_GENERAL, true, TranslationHelper.translateToLocal("ner.config.dimNames.description"));
+
         if (config.hasChanged())
         {
             config.save();

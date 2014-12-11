@@ -2,11 +2,8 @@ package neresources.api.utils.restrictions;
 
 import neresources.api.messages.utils.MessageKeys;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.DimensionManager;
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class DimensionRestriction
 {
@@ -55,11 +52,11 @@ public class DimensionRestriction
         this.max = Math.max(maxDim,minDim);
     }
 
-    public String getValidDimensions(BlockRestriction blockRestriction)
+    public List<String> getValidDimensions(BlockRestriction blockRestriction, boolean getNames)
     {
         Set<Integer> dimensions = DimensionRegistry.getDimensions(blockRestriction);
-        if (dimensions!= null) return getDimensionString(dimensions);
-        return getAltDimensionString(DimensionRegistry.getAltDimensions());
+        if (dimensions!= null) return getDimensionString(dimensions, getNames);
+        return getAltDimensionString(DimensionRegistry.getAltDimensions(), getNames);
     }
 
     private Set<Integer> getValidDimensions(Set<Integer> dimensions)
@@ -73,35 +70,47 @@ public class DimensionRestriction
         return result;
     }
 
-    private String getDimensionString(Set<Integer> dimensions)
+    private List<String> getDimensionString(Set<Integer> dimensions, boolean getNames)
     {
-        return getString(getValidDimensions(dimensions));
+        return getStringList(getValidDimensions(dimensions), getNames);
     }
 
-    private String getString(Set<Integer> set)
+    private List<String> getStringList(Set<Integer> set, boolean getNames)
     {
-        String result = "";
+        List<String> result = new ArrayList<String>();
         int lastParsed = Integer.MIN_VALUE;
-        Iterator<Integer> itr = set.iterator();
-        while (itr.hasNext())
+        if (getNames)
         {
-            int dimension = itr.next();
-            if (dimension==lastParsed+1)
+            for (Integer i : set)
             {
-                if (!result.endsWith("-")) result+="-";
-                if (!itr.hasNext()) result+= dimension;
+                String dimName = DimensionRegistry.getDimensionName(i);
+                if (dimName != null) result.add(dimName);
             }
-            else
+        }
+        else
+        {
+            String sResult = "";
+            Iterator<Integer> itr = set.iterator();
+            while (itr.hasNext())
             {
-                if (result.endsWith("-")) result+=lastParsed;
-                result += (result.length()>0?",":"") + dimension;
+                int dimension = itr.next();
+                if (dimension == lastParsed + 1)
+                {
+                    if (!sResult.endsWith("-")) sResult += "-";
+                    if (!itr.hasNext()) sResult += dimension;
+                } else
+                {
+                    if (sResult.endsWith("-")) sResult += lastParsed;
+                    sResult += (sResult.length() > 0 ? "," : "") + dimension;
+                }
+                lastParsed = dimension;
             }
-            lastParsed = dimension;
+            result.add(sResult);
         }
         return result;
     }
 
-    private String getAltDimensionString(Set<Integer> dimensions)
+    private List<String> getAltDimensionString(Set<Integer> dimensions, boolean getNames)
     {
 
         Set<Integer> validDimensions = new TreeSet<Integer>();
@@ -114,17 +123,20 @@ public class DimensionRestriction
         }
         for (int i = Math.min(min,dimMin)-1;i<=Math.max(max,dimMax)+1;i++)
             if (!dimensions.contains(i)) validDimensions.add(i);
-        String result = getString(getValidDimensions(type!=Type.NONE?validDimensions:dimensions));
-        if (result.isEmpty()) return "No Valid Spawn Dimensions";
+        List<String> result = getStringList(getValidDimensions(type != Type.NONE ? validDimensions : dimensions), getNames);
+        if (result.isEmpty()) result.add("No Valid Spawn Dimensions");
         switch (type)
         {
             default:
-                return result;
+                break;
             case NONE:
-                return "Not "+result;
+                result.add(0, "Not");
+                break;
             case BLACKLIST:
-                return "<="+result+"=<";
+                result.add(0, "<=");
+                result.add(result.size(), "=<");
         }
+        return result;
     }
 
     public NBTTagCompound writeToNBT()

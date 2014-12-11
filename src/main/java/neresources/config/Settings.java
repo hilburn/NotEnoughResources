@@ -11,6 +11,7 @@ public final class Settings
 
     public static int EXTRA_RANGE;
     public static Side side;
+    public static boolean useDimNames;
 
     public static void reload()
     {

@@ -6,6 +6,8 @@ ner.config.cycleTime.title=Cycle Time
 ner.config.cycleTime.description=Show duration before cycle in NEI views
 ner.config.extraRange.title=Extra range
 ner.config.extraRange.description=Changes the extra yLevels displayed on the graph in the NEI ore View
+ner.config.dimNames.title=Use Dimension Names
+ner.config.dimNames.description=Set use of Dimension names instead of numbers
 
 #Usage: ner.page pageNumber ner.of lastPage
 ner.page=Page

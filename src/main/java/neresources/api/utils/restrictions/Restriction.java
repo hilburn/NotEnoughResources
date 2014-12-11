@@ -70,12 +70,13 @@ public class Restriction
         dimensionRestriction = new DimensionRestriction(tagCompound.getCompoundTag(MessageKeys.dimensionRestriction));
     }
 
-    public List<String> getStringList()
+    public List<String> getStringList(boolean getNames)
     {
         List<String> result = new ArrayList<String>();
-        result.add(StatCollector.translateToLocal("ner.ore.dimensions") + ": " + dimensionRestriction.getValidDimensions(blockRestriction));
+        result.add(StatCollector.translateToLocal("ner.ore.dimensions") + ":");
+        result.addAll(dimensionRestriction.getValidDimensions(blockRestriction, getNames));
         List<String> biomes = new ArrayList<String>();
-        biomes.add(StatCollector.translateToLocal("net.ore.biomes") + ":");
+        biomes.add(StatCollector.translateToLocal("ner.ore.biomes") + ":");
         biomes.addAll(biomeRestriction.toStringList());
         if (biomes.size() > 1) result.addAll(biomes);
         return result;

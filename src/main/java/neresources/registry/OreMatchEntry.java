@@ -179,7 +179,7 @@ public class OreMatchEntry
 
     public List<String> getRestrictions()
     {
-        return this.restriction.getStringList();
+        return this.restriction.getStringList(Settings.useDimNames);
     }
     @Override
     public String toString()
