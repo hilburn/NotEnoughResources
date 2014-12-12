@@ -1,0 +1,110 @@
+ner.config.itemsPerColumn.title=Items Per Kolom
+ner.config.itemsPerColumn.description=Veranderd het aantal items per kolom in the NEI views
+ner.config.itemsPerRow.title=Items Per RIj
+ner.config.itemsPerRow.description=Veranderd het aantal items per rij in the NEI views
+ner.config.cycleTime.title=Cycle Tijd
+ner.config.cycleTime.description=Tijd items worden getoont voor het cycleren
+ner.config.extraRange.title=Extra range
+ner.config.extraRange.description=Veranderd het aantal y-level dat wordt getoont
+ner.config.dimNames.title=Gebruik dimensie namen
+ner.config.dimNames.description=Gebruik dimensie namen ipv nummers
+
+#Usage: ner.page pageNumber ner.of lastPage
+ner.page=Pagina
+ner.of=van
+#Usage X ner.stacks
+ner.stacks=Stacks
+
+#Dungeon View
+ner.dungeon.title=Kisten
+ner.dungeon.mineshaftCorridor=Mineshaft
+ner.dungeon.pyramidDesertyChest=Woestijn Tempel
+ner.dungeon.pyramidJungleChest=Mineshaft
+ner.dungeon.pyramidJungleDispenser=Jungle Tempel
+ner.dungeon.strongholdCorridor=Stronghold gang
+ner.dungeon.strongholdLibrary=Stronghold Bibliotheek
+ner.dungeon.strongholdCrossing=Stronghold Kruising
+ner.dungeon.villageBlacksmith=Smit
+ner.dungeon.bonusChest=Bonus
+ner.dungeon.dungeonChest=Grot
+
+#Enchantments View
+ner.enchantments.title=Enchantments
+
+#Plant View
+ner.plant.title=Plant Drops
+
+#Ore View
+ner.ore.title=Ore Gen
+ner.ore.bestY=bestY
+ner.ore.silkTouch=Silk Touch Nodig
+ner.ore.biomes=Spawn Biomes
+ner.ore.dimensions=Spawn Dimensions
+
+#Mob View
+ner.mob.title=Mob Drops
+ner.mob.biome=Spawn Biomes: Hover muis hier
+ner.mob.exp=Experience Dropped
+
+#Advanced Plant View
+ner.advPlant.title=Geavanceerde Plant Drops
+
+#Conditionals - when translating retain '%s' as this lets the modifier be properly inserted into the string
+ner.magmaCream.text=Grote en kleine Magma Cubes
+ner.slimeBall.text=Alleen kleine slimes
+ner.rareDrop.text=Zeldzame Drop
+
+ner.slimeScale.text=Schaalt met Slime Grootte
+ner.kingSlime.text=Alleen Koning Slimes
+ner.beheading.text=Onhoodfing vergroot kans
+ner.randomAspect.text=Willekeuring Aspect
+ner.equipmentDrop.text=Dropped Equipment
+
+ner.burning.text=Wanneer in brand
+ner.notBurning.text=Wanneer niet in brand
+ner.wet.text=Wanneer nat
+ner.notWet.text=When niet nat
+ner.hasPotion.text=Wanneer aangedaan door %s
+ner.hasNoPotion.text=Wanneer niet aangedaan door %s
+ner.beyond.text=Verder dan %sm van spawn
+ner.nearer.text=Dichter dan %sm van spawn
+ner.raining.text=Wanneer het regent
+ner.dry.text=Wanneer niet het regent
+ner.thundering.text=Wanneer het stormt
+ner.notThundering.text=Wanneer niet het stormt
+ner.moonPhase.text=Tijdens %s Maan
+ner.notMoonPhase.text=Niet tijdens %s Maan
+ner.pastTime.text=Tijd na %s
+ner.beforeTime.text=Tijd voor %s
+ner.pastWorldTime.text=Wereld Tijd nz %s
+ner.beforeWorldTime.text=Wereld Tijd voor %s
+ner.pastWorldDifficulty.text=Over Wereld Moeilijkheid %s
+ner.beforeWorldDifficulty.text=Onder World Moeilijkheid %s
+ner.gameDifficulty.text=Moeilijkheid %s
+ner.notGameDifficulty.text=Moeilijkheid niet %s
+ner.inDimension.text=In Dimensie %s
+ner.notInDimension.text=niet in Dimensie %s
+ner.inBiome.text=In Biome %s
+ner.notInBiome.text=niet in Biome %s
+ner.onBlock.text=On %s
+ner.notOnBlock.text=niet on %s
+ner.below.text=Onder Y Level %s
+ner.above.text=Boven Y Level %s
+ner.playerOnline.text=Wanneer Speler %s online
+ner.playerOffline.text=Wanneer Speler %s offline
+ner.playerKill.text=Vermoord door een Speler
+ner.notPlayerKill.text=Niet Vermoord door een Speler
+ner.aboveLooting.text=Looting Boven %s
+ner.belowLooting.text=Looting Onder %s
+ner.killedBy.text=Wanneer Gedood door %s
+ner.notKilledBy.text=Wanneer niet Gedood door %s
+
+#Moon Phases
+ner.full.moon=Volle
+ner.waning_gibbous.moon=Afnemende
+ner.third_quarter.moon=Laatste Kwartier
+ner.waning_crescent.moon=Asgrauwe
+ner.new.moon=Nieuwe
+ner.waxing_crescent.moon=Jonge maansikkel
+ner.first_quarter.moon=Eerste Kwartier
+ner.waxing_gibbous.moon=Wassende
