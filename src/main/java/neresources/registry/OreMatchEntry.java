@@ -18,7 +18,6 @@ public class OreMatchEntry
 {
     private float[] chances;
     Map<String, Boolean> silkTouchMap = new LinkedHashMap<String, Boolean>();
-//    Map<ItemStack, DistributionBase> ores = new LinkedHashMap<ItemStack, DistributionBase>();
     List<OreEntry> oreSet = new ArrayList<OreEntry>();
     private int minY;
     private int maxY;
@@ -37,7 +36,6 @@ public class OreMatchEntry
     private void addMessage(RegisterOreMessage message)
     {
         silkTouchMap.put(MapKeys.key(message.getOre()), message.needSilkTouch());
-//        ores.put(message.getOre(), message.getDistribution());
         oreSet.add(new OreEntry(message.getOre(), message.getDistribution()));
         calcChances();
         if (colour == ColorHelper.BLACK) colour = message.getColour();
@@ -52,11 +50,9 @@ public class OreMatchEntry
 
     public void add(OreMatchEntry oreMatchEntry)
     {
-        //TODO: if itemstack already exists it breaks shit
         if (restriction.isMergeable(oreMatchEntry.restriction))
         {
             silkTouchMap.putAll(oreMatchEntry.silkTouchMap);
-//            ores.putAll(oreMatchEntry.ores);
             oreSet.addAll(oreMatchEntry.oreSet);
             denseOre |= oreMatchEntry.denseOre;
             calcChances();
@@ -143,15 +139,15 @@ public class OreMatchEntry
 
     public void removeDrop(ItemStack removeDrop)
     {
-        List<ItemStack> newDrops = new ArrayList<ItemStack>();
-        for (ItemStack drop : drops)
+        for (Iterator<ItemStack> itr = drops.iterator(); itr.hasNext();)
         {
+            ItemStack drop = itr.next();
             if (drop.isItemEqual(removeDrop))
             {
-                silkTouchMap.remove(MapKeys.key(removeDrop));
-            } else newDrops.add(drop);
+                silkTouchMap.remove(MapKeys.key(drop));
+                itr.remove();
+            }
         }
-        drops = newDrops;
         if (MapKeys.getKey(removeDrop).startsWith("denseore"))
         {
             denseOre = false;
@@ -184,7 +180,6 @@ public class OreMatchEntry
     @Override
     public String toString()
     {
-        //return "Match: "+ores.keySet().iterator().next().getDisplayName() + " - " + restriction.toString();
         return "Match: "+oreSet.get(0).getOre().getDisplayName() + " - " + restriction.toString();
     }
 
@@ -195,8 +190,8 @@ public class OreMatchEntry
 
         public OreEntry(ItemStack ore, DistributionBase distribution)
         {
-            this.ore =ore;
-            this.distribution =distribution;
+            this.ore = ore;
+            this.distribution = distribution;
         }
 
         public ItemStack getOre()
