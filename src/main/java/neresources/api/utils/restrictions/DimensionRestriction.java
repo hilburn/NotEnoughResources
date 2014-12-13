@@ -84,7 +84,7 @@ public class DimensionRestriction
             for (Integer i : set)
             {
                 String dimName = DimensionRegistry.getDimensionName(i);
-                if (dimName != null) result.add(dimName);
+                if (dimName != null) result.add("  " + dimName);
             }
         }
         else

@@ -131,7 +131,7 @@ public class TiConCompat extends CompatBase
     private void generateUnderground(ItemStack ore, int numVeins, int minY, int maxY, int veinSize)
     {
         float chance = ((float) numVeins * veinSize) / ((maxY - minY + 1) * 256);
-        registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+        registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance))); //TODO: Why Hilburn Why?
         registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance),new Restriction(BlockRestriction.STONE,BiomeRestriction.EXTREME_HILLS)));
     }
 

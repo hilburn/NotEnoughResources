@@ -116,14 +116,8 @@ public class BiomeRestriction
     public List<String> toStringList()
     {
         List<String> result = new ArrayList<String>();
-        for (int i = 0; i<biomes.size();)
-        {
-            String add = "";
-            for (int j=i;j<i+3 && j<biomes.size();j++)
-                add+=(add.isEmpty()?"":",")+biomes.get(j).biomeName;
-            i+=3;
-            result.add(add);
-        }
+        for (BiomeGenBase biome : biomes)
+            if (!biome.biomeName.equals("")) result.add("  " + biome.biomeName);
         return result;
     }
 

@@ -27,7 +27,8 @@ public enum ModList
     reactorcraft(Names.REACTORCRAFT, new ReactorCraftCompat()),
     forestry(Names.FORESTRY, new ForestryCompat()),
     ticon(Names.TICON, new TiConCompat()),
-    denseores(Names.DENSEORES);
+    denseores(Names.DENSEORES),
+    mystcraft(Names.MYSTCRAFT);
 
     private String name;
     private CompatBase compat;
@@ -82,5 +83,6 @@ public enum ModList
         public static final String THAUMCRAFT = "Thaumcraft";
         public static final String TICON = "TConstruct";
         public static final String DENSEORES = "denseores";
+        public static final String MYSTCRAFT = "Mystcraft";
     }
 }

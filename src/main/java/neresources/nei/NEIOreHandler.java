@@ -114,7 +114,8 @@ public class NEIOreHandler extends TemplateRecipeHandler
         {
             if (cachedOre.oreMatchEntry.isSilkTouchNeeded(stack))
                 currenttip.add(Conditional.silkTouch.toString());
-            currenttip.addAll(cachedOre.getRestrictions());
+            if (gui.isMouseOver(cachedOre.getResult(), recipe))
+                currenttip.addAll(cachedOre.getRestrictions());
         }
         return currenttip;
     }

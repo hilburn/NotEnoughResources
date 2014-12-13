@@ -17,7 +17,9 @@ import neresources.reference.Reference;
 import neresources.registry.MessageRegistry;
 import neresources.utils.LogHelper;
 import neresources.utils.ReflectionHelper;
+import neresources.utils.WorldEventHelper;
 import net.minecraft.util.WeightedRandom;
+import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, guiFactory = "neresources.gui.ModGuiFactory", dependencies = "after:NotEnoughItems;after:CoFHCore")
 public class NEResources
@@ -45,6 +47,8 @@ public class NEResources
 
         ReflectionHelper.isObf = ReflectionHelper.doesFieldExist(WeightedRandom.Item.class, "field_76292_a");
         LogHelper.debug("Minecraft is " + (ReflectionHelper.isObf ? "obf" : "deObf"));
+
+        MinecraftForge.EVENT_BUS.register(new WorldEventHelper());
     }
 
     @EventHandler
