@@ -16,15 +16,20 @@ public class DistributionHelpers
      */
     public static float[] getTriangularDistribution(int midY, int range, float maxChance)
     {
-        float[] triangle = new float[range * 2 + 1];
-        float modChance = maxChance / (range + 1);
-        for (int i = 0; i <= range; i++)
-            for (int j = 0; j <= range; j++)
+        return getTriangularDistribution(midY-range,range,range,maxChance);
+    }
+
+    public static float[] getTriangularDistribution(int minY, int rand1, int rand2, float maxChance)
+    {
+        float[] triangle = new float[rand1 + rand2 + 1];
+        float modChance = maxChance / Math.min(rand1,rand2);
+        for (int i = 0; i < rand1; i++)
+            for (int j = 0; j < rand2; j++)
                 triangle[i + j] += modChance;
         float[] result = new float[256];
         for (int i = 0; i < triangle.length; i++)
         {
-            int mapToPos = i + midY - range;
+            int mapToPos = i + minY;
             if (mapToPos < 0) continue;
             if (mapToPos == result.length) break;
             result[mapToPos] = triangle[i];

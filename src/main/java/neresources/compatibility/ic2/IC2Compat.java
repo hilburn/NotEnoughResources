@@ -4,10 +4,13 @@ import cpw.mods.fml.common.Optional;
 import ic2.core.Ic2Items;
 import ic2.core.init.MainConfig;
 import ic2.core.util.ConfigUtil;
+import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.RegisterOreMessage;
+import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
 import neresources.utils.ModList;
+import net.minecraft.item.ItemStack;
 
 public class IC2Compat extends CompatBase
 {
@@ -27,10 +30,11 @@ public class IC2Compat extends CompatBase
         {
             numVeins = 15 * baseScale / 64;
             minY = 10;
-            maxY = 68; //Taken seaLevel is 64 see WorldProvider.getAverageGroundLevel() and WorldType.getMinimumSpawnHeight()
+            int rand1 = 20;
+            int rand2 = 40;
             veinSize = 10;
-            float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256F);
-            registerOre(new RegisterOreMessage(Ic2Items.copperOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            float chance = (numVeins * veinSize) / ((rand1+rand2-1) * 256F);
+            registerOre(new RegisterOreMessage(Ic2Items.copperOre, new DistributionCustom(DistributionHelpers.getTriangularDistribution(minY - veinSize / 2, rand1 + veinSize / 2, rand2 + veinSize / 2, chance))));
         }
 
         if(ConfigUtil.getBool(MainConfig.get(), "worldgen/tinOre") && Ic2Items.tinOre != null)
