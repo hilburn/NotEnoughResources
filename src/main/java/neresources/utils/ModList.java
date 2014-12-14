@@ -6,6 +6,7 @@ import neresources.compatibility.appliedenergistics2.AE2Compat;
 import neresources.compatibility.bigreactors.BigReactorsCompat;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.compatibility.forestry.ForestryCompat;
+import neresources.compatibility.ic2.IC2Compat;
 import neresources.compatibility.metallurgy.MetallurgyCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
 import neresources.compatibility.netherores.NetherOresCompat;
@@ -28,7 +29,8 @@ public enum ModList
     forestry(Names.FORESTRY, new ForestryCompat()),
     ticon(Names.TICON, new TiConCompat()),
     denseores(Names.DENSEORES),
-    mystcraft(Names.MYSTCRAFT);
+    mystcraft(Names.MYSTCRAFT),
+    ic2(Names.IC2, new IC2Compat());
 
     private String name;
     private CompatBase compat;
@@ -84,5 +86,6 @@ public enum ModList
         public static final String TICON = "TConstruct";
         public static final String DENSEORES = "denseores";
         public static final String MYSTCRAFT = "Mystcraft";
+        public static final String IC2= "IC2";
     }
 }
