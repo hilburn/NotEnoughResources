@@ -34,12 +34,12 @@ public class DimensionRegistry
 
         private String getName()
         {
-            if (name == null)
+            if (name == null && DimensionManager.getProvider(dimId) != null)
             {
                 name = DimensionManager.getProvider(dimId).getDimensionName();
                 if (age && !name.startsWith("Age")) name += " (Age)";
             }
-            return name;
+            return name == null ? String.valueOf(dimId) : name;
         }
 
         private int getDimId()
