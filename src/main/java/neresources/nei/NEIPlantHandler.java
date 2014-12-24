@@ -69,6 +69,9 @@ public class NEIPlantHandler extends TemplateRecipeHandler
     @Override
     public void loadUsageRecipes(String inputId, Object... ingredients)
     {
+
+	if (ingredients.length == 0) return;
+
         if (ingredients[0] instanceof ItemStack)
         {
             ItemStack ingredient = (ItemStack) ingredients[0];
