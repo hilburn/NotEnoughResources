@@ -1,11 +1,14 @@
 package neresources.registry;
 
 import neresources.entries.DungeonEntry;
+import neresources.utils.ByteArrayHelper;
+import neresources.utils.LogHelper;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -92,5 +95,25 @@ public class DungeonRegistry
         int min = entry.getMinStacks();
         if (min == max) return max + " " + TranslationHelper.translateToLocal("ner.stacks");
         return min + " - " + max + " " + TranslationHelper.translateToLocal("ner.stacks");
+    }
+    
+    public byte[] regToBytes()
+    {
+        return ByteArrayHelper.toByteArray(registry);
+    }
+
+    public void regFromBytes(byte[] bytes)
+    {
+        this.registry = ByteArrayHelper.fromBytesArray(bytes);
+    }
+    
+    public static byte[] catToBytes()
+    {
+        return ByteArrayHelper.toByteArray(categoryToLocalKeyMap);
+    }
+
+    public static void catFromBytes(byte[] bytes)
+    {
+        categoryToLocalKeyMap = ByteArrayHelper.fromBytesArray(bytes);
     }
 }

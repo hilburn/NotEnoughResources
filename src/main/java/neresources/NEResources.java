@@ -11,11 +11,13 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import neresources.config.ConfigHandler;
 import neresources.config.Settings;
+import neresources.network.MessageHandler;
 import neresources.proxy.CommonProxy;
 import neresources.reference.MetaData;
 import neresources.reference.Reference;
 import neresources.registry.MessageRegistry;
 import neresources.utils.LogHelper;
+import neresources.utils.NetworkEventHelper;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.WorldEventHelper;
 import net.minecraft.util.WeightedRandom;
@@ -48,7 +50,11 @@ public class NEResources
         ReflectionHelper.isObf = ReflectionHelper.doesFieldExist(WeightedRandom.Item.class, "field_76292_a");
         LogHelper.debug("Minecraft is " + (ReflectionHelper.isObf ? "obf" : "deObf"));
 
-        MinecraftForge.EVENT_BUS.register(new WorldEventHelper());
+        LogHelper.info("Registering Network Messages...");
+        MessageHandler.init();
+        
+        LogHelper.info("Registering Events...");
+        PROXY.registerEvents();
     }
 
     @EventHandler
