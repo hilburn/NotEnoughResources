@@ -3,6 +3,7 @@ package neresources.registry;
 import neresources.api.messages.ModifyOreMessage;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.Priority;
+import neresources.utils.ByteArrayHelper;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -133,5 +134,25 @@ public class OreRegistry
         {
             dropMap.put(key,dropMap.get(oreKey));
         }
+    }
+
+    public static byte[] regToBytes()
+    {
+        return ByteArrayHelper.toByteArray(matchEntryMap);
+    }
+
+    public static void regFromBytes(byte[] bytes)
+    {
+        matchEntryMap = ByteArrayHelper.fromBytesArray(bytes);
+    }
+
+    public static byte[] dropsToBytes()
+    {
+        return ByteArrayHelper.toByteArray(dropMap);
+    }
+
+    public static void dropsFromBytes(byte[] bytes)
+    {
+        dropMap = ByteArrayHelper.fromBytesArray(bytes);
     }
 }

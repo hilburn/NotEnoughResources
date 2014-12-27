@@ -30,8 +30,8 @@ public class ForestryCompat extends CompatBase
         if (Config.generateApatiteOre) genApatite();
         if (Config.generateCopperOre) genCopper();
         if (Config.generateTinOre) genTin();
-        if (Config.generateBogEarth) ; //TODO: Bog Earth
-        if (Config.generateBeehives) ; //TODO: Beehives
+        //if (Config.generateBogEarth) ; //TODO: Bog Earth also does not exist in unstable version
+        //if (Config.generateBeehives) ; //TODO: Beehives
     }
 
     private void genTin()

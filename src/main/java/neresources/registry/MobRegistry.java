@@ -4,6 +4,7 @@ import neresources.api.messages.ModifyMobMessage;
 import neresources.api.messages.RemoveMobMessage;
 import neresources.api.utils.DropItem;
 import neresources.entries.MobEntry;
+import neresources.utils.ByteArrayHelper;
 import neresources.utils.ClassScraper;
 import neresources.utils.MobHelper;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -99,5 +100,15 @@ public class MobRegistry
             }
         }
         return result;
+    }
+    
+    public byte[] toBytes()
+    {
+        return ByteArrayHelper.toByteArray(this.registry);
+    }
+    
+    public void fromBytes(byte[] bytes)
+    {
+        this.registry = ByteArrayHelper.fromBytesArray(bytes);
     }
 }
