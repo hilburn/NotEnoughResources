@@ -2,6 +2,7 @@ package neresources.registry;
 
 import neresources.api.utils.PlantDrop;
 import neresources.entries.PlantEntry;
+import neresources.utils.ByteArrayHelper;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -100,5 +101,25 @@ public class PlantRegistry
         for (PlantDrop drop : entry.getDrops())
             map.put(drop.getDrop(), drop.getWeight() / totalWeight);
         return map;
+    }
+    
+    public byte[] regToBytes()
+    {
+        return ByteArrayHelper.toByteArray(this.registry);
+    }
+    
+    public void regFromBytes(byte[] bytes)
+    {
+        this.registry = ByteArrayHelper.fromBytesArray(bytes);
+    }
+
+    public byte[] dropsToBytes()
+    {
+        return ByteArrayHelper.toByteArray(this.dropLinks);
+    }
+
+    public void dropsFromBytes(byte[] bytes)
+    {
+        this.dropLinks = ByteArrayHelper.fromBytesArray(bytes);
     }
 }

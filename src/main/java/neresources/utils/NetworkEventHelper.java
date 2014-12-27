@@ -11,6 +11,6 @@ public class NetworkEventHelper
     @SubscribeEvent
     public void onConnectedToServer(FMLNetworkEvent.ClientConnectedToServerEvent event)
     {
-        MessageHandler.INSTANCE.sendToServer(new ClientSyncRequestMessage());
+        MessageHandler.INSTANCE.sendToServer(new ClientSyncRequestMessage(true));
     }
 }
