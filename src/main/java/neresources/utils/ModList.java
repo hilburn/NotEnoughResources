@@ -9,6 +9,7 @@ import neresources.compatibility.forestry.ForestryCompat;
 import neresources.compatibility.ic2.IC2Compat;
 import neresources.compatibility.metallurgy.MetallurgyCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
+import neresources.compatibility.mobproperties.MobPropertiesCompat;
 import neresources.compatibility.netherores.NetherOresCompat;
 import neresources.compatibility.reika.ElectriCraftCompat;
 import neresources.compatibility.reika.ReactorCraftCompat;
@@ -30,7 +31,8 @@ public enum ModList
     ticon(Names.TICON, new TiConCompat()),
     denseores(Names.DENSEORES),
     mystcraft(Names.MYSTCRAFT),
-    ic2(Names.IC2, new IC2Compat());
+    ic2(Names.IC2, new IC2Compat()),
+    mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat());
 
     private String name;
     private CompatBase compat;
@@ -87,5 +89,6 @@ public enum ModList
         public static final String DENSEORES = "denseores";
         public static final String MYSTCRAFT = "Mystcraft";
         public static final String IC2= "IC2";
+        public static final String MOBPROPERTIES = "MobProperties";
     }
 }

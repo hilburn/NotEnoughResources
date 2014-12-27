@@ -18,7 +18,7 @@ public class StringParser
 {
     private static Map<String, Conditional> conditionalMap = new LinkedHashMap<String, Conditional>();
 
-    StringParser()
+    static
     {
         conditionalMap.put("if_burning", Conditional.burning);
         conditionalMap.put("if_wet", Conditional.wet);
@@ -43,15 +43,18 @@ public class StringParser
 
     public static final String witherString = "if_wither_skeleton";
 
-    public static ModifyMobMessage addConditionals(ModifyMobMessage mobDrop, List<String> conditions)
+    public static ModifyMobMessage addConditionals(ModifyMobMessage mobDrop, String[] conditions)
     {
         List<String> addConditions = new ArrayList<String>();
         for (String condition : conditions)
         {
             if (condition.equals(witherString)) mobDrop.setWither(true);
-            Conditional conditional = stringToConditional(condition);
-            if (conditional != null)
-                addConditions.add(conditional.toString());
+            else
+            {
+                Conditional conditional = stringToConditional(condition);
+                if (conditional != null)
+                    addConditions.add(conditional.toString());
+            }
         }
         if (!addConditions.isEmpty())
             for (DropItem item : mobDrop.getAddDrops())
@@ -65,7 +68,7 @@ public class StringParser
         condition = condition.trim();
         Conditional result = null;
         boolean reverse = condition.startsWith("!");
-        boolean moon = false, block = false, biome = false, gameDifficulty = false, worldDifficulty = false;
+        boolean moon = false, block = false, biome = false, dimension = false, gameDifficulty = false, worldDifficulty = false;
         if (reverse) condition = condition.replace("!", "");
         for (String key : conditionalMap.keySet())
         {
@@ -76,6 +79,7 @@ public class StringParser
                 else if (result == Conditional.onBlock) block = true;
                 else if (result == Conditional.inBiome) biome = true;
                 else if (result == Conditional.gameDifficulty) gameDifficulty = true;
+                //else if (result == Conditional.inDimension) dimension = true;
                 else if (result == Conditional.beforeWorldDifficulty) return null; //worldDifficulty=true;
                 if (reverse) result = Conditional.reverse.get(result);
                 condition = condition.replace(key, "");
