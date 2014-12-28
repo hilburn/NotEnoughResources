@@ -5,6 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import neresources.registry.*;
+import neresources.utils.LogHelper;
 
 public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRequestMessage, ClientSyncMessage>
 {
@@ -24,6 +25,7 @@ public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRe
     
     public ClientSyncMessage(boolean test)
     {
+        LogHelper.info("Sending Sync...");
         this.dungeonReg = DungeonRegistry.getInstance().regToBytes();
         this.dungeonCat = DungeonRegistry.catToBytes();
         this.enchantments = EnchantmentRegistry.toBytes();
@@ -80,6 +82,7 @@ public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRe
     @Override
     public ClientSyncMessage onMessage(ClientSyncRequestMessage message, MessageContext ctx)
     {
+        LogHelper.info("Received Sync Request");
         return new ClientSyncMessage(true);
     }
 }

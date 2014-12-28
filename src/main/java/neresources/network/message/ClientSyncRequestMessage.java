@@ -5,6 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import neresources.registry.*;
+import neresources.utils.LogHelper;
 
 public class ClientSyncRequestMessage implements IMessage, IMessageHandler<ClientSyncMessage, IMessage>
 {
@@ -17,6 +18,7 @@ public class ClientSyncRequestMessage implements IMessage, IMessageHandler<Clien
     public ClientSyncRequestMessage(boolean test)
     {
         this.test = test;
+        LogHelper.info("Requesting Sync...");
     }
     
     @Override
@@ -34,6 +36,7 @@ public class ClientSyncRequestMessage implements IMessage, IMessageHandler<Clien
     @Override
     public IMessage onMessage(ClientSyncMessage message, MessageContext ctx)
     {
+        LogHelper.info("Receiving Sync");
         DungeonRegistry.getInstance().regFromBytes(message.dungeonReg);
         DungeonRegistry.catFromBytes(message.dungeonCat);
         EnchantmentRegistry.fromBytes(message.enchantments);
@@ -42,6 +45,7 @@ public class ClientSyncRequestMessage implements IMessage, IMessageHandler<Clien
         OreRegistry.dropsFromBytes(message.oresDropMap);
         PlantRegistry.getInstance().regFromBytes(message.plantReg);
         PlantRegistry.getInstance().dropsFromBytes(message.plantDrops);
+        LogHelper.info("Synced");
         return null;
     }
 }
