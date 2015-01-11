@@ -34,7 +34,7 @@ public class DimensionRegistry
 
         private String getName()
         {
-            if (name == null && DimensionManager.getProvider(dimId) != null)
+            if (name == null && DimensionManager.getWorld(dimId) != null && DimensionManager.getProvider(dimId) != null)
             {
                 name = DimensionManager.getProvider(dimId).getDimensionName();
                 if (age && !name.startsWith("Age")) name += " (Age)";
