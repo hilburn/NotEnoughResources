@@ -8,9 +8,16 @@ import net.minecraftforge.common.DimensionManager;
 
 public class MystCompat extends CompatBase
 {
-    @Optional.Method(modid = ModList.Names.MYSTCRAFT)
-    public static boolean isMystDim(int dim)
-    {
-        return DimensionManager.getProvider(dim) instanceof WorldProviderMyst;
-    }
+	@Optional.Method(modid = ModList.Names.MYSTCRAFT)
+	public static boolean isMystDim(int dim)
+	{
+		try
+		{
+			return DimensionManager.getProvider(dim) instanceof WorldProviderMyst;
+		}
+		catch (NullPointerException n)
+		{
+			return false;
+		}
+	}
 }
