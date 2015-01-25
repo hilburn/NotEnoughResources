@@ -11,6 +11,6 @@ public class MystCompat extends CompatBase
     @Optional.Method(modid = ModList.Names.MYSTCRAFT)
     public static boolean isMystDim(int dim)
     {
-        return DimensionManager.getProvider(dim) instanceof WorldProviderMyst;
+        return DimensionManager.getWorld(dim) != null && DimensionManager.getProvider(dim) instanceof WorldProviderMyst;
     }
 }
