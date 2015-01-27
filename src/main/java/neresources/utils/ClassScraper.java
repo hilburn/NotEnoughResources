@@ -5,25 +5,23 @@ import java.util.*;
 public class ClassScraper
 {
 
-    public static Class[] getSuperInterfaces(Class[] childInterfaces)
+    public static Set<Class> getSuperInterfaces(Class[] childInterfaces)
     {
 
-        List allInterfaces = new ArrayList();
+        Set<Class> allInterfaces = new HashSet<Class>();
 
         for (int i = 0; i < childInterfaces.length; i++)
         {
             allInterfaces.add(childInterfaces[i]);
-            allInterfaces.addAll(
-                    Arrays.asList(
-                            getSuperInterfaces(childInterfaces[i].getInterfaces())));
+            allInterfaces.addAll(getSuperInterfaces(childInterfaces[i].getInterfaces()));
         }
 
-        return (Class[]) allInterfaces.toArray(new Class[allInterfaces.size()]);
+        return allInterfaces;
     }
 
-    public static Set getGeneralizations(Class classObject)
+    public static Set<Class> getGeneralizations(Class classObject)
     {
-        Set generalizations = new HashSet();
+        Set<Class> generalizations = new HashSet<Class>();
 
         generalizations.add(classObject);
 

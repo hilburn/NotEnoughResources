@@ -48,8 +48,13 @@ public class MobPropertiesCompat extends CompatBase
                     double[] amounts = (double[])ReflectionHelper.getObject(DropEntry.class,"attempts",drop);
                     if (amounts==null || amounts.length<2)
                         amounts=new double[]{0.0D,1.0D};
+                    amounts[0]*=drop.getCounts()[0];
+                    amounts[1]*=drop.getCounts()[1];
+                    float chance = (float)(drop.getChance()/2F*(amounts[0]+amounts[1]));
+                    int min = (int) Math.floor(amounts[0]);
+                    int max = (int) Math.ceil(amounts[1]);
                     for (int i = (int)drop.getDamages()[0]; i<= (int)drop.getDamages()[1]; i++)
-                        dropItems.add(new DropItem(new ItemStack(item,1,i),(int)amounts[0], (int)amounts[1], (float)drop.getCounts()[0]));
+                        dropItems.add(new DropItem(new ItemStack(item,1,i),min,max, chance));
                     ModifyMobMessage message = new ModifyMobMessage((Class) entity, true, dropItems.toArray(new DropItem[dropItems.size()]));
                     message = StringParser.addConditionals(message, drop.getConditions());
                     MessageRegistry.addMessage(message);
