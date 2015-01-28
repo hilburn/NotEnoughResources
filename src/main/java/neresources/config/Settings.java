@@ -2,6 +2,7 @@ package neresources.config;
 
 import cpw.mods.fml.relauncher.Side;
 import neresources.nei.*;
+import neresources.registry.EnchantmentRegistry;
 
 public final class Settings
 {
@@ -12,6 +13,8 @@ public final class Settings
     public static int EXTRA_RANGE;
     public static Side side;
     public static boolean useDimNames;
+    
+    public static String[] excludedEnchants;
 
     public static void reload()
     {
@@ -23,5 +26,6 @@ public final class Settings
             NEIEnchantmentHandler.reloadSettings();
             NEIAdvSeedHandler.reloadSettings();
         }
+        EnchantmentRegistry.removeAll(excludedEnchants);
     }
 }
