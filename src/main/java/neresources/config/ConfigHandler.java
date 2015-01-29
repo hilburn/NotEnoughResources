@@ -45,6 +45,8 @@ public class ConfigHandler
 
         Settings.useDimNames = config.getBoolean(TranslationHelper.translateToLocal("ner.config.dimNames.title"), Configuration.CATEGORY_GENERAL, true, TranslationHelper.translateToLocal("ner.config.dimNames.description"));
 
+        Settings.excludedEnchants = config.getStringList(TranslationHelper.translateToLocal("ner.config.echantsBlacklist.title"), Configuration.CATEGORY_GENERAL, new String[] { "flimflam" }, TranslationHelper.translateToLocal("ner.config.echantsBlacklist.description"));
+
         if (config.hasChanged())
         {
             config.save();

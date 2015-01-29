@@ -8,6 +8,8 @@ ner.config.extraRange.title=Extra range
 ner.config.extraRange.description=Changes the extra yLevels displayed on the graph in the NEI ore View
 ner.config.dimNames.title=Use Dimension Names
 ner.config.dimNames.description=Set use of Dimension names instead of numbers
+ner.config.echantsBlacklist.title=Enchants Blacklist
+ner.config.echantsBlacklist.description=Blacklist enchants from the NEI Enchants View
 
 #Usage: ner.page pageNumber ner.of lastPage
 ner.page=Page

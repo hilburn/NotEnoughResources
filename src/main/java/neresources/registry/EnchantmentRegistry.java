@@ -63,7 +63,7 @@ public class EnchantmentRegistry
     private static void excludeFormRegistry(String sEnchantment)
     {
         for (Enchantment enchantment : Enchantment.enchantmentsList)
-            if (enchantment.getName().contains(sEnchantment)) excludeFormRegistry(enchantment);
+            if (enchantment.getName().toLowerCase().contains(sEnchantment.toLowerCase())) excludeFormRegistry(enchantment);
     }
 
     public static void removeAll(String[] excludedEnchants)
