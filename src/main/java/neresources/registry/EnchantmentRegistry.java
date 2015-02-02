@@ -54,19 +54,19 @@ public class EnchantmentRegistry
         enchantments = ByteArrayHelper.fromBytesArray(bytes);
     }
     
-    private static void excludeFormRegistry(Enchantment enchantment)
+    private void excludeFormRegistry(Enchantment enchantment)
     {
         for (EnchantmentEntry entry : enchantments)
             if (entry.getEnchantment().effectId == enchantment.effectId) enchantments.remove(entry);
     }
 
-    private static void excludeFormRegistry(String sEnchantment)
+    private void excludeFormRegistry(String sEnchantment)
     {
         for (Enchantment enchantment : Enchantment.enchantmentsList)
-            if (enchantment.getName().toLowerCase().contains(sEnchantment.toLowerCase())) excludeFormRegistry(enchantment);
+            if (enchantment != null && enchantment.getName().toLowerCase().contains(sEnchantment.toLowerCase())) excludeFormRegistry(enchantment);
     }
 
-    public static void removeAll(String[] excludedEnchants)
+    public void removeAll(String[] excludedEnchants)
     {
         for (String enchant : excludedEnchants)
             excludeFormRegistry(enchant);

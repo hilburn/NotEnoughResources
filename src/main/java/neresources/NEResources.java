@@ -15,6 +15,7 @@ import neresources.network.MessageHandler;
 import neresources.proxy.CommonProxy;
 import neresources.reference.MetaData;
 import neresources.reference.Reference;
+import neresources.registry.EnchantmentRegistry;
 import neresources.registry.MessageRegistry;
 import neresources.utils.LogHelper;
 import neresources.utils.NetworkEventHelper;
@@ -71,6 +72,8 @@ public class NEResources
     @EventHandler
     public void loadComplete(FMLLoadCompleteEvent event)
     {
+        Settings.gameLoaded = true;
         PROXY.initCompatibility();
+        EnchantmentRegistry.getInstance().removeAll(Settings.excludedEnchants);
     }
 }

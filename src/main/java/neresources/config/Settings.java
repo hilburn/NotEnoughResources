@@ -15,6 +15,7 @@ public final class Settings
     public static boolean useDimNames;
     
     public static String[] excludedEnchants;
+    public static boolean gameLoaded = false;
 
     public static void reload()
     {
@@ -26,6 +27,6 @@ public final class Settings
             NEIEnchantmentHandler.reloadSettings();
             NEIAdvSeedHandler.reloadSettings();
         }
-        EnchantmentRegistry.removeAll(excludedEnchants);
+        if (gameLoaded) EnchantmentRegistry.getInstance().removeAll(excludedEnchants);
     }
 }
