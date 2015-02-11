@@ -6,9 +6,12 @@ import neresources.entries.PlantEntry;
 import neresources.registry.*;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 
 public class CompatBase
 {
+    protected static World world = DimensionManager.getWorld(0);
     public boolean load(ModList mod)
     {
         if (mod.isLoaded())

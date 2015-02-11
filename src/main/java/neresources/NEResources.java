@@ -9,6 +9,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import neresources.config.ConfigHandler;
 import neresources.config.Settings;
 import neresources.network.MessageHandler;
@@ -22,6 +23,8 @@ import neresources.utils.NetworkEventHelper;
 import neresources.utils.ReflectionHelper;
 import neresources.utils.WorldEventHelper;
 import net.minecraft.util.WeightedRandom;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, guiFactory = "neresources.gui.ModGuiFactory", dependencies = "after:NotEnoughItems;after:CoFHCore")
@@ -73,6 +76,11 @@ public class NEResources
     public void loadComplete(FMLLoadCompleteEvent event)
     {
         Settings.gameLoaded = true;
+    }
+
+    @EventHandler
+    public void serverStart(FMLServerStartingEvent event)
+    {
         PROXY.initCompatibility();
         EnchantmentRegistry.getInstance().removeAll(Settings.excludedEnchants);
     }
