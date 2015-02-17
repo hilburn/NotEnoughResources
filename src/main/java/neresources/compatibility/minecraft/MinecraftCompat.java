@@ -56,79 +56,79 @@ public class MinecraftCompat extends CompatBase
         //Iron Golem
         DropItem ironIngot = new DropItem(Items.iron_ingot, 3, 5);
         DropItem poppy = new DropItem(new ItemStack(Blocks.red_flower), 0, 2);
-        registerMob(new MobEntry(new EntityIronGolem(null), LightLevel.any, ironIngot, poppy));
+        registerMob(new MobEntry(new EntityIronGolem(world), LightLevel.any, ironIngot, poppy));
 
         //Snow golem
         DropItem snowball = new DropItem(Items.snowball, 0, 15);
-        registerMob(new MobEntry(new EntitySnowman(null), LightLevel.any, snowball));
+        registerMob(new MobEntry(new EntitySnowman(world), LightLevel.any, snowball));
 
         //Cow
         DropItem leather = new DropItem(Items.leather, 0, 2);
         DropItem beef = new DropItem(Items.beef, 1, 3);
         DropItem steak = new DropItem(Items.cooked_beef, 1, 3, Conditional.burning);
-        registerMob(new MobEntry(new EntityCow(null), LightLevel.any, leather, beef, steak));
+        registerMob(new MobEntry(new EntityCow(world), LightLevel.any, leather, beef, steak));
 
         //Mooshroom
-        registerMob(new MobEntry(new EntityMooshroom(null), LightLevel.any, leather, beef, steak));
+        registerMob(new MobEntry(new EntityMooshroom(world), LightLevel.any, leather, beef, steak));
 
         //Chicken
         DropItem feather = new DropItem(Items.feather, 0, 2);
         DropItem chicken = new DropItem(Items.chicken, 1, 1);
         DropItem cookedchicken = new DropItem(Items.cooked_chicken, 1, 1, Conditional.burning);
-        registerMob(new MobEntry(new EntityChicken(null), LightLevel.any, feather, chicken, cookedchicken));
+        registerMob(new MobEntry(new EntityChicken(world), LightLevel.any, feather, chicken, cookedchicken));
 
         //Pig
         DropItem pork = new DropItem(Items.porkchop, 1, 3);
         DropItem cookedpork = new DropItem(Items.cooked_porkchop, 1, 3, Conditional.burning);
-        registerMob(new MobEntry(new EntityPig(null), LightLevel.any, pork, cookedpork));
+        registerMob(new MobEntry(new EntityPig(world), LightLevel.any, pork, cookedpork));
 
         //Sheep
         DropItem wool = new DropItem(new ItemStack(Blocks.wool), 1, 1);
-        registerMob(new MobEntry(new EntitySheep(null), LightLevel.any, wool));
+        registerMob(new MobEntry(new EntitySheep(world), LightLevel.any, wool));
 
         //Wither
         DropItem star = new DropItem(Items.nether_star, 1, 1);
-        registerMob(new MobEntry(new EntityWither(null), LightLevel.any, star));
+        registerMob(new MobEntry(new EntityWither(world), LightLevel.any, star));
 
         //End Dragon
         DropItem egg = new DropItem(new ItemStack(Blocks.dragon_egg), 1, 1);
-        registerMob(new MobEntry(new EntityDragon(null), LightLevel.any, egg));
+        registerMob(new MobEntry(new EntityDragon(world), LightLevel.any, egg));
 
         //Enderman
         DropItem pearl = new DropItem(Items.ender_pearl, 0, 1);
-        registerMob(new MobEntry(new EntityEnderman(null), LightLevel.hostile, pearl));
+        registerMob(new MobEntry(new EntityEnderman(world), LightLevel.hostile, pearl));
 
         //Zombie
         DropItem rottenFlesh = new DropItem(Items.rotten_flesh, 0, 2);
         ironIngot = new DropItem(Items.iron_ingot, 1, 1, 0.008F, Conditional.playerKill, Conditional.rareDrop);
         DropItem potato = new DropItem(Items.potato, 1, 1, 0.008F, Conditional.playerKill, Conditional.rareDrop);
         DropItem carrot = new DropItem(Items.carrot, 1, 1, 0.008F, Conditional.playerKill, Conditional.rareDrop);
-        registerMob(new MobEntry(new EntityZombie(null), LightLevel.hostile, rottenFlesh, ironIngot, potato, carrot));
+        registerMob(new MobEntry(new EntityZombie(world), LightLevel.hostile, rottenFlesh, ironIngot, potato, carrot));
 
         //Zombie Pigman
         DropItem goldNugget = new DropItem(Items.gold_nugget, 0, 1);
         DropItem goldIngot = new DropItem(Items.gold_ingot, 0, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop);
-        registerMob(new MobEntry(new EntityPigZombie(null), LightLevel.any, new String[]{"Nether"}, rottenFlesh, goldNugget, goldIngot));
+        registerMob(new MobEntry(new EntityPigZombie(world), LightLevel.any, new String[]{"Nether"}, rottenFlesh, goldNugget, goldIngot));
 
         //Skeleton
         DropItem bone = new DropItem(Items.bone, 0, 2);
         DropItem arrow = new DropItem(Items.arrow, 0, 2);
-        registerMob(new MobEntry(new EntitySkeleton(null), LightLevel.hostile, bone, arrow));
+        registerMob(new MobEntry(new EntitySkeleton(world), LightLevel.hostile, bone, arrow));
 
         //Wither Skeleton
         DropItem coal = new DropItem(Items.coal, 0, 1, 0.33F);
         DropItem skull = new DropItem(new ItemStack(Items.skull, 1, 1), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop);
-        EntitySkeleton witherSkeleton = new EntitySkeleton(null);
+        EntitySkeleton witherSkeleton = new EntitySkeleton(world);
         witherSkeleton.setSkeletonType(1);
         registerMob(new MobEntry(witherSkeleton, LightLevel.hostile, new String[]{"Nether Fortress"}, bone, coal, skull));
 
         //Creeper
         DropItem gunpowder = new DropItem(Items.gunpowder, 0, 2);
-        registerMob(new MobEntry(new EntityCreeper(null), LightLevel.hostile, gunpowder));
+        registerMob(new MobEntry(new EntityCreeper(world), LightLevel.hostile, gunpowder));
 
         //Ghast
         DropItem tear = new DropItem(Items.ghast_tear, 0, 1);
-        registerMob(new MobEntry(new EntityGhast(null), LightLevel.hostile, new String[]{"Nether"}, gunpowder, tear));
+        registerMob(new MobEntry(new EntityGhast(world), LightLevel.hostile, new String[]{"Nether"}, gunpowder, tear));
 
         //Witches
         DropItem bottle = new DropItem(Items.glass_bottle, 0, 6);
@@ -138,37 +138,37 @@ public class MinecraftCompat extends CompatBase
         DropItem spider = new DropItem(Items.spider_eye, 0, 6);
         DropItem stick = new DropItem(Items.stick, 0, 6);
         DropItem sugar = new DropItem(Items.sugar, 0, 6);
-        registerMob(new MobEntry(new EntityWitch(null), LightLevel.hostile, bottle, glowstone, gunpowder, redstone, spider, stick, sugar));
+        registerMob(new MobEntry(new EntityWitch(world), LightLevel.hostile, bottle, glowstone, gunpowder, redstone, spider, stick, sugar));
 
         //Slimes
         DropItem slimeball = new DropItem(Items.slime_ball, 0, 2, Conditional.slimeBall);
-        registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntitySlime(null), 1), LightLevel.hostile, slimeball));
+        registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntitySlime(world), 1), LightLevel.hostile, slimeball));
 
         //Magma Cube
         DropItem magma = new DropItem(Items.magma_cream, 0, 1, Conditional.magmaCream);
-        registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(null), 1), LightLevel.hostile, new String[]{"Nether"}, magma));
+        registerMob(new MobEntry(MonsterHelper.setSlimeSize(new EntityMagmaCube(world), 1), LightLevel.hostile, new String[]{"Nether"}, magma));
 
         //Blaze
         DropItem blazeRod = new DropItem(Items.blaze_rod, 0, 1, Conditional.playerKill);
-        registerMob(new MobEntry(new EntityBlaze(null), LightLevel.blaze, new String[]{"Nether Fortress"}, blazeRod));
+        registerMob(new MobEntry(new EntityBlaze(world), LightLevel.blaze, new String[]{"Nether Fortress"}, blazeRod));
 
         //Silverfish
-        registerMob(new MobEntry(new EntitySilverfish(null), LightLevel.hostile));
+        registerMob(new MobEntry(new EntitySilverfish(world), LightLevel.hostile));
 
         //Bats
-        registerMob(new MobEntry(new EntityBat(null), LightLevel.hostile));
+        registerMob(new MobEntry(new EntityBat(world), LightLevel.hostile));
 
         //Spider
         DropItem string = new DropItem(Items.string, 0, 2);
         spider = new DropItem(Items.spider_eye, 1, 1, 0.33F, Conditional.playerKill);
-        registerMob(new MobEntry(new EntitySpider(null), LightLevel.hostile, string, spider));
+        registerMob(new MobEntry(new EntitySpider(world), LightLevel.hostile, string, spider));
 
         //Cave Spider
-        registerMob(new MobEntry(new EntityCaveSpider(null), LightLevel.hostile, string, spider));
+        registerMob(new MobEntry(new EntityCaveSpider(world), LightLevel.hostile, string, spider));
 
         //Squid
         DropItem ink = new DropItem(Items.dye, 0, 1, 3);
-        registerMob(new MobEntry(new EntitySquid(null), LightLevel.any, new String[]{"In water"}, ink));
+        registerMob(new MobEntry(new EntitySquid(world), LightLevel.any, new String[]{"In water"}, ink));
     }
 
     private void registerDungeonLoot()

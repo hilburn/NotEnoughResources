@@ -167,7 +167,7 @@ public class TiConCompat extends CompatBase
             toolDropItems[i + 3] = new DropItem(toolDrops.get(i), 1, 1, 1F / toolDrops.size(), kingSlimeOnly);
         }
 
-        registerMob(new MobEntry(new BlueSlime(null), LightLevel.any, toolDropItems));
+        registerMob(new MobEntry(new BlueSlime(world), LightLevel.any, toolDropItems));
     }
 
     @Optional.Method(modid = ModList.Names.TICON)

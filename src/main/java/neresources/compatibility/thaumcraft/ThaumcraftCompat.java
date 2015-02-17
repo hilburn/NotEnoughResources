@@ -54,36 +54,36 @@ public class ThaumcraftCompat extends CompatBase
         DropItem flesh = new DropItem(Items.rotten_flesh, 0, 2);
         DropItem brain = new DropItem(ConfigItems.itemZombieBrain, 0, 1);
         if (Config.spawnAngryZombie)
-            registerMob(new MobEntry(new EntityBrainyZombie(null), LightLevel.hostile, flesh, brain));
+            registerMob(new MobEntry(new EntityBrainyZombie(world), LightLevel.hostile, flesh, brain));
 
         DropItem essence = new DropItem(new ItemStack(ConfigItems.itemWispEssence), 1, 1, randomAspect);
-        if (Config.spawnWisp) registerMob(new MobEntry(new EntityWisp(null), LightLevel.hostile, essence));
+        if (Config.spawnWisp) registerMob(new MobEntry(new EntityWisp(world), LightLevel.hostile, essence));
 
         DropItem knowledge = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 9), 1, 1, 0.025F, Conditional.playerKill, Conditional.rareDrop);
         DropItem bean = new DropItem(new ItemStack(ConfigItems.itemManaBean), 0, 1, randomAspect);
-        if (Config.spawnPech) registerMob(new MobEntry(new EntityPech(null), LightLevel.any, bean, knowledge));
+        if (Config.spawnPech) registerMob(new MobEntry(new EntityPech(world), LightLevel.any, bean, knowledge));
 
         DropItem taintSlime = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 11), 0, 1);
         DropItem taintTendril = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 12), 0, 1);
         if (Config.spawnTaintacle)
         {
-            registerMob(new MobEntry(new EntityTaintacle(null), LightLevel.any, tainted, taintSlime, taintTendril));
-            registerMob(new MobEntry(new EntityTaintacleSmall(null), LightLevel.any, tainted));
+            registerMob(new MobEntry(new EntityTaintacle(world), LightLevel.any, tainted, taintSlime, taintTendril));
+            registerMob(new MobEntry(new EntityTaintacleSmall(world), LightLevel.any, tainted));
         }
         if (Config.spawnTaintSpore)
         {
-            registerMob(new MobEntry(new EntityTaintSporeSwarmer(null), LightLevel.any, tainted, taintSlime, taintTendril));
+            registerMob(new MobEntry(new EntityTaintSporeSwarmer(world), LightLevel.any, tainted, taintSlime, taintTendril));
         }
         taintSlime = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 11), 0, 1, 0.166F);
         taintTendril = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 12), 0, 1, 0.166F);
-        EntityLivingBase[] taintedEntities = new EntityLivingBase[]{new EntityTaintChicken(null), new EntityTaintCow(null), new EntityTaintCreeper(null), new EntityTaintPig(null), new EntityTaintSheep(null),
-                new EntityTaintSheep(null), new EntityTaintSpider(null), new EntityTaintVillager(null)};
+        EntityLivingBase[] taintedEntities = new EntityLivingBase[]{new EntityTaintChicken(world), new EntityTaintCow(world), new EntityTaintCreeper(world), new EntityTaintPig(world), new EntityTaintSheep(world),
+                new EntityTaintSheep(world), new EntityTaintSpider(world), new EntityTaintVillager(world)};
         for (EntityLivingBase entity : taintedEntities)
             registerMob(new MobEntry(entity, LightLevel.any, tainted, taintSlime, taintTendril));
 
         DropItem string = new DropItem(Items.string, 0, 2);
         DropItem spider = new DropItem(Items.spider_eye, 1, 1, 0.33F, Conditional.playerKill);
-        registerMob(new MobEntry(new EntityMindSpider(null), LightLevel.hostile, string, spider));
+        registerMob(new MobEntry(new EntityMindSpider(world), LightLevel.hostile, string, spider));
 
         knowledge = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 9), 0, 1, 0.1F);
         DropItem voidSeed = new DropItem(new ItemStack(ConfigItems.itemResource, 1, 17), 0, 1, 0.2F);
@@ -97,8 +97,8 @@ public class ThaumcraftCompat extends CompatBase
         DropItem voidSword = new DropItem(new ItemStack(ConfigItems.itemSwordVoid), 0, 1, 0.085F, Conditional.equipmentDrop);
         DropItem cultRobeChest = new DropItem(new ItemStack(ConfigItems.itemChestCultistRobe), 0, 1, 0.085F, Conditional.equipmentDrop);
         DropItem cultRobeLegs = new DropItem(new ItemStack(ConfigItems.itemLegsCultistRobe), 0, 1, 0.085F, Conditional.equipmentDrop);
-        registerMob(new MobEntry(new EntityCultistKnight(null), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultHelmet, cultChest, cultLegs, cultBoots, thaumSword, cultRobeHelmet, voidSword));
-        registerMob(new MobEntry(new EntityCultistCleric(null), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultRobeHelmet, cultRobeChest, cultRobeLegs, cultBoots));
+        registerMob(new MobEntry(new EntityCultistKnight(world), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultHelmet, cultChest, cultLegs, cultBoots, thaumSword, cultRobeHelmet, voidSword));
+        registerMob(new MobEntry(new EntityCultistCleric(world), LightLevel.hostile, voidSeed, knowledge, crimsonRites, cultRobeHelmet, cultRobeChest, cultRobeLegs, cultBoots));
     }
 
     @Optional.Method(modid = ModList.Names.THAUMCRAFT)
