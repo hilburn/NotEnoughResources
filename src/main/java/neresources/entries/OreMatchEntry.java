@@ -1,4 +1,4 @@
-package neresources.registry;
+package neresources.entries;
 
 import neresources.api.distributions.DistributionBase;
 import neresources.api.messages.RegisterOreMessage;
@@ -8,7 +8,6 @@ import neresources.api.utils.restrictions.Restriction;
 import neresources.compatibility.Compatibility;
 import neresources.config.Settings;
 import neresources.utils.MapKeys;
-import neresources.utils.SilkTouchHelper;
 import net.minecraft.item.ItemStack;
 
 import java.util.*;

@@ -12,6 +12,6 @@ public class NetworkEventHelper
     public void onConnectedToServer(FMLNetworkEvent.ClientConnectedToServerEvent event)
     {
         if (!event.isLocal)
-            MessageHandler.INSTANCE.sendToServer(new ClientSyncRequestMessage(true));
+            MessageHandler.INSTANCE.sendToServer(new ClientSyncRequestMessage());
     }
 }

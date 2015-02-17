@@ -15,6 +15,13 @@ public class MessageRegistry
     private static Set<Message> registerMessages = new LinkedHashSet<Message>();
     private static Set<ModifyMessage> modifyMessages = new LinkedHashSet<ModifyMessage>();
     private static Set<RegistryMessage> registryMessages = new LinkedHashSet<RegistryMessage>();
+    
+    public static void clear()
+    {
+        registerMessages = new LinkedHashSet<Message>();
+        modifyMessages = new LinkedHashSet<ModifyMessage>();
+        registryMessages = new LinkedHashSet<RegistryMessage>();
+    }
 
     private static void getModifyMessages(Priority priority, Set<ModifyMessage> add, Set<ModifyMessage> remove)
     {

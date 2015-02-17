@@ -1,7 +1,6 @@
 package neresources.registry;
 
 import neresources.entries.EnchantmentEntry;
-import neresources.utils.ByteArrayHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -44,16 +43,6 @@ public class EnchantmentRegistry
         return enchantments;
     }
     
-    public static byte[] toBytes()
-    {
-        return ByteArrayHelper.toByteArray(enchantments);
-    }
-    
-    public static void fromBytes(byte[] bytes)
-    {
-        enchantments = ByteArrayHelper.fromBytesArray(bytes);
-    }
-    
     private void excludeFormRegistry(Enchantment enchantment)
     {
         for (EnchantmentEntry entry : enchantments)
@@ -70,5 +59,10 @@ public class EnchantmentRegistry
     {
         for (String enchant : excludedEnchants)
             excludeFormRegistry(enchant);
+    }
+    
+    public void clear()
+    {
+        instance = new EnchantmentRegistry();
     }
 }

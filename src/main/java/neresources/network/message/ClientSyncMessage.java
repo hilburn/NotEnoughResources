@@ -4,85 +4,90 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import neresources.api.messages.Message;
+import neresources.api.messages.SendMessage;
 import neresources.registry.*;
 import neresources.utils.LogHelper;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTSizeTracker;
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRequestMessage, ClientSyncMessage>
-{
-    public byte[] dungeonReg;
-    public byte[] dungeonCat;
-    public byte[] enchantments;
-    public byte[] mobs;
-    public byte[] oresMatches;
-    public byte[] oresDropMap;
-    public byte[] plantReg;
-    public byte[] plantDrops;
+{    
+    private List<Message.Storage> storageList;
     
     public ClientSyncMessage()
     {
-
+        this.storageList = new LinkedList<Message.Storage>();
     }
     
-    public ClientSyncMessage(boolean test)
+    public ClientSyncMessage(List<Message.Storage> storageList)
     {
         LogHelper.info("Sending Sync...");
-        this.dungeonReg = DungeonRegistry.getInstance().regToBytes();
-        this.dungeonCat = DungeonRegistry.catToBytes();
-        this.enchantments = EnchantmentRegistry.toBytes();
-        this.mobs = MobRegistry.getInstance().toBytes();
-        this.oresMatches = OreRegistry.regToBytes();
-        this.oresDropMap = OreRegistry.dropsToBytes();
-        this.plantReg = PlantRegistry.getInstance().regToBytes();
-        this.plantDrops = PlantRegistry.getInstance().dropsToBytes();
+        this.storageList = storageList;
+    }
+    
+    public List<Message.Storage> getStorageList()
+    {
+        return storageList;
     }
     
     @Override
     public void fromBytes(ByteBuf buf)
     {
         int size = buf.readInt();
-        this.dungeonReg = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.dungeonCat = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.enchantments = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.mobs = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.oresMatches = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.oresDropMap = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.plantReg = buf.readBytes(size).array();
-        size = buf.readInt();
-        this.plantDrops = buf.readBytes(size).array();
+        for (int i = 0; i < size; i++)
+        {
+            if (buf.readBoolean())
+            {
+                int keySize = buf.readInt();
+                String key = new String(buf.readBytes(keySize).array());
+                int messageSize = buf.readInt();
+                byte[] message = buf.readBytes(messageSize).array();
+                try
+                {
+                    NBTTagCompound messageTag = CompressedStreamTools.func_152457_a(message, new NBTSizeTracker(message.length * 8));
+                    storageList.add(new Message.Storage(key, messageTag));
+                } catch (IOException e)
+                {
+                    LogHelper.warn("Failed to read message with key " + key);
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
     public void toBytes(ByteBuf buf)
     {
-        buf.writeInt(this.dungeonReg.length);
-        buf.writeBytes(this.dungeonReg);
-        buf.writeInt(this.dungeonCat.length);
-        buf.writeBytes(this.dungeonCat);
-        buf.writeInt(this.enchantments.length);
-        buf.writeBytes(this.enchantments);
-        buf.writeInt(this.mobs.length);
-        buf.writeBytes(this.mobs);
-        buf.writeInt(this.oresMatches.length);
-        buf.writeBytes(this.oresMatches);
-        buf.writeInt(this.oresDropMap.length);
-        buf.writeBytes(this.oresDropMap);
-        buf.writeInt(this.plantReg.length);
-        buf.writeBytes(this.plantReg);
-        buf.writeInt(this.plantDrops.length);
-        buf.writeBytes(this.plantDrops);
-        
+        buf.writeInt(storageList.size());
+        for (Message.Storage stored : storageList)
+        {
+            try
+            {
+                byte[] bytes = CompressedStreamTools.compress(stored.getMessage());
+                buf.writeBoolean(true);
+                buf.writeInt(stored.getKey().getBytes().length);
+                buf.writeBytes(stored.getKey().getBytes());
+                buf.writeInt(bytes.length);
+                buf.writeBytes(bytes);
+            } catch (IOException e)
+            {
+                LogHelper.warn("Dropped message with key " + stored.getKey());
+                buf.writeBoolean(false);
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public ClientSyncMessage onMessage(ClientSyncRequestMessage message, MessageContext ctx)
     {
         LogHelper.info("Received Sync Request");
-        return new ClientSyncMessage(true);
+        return new ClientSyncMessage(SendMessage.getStorage());
     }
 }

@@ -7,7 +7,7 @@ import neresources.api.utils.conditionals.Conditional;
 import neresources.config.Settings;
 import neresources.reference.Resources;
 import neresources.registry.OreRegistry;
-import neresources.registry.OreMatchEntry;
+import neresources.entries.OreMatchEntry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import neresources.utils.TranslationHelper;
