@@ -16,10 +16,8 @@ public class MessageHandler implements IMessageHandler
     
     public static void init()
     {
-        INSTANCE.registerMessage(ClientSyncRequestMessage.class, ClientSyncMessage.class, id++, Side.CLIENT);
         INSTANCE.registerMessage(ClientSyncRequestMessage.class, ClientSyncMessage.class, id++, Side.SERVER);
         INSTANCE.registerMessage(ClientSyncMessage.class, ClientSyncRequestMessage.class, id++, Side.CLIENT);
-        INSTANCE.registerMessage(ClientSyncMessage.class, ClientSyncRequestMessage.class, id++, Side.SERVER);
     }
     
     @Override

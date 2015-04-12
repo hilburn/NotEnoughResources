@@ -1,6 +1,7 @@
 package neresources.compatibility;
 
 import neresources.api.messages.ModifyOreMessage;
+import neresources.config.Settings;
 import neresources.registry.MessageRegistry;
 import neresources.registry.OreRegistry;
 import neresources.utils.ModList;
@@ -32,5 +33,6 @@ public class Compatibility
         }
 
         MessageRegistry.processMessages();
+        Settings.initedCompat = true;
     }
 }
