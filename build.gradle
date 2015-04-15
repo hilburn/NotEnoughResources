@@ -16,7 +16,6 @@ buildscript {
     }
 }
 
-apply plugin: 'scala'
 apply plugin: 'forge'
 apply plugin: 'idea'
 apply plugin: 'maven'
@@ -45,7 +44,6 @@ repositories {
 dependencies {
     compile group: 'codechicken', name: 'NotEnoughItems', version: "${config.version.minecraft}-${config.version.nei}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenCore', version: "${config.version.minecraft}-${config.version.cccore}", ext: 'jar', classifier: "dev"
-    compile group: 'codechicken', name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.version.cclib}", ext: 'jar', classifier: "dev"
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 
