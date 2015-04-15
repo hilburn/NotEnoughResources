@@ -1,10 +1,9 @@
 package neresources.proxy;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
-import neresources.compatibility.Compatibility;
 import neresources.utils.NetworkEventHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 
 public class ClientProxy extends CommonProxy

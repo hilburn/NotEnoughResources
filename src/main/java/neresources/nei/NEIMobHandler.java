@@ -16,7 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import org.lwjgl.opengl.GL11;
-import thaumcraft.common.entities.monster.EntityTaintacle;
+//import thaumcraft.common.entities.monster.EntityTaintacle;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         boolean normal = entityLivingBase.width <= entityLivingBase.height;
         float scale = getScale(entityLivingBase);
         float offsetX = normal ? (scale > 34.0F ? (75 - scale/2) : (75 - scale)) : 72 ;
-        if (ModList.thaumcraft.isLoaded() && entityLivingBase instanceof EntityTaintacle) offsetX = 115;
+        //if (ModList.thaumcraft.isLoaded() && entityLivingBase instanceof EntityTaintacle) offsetX = 115;
         RenderHelper.renderEntity(30, 165 - (int)offsetX, scale, 150 - GuiDraw.getMousePosition().x, 150 - GuiDraw.getMousePosition().y, entityLivingBase);
     }
 

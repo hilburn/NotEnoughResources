@@ -1,8 +1,8 @@
 package neresources.config;
 
-import cpw.mods.fml.relauncher.Side;
 import neresources.nei.*;
 import neresources.registry.EnchantmentRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 public final class Settings
 {

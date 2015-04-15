@@ -53,7 +53,7 @@ public class MobEntry
 
     public String getMobName()
     {
-        return entity.getCommandSenderName();
+        return entity.getName();
     }
 
     public DropItem[] getDrops()

@@ -11,7 +11,7 @@ import neresources.api.utils.PlantDrop;
 import neresources.api.utils.Priority;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
-import neresources.compatibility.cofh.CoFHCompat;
+// import neresources.compatibility.cofh.CoFHCompat;
 import neresources.entries.MobEntry;
 import neresources.entries.PlantEntry;
 import neresources.registry.*;
@@ -35,7 +35,7 @@ public class MinecraftCompat extends CompatBase
     {
         registerVanillaMobs();
         registerDungeonLoot();
-        if (!CoFHCompat.cofhReplace) registerOres();
+        /*if (!CoFHCompat.cofhReplace)*/ registerOres();
         registerVanillaOreDrops();
         registerVanillaPlants();
     }

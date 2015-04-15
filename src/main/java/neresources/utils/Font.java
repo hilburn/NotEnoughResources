@@ -18,16 +18,16 @@ public class Font
 
     public void print(Object o, int x, int y)
     {
-        fontRenderer.drawString(String.valueOf(o), x, y, 8, false);
+        fontRenderer.func_175065_a(String.valueOf(o), x, y, 8, false);
     }
 
     public void print(Object o, int x, int y, int color)
     {
-        fontRenderer.drawString(String.valueOf(o), x, y, color, false);
+        fontRenderer.func_175065_a(String.valueOf(o), x, y, color, false);
     }
 
     public void print(Object o, int x, int y, int color, boolean shadow)
     {
-        fontRenderer.drawString(String.valueOf(o), x, y, color, shadow);
+        fontRenderer.func_175065_a(String.valueOf(o), x, y, color, shadow);
     }
 }

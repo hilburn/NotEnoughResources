@@ -1,11 +1,11 @@
 package neresources.utils;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.FMLNetworkEvent;
 import neresources.NEResources;
 import neresources.config.Settings;
 import neresources.network.MessageHandler;
-import neresources.network.message.ClientSyncRequestMessage;;
+import neresources.network.message.ClientSyncRequestMessage;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;;
 
 
 public class NetworkEventHelper

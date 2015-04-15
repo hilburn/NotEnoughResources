@@ -1,10 +1,10 @@
 package neresources.api.messages;
 
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.relauncher.Side;
 import neresources.api.messages.utils.MessageKeys;
 import neresources.config.Settings;
 import neresources.registry.MessageRegistry;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,25 +1,13 @@
 package neresources.utils;
 
-import cpw.mods.fml.common.Loader;
 import neresources.compatibility.CompatBase;
-import neresources.compatibility.appliedenergistics2.AE2Compat;
-import neresources.compatibility.bigreactors.BigReactorsCompat;
-import neresources.compatibility.cofh.CoFHCompat;
-import neresources.compatibility.forestry.ForestryCompat;
-import neresources.compatibility.ic2.IC2Compat;
-import neresources.compatibility.metallurgy.MetallurgyCompat;
 import neresources.compatibility.minecraft.MinecraftCompat;
-import neresources.compatibility.mobproperties.MobPropertiesCompat;
-import neresources.compatibility.netherores.NetherOresCompat;
-import neresources.compatibility.reika.ElectriCraftCompat;
-import neresources.compatibility.reika.ReactorCraftCompat;
-import neresources.compatibility.thaumcraft.ThaumcraftCompat;
-import neresources.compatibility.tinkersconstruct.TiConCompat;
+import net.minecraftforge.fml.common.Loader;
 
 public enum ModList
 {
     minecraft(new MinecraftCompat()),
-    cofhcore(Names.COFHCORE, new CoFHCompat()),
+    /*cofhcore(Names.COFHCORE, new CoFHCompat()),
     metallurgy(Names.METALLURGY, new MetallurgyCompat()),
     netherores(Names.NETHERORES, new NetherOresCompat()),
     bigreactors(Names.BIGREACTORS, new BigReactorsCompat()),
@@ -28,11 +16,11 @@ public enum ModList
     electricraft(Names.ELECTRICRAFT, new ElectriCraftCompat()),
     reactorcraft(Names.REACTORCRAFT, new ReactorCraftCompat()),
     forestry(Names.FORESTRY, new ForestryCompat()),
-    ticon(Names.TICON, new TiConCompat()),
+    ticon(Names.TICON, new TiConCompat()),*/
     denseores(Names.DENSEORES),
-    mystcraft(Names.MYSTCRAFT),
-    ic2(Names.IC2, new IC2Compat()),
-    mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat());
+    mystcraft(Names.MYSTCRAFT);
+    /*ic2(Names.IC2, new IC2Compat()),
+    mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat());*/
 
     private String name;
     private CompatBase compat;
@@ -70,8 +58,7 @@ public enum ModList
 
     public boolean initialise()
     {
-        if (compat == null) return false;
-        return compat.load(this);
+        return compat != null && compat.load(this);
     }
 
     public class Names

@@ -1,6 +1,5 @@
 package neresources.compatibility.tinkersconstruct;
 
-import cpw.mods.fml.common.Optional;
 import neresources.api.distributions.DistributionCustom;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.distributions.DistributionTriangular;
@@ -29,6 +28,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Optional;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;

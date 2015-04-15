@@ -1,17 +1,17 @@
 package neresources.network.message;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import neresources.api.messages.Message;
 import neresources.api.messages.SendMessage;
-import neresources.registry.*;
 import neresources.utils.LogHelper;
 import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRe
                 byte[] message = buf.readBytes(messageSize).array();
                 try
                 {
-                    NBTTagCompound messageTag = CompressedStreamTools.func_152457_a(message, new NBTSizeTracker(message.length * 8));
+                    NBTTagCompound messageTag = CompressedStreamTools.readCompressed(new ByteArrayInputStream(message));
                     storageList.add(new Message.Storage(key, messageTag));
                 } catch (IOException e)
                 {
@@ -69,12 +69,13 @@ public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRe
         {
             try
             {
-                byte[] bytes = CompressedStreamTools.compress(stored.getMessage());
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                CompressedStreamTools.writeCompressed(stored.getMessage(), baos);
                 buf.writeBoolean(true);
                 buf.writeInt(stored.getKey().getBytes().length);
                 buf.writeBytes(stored.getKey().getBytes());
-                buf.writeInt(bytes.length);
-                buf.writeBytes(bytes);
+                buf.writeInt(baos.toByteArray().length);
+                buf.writeBytes(baos.toByteArray());
             } catch (IOException e)
             {
                 LogHelper.warn("Dropped message with key " + stored.getKey());

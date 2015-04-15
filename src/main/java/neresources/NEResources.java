@@ -1,15 +1,5 @@
 package neresources;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import neresources.config.ConfigHandler;
 import neresources.config.Settings;
 import neresources.network.MessageHandler;
@@ -19,19 +9,22 @@ import neresources.reference.Reference;
 import neresources.registry.EnchantmentRegistry;
 import neresources.registry.MessageRegistry;
 import neresources.utils.LogHelper;
-import neresources.utils.NetworkEventHelper;
 import neresources.utils.ReflectionHelper;
-import neresources.utils.WorldEventHelper;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ModMetadata;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, guiFactory = "neresources.gui.ModGuiFactory", dependencies = "after:NotEnoughItems;after:CoFHCore")
+@Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, guiFactory = "neresources.gui.ModGuiFactory", dependencies = "after:NotEnoughItems")
 public class NEResources
 {
 
-    @Instance(value = Reference.ID)
+    @Mod.Instance(value = Reference.ID)
     public static NEResources INSTANCE;
 
     @Mod.Metadata(Reference.ID)
@@ -40,7 +33,7 @@ public class NEResources
     @SidedProxy(clientSide = "neresources.proxy.ClientProxy", serverSide = "neresources.proxy.CommonProxy")
     public static CommonProxy PROXY;
 
-    @EventHandler
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         LogHelper.info("Loading configs..");
@@ -61,7 +54,7 @@ public class NEResources
         PROXY.registerEvents();
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void imcCallback(FMLInterModComms.IMCEvent event)
     {
         for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
@@ -72,13 +65,13 @@ public class NEResources
         }
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void loadComplete(FMLLoadCompleteEvent event)
     {
         Settings.gameLoaded = true;
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void serverStart(FMLServerStartingEvent event)
     {
         PROXY.initCompatibility();
