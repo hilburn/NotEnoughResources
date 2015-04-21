@@ -181,7 +181,7 @@ public class NEIMobHandler extends TemplateRecipeHandler
         GuiContainerHook guiContainerHook = new GuiContainerHook(gui, gui.width, gui.height);
         Point offset = gui.getRecipePosition(recipe);
         Point relMouse = new Point(mousePosition.x - guiContainerHook.getGuiLeft() - offset.x, mousePosition.y - guiContainerHook.getGuiTop() - offset.y);
-        return 2 <= relMouse.x && relMouse.x < gui.width && 12 <= relMouse.y && relMouse.y < 12 + 10;
+        return 2 <= relMouse.x && relMouse.x < 165 && 12 <= relMouse.y && relMouse.y < 12 + 10;
     }
 
     public class CachedMob extends TemplateRecipeHandler.CachedRecipe

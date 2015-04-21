@@ -2,6 +2,7 @@ package neresources.api.utils.restrictions;
 
 import neresources.api.messages.utils.MessageKeys;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 import java.util.*;
 
@@ -112,7 +113,6 @@ public class DimensionRestriction
 
     private List<String> getAltDimensionString(Set<Integer> dimensions, boolean getNames)
     {
-
         Set<Integer> validDimensions = new TreeSet<Integer>();
         int dimMin = Integer.MAX_VALUE;
         int dimMax = Integer.MIN_VALUE;
@@ -124,13 +124,13 @@ public class DimensionRestriction
         for (int i = Math.min(min,dimMin)-1;i<=Math.max(max,dimMax)+1;i++)
             if (!dimensions.contains(i)) validDimensions.add(i);
         List<String> result = getStringList(getValidDimensions(type != Type.NONE ? validDimensions : dimensions), getNames);
-        if (result.isEmpty()) result.add("No Valid Spawn Dimensions");
+        if (result.isEmpty()) result.add(StatCollector.translateToLocal("ner.dim.no"));
         switch (type)
         {
             default:
                 break;
             case NONE:
-                result.add(0, "Not");
+                result.add(0, StatCollector.translateToLocal("ner.not"));
                 break;
             case BLACKLIST:
                 result.add(0, "<=");

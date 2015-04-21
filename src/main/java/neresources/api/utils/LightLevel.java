@@ -1,6 +1,6 @@
 package neresources.api.utils;
 
-import neresources.utils.TranslationHelper;
+import net.minecraft.util.StatCollector;
 
 public class LightLevel
 {
@@ -66,8 +66,8 @@ public class LightLevel
     @Override
     public String toString()
     {
-        String base = TranslationHelper.translateToLocal("ner.lightLevel");
-        if (lightLevel < 0) return base + ": " + TranslationHelper.translateToLocal("ner.any");;
+        String base = StatCollector.translateToLocal("ner.lightLevel");
+        if (lightLevel < 0) return base + ": " + StatCollector.translateToLocal("ner.any");;
         return base + ": " + relative.toString() + " " + lightLevel;
     }
 

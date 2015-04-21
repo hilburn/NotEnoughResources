@@ -20,6 +20,8 @@ ner.stacks=%s Stacks
 
 ner.lightLevel=Light Level
 ner.any=Any
+ner.dim.no=No Valid Spawn Dimensions
+ner.not=Not
 
 #Dungeon View
 ner.dungeon.title=Dungeon Chests
