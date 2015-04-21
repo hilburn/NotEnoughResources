@@ -73,7 +73,7 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
         }
         if (cachedEnchantment.lastSet > 0)
         {
-            String toPrint = TranslationHelper.translateToLocal("ner.page") + " " + (cachedEnchantment.set + 1) + " " + TranslationHelper.translateToLocal("ner.of") + " " + (cachedEnchantment.lastSet + 1);
+            String toPrint = TranslationHelper.getLocalPageInfo(cachedEnchantment.set, cachedEnchantment.lastSet);
             font.print(toPrint, PAGE_X, PAGE_Y);
         }
 

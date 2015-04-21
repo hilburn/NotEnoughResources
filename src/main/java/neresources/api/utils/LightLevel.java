@@ -1,5 +1,7 @@
 package neresources.api.utils;
 
+import neresources.utils.TranslationHelper;
+
 public class LightLevel
 {
     public static LightLevel any = new LightLevel(-1, Relative.above);
@@ -64,8 +66,9 @@ public class LightLevel
     @Override
     public String toString()
     {
-        if (lightLevel < 0) return "Light level: any";
-        return "Light Level: " + relative.toString() + " " + lightLevel;
+        String base = TranslationHelper.translateToLocal("ner.lightLevel");
+        if (lightLevel < 0) return base + ": " + TranslationHelper.translateToLocal("ner.any");;
+        return base + ": " + relative.toString() + " " + lightLevel;
     }
 
     /**

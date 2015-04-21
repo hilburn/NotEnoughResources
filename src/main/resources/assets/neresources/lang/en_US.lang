@@ -15,7 +15,11 @@ ner.config.echantsBlacklist.description=Blacklist enchants from the NEI Enchants
 ner.page=Page
 ner.of=of
 #Usage X ner.stacks
-ner.stacks=Stacks
+#X will either be "[max]" or "[min] - [max]"
+ner.stacks=%s Stacks
+
+ner.lightLevel=Light Level
+ner.any=Any
 
 #Dungeon View
 ner.dungeon.title=Dungeon Chests

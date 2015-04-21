@@ -90,8 +90,8 @@ public class DungeonRegistry
     {
         int max = entry.getMaxStacks();
         int min = entry.getMinStacks();
-        if (min == max) return max + " " + TranslationHelper.translateToLocal("ner.stacks");
-        return min + " - " + max + " " + TranslationHelper.translateToLocal("ner.stacks");
+        if (min == max) return String.format(TranslationHelper.translateToLocal("ner.stacks"), max);
+        return  String.format(TranslationHelper.translateToLocal("ner.stacks"), min + " - " + max);
     }
     
     public void clear()
