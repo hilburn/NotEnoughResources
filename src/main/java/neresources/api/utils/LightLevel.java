@@ -24,7 +24,7 @@ public class LightLevel
 
     public static LightLevel decodeLightLevel(String string)
     {
-        if (string == null || string == "" || !string.contains(":")) return any;
+        if (string == null || string.equals("") || !string.contains(":")) return any;
         String[] splitString = string.split(":");
 
         if (splitString.length != 2) return any;
