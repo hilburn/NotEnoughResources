@@ -84,12 +84,11 @@ public class NEIOreHandler extends TemplateRecipeHandler
         double xPrev = X_OFFSPRING;
         double yPrev = Y_OFFSPRING;
         double space = X_AXIS_SIZE / (array.length * 1D);
-        int precision = array.length / 2 < 1 ? 1 : array.length / 2;
         for (double value : array)
         {
             double x = xPrev + space;
             int y = Y_OFFSPRING - (int) ((value / max) * Y_AXIS_SIZE);
-            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor(), precision);
+            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor());
             xPrev = x;
             yPrev = y;
         }
