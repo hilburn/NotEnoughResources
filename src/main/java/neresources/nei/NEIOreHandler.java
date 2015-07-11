@@ -1,8 +1,8 @@
 package neresources.nei;
 
+import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.guihook.IContainerTooltipHandler;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.api.utils.ColorHelper;
@@ -14,13 +14,10 @@ import neresources.entries.OreMatchEntry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import neresources.utils.TranslationHelper;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
 import java.util.List;
-
-import static codechicken.lib.gui.GuiDraw.getMousePosition;
 
 public class NEIOreHandler extends TemplateRecipeHandler
 {
@@ -119,7 +116,7 @@ public class NEIOreHandler extends TemplateRecipeHandler
         if (GuiContainerManager.shouldShowTooltip(gui) && currenttip.size() == 0)
         {
             Point offset = gui.getRecipePosition(recipe);
-            Point pos = getMousePosition();
+            Point pos = GuiDraw.getMousePosition();
             Point relMouse = new Point(pos.x - gui.guiLeft - offset.x, pos.y - gui.guiTop - offset.y);
             // Check if we are inside the coordinate system
             if (relMouse.x > X_OFFSPRING && relMouse.x < X_OFFSPRING + X_AXIS_SIZE &&
