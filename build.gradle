@@ -69,6 +69,8 @@ minecraft {
     } else {
         replace "@BUILD@", "ManuallyBuilt"
     }
+
+    at('lib/neresources_at.cfg')
 }
 
 processResources {
