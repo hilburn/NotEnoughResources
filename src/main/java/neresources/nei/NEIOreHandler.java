@@ -131,8 +131,10 @@ public class NEIOreHandler extends TemplateRecipeHandler
                 // Calculate the hovered over y value
                 int yValue = (int) ((relMouse.x - X_OFFSPRING) / space);
                 if (yValue > 0 && yValue < chances.length)
+                {
                     //TODO: The shift of one element here is due to some minor inaccuracy in the drawing function and could be avoided
                     currenttip.add("Y: " + yValue + String.format(" (%.2f%%)", chances[yValue - 1] * 100));
+                }
             }
         }
         return currenttip;
