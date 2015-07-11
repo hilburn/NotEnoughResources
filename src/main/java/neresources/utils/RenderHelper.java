@@ -17,6 +17,29 @@ import org.lwjgl.opengl.GL12;
 
 public class RenderHelper
 {
+    public static void drawArrow(double xBegin, double yBegin, double xEnd, double yEnd, int color)
+    {
+        Minecraft mc = Minecraft.getMinecraft();
+        int scale = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight).getScaleFactor();
+        GL11.glColor3f(ColorHelper.getRed(color), ColorHelper.getGreen(color), ColorHelper.getBlue(color));
+        GL11.glLineWidth(scale * 1.3F);
+        GL11.glBegin(GL11.GL_LINES);
+        GL11.glVertex2d(xBegin, yBegin);
+        GL11.glVertex2d(xEnd, yEnd);
+        GL11.glEnd();
+        double angle = Math.atan2(yEnd - yBegin, xEnd - xBegin) * 180.0 / Math.PI;
+        GL11.glPushMatrix();
+        GL11.glTranslated(xEnd, yEnd, 0.0);
+        GL11.glRotated(angle, 0.0, 0.0, 1.0);
+        GL11.glScaled(scale, scale, 1.0);
+        GL11.glBegin(GL11.GL_TRIANGLES);
+        GL11.glVertex2d(3.0, 0.0);
+        GL11.glVertex2d(0.0, -1.5);
+        GL11.glVertex2d(0.0, 1.5);
+        GL11.glEnd();
+        GL11.glPopMatrix();
+    }
+
     public static void drawLine(double x1, double y1, double x2, double y2, int color)
     {
         Minecraft mc = Minecraft.getMinecraft();
