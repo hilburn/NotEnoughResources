@@ -3,6 +3,7 @@ package neresources.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import neresources.api.utils.ColorHelper;
 import neresources.api.utils.conditionals.Conditional;
 import neresources.config.Settings;
 import neresources.reference.Resources;
@@ -76,6 +77,8 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public void drawExtras(int recipe)
     {
+        RenderHelper.drawArrow(X_OFFSPRING, Y_OFFSPRING, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING, ColorHelper.GRAY);
+        RenderHelper.drawArrow(X_OFFSPRING, Y_OFFSPRING, X_OFFSPRING, Y_OFFSPRING - Y_AXIS_SIZE, ColorHelper.GRAY);
         CachedOre cachedOre = (CachedOre) arecipes.get(recipe);
         float[] array = cachedOre.oreMatchEntry.getChances();
         double max = 0;
@@ -84,12 +87,11 @@ public class NEIOreHandler extends TemplateRecipeHandler
         double xPrev = X_OFFSPRING;
         double yPrev = Y_OFFSPRING;
         double space = X_AXIS_SIZE / (array.length * 1D);
-        int precision = array.length / 2 < 1 ? 1 : array.length / 2;
         for (double value : array)
         {
             double x = xPrev + space;
             int y = Y_OFFSPRING - (int) ((value / max) * Y_AXIS_SIZE);
-            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor(), precision);
+            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor());
             xPrev = x;
             yPrev = y;
         }

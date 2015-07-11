@@ -42,11 +42,15 @@ repositories {
 
 }
 
+configurations {
+    compileOnly
+}
+
 dependencies {
     compile group: 'codechicken', name: 'NotEnoughItems', version: "${config.version.minecraft}-${config.version.nei}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenCore', version: "${config.version.minecraft}-${config.version.cccore}", ext: 'jar', classifier: "dev"
     compile group: 'codechicken', name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.version.cclib}", ext: 'jar', classifier: "dev"
-    compile fileTree(dir: 'lib', include: '*.jar')
+    compileOnly fileTree(dir: 'lib', include: '*.jar')
 }
 
 group = "neresources"
@@ -114,5 +118,9 @@ task apiZip(type: Zip) {
 artifacts {
     archives apiZip
 }
+
+sourceSets.main.compileClasspath += [ configurations.compileOnly ]
+idea.module.scopes.PROVIDED.plus += [ configurations.compileOnly ]
+eclipse.classpath.plusConfigurations += [ configurations.compileOnly ]
 
 build.dependsOn "apiZip", "copyBuildXml"
