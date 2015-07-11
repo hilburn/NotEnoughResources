@@ -1,6 +1,8 @@
 package neresources.nei;
 
 import codechicken.nei.PositionedStack;
+import codechicken.nei.guihook.GuiContainerManager;
+import codechicken.nei.guihook.IContainerTooltipHandler;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import neresources.api.utils.ColorHelper;
@@ -12,10 +14,13 @@ import neresources.entries.OreMatchEntry;
 import neresources.utils.Font;
 import neresources.utils.RenderHelper;
 import neresources.utils.TranslationHelper;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
 import java.util.List;
+
+import static codechicken.lib.gui.GuiDraw.getMousePosition;
 
 public class NEIOreHandler extends TemplateRecipeHandler
 {
@@ -106,6 +111,31 @@ public class NEIOreHandler extends TemplateRecipeHandler
         font.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
 
         cachedOre.cycleItemStack(cycleticks);
+    }
+
+    @Override
+    public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int recipe)
+    {
+        if (GuiContainerManager.shouldShowTooltip(gui) && currenttip.size() == 0)
+        {
+            Point offset = gui.getRecipePosition(recipe);
+            Point pos = getMousePosition();
+            Point relMouse = new Point(pos.x - gui.guiLeft - offset.x, pos.y - gui.guiTop - offset.y);
+            // Check if we are inside the coordinate system
+            if (relMouse.x > X_OFFSPRING && relMouse.x < X_OFFSPRING + X_AXIS_SIZE &&
+                relMouse.y > Y_OFFSPRING - Y_AXIS_SIZE && relMouse.y < Y_OFFSPRING)
+            {
+                CachedOre cachedOre = (CachedOre) arecipes.get(recipe);
+                float[] chances = cachedOre.oreMatchEntry.getChances();
+                double space = X_AXIS_SIZE / (chances.length * 1D);
+                // Calculate the hovered over y value
+                int yValue = (int) ((relMouse.x - X_OFFSPRING) / space);
+                if (yValue > 0 && yValue < chances.length)
+                    //TODO: The shift of one element here is due to some minor inaccuracy in the drawing function and could be avoided
+                    currenttip.add("Y: " + yValue + String.format(" (%.2f%%)", chances[yValue - 1] * 100));
+            }
+        }
+        return currenttip;
     }
 
     @Override
