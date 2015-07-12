@@ -89,8 +89,7 @@ public class NEIAdvSeedHandler extends TemplateRecipeHandler
         else
             toPrint = String.format("%2.2f", chance * 100).replace(",", ".") + "%";
 
-        Font font = new Font(false);
-        font.print(toPrint, 56, Y + 20);
+        Font.normal.print(toPrint, 56, Y + 20);
 
         cachedAbstract.cycleOutput(cycleticks);
     }

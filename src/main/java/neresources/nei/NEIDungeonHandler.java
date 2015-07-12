@@ -119,11 +119,10 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
     {
         CachedDungeonChest cachedChest = (CachedDungeonChest) arecipes.get(recipe);
 
-        Font font = new Font(false);
-        font.print(TranslationHelper.translateToLocal(cachedChest.chest.getName()), 60, 7);
-        font.print(DungeonRegistry.getInstance().getNumStacks(cachedChest.chest), 60, 20);
+        Font.normal.print(TranslationHelper.translateToLocal(cachedChest.chest.getName()), 60, 7);
+        Font.normal.print(DungeonRegistry.getInstance().getNumStacks(cachedChest.chest), 60, 20);
         if (cachedChest.lastSet > 0)
-            font.print(TranslationHelper.getLocalPageInfo(cachedChest.set, cachedChest.lastSet), 60, 36);
+            Font.normal.print(TranslationHelper.getLocalPageInfo(cachedChest.set, cachedChest.lastSet), 60, 36);
 
         int x = X_FIRST_ITEM + 18;
         int y = Y_FIRST_ITEM + (10 - Settings.ITEMS_PER_COLUMN);
@@ -133,7 +132,7 @@ public class NEIDungeonHandler extends TemplateRecipeHandler
             double chance = cachedChest.getChances()[i] * 100;
             String format = chance < 100 ? "%2.1f" : "%2.0f";
             String toPrint = String.format(format, chance).replace(',', '.') + "%";
-            font.print(toPrint, x, y);
+            Font.normal.print(toPrint, x, y);
             y += SPACING_Y;
             if (y >= Y_FIRST_ITEM + SPACING_Y * Settings.ITEMS_PER_COLUMN)
             {

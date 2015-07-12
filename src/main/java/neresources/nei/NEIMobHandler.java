@@ -134,22 +134,21 @@ public class NEIMobHandler extends TemplateRecipeHandler
     {
         CachedMob cachedMob = (CachedMob) arecipes.get(recipe);
 
-        Font font = new Font(false);
-        font.print(cachedMob.mob.getMobName(), 2, 2);
-        font.print(TranslationHelper.translateToLocal("ner.mob.biome"), 2, 12);
-        font.print(cachedMob.mob.getLightLevel(), 2, 22);
-        font.print(TranslationHelper.translateToLocal("ner.mob.exp") + ": " + MobHelper.getExpDrop(cachedMob.mob), 2, 32);
+        Font.normal.print(cachedMob.mob.getMobName(), 2, 2);
+        Font.normal.print(TranslationHelper.translateToLocal("ner.mob.biome"), 2, 12);
+        Font.normal.print(cachedMob.mob.getLightLevel(), 2, 22);
+        Font.normal.print(TranslationHelper.translateToLocal("ner.mob.exp") + ": " + MobHelper.getExpDrop(cachedMob.mob), 2, 32);
 
         int y = Y_FIRST_ITEM + 4;
         for (int i = cachedMob.set * Settings.ITEMS_PER_COLUMN; i < cachedMob.set * Settings.ITEMS_PER_COLUMN + Settings.ITEMS_PER_COLUMN; i++)
         {
             if (i >= cachedMob.mob.getDrops().length) break;
-            font.print(cachedMob.mob.getDrops()[i].toString(), X_FIRST_ITEM + 18, y);
+            Font.normal.print(cachedMob.mob.getDrops()[i].toString(), X_FIRST_ITEM + 18, y);
             y += SPACING_Y;
         }
 
         if (cachedMob.lastSet > 0)
-            font.print(TranslationHelper.getLocalPageInfo(cachedMob.set, cachedMob.lastSet), X_FIRST_ITEM, 120);
+            Font.normal.print(TranslationHelper.getLocalPageInfo(cachedMob.set, cachedMob.lastSet), X_FIRST_ITEM, 120);
 
         cachedMob.cycleOutputs(cycleticks, recipe);
     }

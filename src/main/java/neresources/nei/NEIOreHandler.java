@@ -88,31 +88,34 @@ public class NEIOreHandler extends TemplateRecipeHandler
             if (d > max) max = d;
         double xPrev = X_OFFSPRING;
         double yPrev = Y_OFFSPRING;
-        double space = X_AXIS_SIZE / (array.length * 1D);
-        for (double value : array)
+        double space = X_AXIS_SIZE / ((array.length - 1) * 1D);
+        for (int i = 0; i < array.length; i++)
         {
-            double x = xPrev + space;
-            int y = Y_OFFSPRING - (int) ((value / max) * Y_AXIS_SIZE);
-            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor());
-            xPrev = x;
+            double value = array[i];
+            double y = Y_OFFSPRING - ((value / max) * Y_AXIS_SIZE);
+            if (i > 0) // Only draw a line after the first element (cannot draw line with only one point)
+            {
+                double x = xPrev + space;
+                RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor());
+                xPrev = x;
+            }
             yPrev = y;
         }
 
-        Font font = new Font(true);
-        font.print("0%", X_OFFSPRING - 10, Y_OFFSPRING - 7);
-        font.print(String.format("%.2f", max * 100) + "%", X_OFFSPRING - 20, Y_OFFSPRING - Y_AXIS_SIZE);
+        Font.small.print("0%", X_OFFSPRING - 10, Y_OFFSPRING - 7);
+        Font.small.print(String.format("%.2f", max * 100) + "%", X_OFFSPRING - 20, Y_OFFSPRING - Y_AXIS_SIZE);
         int minY = cachedOre.oreMatchEntry.getMinY() - Settings.EXTRA_RANGE;
-        font.print(minY < 0 ? 0 : minY, X_OFFSPRING - 3, Y_OFFSPRING + 2);
+        Font.small.print(minY < 0 ? 0 : minY, X_OFFSPRING - 3, Y_OFFSPRING + 2);
         int maxY = cachedOre.oreMatchEntry.getMaxY() + Settings.EXTRA_RANGE;
-        font.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
-        font.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
-
-        cachedOre.cycleItemStack(cycleticks);
+        Font.small.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
+        Font.small.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
     }
 
     @Override
     public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int recipe)
     {
+        currenttip = super.handleTooltip(gui, currenttip, recipe);
+
         if (GuiContainerManager.shouldShowTooltip(gui) && currenttip.size() == 0)
         {
             Point offset = gui.getRecipePosition(recipe);
@@ -126,12 +129,10 @@ public class NEIOreHandler extends TemplateRecipeHandler
                 float[] chances = cachedOre.oreMatchEntry.getChances();
                 double space = X_AXIS_SIZE / (chances.length * 1D);
                 // Calculate the hovered over y value
-                int yValue = (int) ((relMouse.x - X_OFFSPRING) / space);
-                if (yValue > 0 && yValue < chances.length)
-                {
-                    //TODO: The shift of one element here is due to some minor inaccuracy in the drawing function and could be avoided
-                    currenttip.add("Y: " + yValue + String.format(" (%.2f%%)", chances[yValue - 1] * 100));
-                }
+                int index = (int) ((relMouse.x - X_OFFSPRING) / space);
+                int yValue = Math.max(0, index + cachedOre.oreMatchEntry.getMinY() - Settings.EXTRA_RANGE + 1);
+                if (index >= 0 && index < chances.length)
+                    currenttip.add("Y: " + yValue + String.format(" (%.2f%%)", chances[index] * 100));
             }
         }
         return currenttip;
@@ -155,22 +156,18 @@ public class NEIOreHandler extends TemplateRecipeHandler
     {
         private OreMatchEntry oreMatchEntry;
         private List<ItemStack> oresAndDrops;
-        private int current, last;
-        private long cycleAt;
 
         public CachedOre(OreMatchEntry oreMatchEntry)
         {
             this.oreMatchEntry = oreMatchEntry;
             this.oresAndDrops = oreMatchEntry.getOresAndDrops();
-            this.current = 0;
-            this.last = this.oresAndDrops.size() - 1;
-            this.cycleAt = -1;
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(this.oresAndDrops.get(current), X_ITEM, Y_ITEM);
+            int index = (cycleticks / CYCLE_TIME) % this.oresAndDrops.size();
+            return new PositionedStack(this.oresAndDrops.get(index), X_ITEM, Y_ITEM);
         }
 
         public int getLineColor()
@@ -188,17 +185,6 @@ public class NEIOreHandler extends TemplateRecipeHandler
             for (ItemStack listStack : this.oresAndDrops)
                 if (listStack.isItemEqual(itemStack)) return true;
             return false;
-        }
-
-        public void cycleItemStack(long tick)
-        {
-            if (cycleAt == -1) cycleAt = tick + CYCLE_TIME;
-
-            if (tick >= cycleAt)
-            {
-                if (++current > last) current = 0;
-                cycleAt += CYCLE_TIME;
-            }
         }
     }
 }

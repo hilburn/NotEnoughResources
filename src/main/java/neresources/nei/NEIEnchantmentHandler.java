@@ -64,17 +64,16 @@ public class NEIEnchantmentHandler extends TemplateRecipeHandler
     public void drawExtras(int recipe)
     {
         CachedEnchantment cachedEnchantment = (CachedEnchantment) arecipes.get(recipe);
-        Font font = new Font(false);
         int y = FIRST_ENCHANT_Y;
         for (EnchantmentEntry enchantment : cachedEnchantment.getEnchantments())
         {
-            font.print(enchantment.getTranslatedWithLevels(), ENCHANT_X, y);
+            Font.normal.print(enchantment.getTranslatedWithLevels(), ENCHANT_X, y);
             y += SPACING_Y;
         }
         if (cachedEnchantment.lastSet > 0)
         {
             String toPrint = TranslationHelper.getLocalPageInfo(cachedEnchantment.set, cachedEnchantment.lastSet);
-            font.print(toPrint, PAGE_X, PAGE_Y);
+            Font.normal.print(toPrint, PAGE_X, PAGE_Y);
         }
 
         cachedEnchantment.cycleOutput(cycleticks);
