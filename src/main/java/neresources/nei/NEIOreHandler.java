@@ -102,14 +102,13 @@ public class NEIOreHandler extends TemplateRecipeHandler
             yPrev = y;
         }
 
-        Font font = new Font(true);
-        font.print("0%", X_OFFSPRING - 10, Y_OFFSPRING - 7);
-        font.print(String.format("%.2f", max * 100) + "%", X_OFFSPRING - 20, Y_OFFSPRING - Y_AXIS_SIZE);
+        Font.small.print("0%", X_OFFSPRING - 10, Y_OFFSPRING - 7);
+        Font.small.print(String.format("%.2f", max * 100) + "%", X_OFFSPRING - 20, Y_OFFSPRING - Y_AXIS_SIZE);
         int minY = cachedOre.oreMatchEntry.getMinY() - Settings.EXTRA_RANGE;
-        font.print(minY < 0 ? 0 : minY, X_OFFSPRING - 3, Y_OFFSPRING + 2);
+        Font.small.print(minY < 0 ? 0 : minY, X_OFFSPRING - 3, Y_OFFSPRING + 2);
         int maxY = cachedOre.oreMatchEntry.getMaxY() + Settings.EXTRA_RANGE;
-        font.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
-        font.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
+        Font.small.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
+        Font.small.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
     }
 
     @Override

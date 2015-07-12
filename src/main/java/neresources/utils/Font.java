@@ -7,9 +7,12 @@ import net.minecraft.client.resources.IReloadableResourceManager;
 
 public class Font
 {
+    public final static Font small = new Font(true);
+    public final static Font normal = new Font(false);
+
     private FontRenderer fontRenderer;
 
-    public Font(boolean small)
+    private Font(boolean small)
     {
         Minecraft mc = Minecraft.getMinecraft();
         fontRenderer = new FontRenderer(mc.gameSettings, Resources.Vanilla.FONT, mc.getTextureManager(), small);
