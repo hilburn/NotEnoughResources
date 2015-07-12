@@ -110,8 +110,6 @@ public class NEIOreHandler extends TemplateRecipeHandler
         int maxY = cachedOre.oreMatchEntry.getMaxY() + Settings.EXTRA_RANGE;
         font.print(maxY > 255 ? 255 : maxY, X_OFFSPRING + X_AXIS_SIZE, Y_OFFSPRING + 2);
         font.print(TranslationHelper.translateToLocal("ner.ore.bestY") + ": " + cachedOre.oreMatchEntry.getBestY(), X_ITEM - 2, Y_ITEM + 20);
-
-        cachedOre.cycleItemStack(cycleticks);
     }
 
     @Override
@@ -159,22 +157,18 @@ public class NEIOreHandler extends TemplateRecipeHandler
     {
         private OreMatchEntry oreMatchEntry;
         private List<ItemStack> oresAndDrops;
-        private int current, last;
-        private long cycleAt;
 
         public CachedOre(OreMatchEntry oreMatchEntry)
         {
             this.oreMatchEntry = oreMatchEntry;
             this.oresAndDrops = oreMatchEntry.getOresAndDrops();
-            this.current = 0;
-            this.last = this.oresAndDrops.size() - 1;
-            this.cycleAt = -1;
         }
 
         @Override
         public PositionedStack getResult()
         {
-            return new PositionedStack(this.oresAndDrops.get(current), X_ITEM, Y_ITEM);
+            int index = (cycleticks / CYCLE_TIME) % this.oresAndDrops.size();
+            return new PositionedStack(this.oresAndDrops.get(index), X_ITEM, Y_ITEM);
         }
 
         public int getLineColor()
@@ -192,17 +186,6 @@ public class NEIOreHandler extends TemplateRecipeHandler
             for (ItemStack listStack : this.oresAndDrops)
                 if (listStack.isItemEqual(itemStack)) return true;
             return false;
-        }
-
-        public void cycleItemStack(long tick)
-        {
-            if (cycleAt == -1) cycleAt = tick + CYCLE_TIME;
-
-            if (tick >= cycleAt)
-            {
-                if (++current > last) current = 0;
-                cycleAt += CYCLE_TIME;
-            }
         }
     }
 }
