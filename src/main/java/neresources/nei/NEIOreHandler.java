@@ -88,13 +88,17 @@ public class NEIOreHandler extends TemplateRecipeHandler
             if (d > max) max = d;
         double xPrev = X_OFFSPRING;
         double yPrev = Y_OFFSPRING;
-        double space = X_AXIS_SIZE / (array.length * 1D);
-        for (double value : array)
+        double space = X_AXIS_SIZE / ((array.length - 1) * 1D);
+        for (int i = 0; i < array.length; i++)
         {
-            double x = xPrev + space;
-            int y = Y_OFFSPRING - (int) ((value / max) * Y_AXIS_SIZE);
-            RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor());
-            xPrev = x;
+            double value = array[i];
+            double y = Y_OFFSPRING - ((value / max) * Y_AXIS_SIZE);
+            if (i > 0) // Only draw a line after the first element (cannot draw line with only one point)
+            {
+                double x = xPrev + space;
+                RenderHelper.drawLine(xPrev, yPrev, x, y, cachedOre.getLineColor());
+                xPrev = x;
+            }
             yPrev = y;
         }
 
@@ -113,6 +117,8 @@ public class NEIOreHandler extends TemplateRecipeHandler
     @Override
     public List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int recipe)
     {
+        currenttip = super.handleTooltip(gui, currenttip, recipe);
+
         if (GuiContainerManager.shouldShowTooltip(gui) && currenttip.size() == 0)
         {
             Point offset = gui.getRecipePosition(recipe);
@@ -126,12 +132,10 @@ public class NEIOreHandler extends TemplateRecipeHandler
                 float[] chances = cachedOre.oreMatchEntry.getChances();
                 double space = X_AXIS_SIZE / (chances.length * 1D);
                 // Calculate the hovered over y value
-                int yValue = (int) ((relMouse.x - X_OFFSPRING) / space);
-                if (yValue > 0 && yValue < chances.length)
-                {
-                    //TODO: The shift of one element here is due to some minor inaccuracy in the drawing function and could be avoided
-                    currenttip.add("Y: " + yValue + String.format(" (%.2f%%)", chances[yValue - 1] * 100));
-                }
+                int index = (int) ((relMouse.x - X_OFFSPRING) / space);
+                int yValue = Math.max(0, index + cachedOre.oreMatchEntry.getMinY() - Settings.EXTRA_RANGE + 1);
+                if (index >= 0 && index < chances.length)
+                    currenttip.add("Y: " + yValue + String.format(" (%.2f%%)", chances[index] * 100));
             }
         }
         return currenttip;
