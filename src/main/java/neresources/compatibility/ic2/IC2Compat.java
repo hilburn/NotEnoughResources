@@ -17,7 +17,16 @@ public class IC2Compat extends CompatBase
     @Override
     protected void init()
     {
-        registerIC2Ores();
+        try
+        {
+            Class clz = Class.forName("ic2.core.IC2");
+            clz.getField("ironName").get(null);
+            clz.getField("displayNoUseItems").get(null);
+        }
+        catch(Exception e)
+        {
+            registerIC2Ores();
+        }
     }
 
     @Optional.Method(modid = ModList.Names.IC2)
