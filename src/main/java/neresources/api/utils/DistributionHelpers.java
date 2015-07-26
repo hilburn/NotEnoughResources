@@ -182,6 +182,26 @@ public class DistributionHelpers
         return calculateMeanLevel(distribution, mid - 1, mid, newDifference);
     }
 
+    public static int calculateMeanLevel(float[] distribution, int mid)
+    {
+        float difference = 0;
+        for (int i = 0; i < distribution.length; i++)
+        {
+            if (i < mid) difference -= distribution[i];
+            else difference += distribution[i];
+        }
+        float oldDifference = Float.MAX_VALUE;
+        int dir = difference > 0 ? 1 : -1;
+        while (oldDifference > Math.abs(difference))
+        {
+            oldDifference = Math.abs(difference);
+            difference += distribution[mid] * 2 * dir;
+            mid+=dir;
+        }
+        mid -= dir;
+        return mid;
+    }
+
     /**
      * @param array the to divide array
      * @param num   the denominator

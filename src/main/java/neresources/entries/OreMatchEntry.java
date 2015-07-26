@@ -84,7 +84,7 @@ public class OreMatchEntry
         }
         if (minY == 256) minY = 0;
         if (maxY == 0) maxY = 255;
-        if (oreSet.size() > 1) bestY = DistributionHelpers.calculateMeanLevel(chances, 40, 0, 1000);
+        if (oreSet.size() > 1) bestY = DistributionHelpers.calculateMeanLevel(chances, 40);
     }
 
     public float[] getChances()

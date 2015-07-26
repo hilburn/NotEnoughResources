@@ -8,7 +8,7 @@ public class DistributionCustom extends DistributionBase
     public DistributionCustom(float[] distribution)
     {
         super(distribution);
-        this.bestHeight = DistributionHelpers.calculateMeanLevel(this.getDistribution(), distribution.length / 2, 0, 100F);
+        this.bestHeight = DistributionHelpers.calculateMeanLevel(this.getDistribution(), distribution.length / 2);
     }
 
     public DistributionCustom(float[] distribution, int bestHeight)
