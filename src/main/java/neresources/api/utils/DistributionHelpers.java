@@ -155,33 +155,17 @@ public class DistributionHelpers
         return result;
     }
 
-    /**
-     * @param distribution the target array
-     * @param mid          the middle of the array
-     * @param oldMid       the old middle
-     * @param difference   the difference
-     * @return the mean level of the distribution
-     */
+    @Deprecated
     public static int calculateMeanLevel(float[] distribution, int mid, int oldMid, float difference)
     {
-        float totalUp = 0;
-        float totalDown = 0;
-        for (int i = 0; i < distribution.length; i++)
-        {
-            if (i < mid) totalDown += distribution[i];
-            else totalUp += distribution[i];
-        }
-        float newDifference = totalUp - totalDown;
-        if (Math.abs(difference + newDifference) <= Math.abs(newDifference))
-        {
-            if (Math.abs(newDifference) < Math.abs(difference))
-                return mid;
-            return oldMid;
-        }
-        if (newDifference > 0) return calculateMeanLevel(distribution, mid + 1, mid, newDifference);
-        return calculateMeanLevel(distribution, mid - 1, mid, newDifference);
+        return calculateMeanLevel(distribution, mid);
     }
 
+    /**
+     * @param distribution the target array
+     * @param mid          the "best guess" of the midpoint
+     * @return the mid level of the distribution
+     */
     public static int calculateMeanLevel(float[] distribution, int mid)
     {
         float difference = 0;
@@ -195,7 +179,7 @@ public class DistributionHelpers
         while (oldDifference > Math.abs(difference))
         {
             oldDifference = Math.abs(difference);
-            difference += distribution[mid] * 2 * dir;
+            difference -= distribution[mid] * 2 * dir;
             mid+=dir;
         }
         mid -= dir;
