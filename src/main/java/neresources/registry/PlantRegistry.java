@@ -10,8 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-;
-
 public class PlantRegistry
 {
     private Map<String, PlantEntry> registry = new LinkedHashMap<String, PlantEntry>();
