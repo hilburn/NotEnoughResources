@@ -1,7 +1,7 @@
 package neresources.registry;
 
 import neresources.api.utils.PlantDrop;
-import neresources.entries.PlantEntry;;
+import neresources.entries.PlantEntry;
 import neresources.utils.MapKeys;
 import net.minecraft.item.ItemStack;
 
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+;
 
 public class PlantRegistry
 {

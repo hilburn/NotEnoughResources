@@ -10,7 +10,6 @@ import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
 import neresources.utils.ModList;
-import net.minecraft.item.ItemStack;
 
 public class IC2Compat extends CompatBase
 {

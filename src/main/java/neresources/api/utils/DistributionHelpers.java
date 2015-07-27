@@ -1,9 +1,5 @@
 package neresources.api.utils;
 
-import neresources.api.distributions.DistributionCustom;
-import neresources.api.messages.utils.MessageKeys;
-import net.minecraft.nbt.NBTTagCompound;
-
 public class DistributionHelpers
 {
     public static final float PI = 3.14159265359F;

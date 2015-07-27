@@ -2,7 +2,6 @@ package neresources.api.messages;
 
 import neresources.api.messages.utils.MessageHelper;
 import neresources.api.messages.utils.MessageKeys;
-import neresources.api.utils.DropItem;
 import neresources.api.utils.PlantDrop;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

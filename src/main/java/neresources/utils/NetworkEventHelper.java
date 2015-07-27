@@ -5,7 +5,9 @@ import cpw.mods.fml.common.network.FMLNetworkEvent;
 import neresources.NEResources;
 import neresources.config.Settings;
 import neresources.network.MessageHandler;
-import neresources.network.message.ClientSyncRequestMessage;;
+import neresources.network.message.ClientSyncRequestMessage;
+
+;
 
 
 public class NetworkEventHelper

@@ -2,16 +2,16 @@ package neresources.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import neresources.config.Settings;
-import neresources.reference.Resources;
 import neresources.api.utils.PlantDrop;
+import neresources.config.Settings;
 import neresources.entries.PlantEntry;
+import neresources.reference.Resources;
 import neresources.registry.PlantRegistry;
 import neresources.utils.Font;
 import neresources.utils.TranslationHelper;
 import net.minecraft.item.ItemStack;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 public class NEIAdvSeedHandler extends TemplateRecipeHandler

@@ -19,13 +19,8 @@ import neresources.reference.Reference;
 import neresources.registry.EnchantmentRegistry;
 import neresources.registry.MessageRegistry;
 import neresources.utils.LogHelper;
-import neresources.utils.NetworkEventHelper;
 import neresources.utils.ReflectionHelper;
-import neresources.utils.WorldEventHelper;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION_FULL, guiFactory = "neresources.gui.ModGuiFactory", dependencies = "after:NotEnoughItems;after:CoFHCore")
 public class NEResources
