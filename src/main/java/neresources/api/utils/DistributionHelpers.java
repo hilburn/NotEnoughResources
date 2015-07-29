@@ -164,21 +164,28 @@ public class DistributionHelpers
      */
     public static int calculateMeanLevel(float[] distribution, int mid)
     {
-        float difference = 0;
-        for (int i = 0; i < distribution.length; i++)
+        float adjacent = 0;
+        float maxAdjacent = 0;
+        int consecutive = 0;
+        mid = 0;
+        for (int i = 0; i < 4 && i < distribution.length; i++) adjacent += distribution[i];
+        for (int i = 0; i < distribution.length - 4; i++)
         {
-            if (i < mid) difference -= distribution[i];
-            else difference += distribution[i];
+            adjacent -= distribution[i] - distribution[i+4];
+            if (adjacent > maxAdjacent)
+            {
+                mid = i + 2;
+                maxAdjacent = adjacent + 0.00001f;
+                consecutive = 0;
+            } else if (adjacent > maxAdjacent - 0.00002f)
+            {
+                consecutive ++;
+            } else
+            {
+                mid += consecutive / 2;
+                consecutive = 0;
+            }
         }
-        float oldDifference = Float.MAX_VALUE;
-        int dir = difference > 0 ? 1 : -1;
-        while (oldDifference > Math.abs(difference))
-        {
-            oldDifference = Math.abs(difference);
-            difference -= distribution[mid] * 2 * dir;
-            mid+=dir;
-        }
-        mid -= dir;
         return mid;
     }
 
