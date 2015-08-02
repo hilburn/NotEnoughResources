@@ -16,21 +16,24 @@ public abstract class Message
     public static class Storage
     {
         private final String key;
-        private final NBTTagCompound message;
+        private final Message message;
+        private final NBTTagCompound messageNBT;
 
         public Storage(String key, Message message)
         {
             this.key = key;
-            this.message = message.writeToNBT(new NBTTagCompound());
+            this.message = message;
+            this.messageNBT = message.writeToNBT(new NBTTagCompound());
         }
 
         public Storage(String key, NBTTagCompound message)
         {
             this.key = key;
-            this.message = message;
+            this.message = null;
+            this.messageNBT = message;
         }
 
-        public NBTTagCompound getMessage()
+        public Message getMessage()
         {
             return message;
         }
@@ -38,6 +41,11 @@ public abstract class Message
         public String getKey()
         {
             return key;
+        }
+
+        public NBTTagCompound getMessageNBT()
+        {
+            return messageNBT;
         }
     }
 }

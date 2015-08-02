@@ -68,7 +68,7 @@ public class ClientSyncMessage implements IMessage, IMessageHandler<ClientSyncRe
         {
             try
             {
-                byte[] bytes = CompressedStreamTools.compress(stored.getMessage());
+                byte[] bytes = CompressedStreamTools.compress(stored.getMessageNBT());
                 buf.writeBoolean(true);
                 buf.writeInt(stored.getKey().getBytes().length);
                 buf.writeBytes(stored.getKey().getBytes());
