@@ -1,10 +1,9 @@
 package neresources.api.messages;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.relauncher.Side;
 import neresources.api.messages.utils.MessageKeys;
-import neresources.config.Settings;
-import neresources.registry.MessageRegistry;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -62,14 +61,14 @@ public class SendMessage
         if (message.isValid())
         {
             FMLInterModComms.sendMessage(MessageKeys.notEnoughResources, key, message.getMessage());
-            if (Settings.side == Side.SERVER) storage.add(new Message.Storage(key, message));
+            if (FMLCommonHandler.instance().getSide() == Side.SERVER) storage.add(new Message.Storage(key, message));
         }
     }
     
     public static void readFromStorage(List<Message.Storage> storage)
     {
         for (Message.Storage stored : storage)
-            MessageRegistry.registerMessage(stored.getKey(), stored.getMessage());
+            sendMessage(stored.getMessage(), stored.getKey());
     }
     
     public static List<Message.Storage> getStorage()
