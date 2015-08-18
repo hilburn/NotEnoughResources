@@ -1,5 +1,6 @@
 package neresources.compatibility.mobproperties;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import neresources.api.messages.ModifyMobMessage;
 import neresources.api.utils.DropItem;
 import neresources.api.utils.conditionals.Conditional;
@@ -91,7 +92,14 @@ public class StringParser
             if (moon) condition = TranslationHelper.translateToLocal("ner." + condition + ".moon");
             else if (block)
             {
-                Block thisBlock = Block.getBlockById(Integer.valueOf(condition));
+                Block thisBlock;
+                try{
+                    thisBlock = Block.getBlockById(Integer.valueOf(condition));
+                } catch (Exception e)
+                {
+                    String[] blockID = condition.split(":");
+                    thisBlock = GameRegistry.findBlock(blockID.length == 2? blockID[0] : "minecraft", blockID[blockID.length == 2? 1:0]);
+                }
                 if (thisBlock == null) return null;
                 condition = thisBlock.getLocalizedName();
             } else if (biome)
