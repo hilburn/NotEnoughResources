@@ -7,8 +7,7 @@ import neresources.api.utils.conditionals.Conditional;
 import neresources.compatibility.CompatBase;
 import neresources.entries.MobEntry;
 import neresources.registry.MessageRegistry;
-import neresources.utils.LoaderHelper;
-import neresources.utils.ModList;
+import neresources.utils.ReflectionHelper;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -25,6 +24,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.item.Item;
+import xreliquary.Reliquary;
 import xreliquary.event.CommonEventHandler;
 import xreliquary.init.XRRecipes;
 import xreliquary.lib.Names;
@@ -36,10 +36,10 @@ public class ReliquaryCompat extends CompatBase
     @Override
     protected void init()
     {
-        if (LoaderHelper.isModVersion(ModList.Names.RELIQUARY, "1.2"))
-            registerReliquaryOldMobs();
-        else
+        if (ReflectionHelper.doesFieldExist(Reliquary.class, "CONTENT"))
             registerReliquaryMobs();
+        else
+            registerReliquaryOldMobs();
     }
 
     private void registerReliquaryOldMobs()
