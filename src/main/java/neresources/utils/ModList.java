@@ -72,8 +72,7 @@ public enum ModList
 
     public boolean initialise()
     {
-        if (compat == null) return false;
-        return compat.load(this);
+        return compat != null && compat.load(this);
     }
 
     public class Names

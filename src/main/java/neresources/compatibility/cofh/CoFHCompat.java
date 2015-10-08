@@ -14,6 +14,7 @@ import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.DistributionHelpers;
 import neresources.compatibility.CompatBase;
 import neresources.utils.LoaderHelper;
+import neresources.utils.ModList;
 import neresources.utils.ReflectionHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -39,9 +40,9 @@ public class CoFHCompat extends CompatBase
 
     public CoFHCompat()
     {
-        if (Loader.isModLoaded("CoFHCore"))
+        if (Loader.isModLoaded(ModList.Names.COFHCORE))
         {
-            if (LoaderHelper.isModVersion("CoFHCore", "1.7.10R3.0.0B6"))
+            if (LoaderHelper.isModVersion(ModList.Names.COFHCORE, "1.7.10R3.0.0B6"))
             {
                 featureGenUniform = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureOreGenUniform");
                 featureGenNormal = ReflectionHelper.findClass("cofh.lib.world.feature.FeatureOreGenNormal");
