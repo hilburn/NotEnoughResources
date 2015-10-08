@@ -13,6 +13,7 @@ import neresources.compatibility.mobproperties.MobPropertiesCompat;
 import neresources.compatibility.netherores.NetherOresCompat;
 import neresources.compatibility.reika.ElectriCraftCompat;
 import neresources.compatibility.reika.ReactorCraftCompat;
+import neresources.compatibility.reliquary.ReliquaryCompat;
 import neresources.compatibility.thaumcraft.ThaumcraftCompat;
 import neresources.compatibility.tinkersconstruct.TiConCompat;
 
@@ -32,7 +33,8 @@ public enum ModList
     denseores(Names.DENSEORES),
     mystcraft(Names.MYSTCRAFT),
     ic2(Names.IC2, new IC2Compat()),
-    mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat());
+    mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat()),
+    reliquary(Names.RELIQUARY, new ReliquaryCompat());
 
     private String name;
     private CompatBase compat;
@@ -90,5 +92,6 @@ public enum ModList
         public static final String MYSTCRAFT = "Mystcraft";
         public static final String IC2= "IC2";
         public static final String MOBPROPERTIES = "MobProperties";
+        public static final String RELIQUARY = "xreliquary";
     }
 }
