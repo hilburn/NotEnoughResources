@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Loader;
 import neresources.compatibility.CompatBase;
 import neresources.compatibility.appliedenergistics2.AE2Compat;
 import neresources.compatibility.bigreactors.BigReactorsCompat;
+import neresources.compatibility.bluepower.BluePowerCompat;
 import neresources.compatibility.cofh.CoFHCompat;
 import neresources.compatibility.forestry.ForestryCompat;
 import neresources.compatibility.ic2.IC2Compat;
@@ -34,7 +35,8 @@ public enum ModList
     mystcraft(Names.MYSTCRAFT),
     ic2(Names.IC2, new IC2Compat()),
     mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat()),
-    reliquary(Names.RELIQUARY, new ReliquaryCompat());
+    reliquary(Names.RELIQUARY, new ReliquaryCompat()),
+    bluepower(Names.BLUEPOWER, new BluePowerCompat());
 
     private String name;
     private CompatBase compat;
@@ -92,5 +94,6 @@ public enum ModList
         public static final String IC2= "IC2";
         public static final String MOBPROPERTIES = "MobProperties";
         public static final String RELIQUARY = "xreliquary";
+        public static final String BLUEPOWER = "bluepower";
     }
 }
