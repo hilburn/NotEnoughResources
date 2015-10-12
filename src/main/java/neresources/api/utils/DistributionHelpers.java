@@ -231,4 +231,16 @@ public class DistributionHelpers
             result += val;
         return result;
     }
+
+    /**
+     * @param veinCount the amount of veins per chunk
+     * @param veinSize  the amount of blocks per vein
+     * @param minY      the lowest Y value for a vein
+     * @param maxY      the highest Y value for a vein
+     * @return the chance that a block appears within the specified Y boundaries
+     */
+    public static float calculateChance(int veinCount, int veinSize, int minY, int maxY)
+    {
+        return ((float) veinCount * veinSize) / ((maxY - minY + 1) * 256);
+    }
 }

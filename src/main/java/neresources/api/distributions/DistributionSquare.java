@@ -31,4 +31,17 @@ public class DistributionSquare extends DistributionBase
         super(DistributionHelpers.getRoundedSquareDistribution(Math.max(min0,0),Math.max(minY, 0), Math.min(maxY, 255),Math.min(max0,255), chance));
         this.bestHeight = DistributionHelpers.calculateMeanLevel(this.getDistribution(), (minY + maxY) / 2);
     }
+
+    /**
+     * Creates rounded square distribution
+     *
+     * @param veinCount the amount of veins per chunk
+     * @param veinSize  the amount of blocks per vein
+     * @param minY      the lowest Y value for a vein
+     * @param maxY      the highest Y value for a vein
+     */
+    public DistributionSquare(int veinCount, int veinSize, int minY, int maxY)
+    {
+        this(minY - veinSize / 2, minY, maxY, maxY + veinSize / 2, DistributionHelpers.calculateChance(veinCount, veinSize, minY, maxY));
+    }
 }

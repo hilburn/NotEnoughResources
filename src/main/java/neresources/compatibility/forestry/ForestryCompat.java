@@ -37,23 +37,21 @@ public class ForestryCompat extends CompatBase
     private void genTin()
     {
         ItemStack ore = new ItemStack(oreBlock, 1, 2);
-        float numVeins = 18F;
+        int numVeins = 18;
         int minY = 16;
         int maxY = 92;
         int veinSize = 6;
-        float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256);
-        registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+        registerOre(new RegisterOreMessage(ore, new DistributionSquare(numVeins, veinSize, minY, maxY)));
     }
 
     private void genCopper()
     {
         ItemStack ore = new ItemStack(oreBlock, 1, 1);
-        float numVeins = 20F;
+        int numVeins = 20;
         int minY = 32;
         int maxY = 108;
         int veinSize = 6;
-        float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256);
-        registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+        registerOre(new RegisterOreMessage(ore, new DistributionSquare(numVeins, veinSize, minY, maxY)));
     }
 
     private void genApatite()
@@ -64,6 +62,7 @@ public class ForestryCompat extends CompatBase
         int maxY = 240;
         int veinSize = 36;
         float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256);
+        // TODO: Double check if this is actually how Apatite is generated...
         registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
     }
 }
