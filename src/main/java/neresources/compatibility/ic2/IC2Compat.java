@@ -51,8 +51,7 @@ public class IC2Compat extends CompatBase
             minY = 0;
             maxY = 39;
             veinSize = 6;
-            float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256F);
-            registerOre(new RegisterOreMessage(Ic2Items.tinOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(Ic2Items.tinOre, new DistributionSquare(numVeins, veinSize, minY, maxY)));
         }
 
         if(ConfigUtil.getBool(MainConfig.get(), "worldgen/uraniumOre") && Ic2Items.uraniumOre != null)
@@ -61,8 +60,7 @@ public class IC2Compat extends CompatBase
             minY = 0;
             maxY = 63;
             veinSize = 3;
-            float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256F);
-            registerOre(new RegisterOreMessage(Ic2Items.uraniumOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(Ic2Items.uraniumOre, new DistributionSquare(numVeins, veinSize, minY, maxY)));
         }
 
         if(ConfigUtil.getBool(MainConfig.get(), "worldgen/leadOre") && Ic2Items.leadOre != null)
@@ -71,8 +69,7 @@ public class IC2Compat extends CompatBase
             minY = 0;
             maxY = 63;
             veinSize = 4;
-            float chance = (numVeins * veinSize) / ((maxY - minY + 1) * 256F);
-            registerOre(new RegisterOreMessage(Ic2Items.leadOre, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(Ic2Items.leadOre, new DistributionSquare(numVeins, veinSize, minY, maxY)));
         }
     }
 }

@@ -31,9 +31,8 @@ public class ReactorCraftCompat extends CompatBase
             int maxY = reactorOre.maxY;
             int numVeins = reactorOre.perChunk;
             int veinSize = reactorOre.veinSize;
-            float chance = (float) (numVeins * veinSize) / ((maxY - minY + 1) * 256);
             if (!generates) continue;
-            registerOre(new RegisterOreMessage(ore, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(ore, new DistributionSquare(numVeins, veinSize, minY, maxY)));
         }
     }
 }

@@ -107,12 +107,11 @@ public class ThaumcraftCompat extends CompatBase
         int minY = 5;
         int maxY = 59;
         int veinSize = 6;
-        float numVeins = 8F;
-        float chance = numVeins / ((maxY - minY + 1) * 256);
+        int numVeins = 8;
         for (int i = 0; i < 6; i++)
         {
             ItemStack infusedStone = new ItemStack(ConfigBlocks.blockCustomOre, 1, i + 1);
-            registerOre(new RegisterOreMessage(infusedStone, new DistributionSquare(Math.max(0, minY - veinSize / 2), minY, maxY, Math.min(maxY + veinSize / 2, 255), chance)));
+            registerOre(new RegisterOreMessage(infusedStone, new DistributionSquare(numVeins, veinSize, minY, maxY)));
         }
     }
 
