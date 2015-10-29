@@ -14,3 +14,20 @@ hilburn, way2muchnoise
 
 ## License
 Licensed under the [DBaJ (Don't Be a Jerk) non-commercial care-free license](https://github.com/hilburn/NotEnoughResources/blob/master/LICENSE.md).
+
+## Build in compatibility for
+* Applied Energistics 2
+* Big reactors
+* Blue power
+* CoFH (all configs using their ore generation system)
+* Forestry
+* Industrial Craft 2
+* Metallurgy
+* Mob Properties
+* Mystcraft
+* Nether Ores
+* ElectriCraft
+* ReactorCraft
+* Reliquary
+* Thaumcraft
+* Tinkers Construct
