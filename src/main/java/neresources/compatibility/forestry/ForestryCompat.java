@@ -3,12 +3,15 @@ package neresources.compatibility.forestry;
 import forestry.core.config.Config;
 import forestry.core.config.ForestryBlock;
 import forestry.core.config.ForestryItem;
+import forestry.plugins.PluginCore;
 import neresources.api.distributions.DistributionSquare;
 import neresources.api.messages.ModifyOreMessage;
 import neresources.api.messages.RegisterOreMessage;
 import neresources.api.utils.Priority;
 import neresources.compatibility.CompatBase;
 import neresources.registry.MessageRegistry;
+import neresources.utils.LoaderHelper;
+import neresources.utils.ModList;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -24,8 +27,18 @@ public class ForestryCompat extends CompatBase
 
     private void registerOres()
     {
-        oreBlock = ForestryBlock.resources.block();
-        ItemStack apatite = ForestryItem.apatite.getItemStack();
+
+        ItemStack apatite = null;
+        if (LoaderHelper.isModVersionGreater(ModList.forestry.toString(), new int [] { 4, 2, 0}, "."))
+        {
+            oreBlock = PluginCore.blocks.resources;
+            apatite = PluginCore.items.apatite.getItemStack();
+        }
+        else
+        {
+            oreBlock = ForestryBlock.resources.block();
+            ForestryItem.apatite.getItemStack();
+        }
         MessageRegistry.addMessage(new ModifyOreMessage(new ItemStack(oreBlock, 1, 0), Priority.FIRST, apatite));
         if (Config.generateApatiteOre) genApatite();
         if (Config.generateCopperOre) genCopper();
