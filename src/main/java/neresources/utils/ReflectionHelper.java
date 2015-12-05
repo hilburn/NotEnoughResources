@@ -118,6 +118,21 @@ public class ReflectionHelper
         return null;
     }
 
+    public static Object initialize(Class clazz)
+    {
+        try
+        {
+            return clazz.getConstructor().newInstance();
+        } catch (Exception e)
+        {
+            for (Constructor constructor : clazz.getConstructors())
+            {
+                System.out.println(constructor);
+            }
+        }
+        return null;
+    }
+
     public static boolean isInstanceOf(Class clazz, Class checkClass)
     {
         for (Object instanceOf : ClassScraper.getGeneralizations(clazz))

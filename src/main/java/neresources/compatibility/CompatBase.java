@@ -8,18 +8,20 @@ import neresources.registry.OreRegistry;
 import neresources.registry.PlantRegistry;
 import neresources.utils.LogHelper;
 import neresources.utils.ModList;
+import neresources.utils.ReflectionHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 public class CompatBase
 {
     protected static World world = DimensionManager.getWorld(0);
-    public boolean load(ModList mod)
+    public static boolean load(ModList mod)
     {
         if (mod.isLoaded())
         {
             LogHelper.info("Loading compatibility for " + mod.toString());
-            init();
+            CompatBase compat = (CompatBase)ReflectionHelper.initialize(mod.compatClass());
+            compat.init();
             return true;
         } else
         {

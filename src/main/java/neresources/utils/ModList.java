@@ -20,29 +20,29 @@ import neresources.compatibility.tinkersconstruct.TiConCompat;
 
 public enum ModList
 {
-    minecraft(new MinecraftCompat()),
-    cofhcore(Names.COFHCORE, new CoFHCompat()),
-    metallurgy(Names.METALLURGY, new MetallurgyCompat()),
-    netherores(Names.NETHERORES, new NetherOresCompat()),
-    bigreactors(Names.BIGREACTORS, new BigReactorsCompat()),
-    ae2(Names.APPLIEDENERGISTICS, new AE2Compat()),
-    thaumcraft(Names.THAUMCRAFT, new ThaumcraftCompat()),
-    electricraft(Names.ELECTRICRAFT, new ElectriCraftCompat()),
-    reactorcraft(Names.REACTORCRAFT, new ReactorCraftCompat()),
-    forestry(Names.FORESTRY, new ForestryCompat()),
-    ticon(Names.TICON, new TiConCompat()),
+    minecraft(MinecraftCompat.class),
+    cofhcore(Names.COFHCORE, CoFHCompat.class),
+    metallurgy(Names.METALLURGY, MetallurgyCompat.class),
+    netherores(Names.NETHERORES, NetherOresCompat.class),
+    bigreactors(Names.BIGREACTORS, BigReactorsCompat.class),
+    ae2(Names.APPLIEDENERGISTICS, AE2Compat.class),
+    thaumcraft(Names.THAUMCRAFT, ThaumcraftCompat.class),
+    electricraft(Names.ELECTRICRAFT, ElectriCraftCompat.class),
+    reactorcraft(Names.REACTORCRAFT, ReactorCraftCompat.class),
+    forestry(Names.FORESTRY, ForestryCompat.class),
+    ticon(Names.TICON, TiConCompat.class),
     denseores(Names.DENSEORES),
     mystcraft(Names.MYSTCRAFT),
-    ic2(Names.IC2, new IC2Compat()),
-    mobproperties(Names.MOBPROPERTIES, new MobPropertiesCompat()),
-    reliquary(Names.RELIQUARY, new ReliquaryCompat()),
-    bluepower(Names.BLUEPOWER, new BluePowerCompat());
+    ic2(Names.IC2, IC2Compat.class),
+    mobproperties(Names.MOBPROPERTIES, MobPropertiesCompat.class),
+    reliquary(Names.RELIQUARY, ReliquaryCompat.class),
+    bluepower(Names.BLUEPOWER, BluePowerCompat.class);
 
     private String name;
-    private CompatBase compat;
+    private Class compat;
     private boolean isLoaded;
 
-    ModList(CompatBase compat)
+    ModList(Class compat)
     {
         name = "minecraft";
         this.compat = compat;
@@ -54,7 +54,7 @@ public enum ModList
         this(name, null);
     }
 
-    ModList(String name, CompatBase compat)
+    ModList(String name, Class compat)
     {
         this.name = name;
         this.compat = compat;
@@ -66,6 +66,11 @@ public enum ModList
         return isLoaded;
     }
 
+    public Class compatClass()
+    {
+        return compat;
+    }
+
     @Override
     public String toString()
     {
@@ -74,7 +79,7 @@ public enum ModList
 
     public boolean initialise()
     {
-        return compat != null && compat.load(this);
+        return compat != null && CompatBase.load(this);
     }
 
     public class Names

@@ -27,7 +27,6 @@ public class ForestryCompat extends CompatBase
 
     private void registerOres()
     {
-
         ItemStack apatite = null;
         if (LoaderHelper.isModVersionGreater(ModList.forestry.toString(), new int [] { 4, 2, 0}, "."))
         {
