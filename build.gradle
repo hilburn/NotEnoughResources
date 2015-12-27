@@ -21,14 +21,6 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-ext.buildProps = file "build.properties"
-
-buildProps.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    ext.config = new ConfigSlurper().parse prop
-}
-
 repositories {
     maven {
         name = "forge"
@@ -46,9 +38,9 @@ configurations {
 }
 
 dependencies {
-    compile group: 'codechicken', name: 'NotEnoughItems', version: "${config.version.minecraft}-${config.version.nei}", ext: 'jar', classifier: "dev"
-    compile group: 'codechicken', name: 'CodeChickenCore', version: "${config.version.minecraft}-${config.version.cccore}", ext: 'jar', classifier: "dev"
-    compile group: 'codechicken', name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.version.cclib}", ext: 'jar', classifier: "dev"
+    compile group: 'codechicken', name: 'NotEnoughItems', version: "${version_minecraft}-${version_nei}", ext: 'jar', classifier: "dev"
+    compile group: 'codechicken', name: 'CodeChickenCore', version: "${version_minecraft}-${version_cccore}", ext: 'jar', classifier: "dev"
+    compile group: 'codechicken', name: 'CodeChickenLib', version: "${version_minecraft}-${version_cclib}", ext: 'jar', classifier: "dev"
     compileOnly fileTree(dir: 'lib', include: '*.jar')
 }
 
@@ -56,12 +48,12 @@ group = "neresources"
 archivesBaseName = "NotEnoughResources"
 
 minecraft {
-    version = "${config.version.minecraft}-${config.version.forge}"
+    version = "${version_minecraft}-${version_forge}"
 
     replaceIn "reference/Reference.java"
-    replace "@MAJOR@", config.version.mod.major
-    replace "@MINOR@", config.version.mod.minor
-    replace "@REVIS@", config.version.mod.revis
+    replace "@MAJOR@", version_mod_major
+    replace "@MINOR@", version_mod_minor
+    replace "@REVIS@", version_mod_revis
 
     if (System.getenv("BUILD_NUMBER") != null) {
         replace "@BUILD@", System.getenv("BUILD_NUMBER")
@@ -71,11 +63,11 @@ minecraft {
 }
 
 processResources {
-    from 'build.properties'
+    from 'gradle.properties'
 }
 
 allprojects {
-    version = "${config.version.minecraft}-${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}"
+    version = "${version_minecraft}-${version_mod_major}.${version_mod_minor}.${version_mod_revis}"
 
     if (System.getenv("BUILD_NUMBER") != null) {
         version += ".${System.getenv("BUILD_NUMBER")}"
@@ -87,7 +79,6 @@ allprojects {
         manifest {
             attributes 'FMLAT': 'neresources_at.cfg'
         }
-        dependsOn ":copyBuildXml"
         destinationDir = file(rootProject.getRootDir().getPath() + '/output')
     }
 
@@ -105,11 +96,6 @@ allprojects {
     }
 }
 
-task copyBuildXml(type: Copy) {
-    from 'build.properties'
-    into 'output'
-}
-
 task apiZip(type: Zip) {
     classifier = 'api'
     from sourceSets*.allSource
@@ -125,4 +111,4 @@ sourceSets.main.compileClasspath += [ configurations.compileOnly ]
 idea.module.scopes.PROVIDED.plus += [ configurations.compileOnly ]
 eclipse.classpath.plusConfigurations += [ configurations.compileOnly ]
 
-build.dependsOn "apiZip", "copyBuildXml"
+build.dependsOn "apiZip"
