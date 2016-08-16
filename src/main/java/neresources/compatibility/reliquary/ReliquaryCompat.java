@@ -112,8 +112,7 @@ public class ReliquaryCompat extends CompatBase
         //Charged Creeper
         DropItem eye_of_the_storm = new DropItem(XRRecipes.ingredient(Reference.STORM_INGREDIENT_META), 1, 1, eventHandler.getBaseDrop(Names.eye_of_the_storm), Conditional.playerKill);
         EntityCreeper chargedCreeper = new EntityCreeper(world);
-        chargedCreeper.onStruckByLightning(null);
-        chargedCreeper.extinguish();
+        chargedCreeper.getDataWatcher().updateObject(17, (byte) 1);
         registerMob(new MobEntry(chargedCreeper, LightLevel.hostile, eye_of_the_storm));
 
         //Enderman
